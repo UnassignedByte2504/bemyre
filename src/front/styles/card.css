@@ -1,0 +1,33 @@
+@import url(colors.css);
+
+.MainCard{
+    display: flex;
+    background-color: var(--black400);
+    height: 300px;
+    width:600px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.CardImg{
+    height: 100%;
+    width: 15rem;
+    object-fit: contain;
+    position: relative;
+}
+
+.CardImg-Container{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0.5rem 1rem 0.5rem ;
+}
+
+.CardInfo{
+    margin: 1rem 0.5rem 1rem 0;
+    padding: 1rem;
+    background-color: var(--orange300);
+    height: 100%;
+    width:100%;
+}

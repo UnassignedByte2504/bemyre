@@ -1,0 +1,5 @@
+@import url(colors.css);
+
+.Main-Navbar{
+    background-color: var(--red600) !important;
+}

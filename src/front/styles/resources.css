@@ -1,0 +1,13 @@
+@import url(colors.css);
+
+.Bg-purple{
+    background-color: var(--purple);
+}
+
+.Pad-1{
+    padding: 1rem;
+}
+
+.border-xl{
+    border:10px solid var(--orange);
+}

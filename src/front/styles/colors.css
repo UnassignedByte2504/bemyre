@@ -1,0 +1,131 @@
+
+/* Main colors */
+:root{
+    --black:#00202e;
+    --blue:#003f5c;
+    --lightblue:#2c4875;
+    --purple: #8a508f;
+    --lightpurple: #bc5090;
+    --red: #ff6361;
+    --orange: #ff8531;
+    --yellow:#ffa600;
+    --lightyellow:#ffd380;
+}
+
+/* --black shades */
+
+:root { 
+    --black100: #ccd2d5;
+    --black200: #99a6ab;
+    --black300: #667982;
+    --black400: #334d58;
+    --black500: #00202e;
+    --black600: #001a25;
+    --black700: #00131c;
+    --black800: #000d12;
+    --black900: #000609;
+}
+/* blue shades */
+:root{
+    --blue100: #ccd9de;
+    --blue200: #99b2be;
+    --blue300: #668c9d;
+    --blue400: #33657d;
+    --blue500: #003f5c;
+    --blue600: #00324a;
+    --blue700: #002637;
+    --blue800: #001925;
+}
+
+/* lightblue shades */
+:root{
+
+    --lightblue100: #d5dae3;
+    --lightblue200: #abb6c8;
+    --lightblue300: #8091ac;
+    --lightblue400: #566d91;
+    --lightblue500: #2c4875;
+    --lightblue600: #233a5e;
+    --lightblue700: #1a2b46;
+    --lightblue800: #121d2f;
+    --lightblue900: #090e17;
+}
+
+/* purple shades */
+:root{
+    --purple100: #e8dce9;
+    --purple200: #d0b9d2;
+    --purple300: #b996bc;
+    --purple400: #a173a5;
+    --purple500: #8a508f;
+    --purple600: #6e4072;
+    --purple700: #533056;
+    --purple800: #372039;
+    --purple900: #1c101d;
+}
+/* pink shades */
+
+:root{
+    --pink100: #f2dce9;
+    --pink200: #e4b9d3;
+    --pink300: #d796bc;
+    --pink400: #c973a6;
+    --pink500: #bc5090;
+    --pink600: #964073;
+    --pink700: #713056;
+    --pink800: #4b203a;
+    --pink900: #26101d;
+}
+
+/* red shades */
+
+:root{
+    --red100: #ffe0df;
+    --red200: #ffc1c0;
+    --red300: #ffa1a0;
+    --red400: #ff8281;
+    --red500: #ff6361;
+    --red600: #cc4f4e;
+    --red700: #993b3a;
+    --red800: #662827;
+    --red900: #331413;
+}
+/* orange shades */
+:root{
+    --orange100: #ffe7d6;
+    --orange200: #ffcead;
+    --orange300: #ffb683;
+    --orange400: #ff9d5a;
+    --orange500: #ff8531;
+    --orange600: #cc6a27;
+    --orange700: #99501d;
+    --orange800: #663514;
+    --orange900: #331b0a;
+}
+/* yellow shades */
+
+:root{
+    --yellow100: #ffedcc;
+    --yellow200: #ffdb99;
+    --yellow300: #ffca66;
+    --yellow400: #ffb833;
+    --yellow500: #ffa600;
+    --yellow600: #cc8500;
+    --yellow700: #996400;
+    --yellow800: #664200;
+    --yellow900: #332100;
+}
+
+/* light yellow shades */
+
+:root{
+    -lightyellow100: #fff6e6;
+    -lightyellow200: #ffedcc;
+    -lightyellow300: #ffe5b3;
+    -lightyellow400: #ffdc99;
+    -lightyellow500: #ffd380;
+    -lightyellow600: #cca966;
+    -lightyellow700: #997f4d;
+    -lightyellow800: #665433;
+    -lightyellow900: #332a1a;
+}
