@@ -6,6 +6,7 @@
 @import url(home.css);
 @import url(resources.css);
 @import url(userprofile.css);
+@import url(landingpage.css);
 body{
     background-color: var(--black600);
 }
