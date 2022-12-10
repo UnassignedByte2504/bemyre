@@ -6,12 +6,20 @@
     color: white;
 }
 
+@media(max-width: 1080px){
+    .changetoflexwrap{
+        flex-wrap: wrap !important;
+    }
+}
+
 @media(max-width: 800px){
     .titleJumbotron{
         font-size: 8vw;
         color: white;
 }
+
 }
+
 @media(max-width: 400px){
 .titleJumbotron{
     font-size: 9vw;
@@ -22,5 +30,10 @@
     background-color: var(--orange500);
 }
 
+.widthmusician{
+    max-width: 1050px;
+}
 .formAsideLp{
+    min-width: 444px;
+    max-height: 350px;
 }
