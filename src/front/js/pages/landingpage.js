@@ -3,6 +3,8 @@ import "../../styles/home.css";
 
 // Import components
 import { LandingJumbo } from "../component/jumbotron/landingjumbo";
+import { AsideLandingPgRegister } from "../component/asides/AsideLandingPgRegister";
+
 
 export const LandingPage = () =>{
 
@@ -10,6 +12,7 @@ export const LandingPage = () =>{
     return(
         <div>
             <LandingJumbo />
+            <AsideLandingPgRegister />
         </div>
         )
 }
