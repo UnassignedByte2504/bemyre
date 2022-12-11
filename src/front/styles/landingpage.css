@@ -8,6 +8,8 @@
 }
 .buttonJumbotron{
     background-color: var(--orange500);
+    min-width: 10vw;
+    font-size: 1rem;
 }
 /* <<<<<<<Jumbotron<<<<<<<< */
 
