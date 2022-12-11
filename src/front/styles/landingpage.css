@@ -1,3 +1,4 @@
+/* >>>>>>Jumbotron>>>>>> */
 .fullheight{
     min-height: 90vh;
 }
@@ -5,35 +6,44 @@
     font-size: 5vw;
     color: white;
 }
+.buttonJumbotron{
+    background-color: var(--orange500);
+}
+/* <<<<<<<Jumbotron<<<<<<<< */
 
+
+/* >>>>>>>>Mediaqueries>>>>>>>>> */
 @media(max-width: 1080px){
     .changetoflexwrap{
         flex-wrap: wrap !important;
     }
 }
-
 @media(max-width: 800px){
     .titleJumbotron{
         font-size: 8vw;
         color: white;
+    }
 }
-
-}
-
 @media(max-width: 400px){
 .titleJumbotron{
     font-size: 9vw;
     color: white;
+    }
 }
-}
-.buttonJumbotron{
-    background-color: var(--orange500);
-}
+/* <<<<<<<<mediaqueries<<<<<<<< */
 
+
+
+/* >>>>>>>>>>Musician>>>>>>>>>>> */
 .widthmusician{
     max-width: 1050px;
 }
+/* <<<<<<<<Musician<<<<<<<<<<<< */
+
+
+/* >>>>>>>>>Aside>>>>>>>>>>>> */
 .formAsideLp{
     min-width: 444px;
     max-height: 350px;
 }
+/* <<<<<<<<<Aside<<<<<<<<<<<<< */
