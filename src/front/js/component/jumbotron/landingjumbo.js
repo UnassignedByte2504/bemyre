@@ -9,7 +9,7 @@ export const LandingJumbo = () => {
         <div className=" d-flex w-100 fullheight justify-content-center align-items-center text-center" style={{backgroundImage: `url(https://wallpaperaccess.com/full/1569753.jpg)`, backgroundSize:'cover', backgroundPosition: 'center', maxwidth: '100vw', height: '100%'}}>
             <div>
             <h2 className="mb-5 titleJumbotron container">Conoce la música en vivo de tu localidad y conecta con músicos</h2>
-            <Link to='/'><button className="btn buttonJumbotron text-white">Join Today</button></Link>
+            <Link to='#' className="Link"><Button variant="contained" className="btn-std text-white" sx={{backgroundColor:"#ff8531"}}>Join Today</Button></Link>
             </div>
         </div>
     )

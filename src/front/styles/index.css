@@ -7,6 +7,12 @@
 @import url(resources.css);
 @import url(userprofile.css);
 @import url(landingpage.css);
+@import url(buttons.css);
+
 body{
     background-color: var(--black600);
+}
+
+.Link{
+    text-decoration: none;
 }

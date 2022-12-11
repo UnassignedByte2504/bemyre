@@ -1,0 +1,12 @@
+@import url(colors.css);
+
+.btn-std{
+    background-color: var(--orange500);
+    min-width: 10vw;
+    font-size: 1rem;
+    transition: 200ms ease;
+}
+
+.btn-std:hover{
+    background-color: var(--orange600) !important;
+}

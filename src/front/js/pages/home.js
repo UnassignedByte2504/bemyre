@@ -11,9 +11,7 @@ export const Home = () => {
 
 	return (
 		<div className="Main-Wrapper container">
-      <div className="Main-AsideL"><aside><AsideLeft /></aside></div>
-      <div className="Main-Content-Wrapper"><main><Main /></main></div>
-      <div className="Main-AsideR"><aside><AsideRight /></aside></div>
+
 		</div>
 	);
 };
