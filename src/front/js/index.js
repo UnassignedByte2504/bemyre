@@ -13,7 +13,9 @@ import "../styles/index.css";
 import Layout from "./layout";
 
 const store = configureStore({
-  reducer: globalReducer
+  reducer: {
+    global: globalReducer
+  },
 });
 
 

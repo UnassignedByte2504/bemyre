@@ -4,9 +4,11 @@
     background-color: var(--orange500);
     min-width: 10vw;
     font-size: 1rem;
-    transition: 200ms ease;
+    transition: all 100ms ease !important;
 }
 
 .btn-std:hover{
-    background-color: var(--orange600) !important;
+    background-color: var(--orange6000) !important;
+    color:var(--orange500) !important;
+    scale:1.05;
 }

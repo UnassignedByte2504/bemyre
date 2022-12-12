@@ -9,8 +9,12 @@
 @import url(landingpage.css);
 @import url(buttons.css);
 
-body{
-    background-color: var(--black600);
+html,
+body,
+#root {
+  height: 100%;
+  width:100%;
+  font-family: "Inter", sans-serif;
 }
 
 .Link{

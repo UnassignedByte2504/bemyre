@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 import "../../../styles/home.css";
 
+import { useTheme } from "@mui/material"
 export const LandingJumbo = () => {
-
+const theme = useTheme();
     return(
         <div className=" d-flex w-100 fullheight justify-content-center align-items-center text-center" style={{backgroundImage: `url(https://wallpaperaccess.com/full/1569753.jpg)`, backgroundSize:'cover', backgroundPosition: 'center', maxwidth: '100vw', height: '100%'}}>
             <div>
