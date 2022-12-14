@@ -1,5 +1,6 @@
 import React from 'react'
 
+// .
 
 export const MainCard = ({ImgSrc}) => {
   return (
@@ -15,3 +16,4 @@ export const MainCard = ({ImgSrc}) => {
     </div>
   )
 }
+
