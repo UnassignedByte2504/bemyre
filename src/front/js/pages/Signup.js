@@ -17,7 +17,7 @@ export const Signup = () =>{
     return (
         <div className="backgroundSignup">
             <div className="cardSignup">
-                <div className="imgSignup">
+                <div className="imgSignup imgSignupDisplayNone">
                     <img src={imgSignup} alt='Bemyre concert'/>
                 </div>
 

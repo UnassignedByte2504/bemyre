@@ -93,3 +93,13 @@
     color: white;
 }
 
+/* Media queries */
+
+@media(max-width: 1200px){
+    .imgSignupDisplayNone{
+        display: none;
+    }
+    .textSignup{
+        width: 100%!important;
+    }
+}
