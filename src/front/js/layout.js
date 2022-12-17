@@ -11,7 +11,9 @@ import injectContext from "./store/appContext";
 import { Home } from "./pages/home";
 import { UserProfile } from "./pages/UserProfile";
 import { LandingPage } from "./pages/landingpage";
+import { Login } from "./pages/Login.js";
 import { Signup } from "./pages/Signup.js";
+
 
 // >>> components >>>>
 import Navbar from "./component/Navbar";
@@ -38,6 +40,7 @@ const Layout = () => {
             <Route element={<LandingPage />} path="/lp" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<UserProfile />} path="/user" />
+            <Route element={<Login />} path="/login" />
             <Route element={<Signup />} path="/signup" />
           </Routes>
         </ThemeProvider>
