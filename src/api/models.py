@@ -1,6 +1,10 @@
-from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import datetime
+import math
 
+
+
+from sqlalchemy.orm import relationship
 db = SQLAlchemy()
 
 class User(db.Model):
@@ -11,7 +15,11 @@ class User(db.Model):
     surnames = db.Column(db.String(80), unique=False, nullable=False)
     user_name= db.Column(db.String(80), unique=True, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
-    localidad_id= db.Column(db.String(120), db.ForeignKey(localidad.id))
+    localidad_id= db.Column(db.Integer, db.ForeignKey('localidad.id'))
+    localidad = relationship('Localidad', backref='user')
+    creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+    birth_day = db.Column(db.DateTime, nullable=False)
+    age = db.Column(db.Integer, nullable=True)
     def __repr__(self):
         return f'<User {self.email}>'
 
@@ -22,7 +30,10 @@ class User(db.Model):
             "First name": self.first_name,
             "Surnames": self.surnames,
             "User name": self.user_name,
-            "Localidad": self.localidad_id
+            "Localidad": self.localidad_id,
+            "birth_day": self.birth_day,
+            "age": math.floor((datetime.datetime.utcnow() - self.birth_day).days / 365),
+            
             # do not serialize the password, its a security breach
         }
 
@@ -31,7 +42,7 @@ class Localidad(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     localidad = db.Column(db.String(120), unique=True, nullable=False)
     provincia = db.Column(db.String(80), unique=False, nullable=False)
-    locales_id = db.Column(db.String(80), ForeignKey(locales.id))
+    locales_id = db.Column(db.Integer, db.ForeignKey('locales.id'))
     def __repr__(self):
         return f'<User {self.localidad}>'
 
@@ -46,7 +57,7 @@ class Localidad(db.Model):
 class Locales(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     locales = db.Column(db.String(120), unique=False, nullable=False)
-    jamsession = db.Column(db.Boolean(), unique=False, nullable=False)
+    offers_jamsession = db.Column(db.Boolean(), unique=False, nullable=False)
     def __repr__(self):
         return f'<User {self.locales}>'
 
@@ -60,8 +71,7 @@ class Locales(db.Model):
 
 class Conciertos(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    fecha_hora = db.Column(db.String(120))
-    bandas_id = db.Column(db.String(120), ForeignKey(bandas.id))
+    bandas_id = db.Column(db.Integer, db.ForeignKey('bandas.id'))
     def __repr__(self):
         return f'<User {self.fecha_hora}>'
 
@@ -87,10 +97,10 @@ class Bandas(db.Model):
             # do not serialize the password, its a security breach
         }
 
-class Bandas_Users(db.Model):
+class BandasUsers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    bandas_id = db.Column(db.String(120), ForeignKey(bandas.id))
-    user_id = db.Column(db.String(120), ForeignKey(user.id))
+    bandas_id = db.Column(db.Integer, db.ForeignKey('bandas.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     def __repr__(self):
         return f'<User {self.bandas_id, self.user_id}>'
 
@@ -102,10 +112,10 @@ class Bandas_Users(db.Model):
             # do not serialize the password, its a security breach
         }
 
-class Instruments_Users(db.Model):
+class InstrumentsUsers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    instrument_id = db.Column(db.String(120), ForeignKey(instrument.id))
-    user_id = db.Column(db.String(120), ForeignKey(user.id))
+    instrument_id = db.Column(db.Integer, db.ForeignKey('instruments.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     def __repr__(self):
         return f'<User {self.instrument_id, self.user_id}>'
 
