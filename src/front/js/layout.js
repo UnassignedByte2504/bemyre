@@ -11,6 +11,9 @@ import injectContext from "./store/appContext";
 import { Home } from "./pages/home";
 import { UserProfile } from "./pages/UserProfile";
 import { LandingPage } from "./pages/landingpage";
+
+import { Profile } from "./pages/profile.js";
+
 import { Login } from "./pages/Login.js";
 import { Signup } from "./pages/Signup.js";
 import { BandProfile } from "./pages/BandProfile.js";
@@ -36,10 +39,11 @@ const Layout = () => {
           <CssBaseline />
           <Navbar />
           <Routes>
-            <Route element={<Home />} path="/" />
+            <Route element={<LandingPage />} path="/" />
             <Route element={<LandingPage />} path="/lp" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<UserProfile />} path="/user" />
+            <Route element={<Profile />} path="/perfil" />
             <Route element={<Login />} path="/login" />
             <Route element={<Signup />} path="/signup" />
             <Route element={<BandProfile />} path="/bandprofile/:id" />
