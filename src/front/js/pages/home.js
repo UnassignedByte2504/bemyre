@@ -7,11 +7,7 @@ import { AsideRight } from "../component/asides/AsideRight";
 import "../../styles/home.css";
 
 export const Home = () => {
-	const { store, actions } = useContext(Context);
+  const { store, actions } = useContext(Context);
 
-	return (
-		<div className="Main-Wrapper container">
-
-		</div>
-	);
+  return <div className="Main-Wrapper container"></div>;
 };
