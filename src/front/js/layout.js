@@ -11,6 +11,7 @@ import injectContext from "./store/appContext";
 import { Home } from "./pages/home";
 import { UserProfile } from "./pages/UserProfile";
 import { LandingPage } from "./pages/landingpage";
+import { Profile } from "./pages/profile.js";
 
 // >>> components >>>>
 import Navbar from "./component/Navbar";
@@ -33,10 +34,11 @@ const Layout = () => {
           <CssBaseline/>
           <Navbar />
           <Routes>
-            <Route element={<Home />} path="/" />
+            <Route element={<LandingPage />} path="/" />
             <Route element={<LandingPage />} path="/lp" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<UserProfile />} path="/user" />
+            <Route element={<Profile />} path="/perfil" />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
