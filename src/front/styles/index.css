@@ -9,15 +9,19 @@
 @import url(landingpage.css);
 @import url(buttons.css);
 @import url(profile.css);
+@import url(login.css);
+@import url(signup.css);
+@import url(bandprofile.css);
+
 
 html,
 body,
 #root {
   height: 100%;
-  width:100%;
+  width: 100%;
   font-family: "Inter", sans-serif;
 }
 
-.Link{
-    text-decoration: none;
+.Link {
+  text-decoration: none;
 }
