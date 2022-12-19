@@ -13,7 +13,7 @@ import { UserProfile } from "./pages/UserProfile";
 import { LandingPage } from "./pages/landingpage";
 import { Login } from "./pages/Login.js";
 import { Signup } from "./pages/Signup.js";
-
+import { BandProfile } from "./pages/BandProfile.js";
 
 // >>> components >>>>
 import Navbar from "./component/Navbar";
@@ -33,7 +33,7 @@ const Layout = () => {
     <div>
       <BrowserRouter basename={basename}>
         <ThemeProvider theme={theme}>
-          <CssBaseline/>
+          <CssBaseline />
           <Navbar />
           <Routes>
             <Route element={<Home />} path="/" />
@@ -42,6 +42,7 @@ const Layout = () => {
             <Route element={<UserProfile />} path="/user" />
             <Route element={<Login />} path="/login" />
             <Route element={<Signup />} path="/signup" />
+            <Route element={<BandProfile />} path="/bandprofile/:id" />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
