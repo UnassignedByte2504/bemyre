@@ -78,6 +78,7 @@
 		"@mui/icons-material": "^5.10.16",
 		"@mui/material": "^5.10.17",
 		"@reduxjs/toolkit": "^1.9.1",
+		"formik": "^2.2.9",
 		"material-icons": "^1.13.1",
 		"prop-types": "^15.6.1",
 		"react": "^18.2.0",
@@ -85,6 +86,7 @@
 		"react-dom": "^18.2.0",
 		"react-polyfills": "0.0.1",
 		"react-redux": "^8.0.5",
-		"react-router-dom": "^6.3.0"
+		"react-router-dom": "^6.3.0",
+		"yup": "^0.32.11"
 	}
 }
