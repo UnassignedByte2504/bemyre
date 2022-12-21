@@ -1,10 +1,14 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-	
+			username:'',
+			store_token:'',
 		},
 		actions: {
 
+	
+			},
+			
 			//>>>>> Functions realted with signup and login
 
 			//<<<<<Functions realted with signup and login
@@ -14,7 +18,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// <<<< Functions realted on fetching user info from back
 			
 		}
-	};
+	
 };
 
 export default getState;
