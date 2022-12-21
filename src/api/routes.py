@@ -37,9 +37,8 @@ def handle_signup():
         password=request_data['password'],
         first_name=request_data['first_name'],
         last_name=request_data['last_name'],
-        birth_day = request_data['birth_day'],
-        gender = request_data['gender'],
         is_active=True,
+        is_musician=False,
         creation_date = datetime.now(),
         last_login = datetime.now()
     ) 

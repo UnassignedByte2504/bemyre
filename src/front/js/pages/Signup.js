@@ -9,11 +9,18 @@ import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import { signupSchema } from "../esquemas";
 import FlexBetween from "../component/FlexBetween.jsx";
+import { testFetch } from "../api calls/user";
+
+import { useContext } from "react";
+import { Context } from "../store/appContext";
 
 export const Signup = () => {
+  const {actions, store} =useContext(Context);
   const onSubmit = async (values, ax) => {
-    console.log(values);
-    await ax.resetForm()
+    await actions.signUp(values.userName, values.email, values.password, values.firstName, values.lastName)
+    await ax.resetForm();
+
+
   };
 
   const {
