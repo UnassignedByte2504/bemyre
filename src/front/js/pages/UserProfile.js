@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import singer from '../../img/Music/grande/4.jpg'
+import { fetchUser } from '../api calls/user.js'
+
 export const UserProfile = () => {
+
+  useEffect(() => {
+    fetchUser()
+  })
   return (
     <div className='Main-Content-Wrapper Bg-purple container Pad-1'>
         <div className='UserHeader'>
