@@ -1,29 +1,127 @@
- .headerProfile{
-    min-height: 20vh;
-    max-height: 20vh;
-    background-image: url(https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
-    background-position: center;
-    background-size: cover;
-    position: relative;
-      
+/* >>>>>Top side>>>>>>> */
+    
+    .headerProfile{
+        min-height: 20vh;
+        max-height: 20vh;
+        background-image: url(https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
+        background-position: center;
+        background-size: cover;
+        position: relative;
+        
+    }
+
+    .nameheader{
+        min-height: 20vh!important;
+    }
+
+/* <<<<<<<Top side <<<<<<<< */
+
+/* >>>>>>>Left Side>>>>>>>>>> */
+    .cardandreproductor{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .cardprofile{
+        margin-top: -6rem;
+    }
+
+    .leftside{
+        width: 30%;
+    }
+
+    .cardbandasleft{
+        width: 90%;
+        height: 19vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: auto;
+        background: rgba(223, 48, 48, 0.7);
+        border-radius: 15px;
+        margin: 2rem auto;
+    }
+    .cardbandasleft h3{
+        color: white;
+    }
+
+    .cardbandasleft Button{
+        background-color: red;
+        color: white;
+    }
+
+/* <<<<<<Left side<<<<<<< */
+
+/*>>>>>>>Right side>>>>>>> */
+
+    .rightside{
+        width: 65%;
+    }
+
+    .miequipo{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+        margin-bottom: 10rem;
+
+    }
+
+    .miequipo img{
+        max-width: 6rem;
+        margin-right: 1rem;
+        border-radius: 3px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+
+    }
+
+    .videoinfluencias iframe{
+        border-radius: 10px;
+        aspect-ratio: auto;
+    }
+
+    .musicstyle{
+        display: flex;
+    }
+
+    .bubbles{
+        background: linear-gradient(323deg, rgba(198,153,114,1) 0%, rgba(224,147,79,1) 53%, rgba(255,214,0,1) 100%);
+        border-radius: 1rem;
+        margin-right: 5px;
+        padding-top: 5px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+
+/* >>>>>>>>>Media Queries>>>>>>>> */
+
+@media(max-width: 1000px){
+    .leftside{
+        width: 38%;
+    }
+    .rightside{
+        width: 60%;
+    }
 }
 
-.nameheader{
-    min-height: 20vh!important;
-}
 
-.cardandreproductor{
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.cardprofile{
-    width: 30%;
-    margin-top: -6rem;
-}
-
-.reproductor{
-    width: 69%;
-
+@media(max-width: 819px){
+    .leftside{
+        width: 100%;
+    }
+    .rightside{
+        width: 100%;
+    }
+    .cardandreproductor{
+        flex-wrap: wrap;
+    }
+    .cardprofile{
+        margin-top: 10px;
+    }
+    .miequipo{
+        justify-content: center;
+    }
 }
