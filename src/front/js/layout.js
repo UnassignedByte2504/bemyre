@@ -21,6 +21,7 @@ import { BandProfile } from "./pages/BandProfile.js";
 // >>> components >>>>
 import Navbar from "./component/Navbar";
 import BrainStorm from "./pages/BrainStorm.js";
+
 // <<< components <<<<
 
 //create your first component
@@ -39,6 +40,7 @@ const Layout = () => {
           <CssBaseline />
           <Navbar />
           <Routes>
+            
             <Route element={<LandingPage />} path="/" />
             <Route element={<LandingPage />} path="/lp" />
             <Route element={<h1>Not found!</h1>} />
