@@ -1,8 +1,9 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+from datetime import datetime
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -36,7 +37,11 @@ def handle_signup():
         password=request_data['password'],
         first_name=request_data['first_name'],
         last_name=request_data['last_name'],
-        is_active=True
+        birth_day = request_data['birth_day'],
+        gender = request_data['gender'],
+        is_active=True,
+        creation_date = datetime.now(),
+        last_login = datetime.now()
     ) 
     db.session.add(new_user)
     db.session.commit()
@@ -49,7 +54,129 @@ def handle_signup():
 
 
  
+#<<-----1 User related endpoints ----->>
 
+@api.route('/<string:username_var>', methods=['GET', 'PUT'])
+@jwt_required
+def handle_user(username_var):
+    current_user = get_jwt_identity()
+    if current_user != username_var:
+        return jsonify({"message": "Access denied"}), 401
+    if request.method == 'GET':
+        user = db.session.query(User).filter(User.user_name == username_var).first()
+        if not user:
+            return jsonify({"message": "User not found"}), 404
+        return jsonify(user.serialize()), 200
 
+#<<----1.1 START UserSocialMedia endpoint ----->>
+@api.route('/<string:username_var>/socialmedia', methods=['GET', 'PUT','POST'])
+@jwt_required
+def handle_user_socialmedia(username_var):
+    current_user = get_jwt_identity()
+    if current_user != username_var:
+        return jsonify({"message": "Access denied"}), 401
+    #GET, ES EL QUE USAREMOS POR DEFECTO PARA REPRSENTAR EN EL FRONT TODA LA INFORMACION QUE DICHO USUARIO TENGA EN SU PERFIL
+    if request.method == 'GET':
+        user = db.session.query(User).filter(User.user_name == username_var).first()
+        user_social_media = db.session.query(UserSocialMedia).filter(UserSocialMedia.user_id == user.id).all()
+        if not user_social_media:
+            return jsonify({"message": "User not found"}), 404
+        return jsonify({"social_media": [social_media.serialize() for social_media in user_social_media]}), 200
+    #POST PARA AÑADIR CAMPOS A LA TABLA
+    if request.method == 'POST':
+        request_data = request.get_json(force=True)
+        user = db.session.query(User).filter(User.user_name == username_var).first()
+        new_user_social_media = UserSocialMedia(
+            user_id = user.id,
+            website_url = request_data['website_url'],
+            youtube_url = request_data['youtube_url'],
+            soundcloud_url = request_data['soundcloud_url'],
+            instagram_url = request_data['instagram_url'],
+            facebook_url = request_data['facebook_url'],
+            twitter_url = request_data['twitter_url'],
+            tiktok_url = request_data['tiktok_url'],
+            snapchat_url = request_data['snapchat_url'],
+            spotify_url = request_data['spotify_url'],
+            last_update = datetime.now()
+        )
+        db.session.add(new_user_social_media)
+        db.session.commit()
+        return jsonify(new_user_social_media.serialize()), 201
+    #put BASICAMENTE PARA ACTUALIZAR CUALQUIER CAMPO RELACIONADO CON SOCIAL MEDIA
+    if request.method == 'PUT':
+        request_data = request.get_json(force=True)
+        user = db.session.query(User).filter(User.user_name == username_var).first()
+        user_social_media = db.session.query(UserSocialMedia).filter(UserSocialMedia.user_id == user.id).first()
+        if not user or not user_social_media:
+            return jsonify({"message": "User not found"}), 404
+        user_social_media.website_url = request_data['website_url']
+        user_social_media.youtube_url = request_data['youtube_url']
+        user_social_media.soundcloud_url = request_data['soundcloud_url']
+        user_social_media.instagram_url = request_data['instagram_url']
+        user_social_media.facebook_url = request_data['facebook_url']
+        user_social_media.twitter_url = request_data['twitter_url']
+        user_social_media.tiktok_url = request_data['tiktok_url']
+        user_social_media.snapchat_url = request_data['snapchat_url']
+        user_social_media.spotify_url = request_data['spotify_url']
+        last_update = datetime.now()
+        db.session.commit()
+      
+        return jsonify({"message":"Informacion actualizada correctamente", "user_social_media": user_social_media.serialize()}), 200
 
+        #<<----1.1 UserSocialMedia endpoint END ----->>
 
+        #<<----1.2 UserContactInfo endpoint START ----->>
+
+@api.route('/<string:username_var>/contactinfo', methods=['GET', 'PUT','POST'])
+@jwt_required()
+def user_contact_info(username_var):
+    #GET CURRENT IDENTITY AND COMPERE WITH CURRENT USER
+    current_user = get_jwt_identity()
+    if current_user != username_var:
+        return jsonify({"message": "Access denied"}), 401
+    #GET BASICAMENTE PARA OBTENER TODA LA INFORMACION DE CONTACTO DE UN USUARIO
+    if request.method == 'GET':
+        user = db.session.query(User).filter(User.user_name == username_var).first()
+        user_contact_info = db.session.query(UserContactInfo).filter(UserContactInfo.user_id == user.id).first()
+        if not user or not user_contact_info:
+            return jsonify({"message": "User not found"}), 404
+        return jsonify({"user_contact_info": user_contact_info.serialize()}), 200
+    #PUT ACTUALIZA CAMPOS DE CONTACTO DE USUARIO
+    if request.method == 'PUT':
+        request_data = request.get_json(force=True)
+        user = db.session.query(User).filter(User.user_name == username_var).first()
+        user_contact_info = db.session.query(UserContactInfo).filter(UserContactInfo.user_id == user.id).first()
+        if not user or not user_contact_info:
+            return jsonify({"message": "User not found"}), 404
+        user_contact_info.phone_number = request_data['phone_number']
+        user_contact_info.address = request_data['address'] #direccion
+        user_contact_info.country = request_data['country']#pais
+        user_contact_info.state = request_data['state']#provincia
+        user_contact_info.city = request_data['city']#ciudad, poblacion, etc..
+        user_contact_info.zip_code = request_data['zip_code']#codigo postal
+        user_contact_info.last_update = datetime.now()
+        db.session.commit()
+        return jsonify({"message":"Informacion actualizada correctamente", "user_contact_info": user_contact_info.serialize()}), 200
+    #POST AÑADE NUEVA INFORMACION DE CONTACTO
+    if request.method == 'POST':
+        request_data = request.get_json(force=True)
+        user = db.session.query(User).filter(User.user_name == username_var).first()
+        user_contact_info = db.session.query(UserContactInfo).filter(UserContactInfo.user_id == user.id).first()
+        if not user or not user_contact_info:
+            return jsonify({"message": "User not found"}), 404
+        user = db.session.query(User).filter(User.user_name == username_var).first()
+        new_user_contact_info = UserContactInfo(
+            user_id = user.id,
+            phone_number = request_data['phone_number'],
+            address = request_data['address'],
+            country = request_data['country'],
+            state = request_data['state'],
+            city = request_data['city'],
+            zip_code = request_data['zip_code'],
+            last_update = datetime.now()
+        )
+        db.session.add(new_user_contact_info)
+        db.session.commit()
+        return jsonify({"message":"Informacion agregada correctamente", "user_contact_info": new_user_contact_info.serialize()}), 200
+
+         #<<----1.2 UserContactInfo endpoint END ----->>
