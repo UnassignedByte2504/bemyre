@@ -8,175 +8,22 @@
       
 }
 
+.nameheader{
+    min-height: 20vh!important;
+}
+
+.cardandreproductor{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .cardprofile{
-    position: absolute;
-    left: 6vw;
-    top: 9vh;
-    width: 18rem;
-}
-
-
-.nameHeader{
-    min-height: 20vh;
-}
-
-
-.cardprofilenone{
-    display: none;
+    width: 30%;
+    margin-top: -6rem;
 }
 
 .reproductor{
-    background-color: red;
-    height: 600px;
-    max-width: 60%;
-    position: absolute;
-    left: 38%;
-}
-
-@media (min-width: 1200px){
-    .reproductor{
-        background-color: blue !important;
-        height: 600px !important;
-        max-width: 60% !important;
-        position: absolute !important;
-        left: 30% !important;
-    }
-
-    .cardprofilemobile{
-        display: none;
-    }
-
-    .reproductormobile{
-        display: none;
-    }
-}
-
-@media (min-width: 1100px){
-    .reproductor{
-        background-color: red;
-        height: 600px;
-        max-width: 60% !important;
-        position: absolute;
-        left: 35%!important;
-    }
-
-    .cardprofilemobile{
-        display: none;
-    }
-
-    .reproductormobile{
-        display: none;
-    }
-}
-
-@media (min-width: 812px){
-    .reproductor{
-        background-color: red;
-        height: 600px;
-        max-width: 50%;
-        position: absolute;
-        left: 45%;
-    }
-    .cardprofilemobile{
-        display: none;
-    }
-
-    .reproductormobile{
-        display: none;
-    }
+    width: 69%;
 
 }
-
-
-@media (max-width: 818px){
-    .reproductor{
-        display: none;
-    }
-    .cardprofile{
-        display: none;
-    }
-}
-
-@media (max-width: 818px){
-    .cardprofilemobile{
-        min-width: 80vw !important;
-        font-size: 2rem;
-        text-align: center;
-        margin-top: 5px;
-        
-    }
-    h5{
-        display: none !important;
-    }
-
-
-
-}
-    
-/* 
-
-@media (min-width: 1500px){
-
-    .cardprofile{
-        position: absolute;
-        left: 12vw !important ;
-        top: 9vh;
-    }
-    .cardprofilenone{
-        display: none !important;
-    }
-
-}
-@media (min-width: 800px){
-    .reproductor{
-        width: 55%;
-    }
-}
-
-
-@media (min-width: 769px){
-    .cardprofilenone{
-        display: none!important;
-    }
-}
-@media (max-width: 768px){
-    .cardprofile{
-        display: none;
-    }
-    .cardprofilenone{
-        width: 100vw!important;
-    }
-    .makeitflex{
-        display: flex !important;
-        justify-content: center !important;
-        flex-wrap: wrap !important;
-        margin: 0!important;
-        padding: 0!important;
-    }
-}
-
-
-
-@media (max-width: 10px){ 
-    .headerProfile{
-        background-image: url(https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
-        background-position: center;
-        background-size: cover;
-    }
-
-    .cardprofile{
-        position: initial !important;
-        min-width: 80vw !important;
-        display: flex !important;
-        justify-content: center !important;
-    }
-
-    .playerProfile{
-        display: none!important;
-    }
-
-}
-
-
-
- */
