@@ -1,0 +1,11 @@
+bemyre.com/api/<username>
+bemyre.com/api/<username>/socialmedia
+bemyre.com/api/<username>/contactinfo
+bemyre.com/api/<username>/musicianinfo
+
+     V
+
+bemyre.com/<username>/
+
+    
+     

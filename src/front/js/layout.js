@@ -20,7 +20,7 @@ import { BandProfile } from "./pages/BandProfile.js";
 
 // >>> components >>>>
 import Navbar from "./component/Navbar";
-
+import BrainStorm from "./pages/BrainStorm.js";
 // <<< components <<<<
 
 //create your first component
@@ -47,6 +47,7 @@ const Layout = () => {
             <Route element={<Login />} path="/login" />
             <Route element={<Signup />} path="/signup" />
             <Route element={<BandProfile />} path="/bandprofile/:id" />
+            <Route element={<BrainStorm />} path="/brainstorm" />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

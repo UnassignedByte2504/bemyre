@@ -39,6 +39,7 @@ function Navbar() {
         background: "none",
         boxShadow: "none",
       }}
+      className="sticky-top"
     >
       <Toolbar
         sx={{
@@ -71,6 +72,9 @@ function Navbar() {
               <DarkModeOutlined sx={{fontSize:"25px"}} />
             ) : <LightModeOutlined sx={{fontSize:"25px"}}/>}
           </IconButton>
+          <Link to="/brainstorm"><IconButton>
+            <Typography variant="h4" color="red">BRAIN STORM</Typography>
+            </IconButton></Link>
         </FlexBetween>
       </Toolbar>
     </AppBar>

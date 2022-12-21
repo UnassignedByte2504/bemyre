@@ -12,6 +12,7 @@
 @import url(login.css);
 @import url(signup.css);
 @import url(bandprofile.css);
+@import url(brainstorm.css);
 
 
 html,
@@ -25,3 +26,4 @@ body,
 .Link {
   text-decoration: none;
 }
+
