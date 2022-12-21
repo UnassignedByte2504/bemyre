@@ -54,12 +54,13 @@ def handle_signup():
 
 #<<-----1 LOGIN ENDPOINT START ----->>
 #al hacer el login ademas de devolver un mensaje y un acces_token hay que devolver el username
+#añadir last_login
 #<<-----1 LOGIN ENDPOINT END ----->>
  
 #<<-----1 User related endpoints ----->>
 
 @api.route('/<string:username_var>', methods=['GET', 'PUT'])
-@jwt_required
+@jwt_required()
 def handle_user(username_var):
     current_user = get_jwt_identity()
     if current_user != username_var:
@@ -72,7 +73,7 @@ def handle_user(username_var):
 
 #<<----1.1 START UserSocialMedia endpoint ----->>
 @api.route('/<string:username_var>/socialmedia', methods=['GET', 'PUT','POST'])
-@jwt_required
+@jwt_required()
 def handle_user_socialmedia(username_var):
     current_user = get_jwt_identity()
     if current_user != username_var:
