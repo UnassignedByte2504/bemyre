@@ -37,9 +37,8 @@ def handle_signup():
         password=request_data['password'],
         first_name=request_data['first_name'],
         last_name=request_data['last_name'],
-        birth_day = request_data['birth_day'],
-        gender = request_data['gender'],
         is_active=True,
+        is_musician=False,
         creation_date = datetime.now(),
         last_login = datetime.now()
     ) 
@@ -54,6 +53,7 @@ def handle_signup():
 
 #<<-----1 LOGIN ENDPOINT START ----->>
 #al hacer el login ademas de devolver un mensaje y un acces_token hay que devolver el username
+
 #añadir last_login
 @api.route('/login', methods=['POST'])
 def handle_login():
@@ -77,6 +77,8 @@ def handle_login():
         }
         ), 200
     
+
+
 #<<-----1 LOGIN ENDPOINT END ----->>
  
 #<<-----1 User related endpoints ----->>

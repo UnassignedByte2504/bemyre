@@ -120,9 +120,6 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     first_name = db.Column(db.String(80), unique=False, nullable=False)
     last_name = db.Column(db.String(80), unique=False, nullable=False)
-    birth_day = db.Column(db.DateTime, nullable=False)
-    age = db.Column(db.Integer, nullable=False)
-    gender = db.Column (db.String(80), unique=False, nullable=False)
     user_social_media = relationship("UserSocialMedia", back_populates="user")
     creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     last_login = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
@@ -140,9 +137,6 @@ class User(db.Model):
             "email": self.email,
             "first name": self.first_name,
             "last name": self.last_name,
-            "birth_day": self.birth_day,
-            "age": math.floor((datetime.datetime.utcnow() - self.birth_day).days / 365),
-            "gender": self.gender,
             "creation_date": self.creation_date,         
             "user_contact_info": [user_contact_info.serialize() for user_contact_info in self.user_contact_info],
             "user_social_media": [user_social_media.serialize() for user_social_media in self.user_social_media],
