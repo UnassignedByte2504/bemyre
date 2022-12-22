@@ -53,7 +53,7 @@ def handle_signup():
 
 #<<-----1 LOGIN ENDPOINT START ----->>
 #al hacer el login ademas de devolver un mensaje y un acces_token hay que devolver el username
-#añadir last_login
+#añadir last_login curren
 #<<-----1 LOGIN ENDPOINT END ----->>
  
 #<<-----1 User related endpoints ----->>

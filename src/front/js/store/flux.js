@@ -28,6 +28,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			.then((response) => console.log(response))
 		  
       },
+	  login: async (email, password) =>{
+		await console.log("Login")
+		await console.log(email, password)
+	  }
 
       //>>>>> Functions realted with signup and login
 

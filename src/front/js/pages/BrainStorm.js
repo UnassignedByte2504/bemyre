@@ -12,6 +12,7 @@ const BrainStorm = () => {
         <Box className="Marcos">
             <h1>Marcos</h1>
             {store.message.message ? <h2>{store.message.message}</h2>: <h2>No hay nada aun</h2>}
+            <button onClick={() => actions.login("password: mundo","email: hola" )}>Test login</button>
         </Box>
         <Box className="Pablo">
         <h1>Pablo</h1>
