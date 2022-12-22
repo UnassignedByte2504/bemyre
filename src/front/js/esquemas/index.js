@@ -32,3 +32,8 @@ export const signupSchema = Yup.object().shape({
     .oneOf([Yup.ref("userName"), null], "UserName no coincide")
     .required("Confirmación necesaria"),
 });
+
+export const loginSchema = Yup.object().shape({
+  email: Yup.string().required("Correo obligatorio"),
+  password: Yup.string().required("Contraseña obligatoria"),
+});
