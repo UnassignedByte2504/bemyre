@@ -1,44 +1,95 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "../../styles/index.css"
-import imgSignup from '../../img/Bemyre_signup.jpg'
-import Logo from '../../img/Bemyre_logo.png'
+import "../../styles/login.css";
+import imgSignup from "../../img/Bemyre_signup.jpg";
+import Logo from "../../img/Bemyre_logo.png";
 import { Button } from "@mui/material";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
+import { Formik, useFormik } from "formik";
+import * as Yup from "yup";
+import { fetchLogin } from "../api calls/login";
 
+import { loginSchema } from "../esquemas";
+import { ErrorSharp } from "@mui/icons-material";
 
-export const Login = () =>{
-     const [email, setEmail] =useState('')
-     const [password, setPassword] =useState('')
+export const Login = () => {
+  //  const [email, setEmail] =useState('')
+  //  const [password, setPassword] =useState('')
 
+  const onSubmit = async (values, ax) => {
+    console.log(values);
+    await ax.resetForm();
+  };
 
-    return (
-        <div className="backgroundSignup">
-            <div className="cardSignup">
-                <div className="imgSignup imgSignupDisplayNone">
-                    <img src={imgSignup} alt='Bemyre concert'/>
-                </div>
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    isSubmiting,
+  } = useFormik({
+    initialValues: { email: "", password: "" },
+    validationSchema: loginSchema,
+    onSubmit,
+  });
 
-                <div className="textSignup">
-                    <img src={Logo}/>
-
-                    <div className="textArea">
-                        <TextField type='email'  id="email" label="Email" variant="standard" className="m-1" onChange={(event)=> setEmail(event.target.value)}/>
-                        <TextField type='password'  id="password" label="Password" variant="standard" className="m-1" onChange={(event)=> setPassword(event.target.value)}/>
-                        <div className="d-flex justify-content-center"><Button variant="contained" className="buttonSignup" sx={{backgroundColor: "#e0934f"}}>Signup</Button></div>
-                        <hr/>
-                        <div className="rrssSignup colorFb">
-                            <img src="https://assets.stickpng.com/images/60fea6c83d624000048712b7.png"/>
-                            <p className="">Sign Up with Facebook</p>
-                        </div>
-                        <div className="rrssSignup ">
-                            <img src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png"/>
-                            <p className="text-black">Sign Up with Google</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+  return (
+    <div className="backgroundSignup">
+      <div className="cardSignup">
+        <div className="imgSignup imgSignupDisplayNone">
+          <img src={imgSignup} alt="Bemyre concert" />
         </div>
-    )
-}
+
+        <div className="textSignup">
+          <img src={Logo} />
+
+          <form onSubmit={handleSubmit} autoComplete="off" className="textArea">
+            <TextField
+              type="email"
+              id="email"
+              label="Email"
+              name="email"
+              values={values.email}
+              variant="outlined"
+              className="m-1"
+              onChange={handleChange}
+              error={errors.email && touched.email}
+              helperText={errors.email && touched.email && errors.userName}
+            />
+            <TextField
+              type="password"
+              id="password"
+              label="Password"
+              name="password"
+              values={values.password}
+              variant="outlined"
+              className="m-1"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.password && touched.password}
+              helperText={
+                errors.password && touched.password && errors.password
+              }
+            />
+            <div className="d-flex justify-content-center">
+              <Button variant="contained" type="submit" disabled={isSubmiting}>
+                Login
+              </Button>
+            </div>
+            <hr />
+            <div className="rrssSignup colorFb">
+              <img src="https://assets.stickpng.com/images/60fea6c83d624000048712b7.png" />
+              <p className="">Sign Up with Facebook</p>
+            </div>
+            <div className="rrssSignup ">
+              <img src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" />
+              <p className="text-black">Sign Up with Google</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};

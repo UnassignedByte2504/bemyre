@@ -55,6 +55,28 @@ def handle_signup():
 #<<-----1 LOGIN ENDPOINT START ----->>
 #al hacer el login ademas de devolver un mensaje y un acces_token hay que devolver el username
 #añadir last_login
+@api.route('/login', methods=['POST'])
+def handle_login():
+    request_data=request.get_json(force=True)
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    user = User.query.filter_by(email=email, password=password).first()
+    if  user == None:
+        return jsonify({"msg": "usuario o password incorrecto"}), 401
+    new_user = User(
+        last_login = datetime.now()
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    access_token = create_access_token(identity=user.id)
+    return jsonify(
+        {
+            "message": "Credenciales correctas",
+            "token": access_token, 
+            "user_name": user.user_name
+        }
+        ), 200
+    
 #<<-----1 LOGIN ENDPOINT END ----->>
  
 #<<-----1 User related endpoints ----->>
