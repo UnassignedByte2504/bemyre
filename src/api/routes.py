@@ -63,16 +63,15 @@ def handle_login():
     user = User.query.filter_by(email=email, password=password).first()
     if  user == None:
         return jsonify({"msg": "usuario o password incorrecto"}), 401
-    new_user = User(
-        last_login = datetime.now()
-    )
-    db.session.add(new_user)
+    # actualizamos last_login
+    user.last_login = datetime.now()
     db.session.commit()
     access_token = create_access_token(identity=user.id)
     return jsonify(
         {
             "message": "Credenciales correctas",
-            "token": access_token, 
+            "access_token": access_token,
+	        "last_login":user.last_login,
             "user_name": user.user_name
         }
         ), 200

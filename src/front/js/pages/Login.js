@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/login.css";
 import imgSignup from "../../img/Bemyre_signup.jpg";
@@ -7,17 +7,17 @@ import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
-import { fetchLogin } from "../api calls/login";
+import { Context } from "../store/appContext";
 
 import { loginSchema } from "../esquemas";
 import { ErrorSharp } from "@mui/icons-material";
 
 export const Login = () => {
-  //  const [email, setEmail] =useState('')
-  //  const [password, setPassword] =useState('')
+  const { actions, store } = useContext(Context);
 
   const onSubmit = async (values, ax) => {
     console.log(values);
+    await actions.login(values.email, values.password);
     await ax.resetForm();
   };
 
