@@ -21,7 +21,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
 
         await fetch(
-          "https://3001-unassignedbyte25-bemyre-vgc43hj0dnd.ws-eu79.gitpod.io/api/signup",
+          process.env.BACKEND_URL+"/api/signup",
           options
         )
           .then((response) => response.json())

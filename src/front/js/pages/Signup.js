@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/index.css";
 import imgSignup from "../../img/Bemyre_signup.jpg";
 import Logo from "../../img/Bemyre_logo.png";
@@ -16,9 +16,11 @@ import { useContext } from "react";
 import { Context } from "../store/appContext";
 
 export const Signup = () => {
+  const navigate = useNavigate()
   const {actions, store} =useContext(Context);
   const onSubmit = async (values, ax) => {
     await actions.signUp(values.userName, values.email, values.password, values.firstName, values.lastName)
+    navigate("/")
     await ax.resetForm();
 
 
