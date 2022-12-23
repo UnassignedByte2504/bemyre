@@ -5,6 +5,7 @@ import "../../styles/home.css";
 import { LandingJumbo } from "../component/jumbotron/landingjumbo";
 import { AsideLandingPgRegister } from "../component/asides/AsideLandingPgRegister";
 import { Musicians } from "../component/Musicians";
+import { Signup } from "../component/jumbotron/signup";
 
 
 export const LandingPage = () =>{
@@ -21,6 +22,7 @@ export const LandingPage = () =>{
                 <Musicians />
                 <AsideLandingPgRegister />
             </div>
+
         </div>
         )
 }

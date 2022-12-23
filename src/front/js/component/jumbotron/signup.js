@@ -1,66 +1,54 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import "../../styles/index.css";
-import imgSignup from "../../img/Bemyre_signup.jpg";
-import Logo from "../../img/Bemyre_logo.png";
+import { Link } from "react-router-dom";
+import "../../../styles/index.css";
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
-import { signupSchema } from "../esquemas";
-import FlexBetween from "../component/FlexBetween.jsx";
-import { testFetch } from "../api calls/user";
-
+import {signupSchema} from "../../esquemas"
 import { useContext } from "react";
-import { Context } from "../store/appContext";
+import { Context } from "../../store/appContext";
+import { CallToActionSharp } from "@mui/icons-material";
+import { Box } from "@mui/system";
+import {Typography} from "@mui/material";
 
-export const Signup = () => {
-  const navigate = useNavigate()
-  const {actions, store} =useContext(Context);
-  const onSubmit = async (values, ax) => {
-    await actions.signUp(values.userName, values.email, values.password, values.firstName, values.lastName)
-    navigate("/")
-    await ax.resetForm();
+export const Signup = () =>{
+    const {actions, store} = useContext(Context)
+    const onSubmit = async(values, ax) => {
+        await actions.signUp(values.userName, values.email, values.password, values.firstName, values.lastName)
+        await ax.resetForm();
+        };
 
+        const {
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmiting,
+          } = useFormik({
+            initialValues: {
+              email: "",
+              confirmEmail: "",
+              password: "",
+              confirmPassword: "",
+              firstName: "",
+              lastName: "",
+              userName: "",
+              confirmUserName: "",
+            },
+            validationSchema: signupSchema,
+            onSubmit,
+          });
 
-  };
-
-  const {
-    values,
-    errors,
-    touched,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    isSubmiting,
-  } = useFormik({
-    initialValues: {
-      email: "",
-      confirmEmail: "",
-      password: "",
-      confirmPassword: "",
-      firstName: "",
-      lastName: "",
-      userName: "",
-      confirmUserName: "",
-    },
-    validationSchema: signupSchema,
-    onSubmit,
-  });
-
-  return (
-    <div className="backgroundSignup">
-      <div className="cardSignup">
-        <div className="imgSignup imgSignupDisplayNone">
-          <img src={imgSignup} alt="Bemyre concert" />
-        </div>
-
-        <div className="textSignup">
-          <img src={Logo} />
-
-          <form onSubmit={handleSubmit} autoComplete="off" className="textArea">
-            <FlexBetween>
-              <TextField
+         
+    return(
+        <>
+        <Box className="d-flex flex-column align-items-center signupJumbo mb-3">
+         <form onSubmit={handleSubmit} autoComplete="off" className="textArea signupJumbo">
+            <Box className="d-flex justify-content-center">
+              <TextField sx={{width: '50%'}} 
                 id="firstName"
                 label="First name"
                 name="firstName"
@@ -74,7 +62,7 @@ export const Signup = () => {
                   errors.userName && touched.userName && errors.userName
                 }
               />
-              <TextField
+              <TextField sx={{width: '50%'}}
                 id="lastName"
                 label="Last name"
                 name="lastName"
@@ -88,9 +76,10 @@ export const Signup = () => {
                   errors.lastName && touched.lastName && errors.lastName
                 }
               />
-            </FlexBetween>
-            <FlexBetween>
-              <TextField
+
+            {/* </Box>
+            <Box className="d-flex justify-content-center"> */}
+              <TextField sx={{width: '50%'}}
                 id="userName"
                 label="Username"
                 name="userName"
@@ -104,7 +93,7 @@ export const Signup = () => {
                   errors.userName && touched.userName && errors.userName
                 }
               />
-              <TextField
+              <TextField sx={{width: '50%'}}
                 id="confirmUserName"
                 label="Confirm Username"
                 name="confirmUserName"
@@ -120,9 +109,10 @@ export const Signup = () => {
                   errors.confirmUserName
                 }
               />
-            </FlexBetween>
 
-            <TextField
+            </Box>
+            <Box className="d-flex justify-content-center">
+            <TextField sx={{width: '50%'}}
               id="email"
               label="Email"
               name="email"
@@ -134,7 +124,7 @@ export const Signup = () => {
               error={errors.email && touched.email}
               helperText={errors.email && touched.email && errors.email}
             />
-            <TextField
+            <TextField sx={{width: '50%'}}
               id="confirmEmail"
               label="Confirm Email"
               name="confirmEmail"
@@ -150,7 +140,9 @@ export const Signup = () => {
                 errors.confirmEmail
               }
             />
-            <TextField
+            {/* </Box>
+            <Box className="d-flex justify-content-center"> */}
+            <TextField sx={{width: '50%'}}
               id="password"
               label="Password"
               name="password"
@@ -166,7 +158,7 @@ export const Signup = () => {
               }
             />
 
-            <TextField
+            <TextField sx={{width: '50%'}}
               id="confirmPassword"
               label="Confirmar Password"
               name="confirmPassword"
@@ -183,21 +175,15 @@ export const Signup = () => {
                 errors.confirmPassword
               }
             />
+            </Box>
+
             <Button variant="contained" type="submit" disabled={isSubmiting}>
               Registro
             </Button>
-          </form>
-          <hr />
-          <div className="rrssSignup colorFb">
-            <img src="https://assets.stickpng.com/images/60fea6c83d624000048712b7.png" />
-            <p className="">Sign Up with Facebook</p>
-          </div>
-          <div className="rrssSignup ">
-            <img src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" />
-            <p className="text-black">Sign Up with Google</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+    </form>
+    </Box>
+    
+    
+    </>
+    )
+}
