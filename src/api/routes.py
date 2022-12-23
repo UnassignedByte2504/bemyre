@@ -87,12 +87,12 @@ def handle_login():
 def handle_user(username_var):
     current_user = get_jwt_identity()
     if current_user != username_var:
-        return jsonify({"message": "Access denied"}), 401
+        return jsonify({"message": "Access denied", "msg": current_user}), 401
     if request.method == 'GET':
         user = db.session.query(User).filter(User.user_name == username_var).first()
         if not user:
             return jsonify({"message": "User not found"}), 404
-        return jsonify(user.serialize()), 200
+    return jsonify(user.serialize()), 200
 
 #<<----1.1 START UserSocialMedia endpoint ----->>
 @api.route('/<string:username_var>/socialmedia', methods=['GET', 'PUT','POST'])

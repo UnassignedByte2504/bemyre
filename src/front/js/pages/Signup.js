@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import { signupSchema } from "../esquemas";
 import FlexBetween from "../component/FlexBetween.jsx";
 import { testFetch } from "../api calls/user";
+import logo_facebook from "../../img/RRSS/fb-logo-icon-azul.png"
 
 import { useContext } from "react";
 import { Context } from "../store/appContext";
@@ -148,6 +149,7 @@ export const Signup = () => {
                 errors.confirmEmail
               }
             />
+            <FlexBetween>
             <TextField
               id="password"
               label="Password"
@@ -181,17 +183,19 @@ export const Signup = () => {
                 errors.confirmPassword
               }
             />
+            </FlexBetween>
+
             <Button variant="contained" type="submit" disabled={isSubmiting}>
               Registro
             </Button>
           </form>
           <hr />
           <div className="rrssSignup colorFb">
-            <img src="https://assets.stickpng.com/images/60fea6c83d624000048712b7.png" />
+            <img className="p-1" src={logo_facebook} />
             <p className="">Sign Up with Facebook</p>
           </div>
           <div className="rrssSignup ">
-            <img src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" />
+            <img className="p-1" src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" />
             <p className="text-black">Sign Up with Google</p>
           </div>
         </div>
