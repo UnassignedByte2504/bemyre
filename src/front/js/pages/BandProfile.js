@@ -1,7 +1,6 @@
 import React from "react";
 import "../../styles/bandprofile.css";
-import { CardProfile } from "../component/profiles/CardProfile";
-import { HeaderProfile } from "../component/profiles/HeaderProfile";
+import { HeaderProfile } from "../component/HeaderProfile";
 
 export const BandProfile = () => {
   return (
@@ -11,9 +10,7 @@ export const BandProfile = () => {
         <div className="row">
           {/* /////COLUMNA IZQUIERDA CON CARD Y ANUNCIOS /////*/}
           <div className="col-md-4">
-            <div className="row">
-              <CardProfile />
-            </div>
+            <div className="row"></div>
             <div className="row">
               {/* Aquí irá el componente AdvertProfile */}
             </div>
