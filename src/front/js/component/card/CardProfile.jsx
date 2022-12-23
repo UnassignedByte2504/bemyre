@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Button from '@mui/material/Button';
 
-export const CardProfile = () =>{
+export const CardProfile = (first_name) =>{
 
     return (
         <div className="card m-2 text-black" >

@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       username: "",
       store_token: "",
       message: "",
+      resultados: "",
     },
     actions: {
       signUp: async (username, email, password, firstname, lastname) => {
@@ -58,7 +59,25 @@ const getState = ({ getStore, getActions, setStore }) => {
       //<<<<<Functions realted with signup and login
 
       // >>>> Functions realted on fetching user info from back
+      fetchUser: async(username) =>{
+        await fetch(process.env.BACKEND_URL+"/api/"+username,{
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        })
+        .then((resp) => {
+          if (resp.status == 200) {
+            return resp.json();
+          } else {
+            return "Error en fetch";
+          }
+        })
 
+        .then((result) => setStore({resultados: result}))
+
+
+      }
       // <<<< Functions realted on fetching user info from back
     },
   };

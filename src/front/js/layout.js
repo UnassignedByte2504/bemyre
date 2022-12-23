@@ -45,7 +45,7 @@ const Layout = () => {
             <Route element={<LandingPage />} path="/lp" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<UserProfile />} path="/user" />
-            <Route element={<Profile />} path="/perfil" />
+            <Route element={<Profile />} path="/:username" />
             <Route element={<Login />} path="/login" />
             <Route element={<Signup />} path="/signup" />
             <Route element={<BandProfile />} path="/bandprofile/:id" />
