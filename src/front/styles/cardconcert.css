@@ -1,0 +1,13 @@
+.card-concert {
+  width: 22rem;
+}
+
+.card-concert:hover {
+  scale: 105%;
+  transition: 0.3s;
+}
+
+.card-concert:not(:hover) {
+  scale: 100%;
+  transition: 0.3s;
+}

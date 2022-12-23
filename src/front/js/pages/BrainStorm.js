@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 import TestCard from "../component/testcard/TestCard";
+import { CardConcert } from "../component/card/CardConcert.jsx";
 
 const BrainStorm = () => {
   const { actions, store } = useContext(Context);
@@ -24,8 +25,9 @@ const BrainStorm = () => {
         <hr />
       </Box>
       <Box className="Carmen">
-        <h1>Carmen</h1>
-        <hr />
+        <h1 className="mb-5">Carmen</h1>
+        <CardConcert />
+        <hr className="mt-5" />
       </Box>
     </Box>
   );

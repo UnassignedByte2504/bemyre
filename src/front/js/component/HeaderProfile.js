@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../styles/headerprofile.css";
+import "../../styles/headerprofile.css";
 
 export const HeaderProfile = () => {
   return (
