@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import "../../styles/login.css";
 import imgSignup from "../../img/Bemyre_signup.jpg";
 import Logo from "../../img/Bemyre_logo.png";
@@ -14,10 +14,10 @@ import { ErrorSharp } from "@mui/icons-material";
 
 export const Login = () => {
   const { actions, store } = useContext(Context);
-
+  const navigate = useNavigate()
   const onSubmit = async (values, ax) => {
-    console.log(values);
     await actions.login(values.email, values.password);
+    navigate("/")
     await ax.resetForm();
   };
 

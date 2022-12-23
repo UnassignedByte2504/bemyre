@@ -21,7 +21,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
 
         await fetch(
-          process.env.BACKEND_URL+"/api/signup",
+          "https://3001-unassignedbyte25-bemyre-m8cer5r5sjx.ws-eu80.gitpod.io/api/signup",
           options
         )
           .then((response) => response.json())
@@ -29,7 +29,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       login: async (email, password) => {
         await console.log(email, password);
-        await fetch(process.env.BACKEND_URL + "/api/login", {
+        await fetch("https://3001-unassignedbyte25-bemyre-m8cer5r5sjx.ws-eu80.gitpod.io/api/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
