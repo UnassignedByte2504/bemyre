@@ -79,13 +79,15 @@ export const Login = () => {
               </Button>
             </div>
             <hr />
-            <div className="rrssSignup colorFb">
-              <img className="p-1" src={logo_facebook} />
-              <p className="">Sign Up with Facebook</p>
-            </div>
-            <div className="rrssSignup ">
-              <img className="p-1" src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" />
-              <p className="text-black">Sign Up with Google</p>
+            <div className="boxlogin">
+              <div className="rrsslogin colorFb">
+                <img className="p-1" src={logo_facebook} />
+                <p className="">Sign Up with Facebook</p>
+              </div>
+              <div className="rrsslogin ">
+                <img className="p-1" src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" />
+                <p className="text-black">Sign Up with Google</p>
+              </div>
             </div>
           </form>
         </div>

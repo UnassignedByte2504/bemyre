@@ -63,7 +63,7 @@
 
 /* Inicio sesión rrss */
 
-.rrssSignup {
+.rrsslogin {
   max-height: 3rem;
   display: flex;
   justify-content: center;
@@ -71,19 +71,20 @@
   border-radius: 5px;
   margin-bottom: 1rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 100%;
 }
 
 .colorFb {
   background-color: #3b5998;
 }
 
-.rrssSignup img {
+.rrsslogin img {
   max-height: 2rem;
   max-width: 2rem;
   margin-right: 1rem;
 }
 
-.rrssSignup p {
+.rrsslogin p {
   margin: 0;
   color: white;
 }
