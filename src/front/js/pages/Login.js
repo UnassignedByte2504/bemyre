@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import { Context } from "../store/appContext";
-
+import logo_facebook from "../../img/RRSS/fb-logo-icon-azul.png"
 import { loginSchema } from "../esquemas";
 import { ErrorSharp } from "@mui/icons-material";
 
@@ -80,11 +80,11 @@ export const Login = () => {
             </div>
             <hr />
             <div className="rrssSignup colorFb">
-              <img src="https://assets.stickpng.com/images/60fea6c83d624000048712b7.png" />
+              <img className="p-1" src={logo_facebook} />
               <p className="">Sign Up with Facebook</p>
             </div>
             <div className="rrssSignup ">
-              <img src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" />
+              <img className="p-1" src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" />
               <p className="text-black">Sign Up with Google</p>
             </div>
           </form>
