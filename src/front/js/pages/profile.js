@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { CardProfile } from "../component/card/CardProfile.jsx";
 import { Button } from "@mui/material";
 import {Context} from "../store/appContext"
+import EditIcon from '@mui/icons-material/Edit';
 export const Profile = () =>{
     const {actions, store} = useContext(Context)
     const params = useParams()
@@ -37,6 +38,7 @@ export const Profile = () =>{
             {/* Right side */}
 
             <div className="rightside mt-5">
+                <div className="d-flex justify-content-end align-items-center"><p className="text-end pt-3"><Link className="text-white text-decoration-none" to="/">Editar Información <EditIcon/></Link></p></div>
                 {1+1===2? 
                 <>
                 <div><iframe style={{borderRadius:"12px"}} src="https://open.spotify.com/embed/track/5rhMc6IqSdVsyF7bRieSTc?utm_source=generator" width="100%" height="152"  allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
@@ -46,7 +48,7 @@ export const Profile = () =>{
 
             {1+1===2 ? 
                 <div className="mt-5">
-                    <h3><strong>Mis instrumentos</strong></h3>
+                    <h3><strong>Mis instrumentos</strong> <Link className="text-white text-decoration-none" to="/"><EditIcon/></Link></h3>
                     <hr/>
                     <p className="my-3">Guitarra acustica</p>
                 </div>
@@ -55,7 +57,7 @@ export const Profile = () =>{
 
             {1+1===2 ? 
                 <div className="mt-5">
-                    <h3>Mi estilo de música y trayectoria</h3>
+                    <h3>Mi estilo de música y trayectoria <Link className="text-white text-decoration-none" to="/"><EditIcon/></Link></h3>
                     <hr/>
                     <div className="musicstyle my-3"> 
                         <div className="bubbles"><strong>Rock</strong></div>
@@ -68,7 +70,7 @@ export const Profile = () =>{
 
             {1+1===2?
                 <div className="mt-5">
-                    <h3>Mis influencias</h3>
+                    <h3>Mis influencias <Link className="text-white text-decoration-none" to="/"><EditIcon/></Link></h3>
                     <hr/>
                     <div className="videoinfluencias d-flex flex-wrap justify-content-evenly ">
                         <iframe className="my-3" src="https://www.youtube.com/embed/aIHF7u9Wwiw"></iframe> 
@@ -80,7 +82,7 @@ export const Profile = () =>{
 
             {1+1===2?
                 <div className="mt-5">
-                    <h3>Mi equipo</h3>
+                    <h3>Mi equipo <Link className="text-white text-decoration-none" to="/"><EditIcon/></Link></h3>
                     <hr/>
                     <ul>
                         <li className="my-1"><strong>Instrumentos/ modelox/ categoria/Estilo</strong></li>
