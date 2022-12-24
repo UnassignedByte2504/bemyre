@@ -125,7 +125,7 @@ class User(db.Model):
     last_login = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     is_musician = db.Column(db.Boolean(), unique=False, nullable=False)
-    user_musician_info = relationship("UserMusicianInfo")
+    user_musician_info = relationship("UserMusicianInfo", back_populates="user")
     def __repr__(self):
         return f'<User {self.email}>'
 
@@ -137,9 +137,11 @@ class User(db.Model):
             "email": self.email,
             "first_name": self.first_name,
             "last_name": self.last_name,
-            "creation_date": self.creation_date,         
+            "creation_date": self.creation_date,
+            "last_login": self.last_login.strftime("%Y-%m-%d %H:%M:%S"),    
             "user_contact_info": [user_contact_info.serialize() for user_contact_info in self.user_contact_info],
             "user_social_media": [user_social_media.serialize() for user_social_media in self.user_social_media],
+            "user_musician_info": [user_musician_info.serialize() for user_musician_info in self.user_musician_info]
         }
             # do not serialize the password, its a security breach
 
@@ -163,6 +165,7 @@ class UserSocialMedia(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "user_id": self.user_id,
             "website_url": self.website_url,
             "youtube_url": self.youtube_url,
             "soundcloud_url": self.soundcloud_url,
@@ -178,13 +181,16 @@ class UserSocialMedia(db.Model):
 class UserMusicianInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True, nullable=False)
-    user_musical_instruments = relationship("UserMusicalInstrument")
+    user = relationship("User", back_populates="user_musician_info")
+    user_musical_instruments = relationship("UserMusicalInstrument", back_populates="user_musician_info")
     artistic_name = db.Column(db.String(80), unique=False, nullable=True)
-    musical_genres = relationship("UserMusicGenre")
+    user_music_genre = relationship("UserMusicGenre", back_populates="user_musician_info")
     musical_instruments_other = db.Column(db.String(80), unique=False, nullable=True)
     musical_genres_other = db.Column(db.String(80), unique=False, nullable=True)
     bands = relationship("Bands")
     band_member = relationship("BandMembers")
+    last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
+
   
    
 
@@ -195,20 +201,20 @@ class UserMusicianInfo(db.Model):
             "id": self.id,
             "user_id": self.user_id,
             "artistic_name": self.artistic_name,
-            "musical_instruments": [musical_instrument.serialize() for musical_instrument in self.musical_instruments],
-            "musical_genres": [musical_genre.serialize() for musical_genre in self.musical_genres],
+            "user_musical_instruments": [musical_instrument.serialize() for musical_instrument in self.user_musical_instruments],
+            "user_music_genre": [musical_genre.serialize() for musical_genre in self.user_music_genre],
             "musical_instruments_other": self.musical_instruments_other,
             "musical_genres_other": self.musical_genres_other,
             "bands": [band.serialize() for band in self.bands],
+            "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
         }
-        
 
 class UserMusicalInstrument(db.Model):
     id= db.Column(db.Integer, primary_key=True)
     user_musician_info_id = db.Column(db.Integer, db.ForeignKey('user_musician_info.id'), nullable=False)
-    musical_instrument_id = db.Column(db.Integer, db.ForeignKey('musical_instrument.id'), nullable=False)
-    musical_instrument = relationship("MusicalInstrument", backref="user_musical_instruments", lazy=True)	
-    last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)	;
+    user_musician_info = relationship("UserMusicianInfo", back_populates="user_musical_instruments")
+    musical_instrument = relationship("MusicalInstrument", backref="user_musical_instrument", lazy=True)	
+    last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
     def __repr__(self):	
         return f'<UserMusicalInstrument {self.musical_instrument.name}>'
         def serialize(self):
@@ -223,9 +229,10 @@ class UserMusicalInstrument(db.Model):
     
 class UserMusicGenre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_musician_info = db.Column(db.Integer, db.ForeignKey('user_musician_info.id'), nullable=False)
+    user_musician_info_id = db.Column(db.Integer, db.ForeignKey('user_musician_info.id'), nullable=False)
+    user_musician_info = relationship("UserMusicianInfo", back_populates="user_music_genre")
     music_genre_id = db.Column(db.Integer, db.ForeignKey('music_genre.id'), nullable=False)
-    music_genre = relationship("MusicGenre")
+    music_genre = relationship("MusicGenre", backref="user_music_genre", lazy=True)
     def __repr__(self):
         return f'<UserMusicGenre {self.id}>'
     def serialize(self):
@@ -256,6 +263,7 @@ class MusicalInstrument(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     musical_instruments_category_id = db.Column(db.Integer, db.ForeignKey('musical_instruments_category.id'), nullable=False)
     musical_instruments_category = relationship("MusicalInstrumentsCategory")
+    user_musical_instruments_id = db.Column(db.Integer, db.ForeignKey('user_musical_instrument.id'), nullable=False)
     name = db.Column(db.String(80), unique=True, nullable=False)
     creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
@@ -328,7 +336,6 @@ class MusicGenre(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "music_genres_id": self.music_genres_id,
             "bands": [band.serialize() for band in self.bands],
         }
 
