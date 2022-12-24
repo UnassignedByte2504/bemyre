@@ -107,7 +107,7 @@ def handle_login():
     # actualizamos last_login
     user.last_login = datetime.now()
     db.session.commit()
-    access_token = create_access_token(identity=user.id)
+    access_token = create_access_token(identity=user.user_name)
     return jsonify(
         {
             "message": "Credenciales correctas",

@@ -31,7 +31,7 @@ export const Profile = () =>{
                 <div className="cardprofile"><CardProfile  /></div>
                 <div className="cardbandasleft"> 
                     <h3 className="text-center">Hay 3 bandas que buscan guitarrista</h3>
-                    <Button>Unete a esas bandas</Button>
+                    <Button variant="contained">Unete a esas bandas</Button>
                 </div>
             </div>
 

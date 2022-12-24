@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import React from "react";
 import { Bubble } from "../Bubble.jsx";
 
@@ -7,10 +8,10 @@ export const CardConcertFooter = ({
   generoMusica3,
 }) => {
   return (
-    <div className="card-footer">
+    <Box className="card-footer">
       <Bubble generoMusica={generoMusica1}></Bubble>
       <Bubble generoMusica={generoMusica2}></Bubble>
       <Bubble generoMusica={generoMusica3}></Bubble>
-    </div>
+    </Box>
   );
 };

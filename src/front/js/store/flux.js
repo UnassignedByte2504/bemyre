@@ -4,10 +4,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       username: "",
       store_token: "",
       message: "",
-      resultados: "",
+      resultados: ""
     },
     actions: {
-      signUp: async (username, email, password, firstname, lastname) => {
+      signUp: async (username, email, password, firstname, lastname, is_musician) => {
         const options = {
           method: "POST",
           body: `{ 
@@ -16,12 +16,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					"password":"${password}",
 					"first_name":"${firstname}",
 					"last_name":"${lastname}"
+          "is_musician"${is_musician}
 				}
-				  `,
+				  `
         };
 
         await fetch(
-          "https://3001-unassignedbyte25-bemyre-m8cer5r5sjx.ws-eu80.gitpod.io/api/signup",
+          process.env.BACKEND_URL+"/api/signup",
           options
         )
           .then((response) => response.json())
@@ -36,7 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           },
           body: JSON.stringify({
             email: email,
-            password: password,
+            password: password
           }),
         })
           .then((resp) => {
@@ -63,7 +64,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         await fetch(process.env.BACKEND_URL+"/api/"+username,{
           method: "GET",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           }
         })
         .then((resp) => {

@@ -11,7 +11,7 @@ import {
   MenuItem,
 } from "@mui/material";
 
-import FlexBetween from "./FlexBetween.jsx";
+import FlexBetween from "./styledcomponents/FlexBetween.jsx"
 
 import {
   LightModeOutlined,

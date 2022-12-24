@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import { signupSchema } from "../esquemas";
-import FlexBetween from "../component/FlexBetween.jsx";
+import FlexBetween from "../component/styledcomponents/FlexBetween.jsx"
 import { testFetch } from "../api calls/user";
 import logo_facebook from "../../img/RRSS/fb-logo-icon-azul.png"
 
