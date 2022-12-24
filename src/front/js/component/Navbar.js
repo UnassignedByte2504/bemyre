@@ -73,7 +73,7 @@ function Navbar() {
             ) : <LightModeOutlined sx={{fontSize:"25px"}}/>}
           </IconButton>
           <Link to="/brainstorm"><IconButton>
-            <Typography variant="h4" color="red">BRAIN STORM</Typography>
+            <Typography variant="h4" color="red">SandBox</Typography>
             </IconButton></Link>
         </FlexBetween>
       </Toolbar>

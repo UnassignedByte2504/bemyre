@@ -64,15 +64,16 @@ export const tokensDark = {
               primary: {
                 ...tokensDark.primary,
                 main: tokensDark.primary[400],
-                light: tokensDark.primary[400],
+                light: tokensDark.primary[200],
               },
               secondary: {
                 ...tokensDark.secondary,
-                main: tokensDark.secondary[300],
+                main: tokensDark.secondary[600],
+                light: tokensDark.secondary[300]
               },
               neutral: {
                 ...tokensDark.grey,
-                main: tokensDark.grey[500],
+                main: tokensDark.grey[900],
               },
               background: {
                 default: tokensDark.primary[600],

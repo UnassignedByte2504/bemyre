@@ -19,7 +19,7 @@ import { BandProfile } from "./pages/BandProfile.js";
 
 // >>> components >>>>
 import Navbar from "./component/Navbar";
-import BrainStorm from "./pages/BrainStorm.js";
+import BrainStorm from "./pages/SandBox.js";
 
 // <<< components <<<<
 
