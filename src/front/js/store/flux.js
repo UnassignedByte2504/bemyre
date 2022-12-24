@@ -4,10 +4,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       username: "",
       store_token: "",
       message: "",
-      resultados: ""
+      resultados: "",
+      token_local: localStorage.getItem("access_token"),
     },
     actions: {
-      signUp: async (username, email, password, firstname, lastname, is_musician) => {
+      signUp: async (username, email, password, firstname, lastname) => {
         const options = {
           method: "POST",
           body: `{ 
@@ -16,13 +17,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					"password":"${password}",
 					"first_name":"${firstname}",
 					"last_name":"${lastname}"
-          "is_musician"${is_musician}
 				}
-				  `
+				  `,
         };
 
         await fetch(
-          process.env.BACKEND_URL+"/api/signup",
+          "https://3001-unassignedbyte25-bemyre-bc0402gimk2.ws-eu80.gitpod.io/api/signup",
           options
         )
           .then((response) => response.json())
@@ -30,14 +30,14 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       login: async (email, password) => {
         await console.log(email, password);
-        await fetch("https://3001-unassignedbyte25-bemyre-m8cer5r5sjx.ws-eu80.gitpod.io/api/login", {
+        await fetch("https://3001-unassignedbyte25-bemyre-bc0402gimk2.ws-eu80.gitpod.io/api/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
             email: email,
-            password: password
+            password: password,
           }),
         })
           .then((resp) => {
@@ -50,9 +50,12 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((result) => {
             if (result.access_token != undefined) {
               localStorage.setItem("access_token", result.access_token);
+              setStore({store_token: result.access_token})
+              setStore({username: result.user_name})
               navigate(`/${result.user_name}`);
             }
-          });
+          })
+
       },
 
       //>>>>> Functions realted with signup and login
@@ -61,20 +64,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // >>>> Functions realted on fetching user info from back
       fetchUser: async(username) =>{
-        await fetch(process.env.BACKEND_URL+"/api/"+username,{
+        await fetch("https://3001-unassignedbyte25-bemyre-bc0402gimk2.ws-eu80.gitpod.io/api/pablo",{
           method: "GET",
           headers: {
+            "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
             "Content-Type": "application/json"
           }
         })
-        .then((resp) => {
-          if (resp.status == 200) {
-            return resp.json();
-          } else {
-            return "Error en fetch";
-          }
-        })
-
+        // .then((resp) => {
+        //   if (resp.status == 200) {
+        //     return resp.json();
+        //   } else {
+        //     return "Error en fetch";
+        //   }
+        // })
+        .then((response)=> response.json())
         .then((result) => setStore({resultados: result}))
 
 
