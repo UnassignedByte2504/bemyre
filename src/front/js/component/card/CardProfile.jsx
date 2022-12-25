@@ -4,13 +4,13 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Button from '@mui/material/Button';
 import { Box } from "@mui/material";
 
-export const CardProfile = (first_name) =>{
+export const CardProfile = ({first_name, last_name}) =>{
 
     return (
         <Box className="card m-2 text-black" >
             <img src="https://images.unsplash.com/photo-1550560888-1009463ef168?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80" className="card-img-top" alt="..."/>
             <Box className="card-body">
-                <h5 className="card-title text-center">Robert Russell</h5>
+                <h5 className="card-title text-center">{first_name} {last_name}</h5>
                 <p className="card-text">La música es el motor de mi vida, es lo que me hace ser libre y disfrutar. </p>
                 <p><strong>Leer más</strong> <ArrowForwardIcon /></p>
                 <hr/>

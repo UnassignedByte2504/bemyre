@@ -28,7 +28,7 @@ export const Profile = () =>{
             {/* Left side  */}
 
             <div className="leftside">
-                <div className="cardprofile"><CardProfile  /></div>
+                <div className="cardprofile"><CardProfile first_name={store.resultados.first_name} last_name={store.resultados.last_name}/></div>
                 <div className="cardbandasleft"> 
                     <h3 className="text-center">Hay 3 bandas que buscan guitarrista</h3>
                     <Button variant="contained">Unete a esas bandas</Button>
