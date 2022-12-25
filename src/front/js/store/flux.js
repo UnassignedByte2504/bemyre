@@ -22,15 +22,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
 
         await fetch(
-          "https://3001-unassignedbyte25-bemyre-bc0402gimk2.ws-eu80.gitpod.io/api/signup",
+          "https://3001-unassignedbyte25-bemyre-o14q9rxad3p.ws-eu80.gitpod.io/api/signup",
           options
         )
           .then((response) => response.json())
           .then((response) => console.log(response));
       },
       login: async (email, password) => {
-        await console.log(email, password);
-        await fetch("https://3001-unassignedbyte25-bemyre-bc0402gimk2.ws-eu80.gitpod.io/api/login", {
+        await fetch("https://3001-unassignedbyte25-bemyre-o14q9rxad3p.ws-eu80.gitpod.io/api/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -52,7 +51,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               localStorage.setItem("access_token", result.access_token);
               setStore({store_token: result.access_token})
               setStore({username: result.user_name})
-              navigate(`/${result.user_name}`);
+              // navigate(`/${result.user_name}`);
             }
           })
 
@@ -64,7 +63,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // >>>> Functions realted on fetching user info from back
       fetchUser: async(username) =>{
-        await fetch("https://3001-unassignedbyte25-bemyre-bc0402gimk2.ws-eu80.gitpod.io/api/pablo",{
+        await fetch("https://3001-unassignedbyte25-bemyre-o14q9rxad3p.ws-eu80.gitpod.io/api/pablo",{
           method: "GET",
           headers: {
             "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
