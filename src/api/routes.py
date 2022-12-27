@@ -123,12 +123,10 @@ def handle_login():
  
 #<<-----1 User related endpoints ----->>
 
-@api.route('/<string:username_var>', methods=['GET', 'PUT'])
-@jwt_required()
+@api.route('/<string:username_var>', methods=['GET'])
+
 def handle_user(username_var):
-    current_user = get_jwt_identity()
-    if current_user != username_var:
-        return jsonify({"message": "Access denied", "msg": current_user}), 401
+
     if request.method == 'GET':
         user = db.session.query(User).filter(User.user_name == username_var).first()
         if not user:

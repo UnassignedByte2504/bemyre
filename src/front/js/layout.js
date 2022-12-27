@@ -8,7 +8,6 @@ import { useMemo } from "react";
 
 import injectContext from "./store/appContext";
 
-
 import { LandingPage } from "./pages/landingpage";
 
 import { Profile } from "./pages/profile.js";
@@ -18,7 +17,7 @@ import { Signup } from "./pages/Signup.js";
 import { BandProfile } from "./pages/BandProfile.js";
 
 // >>> components >>>>
-import Navbar from "./component/Navbar";
+import Navbar from "./component/navbar/Navbar.js";
 import BrainStorm from "./pages/SandBox.js";
 
 // <<< components <<<<
@@ -33,7 +32,7 @@ const Layout = () => {
   const basename = process.env.BASENAME || "";
 
   return (
-    <div>
+    <div className="">
       <BrowserRouter basename={basename}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -42,11 +41,11 @@ const Layout = () => {
             <Route element={<LandingPage />} path="/" />
             <Route element={<LandingPage />} path="/lp" />
             <Route element={<h1>Not found!</h1>} />
-            <Route element={<Profile />} path="/:username" />
+            <Route element={<Profile />} path="user/:username" />
             <Route element={<Login />} path="/login" />
             <Route element={<Signup />} path="/signup" />
-            <Route element={<BandProfile />} path="/bandprofile/:id" />
-            <Route element={<BrainStorm />} path="/brainstorm" />
+            <Route element={<BandProfile />} exact path="/bandprofile/:id" />
+            <Route element={<BrainStorm />} path="/sandbox" />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

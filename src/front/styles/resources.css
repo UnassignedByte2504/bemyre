@@ -12,3 +12,19 @@
     border:10px solid var(--orange);
 }
 
+.BtnHoverLight{
+
+}
+
+.BtnHoverLight:hover{
+    color:red !important;
+}
+
+.BtnHoverDark{
+
+}
+
+.BtnHoverDark:hover{
+    color:blue !important;
+}
+

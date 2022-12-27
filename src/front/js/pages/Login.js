@@ -36,7 +36,7 @@ export const Login = () => {
   });
 
   return (
-    <div className="backgroundSignup">
+    <div className="backgroundSignup grad-orange">
       <div className="cardSignup">
         <div className="imgSignup imgSignupDisplayNone">
           <img src={imgSignup} alt="Bemyre concert" />

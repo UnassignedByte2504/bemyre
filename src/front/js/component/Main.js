@@ -31,7 +31,7 @@ export const Main = () => {
   return (
     <div>
       
-      <div className='sticky-top mb-2 Bg-purple' ><h1>Hello world</h1>
+      <div className=' mb-2 Bg-purple' ><h1>Hello world</h1>
       <hr /></div>
       <main className='Main-Content'>
         {renderCards({amount: 5})}

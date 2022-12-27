@@ -17,6 +17,7 @@
 html,
 body,
 #root {
+  margin-top: 30px;
   height: 100%;
   width: 100%;
   font-family: "Inter", sans-serif;

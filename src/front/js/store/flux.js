@@ -1,11 +1,12 @@
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
-      username: "",
+      username: "pablo",
       store_token: "",
       message: "",
       resultados: "",
       token_local: localStorage.getItem("access_token"),
+      current_user:"marcos",
     },
     actions: {
       signUp: async (username, email, password, firstname, lastname) => {

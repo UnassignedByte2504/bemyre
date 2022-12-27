@@ -8,3 +8,5 @@ const FlexCentered = styled(Box)(
         alignItems:"center"
     }
 )
+
+export default FlexCentered

@@ -3,27 +3,33 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../styles/index.css";
 import imgSignup from "../../img/Bemyre_signup.jpg";
 import Logo from "../../img/Bemyre_logo.png";
-import { Button } from "@mui/material";
+import { Box, Button, Divider, Typography, useTheme } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import { signupSchema } from "../esquemas";
-import FlexBetween from "../component/styledcomponents/FlexBetween.jsx"
+import FlexBetween from "../component/styledcomponents/FlexBetween.jsx";
+import FlexCentered from "../component/styledcomponents/FlexCentered.jsx";
 import { testFetch } from "../api calls/user";
-import logo_facebook from "../../img/RRSS/fb-logo-icon-azul.png"
+import logo_facebook from "../../img/RRSS/fb-logo-icon-azul.png";
 
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 
 export const Signup = () => {
-  const navigate = useNavigate()
-  const {actions, store} =useContext(Context);
+  const theme = useTheme();
+  const navigate = useNavigate();
+  const { actions, store } = useContext(Context);
   const onSubmit = async (values, ax) => {
-    await actions.signUp(values.userName, values.email, values.password, values.firstName, values.lastName)
-    navigate("/")
+    await actions.signUp(
+      values.userName,
+      values.email,
+      values.password,
+      values.firstName,
+      values.lastName
+    );
+    navigate("/");
     await ax.resetForm();
-
-
   };
 
   const {
@@ -50,16 +56,21 @@ export const Signup = () => {
   });
 
   return (
-    <div className="backgroundSignup">
-      <div className="cardSignup">
-        <div className="imgSignup imgSignupDisplayNone">
+    <Box className="backgroundSignup grad-orange">
+      <Box
+        className="cardSignup"
+        sx={{
+          backgroundColor: theme.palette.background.default,
+        }}
+      >
+        <Box className="imgSignup imgSignupDisplayNone">
           <img src={imgSignup} alt="Bemyre concert" />
-        </div>
+        </Box>
 
-        <div className="textSignup">
+        <Box className="textSignup">
           <img src={Logo} />
 
-          <form onSubmit={handleSubmit} autoComplete="off" className="textArea">
+          <form onSubmit={handleSubmit} autoComplete="off">
             <FlexBetween>
               <TextField
                 id="firstName"
@@ -152,56 +163,79 @@ export const Signup = () => {
               }
             />
             <FlexBetween>
-            <TextField
-              id="password"
-              label="Password"
-              name="password"
-              type="password"
-              values={values.password}
-              variant="outlined"
-              className="m-1"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.password && touched.password}
-              helperText={
-                errors.password && touched.password && errors.password
-              }
-            />
+              <TextField
+                id="password"
+                label="Password"
+                name="password"
+                type="password"
+                values={values.password}
+                variant="outlined"
+                className="m-1"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.password && touched.password}
+                helperText={
+                  errors.password && touched.password && errors.password
+                }
+              />
 
-            <TextField
-              id="confirmPassword"
-              label="Confirmar Password"
-              name="confirmPassword"
-              type="password"
-              values={values.confirmPassword}
-              variant="outlined"
-              className="m-1"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.confirmPassword && touched.confirmPassword}
-              helperText={
-                errors.confirmPassword &&
-                touched.confirmPassword &&
-                errors.confirmPassword
-              }
-            />
+              <TextField
+                id="confirmPassword"
+                label="Confirmar Password"
+                name="confirmPassword"
+                type="password"
+                values={values.confirmPassword}
+                variant="outlined"
+                className="m-1"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.confirmPassword && touched.confirmPassword}
+                helperText={
+                  errors.confirmPassword &&
+                  touched.confirmPassword &&
+                  errors.confirmPassword
+                }
+              />
             </FlexBetween>
-
-            <Button variant="contained" type="submit" disabled={isSubmiting}>
-              Registro
-            </Button>
+            <FlexCentered className="mt-2">
+              <Button
+                variant="contained"
+                type="submit"
+                disabled={isSubmiting}
+                sx={{
+                  width: "50%",
+                }}
+              >
+                <Typography>Registro</Typography>
+              </Button>
+            </FlexCentered>
           </form>
-          <hr />
-          <div className="rrssSignup colorFb">
+          <Divider
+            className="my-3"
+            sx={{
+              width: "75%",
+              height: "1px",
+              color: theme.palette.secondary.main,
+            }}
+          />
+          <Box className="rrssSignup colorFb">
             <img className="p-1" src={logo_facebook} />
-            <p className="">Sign Up with Facebook</p>
-          </div>
-          <div className="rrssSignup ">
-            <img className="p-1" src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" />
-            <p className="text-black">Sign Up with Google</p>
-          </div>
-        </div>
-      </div>
-    </div>
+            <p className="text-white">Sign Up with Facebook</p>
+          </Box>
+          <Box
+            className="rrssSignup"
+            sx={{
+              backgroundColor: "white",
+            }}
+          >
+            <img
+              className="p-1"
+              src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png"
+            />
+            <Typography className="text-black">Sign Up with Google</Typography>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };

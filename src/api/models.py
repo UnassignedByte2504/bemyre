@@ -376,3 +376,4 @@ class Event(db.Model):
             "creation_date": self.creation_date.strftime("%Y-%m-%d %H:%M:%S"),
             "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
         }
+
