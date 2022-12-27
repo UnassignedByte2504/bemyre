@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { CardProfile } from "../component/card/CardProfile.jsx";
-import { Button, useTheme } from "@mui/material";
+import { Button, Typography, useTheme } from "@mui/material";
 import { Context } from "../store/appContext";
 import EditIcon from "@mui/icons-material/Edit";
 export const Profile = () => {
@@ -15,34 +15,34 @@ export const Profile = () => {
   const theme = useTheme()
   return (
     <>
-      <div className="position-relative position-relative-example headerProfile">
-        <div className=" d-flex flex-column justify-content-center align-items-end container nameheader">
-          <div>
-            <h1>
+      <Box className="position-relative position-relative-example headerProfile">
+        <Box className=" d-flex flex-column justify-content-center align-items-end container nameheader">
+          <Box>
+            <Typography variant="h1" className="text-white">
               {store.resultados.first_name} {store.resultados.last_name}
-            </h1>
-          </div>
-          <div>
-            <p>Localidad: Sevilla</p>
-          </div>
-        </div>
-      </div>
+            </Typography>
+          </Box>
+          <Box>
+            <Typography className="text-white">Localidad: Sevilla</Typography>
+          </Box>
+        </Box>
+      </Box>
 
-      <div className="cardandreproductor container ">
+      <Box className="cardandreproductor container ">
         {/* Left side  */}
 
-        <div className="leftside">
-          <div className="cardprofile">
+        <Box className="leftside">
+          <Box className="cardprofile">
             <CardProfile
               first_name={store.resultados.first_name}
               last_name={store.resultados.last_name}
             />
-          </div>
-          <div className="cardbandasleft">
-            <h3 className="text-center">Hay 3 bandas que buscan guitarrista</h3>
+          </Box>
+          <Box className="cardbandasleft">
+            <Typography variant="h3" className="text-center mb-2">Hay 3 bandas que buscan guitarrista</Typography>
             <Button variant="contained">Unete a esas bandas</Button>
-          </div>
-        </div>
+          </Box>
+        </Box>
 
         {/* Right side */}
 
@@ -186,7 +186,7 @@ export const Profile = () => {
             </div>
           ) : null}
         </Box>
-      </div>
+      </Box>
     </>
   );
 };
