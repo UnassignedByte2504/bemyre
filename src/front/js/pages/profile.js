@@ -174,7 +174,7 @@ export const Profile = () => {
                   <strong>Instrumentos/ modelox/ categoria/Estilo</strong>
                 </li>
                 <li className="my-1">
-                  <strong>Instrumentos/ modelox/ categoria/Estilo</strong>
+                  <strong>Instrumentos/ modelox/ categoria/Estilo </strong>
                 </li>
               </ul>
               <div className="miequipo">
