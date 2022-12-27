@@ -18,6 +18,7 @@ import { MyInstruments } from "../component/profile/MyInstruments.jsx";
 import { StyleAndMusicalCareer } from "../component/profile/StyleAndMusicalCareer.jsx";
 import { Influences } from "../component/profile/Influences.jsx";
 import { Equipment } from "../component/profile/Equipment.jsx";
+import { Singer } from "../component/typeofuser/Singer.jsx";
 //Function
   
 export const Profile = () => {
@@ -82,6 +83,7 @@ export const Profile = () => {
             {/* Condicional Mi equipo */}
             {1 + 1 === 2 ? <Equipment/> : null}
           </Box>
+
         </Box>
       </>
     );
