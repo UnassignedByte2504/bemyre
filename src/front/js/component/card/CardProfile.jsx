@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Button from '@mui/material/Button';
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Divider, Typography, useTheme } from "@mui/material";
 
-export const CardProfile = ({first_name, last_name}) =>{
+export const CardProfile = ({first_name, last_name, description,}) =>{
 
     const theme = useTheme()
 
@@ -17,14 +17,14 @@ export const CardProfile = ({first_name, last_name}) =>{
             <Box className="card-body">
                 <Typography variant="h5"className="card-title text-center" >{first_name} {last_name}</Typography>
                 <Typography className="card-text" >La música es el motor de mi vida, es lo que me hace ser libre y disfrutar. </Typography>
-                <p><strong>Leer más</strong> <ArrowForwardIcon /></p>
-                <hr/>
-                <p><strong>Instrumentos: </strong>Guitarra y piano</p>
-                <p><strong>Influencias:</strong> Nirvana, Guns&Roses, Def Leppard and Metallica</p>
-                <div className="d-flex justify-content-evenly">
+                <Typography><strong>Leer más</strong> <ArrowForwardIcon /></Typography>
+                <Divider className="mb-3"></Divider>
+                <Typography><strong>Instrumentos: </strong>Guitarra y piano</Typography>
+                <Typography><strong>Influencias:</strong> Nirvana, Guns&Roses, Def Leppard and Metallica</Typography>
+                <Box className="d-flex justify-content-evenly">
                     <Link className="btn"><Button  variant="contained" sx={{color: "white", backgroundColor : "red"}}>Seguir</Button></Link>
                     <Link className="btn"><Button  variant="contained" sx={{color: "white", backgroundColor : "red"}}>Contactar</Button></Link>
-                </div>
+                </Box>
             </Box>
         </Box>
     )
