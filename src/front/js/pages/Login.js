@@ -63,7 +63,7 @@ export const Login = () => {
             <TextField
               type="password"
               id="password"
-              label="Password"
+              label="Contraseña"
               name="password"
               values={values.password}
               variant="outlined"
@@ -84,12 +84,12 @@ export const Login = () => {
             <Box className="boxlogin">
               <Box className="rrsslogin colorFb">
                 <img className="p-1" src={logo_facebook} />
-                <Typography className="">Sign Up with Facebook</Typography>
+                <Typography className="">Inicia sesión con Facebook</Typography>
               </Box>
               <Box className="rrsslogin "
               sx={{backgroundColor: "white"}} >                  
                 <img className="p-1" src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" />
-                <Typography className="text-black">Sign Up with Google</Typography>
+                <Typography className="text-black">Inicia sesión con Google</Typography>
               </Box>
             </Box>
           </form>
