@@ -6,7 +6,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       message: "",
       resultados: "",
       token_local: localStorage.getItem("access_token"),
-      current_user: ""
+      current_user: "",
+      alert: ""
     },
     actions: {
       signUp: async (username, email, password, firstname, lastname) => {
@@ -42,7 +43,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       login: async (email, password) => {
         const store = getStore();
         await fetch(
-          "https://3001-unassignedbyte25-bemyre-l2qz0lmt7fu.ws-eu80.gitpod.io/api/login",
+          "https://3001-unassignedbyte25-bemyre-bg2edeh2e02.ws-eu80.gitpod.io/api/login",
           {
             method: "POST",
             headers: {
@@ -58,7 +59,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             if (resp.status == 200) {
               return resp.json();
             } else {
-              return "No se ha accecido";
+              return localStorage.setItem("alert_login", "Email o password Incorrecto");
             }
           })
           .then((result) => {

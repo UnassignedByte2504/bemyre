@@ -11,6 +11,8 @@ import { Context } from "../store/appContext";
 import logo_facebook from "../../img/RRSS/fb-logo-icon-azul.png"
 import { loginSchema } from "../esquemas";
 import { ErrorSharp } from "@mui/icons-material";
+import { AlertLogin } from "../component/AlertLogin.jsx";
+
 
 export const Login = () => {
   const theme = useTheme()
@@ -80,6 +82,8 @@ export const Login = () => {
                 Login
               </Button>
             </Box>
+            <AlertLogin />
+
             <hr />
             <Box className="boxlogin">
               <Box className="rrsslogin colorFb">
