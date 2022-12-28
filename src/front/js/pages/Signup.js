@@ -76,7 +76,7 @@ export const Signup = () => {
             <FlexBetween>
               <TextField
                 id="firstName"
-                label="First name"
+                label="Nombre"
                 name="firstName"
                 values={values.firstName}
                 variant="outlined"
@@ -90,7 +90,7 @@ export const Signup = () => {
               />
               <TextField
                 id="lastName"
-                label="Last name"
+                label="Apellidos"
                 name="lastName"
                 values={values.lastName}
                 variant="outlined"
@@ -106,7 +106,7 @@ export const Signup = () => {
             <FlexBetween>
               <TextField
                 id="userName"
-                label="Username"
+                label="Nombre Usuario"
                 name="userName"
                 values={values.userName}
                 variant="outlined"
@@ -120,7 +120,7 @@ export const Signup = () => {
               />
               <TextField
                 id="confirmUserName"
-                label="Confirm Username"
+                label="Nombre Usuario"
                 name="confirmUserName"
                 values={values.confirmUserName}
                 variant="outlined"
@@ -150,7 +150,7 @@ export const Signup = () => {
             />
             <TextField
               id="confirmEmail"
-              label="Confirm Email"
+              label="Confirmar Email"
               name="confirmEmail"
               values={values.confirmEmail}
               variant="outlined"
@@ -167,7 +167,7 @@ export const Signup = () => {
             <FlexBetween>
               <TextField
                 id="password"
-                label="Password"
+                label="Contraseña"
                 name="password"
                 type="password"
                 values={values.password}
@@ -183,7 +183,7 @@ export const Signup = () => {
 
               <TextField
                 id="confirmPassword"
-                label="Confirmar Password"
+                label="Confirmar Contraseña"
                 name="confirmPassword"
                 type="password"
                 values={values.confirmPassword}
@@ -223,7 +223,7 @@ export const Signup = () => {
           />
           <Box className="rrssSignup colorFb">
             <img className="p-1" src={logo_facebook} />
-            <p className="text-white">Sign Up with Facebook</p>
+            <p className="text-white">Regístrate con Facebook</p>
           </Box>
           <Box
             className="rrssSignup"
@@ -235,7 +235,7 @@ export const Signup = () => {
               className="p-1"
               src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png"
             />
-            <Typography className="text-black">Sign Up with Google</Typography>
+            <Typography className="text-black">Regístrate con Google</Typography>
           </Box>
         </Box>
       </Box>
