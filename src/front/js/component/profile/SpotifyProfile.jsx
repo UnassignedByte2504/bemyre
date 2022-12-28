@@ -12,10 +12,10 @@ import "../../../styles/index.css"
 import { EditInfo } from "./EditInfo.jsx";
 
 
-export const SpotifyProfile = (song1, song2) =>{
+export const SpotifyProfile = ({song1, song2, currentUser, userName}) =>{
     return(
         <Box>
-            <EditInfo />
+            <EditInfo currentUser={currentUser} userName={userName}/>
             <Box>
                 <iframe
                     style={{ borderRadius: "12px" }}

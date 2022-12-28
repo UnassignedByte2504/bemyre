@@ -21,6 +21,7 @@ export const Signup = () => {
   const navigate = useNavigate();
   const { actions, store } = useContext(Context);
   const onSubmit = async (values, ax) => {
+    await console.log("esto es de signup",values)
     await actions.signUp(
       values.userName,
       values.email,
@@ -28,6 +29,7 @@ export const Signup = () => {
       values.firstName,
       values.lastName
     );
+    
     navigate("/");
     await ax.resetForm();
   };
@@ -204,6 +206,7 @@ export const Signup = () => {
                 disabled={isSubmiting}
                 sx={{
                   width: "50%",
+                  textTransform:"none"
                 }}
               >
                 <Typography>Registro</Typography>

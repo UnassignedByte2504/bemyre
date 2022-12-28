@@ -10,11 +10,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import "../../../styles/index.css"
 import { Context } from "../../store/appContext";
 
-export const EditInfo = (to) =>{
+export const EditInfo = ({to, currentUser, userName}) =>{
     const {store, actions} = useContext(Context)
     return(
         <>
-        { store.username === store.current_user ?   
+        { currentUser === userName ?   
         <Typography className="text-end pt-3 mb-2">
             <Link className="text-white text-decoration-none" to={to}>
             Editar Información <EditIcon />

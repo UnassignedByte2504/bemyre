@@ -11,10 +11,10 @@ import "../../../styles/index.css"
 //Import Components
 import { EditInfo } from "./EditInfo.jsx";
 
-export const Equipment = () =>{
+export const Equipment = ({currentUser, userName}) =>{
     return(
         <Box className="mt-5">
-        <Typography variant="h3" sx={{display: "flex", justifyContent: 'space-between' }}><strong>Mi Equipo</strong><EditInfo/></Typography>
+        <Typography variant="h3" sx={{display: "flex", justifyContent: 'space-between' }}><strong>Mi Equipo</strong><EditInfo currentUser={currentUser} userName={userName}/></Typography>
         <Divider />
         <ul className="m-3">
             <li className="my-1">

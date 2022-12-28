@@ -11,10 +11,11 @@ import "../../../styles/index.css"
 //Import Components
 import { EditInfo } from "./EditInfo.jsx";
 
-export const Influences = () =>{
+export const Influences = ({currentUser, userName}) =>{
     return(
         <Box className="mt-5">
-            <Typography variant="h3" sx={{display: "flex", justifyContent: 'space-between' }}><strong>Mis Influencias</strong><EditInfo/></Typography>
+            <Typography variant="h3" sx={{display: "flex", justifyContent: 'space-between' }}>
+                <strong>Mis Influencias</strong><EditInfo currentUser={currentUser} userName={userName}/></Typography>
             <Divider />
             <Box className="videoinfluencias d-flex flex-wrap justify-content-evenly my-3">
                 <iframe

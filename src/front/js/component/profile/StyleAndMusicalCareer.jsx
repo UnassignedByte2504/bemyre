@@ -11,10 +11,10 @@ import "../../../styles/index.css"
 //Import Components
 import { EditInfo } from "./EditInfo.jsx";
 
-export const StyleAndMusicalCareer = () =>{
+export const StyleAndMusicalCareer = ({currentUser, userName}) =>{
     return(
         <Box className="mt-5">
-        <Typography variant="h3" sx={{display: "flex", justifyContent: 'space-between' }}><strong>Mi estilo de música y trayectoria</strong><EditInfo/></Typography>
+        <Typography variant="h3" sx={{display: "flex", justifyContent: 'space-between' }}><strong>Mi estilo de música y trayectoria</strong><EditInfo currentUser={currentUser} userName={userName}/></Typography>
         <Divider />
         <Box className="musicstyle my-3">
             <Box className="bubbles">

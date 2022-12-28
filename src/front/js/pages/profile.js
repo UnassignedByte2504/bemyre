@@ -25,10 +25,14 @@ export const Profile = () => {
     const theme = useTheme()
     const { actions, store } = useContext(Context);
     const params = useParams();
+    const username = params.username;
+    const currentUser = localStorage.getItem("current_user");
+
 
     useEffect(() => {
-      actions.fetchUser(params.username);
+      actions.fetchUser(username);
     }, []);
+
 
     return (
       <>
@@ -69,19 +73,19 @@ export const Profile = () => {
           }}>
 
             {/* Condicional ? Spotify */}
-            {1 + 1 === 2 ? <SpotifyProfile/> : null}
+            {1 + 1 === 2 ? <SpotifyProfile currentUser={currentUser} userName={username}/> : null}
 
             {/* Condicional Mis instrumentos */}
-            {1 + 1 === 2 ? <MyInstruments/> : null}
+            {1 + 1 === 2 ? <MyInstruments currentUser={currentUser} userName={username}/> : null}
             
             {/* Condicional Carrera musical y estilo */}
-            {1 + 1 === 2 ? <StyleAndMusicalCareer/> : null}
+            {1 + 1 === 2 ? <StyleAndMusicalCareer currentUser={currentUser} userName={username}/> : null}
 
             {/* Condicional Mis influencias */}
-            {1 + 1 === 2 ? <Influences/> : null}
+            {1 + 1 === 2 ? <Influences currentUser={currentUser} userName={username}/> : null}
 
             {/* Condicional Mi equipo */}
-            {1 + 1 === 2 ? <Equipment/> : null}
+            {1 + 1 === 2 ? <Equipment currentUser={currentUser} userName={username}/> : null}
           </Box>
 
         </Box>
