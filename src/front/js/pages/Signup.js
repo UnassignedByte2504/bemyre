@@ -12,14 +12,16 @@ import FlexBetween from "../component/styledcomponents/FlexBetween.jsx";
 import FlexCentered from "../component/styledcomponents/FlexCentered.jsx";
 import { testFetch } from "../api calls/user";
 import logo_facebook from "../../img/RRSS/fb-logo-icon-azul.png";
-
+import {Checkbox} from "@mui/material";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
+import { AlertSignUp } from "../component/Alerts/AlertSignUp.jsx";
 
 export const Signup = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const { actions, store } = useContext(Context);
+  useEffect(()=>{localStorage.removeItem("alert_signup")},[])
   const onSubmit = async (values, ax) => {
     await console.log("esto es de signup",values)
     await actions.signUp(
@@ -27,10 +29,13 @@ export const Signup = () => {
       values.email,
       values.password,
       values.firstName,
-      values.lastName
+      values.lastName,
+      values.is_musician
     );
-    
-    navigate("/");
+    if(!localStorage.getItem("alert_signup")){
+      navigate("/");
+    }
+
     await ax.resetForm();
   };
 
@@ -52,6 +57,7 @@ export const Signup = () => {
       lastName: "",
       userName: "",
       confirmUserName: "",
+      is_musician: true
     },
     validationSchema: signupSchema,
     onSubmit,
@@ -199,6 +205,8 @@ export const Signup = () => {
                 }
               />
             </FlexBetween>
+            <Typography sx={{textAlign: "center"}}>¿Eres músico? <Checkbox></Checkbox></Typography>
+            <AlertSignUp />
             <FlexCentered className="mt-2">
               <Button
                 variant="contained"
