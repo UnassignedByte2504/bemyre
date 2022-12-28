@@ -10,7 +10,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       alert: ""
     },
     actions: {
-      signUp: async (username, email, password, firstname, lastname) => {
+      signUp: async (username, email, password, firstname, lastname, is_musician) => {
         const isMusician = false;
         console.log(
           "hola he sido llamada",
@@ -28,17 +28,28 @@ const getState = ({ getStore, getActions, setStore }) => {
             "password":"${password}",
             "first_name":"${firstname}",
             "last_name":"${lastname}",
-            "is_musician": ${isMusician}
+            "is_musician": ${is_musician}
 				}
 				  `,
         };
 
         await fetch(
-          "https://3001-unassignedbyte25-bemyre-l2qz0lmt7fu.ws-eu80.gitpod.io/api/signup",
+          "https://3001-unassignedbyte25-bemyre-5g7twq6mw9z.ws-eu80.gitpod.io/api/signup",
           options
         )
-          .then((response) => response.json())
-          .then((response) => console.log(response));
+ 
+        .then((resp) => {
+          if (resp.status == 200) {
+            return resp.json();
+          } 
+          else if(resp.status == 400){
+            localStorage.setItem("alert_signup", "Usuario registrado")
+          }
+          // else {
+          //   return localStorage.setItem("alert_signup", "Registro incorrecto");
+          // }
+        })          
+        .then((response) => console.log(response));
       },
       login: async (email, password) => {
         const store = getStore();
