@@ -1,16 +1,16 @@
 @import url(colors.css);
 
-.card-concert {
-  width: 16rem;
+.card-bandas {
+  width: 20rem;
   cursor: pointer;
 }
 
-.card-concert:hover {
+.card-bandas:hover {
   scale: 105%;
   transition: 0.3s;
 }
 
-.card-concert:not(:hover) {
+.card-bandas:not(:hover) {
   scale: 100%;
   transition: 0.3s;
 }
@@ -19,8 +19,8 @@
   width: 100%;
 }
 
-.cardconcertimg {
-  max-height: 16rem;
+.cardbandasimg {
+  max-height: 18rem;
   object-fit: cover;
   width: 100%;
 }
