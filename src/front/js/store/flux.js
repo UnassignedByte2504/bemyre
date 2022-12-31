@@ -89,8 +89,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
 
-      //>>>>> Functions realted with signup and login
-
       //<<<<<Functions realted with signup and login
 
       // >>>> Functions realted on fetching user info from back
