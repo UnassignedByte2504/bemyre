@@ -6,9 +6,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       message: "",
       resultados: "",
       token_local: localStorage.getItem("access_token"),
-      current_user: ""
+      logged: null,
+      current_user: localStorage.getItem("current_user"),
     },
     actions: {
+      //>>>>> Functions realted with signup and login
       signUp: async (username, email, password, firstname, lastname) => {
         const isMusician = false;
         console.log(
@@ -32,28 +34,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  `,
         };
 
-        await fetch(
-          "https://3001-unassignedbyte25-bemyre-l2qz0lmt7fu.ws-eu80.gitpod.io/api/signup",
-          options
-        )
+        await fetch(`${process.env.BACKEND_URL}/api/signup`, options)
           .then((response) => response.json())
           .then((response) => console.log(response));
       },
       login: async (email, password) => {
         const store = getStore();
-        await fetch(
-          "https://3001-unassignedbyte25-bemyre-l2qz0lmt7fu.ws-eu80.gitpod.io/api/login",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: email,
-              password: password,
-            }),
-          }
-        )
+        console.log("must be null", store.logged);
+        await fetch(`${process.env.BACKEND_URL}/api/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        })
           .then((resp) => {
             if (resp.status == 200) {
               return resp.json();
@@ -63,21 +60,40 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then((result) => {
             if (result.access_token != undefined) {
-              localStorage.setItem("access_token", result.access_token)
+              localStorage.setItem("access_token", result.access_token);
               localStorage.setItem("current_user", result.user_name);
 
-              console.log("promise", result)
+              console.log("promise", result);
               setStore({
-                store_token: result.access_token
+                store_token: result.access_token,
+                logged: true,
               });
-              console.log("store", store.current_user)
-
+              console.log("store", store.current_user);
+              console.log("must be true", store.logged);
               // navigate(`/${result.user_name}`);
             }
           });
       },
-
-      //>>>>> Functions realted with signup and login
+      logOut: async (access_token) => {
+        const store = getStore();
+        
+        // const opts = {
+        //   method: "GET",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     Authorization: `Bearer ${access_token}`,
+        //   },
+        // };
+        // await fetch(`${process.env.BACKEND_URL}/api/logout`, opts)
+        //   .then((response) => response.json())
+        //   .then((response) => console.log(response));
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("current_user");
+        setStore({
+          token_local: null,
+          logged: false,
+        });
+      },
 
       //<<<<<Functions realted with signup and login
 
@@ -90,10 +106,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             "Content-Type": "application/json",
           },
         };
-        await fetch(
-          `https://3001-unassignedbyte25-bemyre-l2qz0lmt7fu.ws-eu80.gitpod.io/api/${username}`,
-          options
-        )
+        await fetch(`${process.env.BACKEND_URL}/api/${username}`, options)
           // .then((resp) => {
           //   if (resp.status == 200) {
           //     return resp.json();

@@ -8,20 +8,32 @@ import TextField from "@mui/material/TextField";
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import { Context } from "../store/appContext";
-import logo_facebook from "../../img/RRSS/fb-logo-icon-azul.png"
+import logo_facebook from "../../img/RRSS/fb-logo-icon-azul.png";
 import { loginSchema } from "../esquemas";
 import { ErrorSharp } from "@mui/icons-material";
 
 export const Login = () => {
-  const theme = useTheme()
+  const theme = useTheme();
   const { actions, store } = useContext(Context);
-  const navigate = useNavigate()
+  const [username, setUsername] = useState("");
+  const [trigger, setTrigger] = useState(false);
+  const navigate = useNavigate();
+
   const onSubmit = async (values, ax) => {
     await actions.login(values.email, values.password);
-    navigate("/")
     await ax.resetForm();
   };
 
+  useEffect(() => {
+    setTrigger(true);
+  }, [store?.current_user]);
+
+  useEffect(() => {
+    setUsername(store?.current_user);
+    if (username) {
+      navigate(`/user/${store.current_user}`);
+    }
+  }, [trigger]);
   const {
     values,
     errors,
@@ -38,8 +50,10 @@ export const Login = () => {
 
   return (
     <Box className="backgroundSignup grad-orange">
-      <Box className="cardSignup"
-      sx={{backgroundColor: theme.palette.background.default}} >
+      <Box
+        className="cardSignup"
+        sx={{ backgroundColor: theme.palette.background.default }}
+      >
         <Box className="imgSignup imgSignupDisplayNone">
           <img src={imgSignup} alt="Bemyre concert" />
         </Box>
@@ -86,10 +100,14 @@ export const Login = () => {
                 <img className="p-1" src={logo_facebook} />
                 <Typography className="">Sign Up with Facebook</Typography>
               </Box>
-              <Box className="rrsslogin "
-              sx={{backgroundColor: "white"}} >                  
-                <img className="p-1" src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" />
-                <Typography className="text-black">Sign Up with Google</Typography>
+              <Box className="rrsslogin " sx={{ backgroundColor: "white" }}>
+                <img
+                  className="p-1"
+                  src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png"
+                />
+                <Typography className="text-black">
+                  Sign Up with Google
+                </Typography>
               </Box>
             </Box>
           </form>
