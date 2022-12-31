@@ -92,17 +92,21 @@ export const themeSettings = (mode) => {
             background: {
               default: tokensDark.primary[600],
               alt: tokensDark.primary[500],
-              card:tokensDark.primary[500],
+              // card:tokensDark.primary[500],
               drawer: "#000",
-              listItem: "#111111"
+              listItem: "#111111",
+              // he cambiado 500 por 400
+              card: tokensDark.primary[500],
             },
             text: {
               main: "#ddd",
               card: "#f9f9f9",
             },
             buttons: {
-              main: tokensDark.aux[500],
+              // he cambiado 500 por 600
+              main: tokensDark.aux[600],
               alt: tokensDark.aux[100],
+              card: tokensDark.aux[600],
             },
             sidebar: {
               main: tokensDark.primary[500],
@@ -131,14 +135,16 @@ export const themeSettings = (mode) => {
               card:"#fff",
               listItem: "#eeeeee",
               drawer: tokensLight.primary[900],
+              alt: tokensLight.grey[500],
             },
             text: {
-              main: tokensDark.grey[900],
-              card:"#333"
+              main: tokensLight.grey[900],
+              card: "#333",
             },
             buttons: {
-              main: tokensDark.aux[500],
-              alt: tokensDark.aux[500],
+              main: tokensLight.aux[500],
+              alt: tokensLight.aux[500],
+              card: tokensLight.aux[600],
             },
             sidebar: {
               main: "#f9f9f9",

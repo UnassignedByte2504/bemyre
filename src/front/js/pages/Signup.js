@@ -19,14 +19,16 @@ import FlexBetween from "../component/styledcomponents/FlexBetween.jsx";
 import FlexCentered from "../component/styledcomponents/FlexCentered.jsx";
 
 import logo_facebook from "../../img/RRSS/fb-logo-icon-azul.png";
-
+import {Checkbox} from "@mui/material";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
+import { AlertSignUp } from "../component/Alerts/AlertSignUp.jsx";
 
 export const Signup = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const { actions, store } = useContext(Context);
+  useEffect(()=>{localStorage.removeItem("alert_signup")},[])
   const onSubmit = async (values, ax) => {
     await console.log("esto es de signup", values);
     await actions.signUp(
@@ -35,9 +37,12 @@ export const Signup = () => {
       values.password,
       values.firstName,
       values.lastName,
+      values.is_musician
     );
+    if(!localStorage.getItem("alert_signup")){
+      navigate("/");
+    }
 
-    navigate("/");
     await ax.resetForm();
   };
 
@@ -60,6 +65,7 @@ export const Signup = () => {
       lastName: "",
       userName: "",
       confirmUserName: "",
+      is_musician: true
     },
     validationSchema: signupSchema,
     onSubmit,
@@ -84,7 +90,7 @@ export const Signup = () => {
             <FlexBetween>
               <TextField
                 id="firstName"
-                label="First name"
+                label="Nombre"
                 name="firstName"
                 values={values.firstName}
                 variant="outlined"
@@ -98,7 +104,7 @@ export const Signup = () => {
               />
               <TextField
                 id="lastName"
-                label="Last name"
+                label="Apellidos"
                 name="lastName"
                 values={values.lastName}
                 variant="outlined"
@@ -114,7 +120,7 @@ export const Signup = () => {
             <FlexBetween>
               <TextField
                 id="userName"
-                label="Username"
+                label="Nombre Usuario"
                 name="userName"
                 values={values.userName}
                 variant="outlined"
@@ -128,7 +134,7 @@ export const Signup = () => {
               />
               <TextField
                 id="confirmUserName"
-                label="Confirm Username"
+                label="Nombre Usuario"
                 name="confirmUserName"
                 values={values.confirmUserName}
                 variant="outlined"
@@ -158,7 +164,7 @@ export const Signup = () => {
             />
             <TextField
               id="confirmEmail"
-              label="Confirm Email"
+              label="Confirmar Email"
               name="confirmEmail"
               values={values.confirmEmail}
               variant="outlined"
@@ -175,7 +181,7 @@ export const Signup = () => {
             <FlexBetween>
               <TextField
                 id="password"
-                label="Password"
+                label="Contraseña"
                 name="password"
                 type="password"
                 values={values.password}
@@ -191,7 +197,7 @@ export const Signup = () => {
 
               <TextField
                 id="confirmPassword"
-                label="Confirmar Password"
+                label="Confirmar Contraseña"
                 name="confirmPassword"
                 type="password"
                 values={values.confirmPassword}
@@ -207,6 +213,8 @@ export const Signup = () => {
                 }
               />
             </FlexBetween>
+            <Typography sx={{textAlign: "center"}}>¿Eres músico? <Checkbox></Checkbox></Typography>
+            <AlertSignUp />
             <FlexCentered className="mt-2">
               <Button
                 variant="contained"
@@ -231,7 +239,7 @@ export const Signup = () => {
           />
           <Box className="rrssSignup colorFb">
             <img className="p-1" src={logo_facebook} />
-            <p className="text-white">Sign Up with Facebook</p>
+            <p className="text-white">Regístrate con Facebook</p>
           </Box>
           <Box
             className="rrssSignup"
@@ -243,7 +251,7 @@ export const Signup = () => {
               className="p-1"
               src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png"
             />
-            <Typography className="text-black">Sign Up with Google</Typography>
+            <Typography className="text-black">Regístrate con Google</Typography>
           </Box>
         </Box>
       </Box>

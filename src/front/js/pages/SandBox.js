@@ -4,7 +4,10 @@ import { Box, Button, Divider, Typography, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 
-import { CardConcert } from "../component/card/CardConcert.jsx";
+import { CardConcert } from "../component/ConcertCard/CardConcert.jsx";
+import { CardMusician } from "../component/MusicianCard/CardMusician.jsx";
+import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
+import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
 import FlexBetween from "../component/styledcomponents/FlexBetween.jsx";
 import FlexCentered from "../component/styledcomponents/FlexCentered.jsx";
 
@@ -203,38 +206,56 @@ const BrainStorm = () => {
             <FlexCentered>
               <Box>
                 <Typography variant="h2">Pruebas</Typography>
+                {/* aqui empezaba el conflicto*/}
                 <Box
-                  height="500px"
-                  width="500px"
-                  gap="5rem"
-                  p="10rem"
+                  height="600px"
+                  width="300px"
                   sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    backgroundColor: "white",
+                    backgroundColor: theme.palette.background.alt,
                   }}
                 >
-                  <Box className="bg-success" height="100px" width="100px">
-                    1
-                  </Box>
                   <Box
-                    height="100px"
-                    width="100px"
+                    height="200px"
+                    width="100%"
                     sx={{
-                      backgroundColor: "blue",
+                      backgroundColor: theme.palette.background.default,
+                    }}
+                  ></Box>
+
+                  <Box
+                    height="500px"
+                    width="500px"
+                    gap="5rem"
+                    p="10rem"
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      backgroundColor: "white",
                     }}
                   >
-                    2
-                  </Box>
-                  <Box
-                    height="100px"
-                    width="100px"
-                    sx={{
-                      backgroundColor: "red",
-                    }}
-                  >
-                    3
+                    <Box className="bg-success" height="100px" width="100px">
+                      1
+                    </Box>
+                    <Box
+                      height="100px"
+                      width="100px"
+                      sx={{
+                        backgroundColor: "blue",
+                      }}
+                    >
+                      2
+                    </Box>
+                    <Box
+                      height="100px"
+                      width="100px"
+                      sx={{
+                        backgroundColor: "red",
+                      }}
+                    >
+                      3
+                    </Box>
+                    {/* aqui terminaba el conflicto*/}
                   </Box>
                 </Box>
               </Box>
@@ -249,9 +270,19 @@ const BrainStorm = () => {
         <h1>Pablo</h1>
         <hr />
       </Box>
-      <Box className="Carmen">
+      <Box
+        className="Carmen"
+        sx={{
+          backgroundColor: theme.palette.background.card,
+        }}
+      >
         <h1 className="mb-5">Carmen</h1>
-        <CardConcert />
+        <Box sx={{ display: "flex", gap: "30px" }}>
+          <CardConcert />
+          <CardMusician />
+          <CardBandas />
+          <CardLocal />
+        </Box>
         <hr className="mt-5" />
       </Box>
     </Box>

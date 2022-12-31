@@ -6,13 +6,18 @@ const getState = ({ getStore, getActions, setStore }) => {
       message: "",
       resultados: "",
       token_local: localStorage.getItem("access_token"),
-      logged: null,
-      current_user: localStorage.getItem("current_user"),
+      current_user: "",
+      alert: "",
     },
     actions: {
-      //>>>>> Functions realted with signup and login
-      signUp: async (username, email, password, firstname, lastname) => {
-        const isMusician = false;
+      signUp: async (
+        username,
+        email,
+        password,
+        firstname,
+        lastname,
+        is_musician
+      ) => {
         console.log(
           "hola he sido llamada",
           username,
@@ -29,18 +34,26 @@ const getState = ({ getStore, getActions, setStore }) => {
             "password":"${password}",
             "first_name":"${firstname}",
             "last_name":"${lastname}",
-            "is_musician": ${isMusician}
+            "is_musician": ${is_musician}
 				}
 				  `,
         };
 
         await fetch(`${process.env.BACKEND_URL}/api/signup`, options)
-          .then((response) => response.json())
+          .then((resp) => {
+            if (resp.status == 200) {
+              return resp.json();
+            } else if (resp.status == 400) {
+              localStorage.setItem("alert_signup", "Usuario registrado");
+            }
+            // else {
+            //   return localStorage.setItem("alert_signup", "Registro incorrecto");
+            // }
+          })
           .then((response) => console.log(response));
       },
       login: async (email, password) => {
         const store = getStore();
-        console.log("must be null", store.logged);
         await fetch(`${process.env.BACKEND_URL}/api/login`, {
           method: "POST",
           headers: {
@@ -55,7 +68,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             if (resp.status == 200) {
               return resp.json();
             } else {
-              return "No se ha accecido";
+              return localStorage.setItem(
+                "alert_login",
+                "Email o password Incorrecto"
+              );
             }
           })
           .then((result) => {
@@ -76,7 +92,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       logOut: async (access_token) => {
         const store = getStore();
-        
+
         // const opts = {
         //   method: "GET",
         //   headers: {

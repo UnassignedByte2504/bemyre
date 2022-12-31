@@ -13,7 +13,11 @@
 @import url(signup.css);
 @import url(bandprofile.css);
 @import url(brainstorm.css);
+<<<<<<< HEAD
 @import url(sidebar.css);
+=======
+@import url(footer.css);
+>>>>>>> main
 
 html,
 body,

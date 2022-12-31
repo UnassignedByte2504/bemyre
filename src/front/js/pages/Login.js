@@ -11,6 +11,7 @@ import { Context } from "../store/appContext";
 import logo_facebook from "../../img/RRSS/fb-logo-icon-azul.png";
 import { loginSchema } from "../esquemas";
 import { ErrorSharp } from "@mui/icons-material";
+import { AlertLogin } from "../component/AlertLogin.jsx";
 
 export const Login = () => {
   const theme = useTheme();
@@ -77,7 +78,7 @@ export const Login = () => {
             <TextField
               type="password"
               id="password"
-              label="Password"
+              label="Contraseña"
               name="password"
               values={values.password}
               variant="outlined"
@@ -94,11 +95,13 @@ export const Login = () => {
                 Login
               </Button>
             </Box>
+            <AlertLogin />
+
             <hr />
             <Box className="boxlogin">
               <Box className="rrsslogin colorFb">
                 <img className="p-1" src={logo_facebook} />
-                <Typography className="">Sign Up with Facebook</Typography>
+                <Typography className="">Inicia sesión con Facebook</Typography>
               </Box>
               <Box className="rrsslogin " sx={{ backgroundColor: "white" }}>
                 <img
@@ -106,7 +109,7 @@ export const Login = () => {
                   src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png"
                 />
                 <Typography className="text-black">
-                  Sign Up with Google
+                  Inicia sesión con Google
                 </Typography>
               </Box>
             </Box>

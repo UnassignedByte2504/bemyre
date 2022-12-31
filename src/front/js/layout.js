@@ -10,19 +10,17 @@ import { useContext } from "react";
 import { Context } from "./store/appContext";
 import injectContext from "./store/appContext";
 
-import { LandingPage } from "./pages/landingpage";
-
-import { Profile } from "./pages/profile.js";
-
-import { Login } from "./pages/Login.js";
-import { Signup } from "./pages/Signup.js";
-import { BandProfile } from "./pages/BandProfile.js";
-
 // >>> components >>>>
 import Navbar from "./component/navbar/Navbar.js";
 import UserBar from "./component/userbar/UserBar.js";
 import BrainStorm from "./pages/SandBox.js";
 import Logout from "./pages/Logout.js";
+import { LandingPage } from "./pages/landingpage";
+import { Profile } from "./pages/profile.js";
+import { Login } from "./pages/Login.js";
+import { Signup } from "./pages/Signup.js";
+import { BandProfile } from "./pages/BandProfile.js";
+import { Footer } from "./component/Footer.jsx";
 
 // <<< components <<<<
 
@@ -58,6 +56,7 @@ const Layout = () => {
             <Route element={<BandProfile />} exact path="/bandprofile/:id" />
             <Route element={<BrainStorm />} path="/sandbox" />
           </Routes>
+          <Footer />
         </ThemeProvider>
       </BrowserRouter>
     </div>
