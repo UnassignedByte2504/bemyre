@@ -9,7 +9,7 @@ export const CardsButton = ({ title }) => {
   return (
     <>
       <CardActions className="d-flex justify-content-center">
-        <Button size="large">
+        <Button size="large" variant="contained">
           <Typography
             sx={{
               color: theme.palette.buttons.card,

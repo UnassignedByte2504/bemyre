@@ -6,7 +6,7 @@ const Logout = () => {
   const { actions, store } = useContext(Context);
 
   useEffect(() => {
-    actions.logOut(localStorage.getItem("access_token"))
+    actions.logOut(sessionStorage.getItem("access_token"));
   }, []);
 
   return <></>;

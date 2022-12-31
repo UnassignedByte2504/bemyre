@@ -5,8 +5,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       store_token: "",
       message: "",
       resultados: "",
-      token_local: localStorage.getItem("access_token"),
-      current_user: "",
+      token_local: sessionStorage.getItem("access_token"),
+      current_user: sessionStorage.getItem("current_user"),
       alert: "",
     },
     actions: {
@@ -44,10 +44,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             if (resp.status == 200) {
               return resp.json();
             } else if (resp.status == 400) {
-              localStorage.setItem("alert_signup", "Usuario registrado");
+              sessionStorage.setItem("alert_signup", "Usuario registrado");
             }
             // else {
-            //   return localStorage.setItem("alert_signup", "Registro incorrecto");
+            //   return sessionStorage.setItem("alert_signup", "Registro incorrecto");
             // }
           })
           .then((response) => console.log(response));
@@ -68,7 +68,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             if (resp.status == 200) {
               return resp.json();
             } else {
-              return localStorage.setItem(
+              return sessionStorage.setItem(
                 "alert_login",
                 "Email o password Incorrecto"
               );
@@ -76,9 +76,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then((result) => {
             if (result.access_token != undefined) {
-              localStorage.setItem("access_token", result.access_token);
-              localStorage.setItem("current_user", result.user_name);
-
+              sessionStorage.setItem("access_token", result.access_token);
+              sessionStorage.setItem("current_user", result.user_name);
+              window.location.href = `/user/${result.user_name}`
               console.log("promise", result);
               setStore({
                 store_token: result.access_token,
@@ -103,8 +103,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         // await fetch(`${process.env.BACKEND_URL}/api/logout`, opts)
         //   .then((response) => response.json())
         //   .then((response) => console.log(response));
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("current_user");
+        sessionStorage.removeItem("access_token");
+        sessionStorage.removeItem("current_user");
         setStore({
           token_local: null,
           logged: false,
@@ -118,7 +118,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         const options = {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
             "Content-Type": "application/json",
           },
         };

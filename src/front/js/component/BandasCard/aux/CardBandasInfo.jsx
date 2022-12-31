@@ -51,12 +51,12 @@ export const CardBandasInfo = ({
       <Divider></Divider>
       <FlexBetween>
         <Typography variant="h5">{integranteNuevo1}</Typography>
-        <Button>Aplicar</Button>
+        <Button variant="contained">Aplicar</Button>
       </FlexBetween>
       <Divider></Divider>
       <FlexBetween>
         <Typography variant="h5">{integranteNuevo2}</Typography>
-        <Button>Aplicar</Button>
+        <Button variant="contained">Aplicar</Button>
       </FlexBetween>
     </CardContent>
   );
