@@ -201,6 +201,7 @@ const BrainStorm = () => {
             <FlexCentered>
               <Box>
                 <Typography variant="h2">Pruebas</Typography>
+                {/* aqui empezaba el conflicto*/}
                 <Box
                   height="600px"
                   width="300px"
@@ -215,6 +216,19 @@ const BrainStorm = () => {
                       backgroundColor: theme.palette.background.default,
                     }}
                   ></Box>
+
+                <Box height="500px" width="500px" gap="5rem" p="10rem" sx={{
+                  display:"flex",
+                  flexDirection:"column",
+                  alignItems:"center",
+                  backgroundColor:"white"
+                }}>
+                  <Box className="bg-success" height="100px" width="100px">1</Box>
+                  <Box height="100px" width="100px" sx={{
+                    backgroundColor:"blue"}}>2</Box>
+                  <Box height="100px" width="100px" sx={{
+                    backgroundColor:"red"}}>3</Box>
+       {/* aqui terminaba el conflicto*/}
                 </Box>
               </Box>
             </FlexCentered>

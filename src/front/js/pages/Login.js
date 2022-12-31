@@ -3,7 +3,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import "../../styles/login.css";
 import imgSignup from "../../img/Bemyre_signup.jpg";
 import Logo from "../../img/Bemyre_logo.png";
-import { Button } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
@@ -11,8 +11,11 @@ import { Context } from "../store/appContext";
 import logo_facebook from "../../img/RRSS/fb-logo-icon-azul.png"
 import { loginSchema } from "../esquemas";
 import { ErrorSharp } from "@mui/icons-material";
+import { AlertLogin } from "../component/AlertLogin.jsx";
+
 
 export const Login = () => {
+  const theme = useTheme()
   const { actions, store } = useContext(Context);
   const navigate = useNavigate()
   const onSubmit = async (values, ax) => {
@@ -36,13 +39,14 @@ export const Login = () => {
   });
 
   return (
-    <div className="backgroundSignup grad-orange">
-      <div className="cardSignup">
-        <div className="imgSignup imgSignupDisplayNone">
+    <Box className="backgroundSignup grad-orange">
+      <Box className="cardSignup"
+      sx={{backgroundColor: theme.palette.background.default}} >
+        <Box className="imgSignup imgSignupDisplayNone">
           <img src={imgSignup} alt="Bemyre concert" />
-        </div>
+        </Box>
 
-        <div className="textSignup">
+        <Box className="textSignup">
           <img src={Logo} />
 
           <form onSubmit={handleSubmit} autoComplete="off" className="textArea">
@@ -61,7 +65,7 @@ export const Login = () => {
             <TextField
               type="password"
               id="password"
-              label="Password"
+              label="Contraseña"
               name="password"
               values={values.password}
               variant="outlined"
@@ -73,25 +77,28 @@ export const Login = () => {
                 errors.password && touched.password && errors.password
               }
             />
-            <div className="d-flex justify-content-center">
+            <Box className="d-flex justify-content-center">
               <Button variant="contained" type="submit" disabled={isSubmiting}>
                 Login
               </Button>
-            </div>
+            </Box>
+            <AlertLogin />
+
             <hr />
-            <div className="boxlogin">
-              <div className="rrsslogin colorFb">
+            <Box className="boxlogin">
+              <Box className="rrsslogin colorFb">
                 <img className="p-1" src={logo_facebook} />
-                <p className="">Sign Up with Facebook</p>
-              </div>
-              <div className="rrsslogin ">
+                <Typography className="">Inicia sesión con Facebook</Typography>
+              </Box>
+              <Box className="rrsslogin "
+              sx={{backgroundColor: "white"}} >                  
                 <img className="p-1" src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" />
-                <p className="text-black">Sign Up with Google</p>
-              </div>
-            </div>
+                <Typography className="text-black">Inicia sesión con Google</Typography>
+              </Box>
+            </Box>
           </form>
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };

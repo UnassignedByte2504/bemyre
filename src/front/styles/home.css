@@ -8,6 +8,7 @@
     "aside main main aside2"
     "aside main main aside2"
     "aside main main aside2"
+    "aside main main aside2"
     ;
     place-content: center;
     margin-top: .25vw;
@@ -48,3 +49,4 @@
 ::-webkit-scrollbar{
     display: none;
 }
+
