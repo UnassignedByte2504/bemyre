@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, List, useTheme } from "@mui/material";
 import { userPages } from "../NavbarData";
 import { ListItem } from "./ListItem.jsx";
@@ -14,10 +14,12 @@ const UserPages = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
+  const tok = sessionStorage.getItem("access_token");
   const logOut = async () => {
-    await actions.logOut(localStorage.getItem("access_token"))
-    await navigate("/home")
-  }
+    await actions.logOut(sessionStorage.getItem("access_token"));
+    window.location.href = "/home"
+  };
+
   return (
     <>
       <List
@@ -30,7 +32,7 @@ const UserPages = () => {
       >
         <ListItem value="Settings" key="0" to="Settings" />
         <Button
-          variant="outlined"
+          variant="contained"
           onClick={() => logOut()}
           className="LogOutBtn"
         >

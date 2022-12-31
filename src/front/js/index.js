@@ -11,7 +11,7 @@ import "../styles/index.css";
 
 //import your own components
 import Layout from "./layout";
-
+  // const isLogged = useSelector((state) => state.user.isLogged)
 const store = configureStore({
   reducer: {
     global: globalReducer
@@ -24,7 +24,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-    <Layout/>
+    <Layout isLogged={false}/>
     </Provider> 
   </React.StrictMode>
 );

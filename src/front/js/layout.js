@@ -25,10 +25,11 @@ import { Footer } from "./component/Footer.jsx";
 // <<< components <<<<
 
 //create your first component
-const Layout = () => {
+const Layout = ({isLogged}) => {
   const { store, actions } = useContext(Context);
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+
 
   //the basename is used when your project is published in a subdirectory and not in the root of the domain
   // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
@@ -46,7 +47,16 @@ const Layout = () => {
             <Route element={<LandingPage />} path="/lp" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Profile />} path="user/:username" />
-            <Route element={<Login />} path="/login" />
+            <Route
+              element={
+                <Login
+                  onSuccess={() => {
+                    this.setState({ loginStatus: true });
+                  }}
+                />
+              }
+              path="/login"
+            />
             {store?.current_user ? (
               <Route element={<Logout />} path="/logout" />
             ) : (

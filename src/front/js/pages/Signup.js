@@ -27,7 +27,9 @@ export const Signup = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const { actions, store } = useContext(Context);
-  useEffect(()=>{localStorage.removeItem("alert_signup")},[])
+  useEffect(() => {
+    sessionStorage.removeItem("alert_signup");
+  }, []);
   const onSubmit = async (values, ax) => {
     await console.log("esto es de signup", values);
     await actions.signUp(
@@ -38,13 +40,12 @@ export const Signup = () => {
       values.lastName,
       values.is_musician
     );
-    if(!localStorage.getItem("alert_signup")){
+    if (!sessionStorage.getItem("alert_signup")) {
       navigate("/");
     }
 
     await ax.resetForm();
   };
-
 
   const {
     values,
@@ -64,7 +65,7 @@ export const Signup = () => {
       lastName: "",
       userName: "",
       confirmUserName: "",
-      is_musician: true
+      is_musician: true,
     },
     validationSchema: signupSchema,
     onSubmit,
@@ -212,7 +213,9 @@ export const Signup = () => {
                 }
               />
             </FlexBetween>
-            <Typography sx={{textAlign: "center"}}>¿Eres músico? <Checkbox></Checkbox></Typography>
+            <Typography sx={{ textAlign: "center" }}>
+              ¿Eres músico? <Checkbox/>  {/* <<<<<< rompè el tema claro */}
+            </Typography>
             <AlertSignUp />
             <FlexCentered className="mt-2">
               <Button
@@ -250,7 +253,9 @@ export const Signup = () => {
               className="p-1"
               src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png"
             />
-            <Typography className="text-black">Regístrate con Google</Typography>
+            <Typography className="text-black">
+              Regístrate con Google
+            </Typography>
           </Box>
         </Box>
       </Box>

@@ -187,12 +187,7 @@ const BrainStorm = () => {
           >
             <Typography variant="h3">Buttons</Typography>
             <FlexBetween>
-              <LinkButton
-                title="Test"
-                to="/home"
-                variant="outlined"
-                type="main"
-              />
+
             </FlexBetween>
           </Box>
           <Box
@@ -226,7 +221,7 @@ const BrainStorm = () => {
                     height="500px"
                     width="500px"
                     gap="5rem"
-                    p="10rem"
+                    p="1rem"
                     sx={{
                       display: "flex",
                       flexDirection: "column",
@@ -264,8 +259,6 @@ const BrainStorm = () => {
         </FlexBetween>
       </Box>
       {/* marcos */}
-      <Button>Test</Button>
-      <button>Test</button>
       <Box className="Pablo">
         <h1>Pablo</h1>
         <hr />

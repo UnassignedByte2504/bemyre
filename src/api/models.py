@@ -85,7 +85,7 @@ class UserContactInfo(db.Model):
     zip_code = db.Column(db.String(80), db.ForeignKey('zip_codes.zip_code'), nullable=True)
     last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
     def __repr__(self):
-        return f'<UserContactInfo {self.url}>'
+        return f'<UserContactInfo {self.user}>'
 
     def serialize(self):
         return {
@@ -120,6 +120,7 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     first_name = db.Column(db.String(80), unique=False, nullable=False)
     last_name = db.Column(db.String(80), unique=False, nullable=False)
+    description = db.Column(db.String(500), unique=False, nullable=True)
     user_social_media = relationship("UserSocialMedia", back_populates="user")
     creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     last_login = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
@@ -137,6 +138,7 @@ class User(db.Model):
             "email": self.email,
             "first_name": self.first_name,
             "last_name": self.last_name,
+            "description": self.description,
             "creation_date": self.creation_date,
             "last_login": self.last_login.strftime("%Y-%m-%d %H:%M:%S"),    
             "user_contact_info": [user_contact_info.serialize() for user_contact_info in self.user_contact_info],
@@ -160,7 +162,7 @@ class UserSocialMedia(db.Model):
     spotify_url = db.Column(db.String(80), unique=True, nullable=True)
     last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
     def __repr__(self):
-        return f'<UserSocialMedia {self.url}>'
+        return f'<UserSocialMedia {self.user}>'
 
     def serialize(self):
         return {
