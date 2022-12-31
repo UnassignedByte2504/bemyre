@@ -19,7 +19,6 @@ import FlexBetween from "../component/styledcomponents/FlexBetween.jsx";
 import FlexCentered from "../component/styledcomponents/FlexCentered.jsx";
 
 import logo_facebook from "../../img/RRSS/fb-logo-icon-azul.png";
-import {Checkbox} from "@mui/material";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 import { AlertSignUp } from "../component/Alerts/AlertSignUp.jsx";

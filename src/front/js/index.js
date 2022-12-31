@@ -25,6 +25,6 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
     <Layout/>
-    </Provider>
+    </Provider> 
   </React.StrictMode>
 );
