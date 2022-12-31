@@ -1,7 +1,6 @@
 .footer{
     display: flex;
     flex-wrap: wrap;
-    margin-top: 5rem;
     min-height: 300px;
     background: linear-gradient(
         323deg,
