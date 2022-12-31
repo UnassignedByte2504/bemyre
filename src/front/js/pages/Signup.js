@@ -3,14 +3,21 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../styles/index.css";
 import imgSignup from "../../img/Bemyre_signup.jpg";
 import Logo from "../../img/Bemyre_logo.png";
-import { Box, Button, Divider, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  Typography,
+  useTheme,
+  Checkbox,
+} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import { signupSchema } from "../esquemas";
 import FlexBetween from "../component/styledcomponents/FlexBetween.jsx";
 import FlexCentered from "../component/styledcomponents/FlexCentered.jsx";
-import { testFetch } from "../api calls/user";
+
 import logo_facebook from "../../img/RRSS/fb-logo-icon-azul.png";
 import {Checkbox} from "@mui/material";
 import { useContext } from "react";
@@ -23,7 +30,7 @@ export const Signup = () => {
   const { actions, store } = useContext(Context);
   useEffect(()=>{localStorage.removeItem("alert_signup")},[])
   const onSubmit = async (values, ax) => {
-    await console.log("esto es de signup",values)
+    await console.log("esto es de signup", values);
     await actions.signUp(
       values.userName,
       values.email,
@@ -38,6 +45,7 @@ export const Signup = () => {
 
     await ax.resetForm();
   };
+
 
   const {
     values,
@@ -214,7 +222,7 @@ export const Signup = () => {
                 disabled={isSubmiting}
                 sx={{
                   width: "50%",
-                  textTransform:"none"
+                  textTransform: "none",
                 }}
               >
                 <Typography>Registro</Typography>

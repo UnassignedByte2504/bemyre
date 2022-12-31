@@ -5,11 +5,16 @@ import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme.js";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
+
+import { useContext } from "react";
+import { Context } from "./store/appContext";
 import injectContext from "./store/appContext";
 
 // >>> components >>>>
 import Navbar from "./component/navbar/Navbar.js";
+import UserBar from "./component/userbar/UserBar.js";
 import BrainStorm from "./pages/SandBox.js";
+import Logout from "./pages/Logout.js";
 import { LandingPage } from "./pages/landingpage";
 import { Profile } from "./pages/profile.js";
 import { Login } from "./pages/Login.js";
@@ -21,6 +26,7 @@ import { Footer } from "./component/Footer.jsx";
 
 //create your first component
 const Layout = () => {
+  const { store, actions } = useContext(Context);
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
@@ -34,12 +40,18 @@ const Layout = () => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Navbar />
+          {store?.current_user ? <UserBar /> : null}
           <Routes>
-            <Route element={<LandingPage />} path="/" />
+            <Route element={<LandingPage />} path="/home" />
             <Route element={<LandingPage />} path="/lp" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Profile />} path="user/:username" />
             <Route element={<Login />} path="/login" />
+            {store?.current_user ? (
+              <Route element={<Logout />} path="/logout" />
+            ) : (
+              <Route element={<LandingPage />} path="/home" />
+            )}
             <Route element={<Signup />} path="/signup" />
             <Route element={<BandProfile />} exact path="/bandprofile/:id" />
             <Route element={<BrainStorm />} path="/sandbox" />

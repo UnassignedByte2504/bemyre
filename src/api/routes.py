@@ -9,6 +9,7 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 
+
 api = Blueprint('api', __name__)
 
 
@@ -206,3 +207,9 @@ def user_contact_info(username_var):
     
 
          #<<----1.2 UserContactInfo endpoint END ----->>
+
+@api.route('/logout', methods=['GET'])
+@jwt_required()
+def logout():
+    user = get_jwt_identity()
+    return jsonify({"message": f"{user} has been logged out"}), 200

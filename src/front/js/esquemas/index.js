@@ -30,7 +30,7 @@ export const signupSchema = Yup.object().shape({
   userName: Yup.string().required("Username necesario"),
   confirmUserName: Yup.string()
     .oneOf([Yup.ref("userName"), null], "UserName no coincide")
-    .required("Confirmación necesaria"),
+    .required("Confirmación necesaria")
 });
 
 export const loginSchema = Yup.object().shape({

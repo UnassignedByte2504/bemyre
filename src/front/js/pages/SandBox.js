@@ -1,6 +1,6 @@
 import React from "react";
 import { AspectRatio } from "@mui/icons-material";
-import { Box, Divider, Typography, useTheme } from "@mui/material";
+import { Box, Button, Divider, Typography, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 
@@ -187,7 +187,12 @@ const BrainStorm = () => {
           >
             <Typography variant="h3">Buttons</Typography>
             <FlexBetween>
-              <LinkButton title="Test" to="/" variant="outlined" type="main" />
+              <LinkButton
+                title="Test"
+                to="/home"
+                variant="outlined"
+                type="main"
+              />
             </FlexBetween>
           </Box>
           <Box
@@ -217,18 +222,41 @@ const BrainStorm = () => {
                     }}
                   ></Box>
 
-                <Box height="500px" width="500px" gap="5rem" p="10rem" sx={{
-                  display:"flex",
-                  flexDirection:"column",
-                  alignItems:"center",
-                  backgroundColor:"white"
-                }}>
-                  <Box className="bg-success" height="100px" width="100px">1</Box>
-                  <Box height="100px" width="100px" sx={{
-                    backgroundColor:"blue"}}>2</Box>
-                  <Box height="100px" width="100px" sx={{
-                    backgroundColor:"red"}}>3</Box>
-       {/* aqui terminaba el conflicto*/}
+                  <Box
+                    height="500px"
+                    width="500px"
+                    gap="5rem"
+                    p="10rem"
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      backgroundColor: "white",
+                    }}
+                  >
+                    <Box className="bg-success" height="100px" width="100px">
+                      1
+                    </Box>
+                    <Box
+                      height="100px"
+                      width="100px"
+                      sx={{
+                        backgroundColor: "blue",
+                      }}
+                    >
+                      2
+                    </Box>
+                    <Box
+                      height="100px"
+                      width="100px"
+                      sx={{
+                        backgroundColor: "red",
+                      }}
+                    >
+                      3
+                    </Box>
+                    {/* aqui terminaba el conflicto*/}
+                  </Box>
                 </Box>
               </Box>
             </FlexCentered>
@@ -236,6 +264,8 @@ const BrainStorm = () => {
         </FlexBetween>
       </Box>
       {/* marcos */}
+      <Button>Test</Button>
+      <button>Test</button>
       <Box className="Pablo">
         <h1>Pablo</h1>
         <hr />

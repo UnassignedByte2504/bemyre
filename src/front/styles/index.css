@@ -13,7 +13,11 @@
 @import url(signup.css);
 @import url(bandprofile.css);
 @import url(brainstorm.css);
+<<<<<<< HEAD
+@import url(sidebar.css);
+=======
 @import url(footer.css);
+>>>>>>> main
 
 html,
 body,
@@ -22,10 +26,23 @@ body,
   height: 100%;
   width: 100%;
   font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .Link {
   text-decoration: none;
+  
+}
+
+.LinkLight{
+  text-decoration: none;
+  color: #333 !important;
+}
+
+.LinkDark{
+  text-decoration: none;
+  color: #ddd !important;
 }
 
 /* --- fondo naranja para tags ---*/

@@ -1,0 +1,114 @@
+@import url(colors.css);
+
+.BeLogo{
+  border-radius: 50%;
+}
+
+.SidebarMs {
+  width: 100%;
+  margin-top: 3rem;
+  background-color: black;
+  gap: 0.5rem;
+}
+
+.ListItemWrapper {
+  height: 3rem;
+  width: 200px;
+  border-bottom: 1px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.ListItemWrapper:before {
+  content: "";
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 0.25) 0%,
+    rgba(121, 9, 9, 0.3) 47%,
+    rgba(161, 12, 6, .75) 75%,
+    rgba(255, 139, 0, .75) 100%
+  );
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  transform: translateX(-120%);
+  transition: 300ms ease;
+}
+
+.ListItemWrapper:hover::before {
+  transform: translateX(0%);
+}
+
+.ListItem {
+  width:200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 .25rem 0 .25rem;
+
+}
+
+.ItemIcon{
+  margin-left: .25rem;
+  width:20%;
+  color: var(--red600);
+}
+
+.ItemName{
+  width:60%;
+}
+.SideBarWrapper {
+  width: 100%;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.AvatarBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.AvatarSB {
+  height: 60px !important;
+  width: 60px !important;
+}
+
+.SideBarMaster {
+  background: linear-gradient(
+    135deg,
+    rgba(2, 0, 36, 0.1) 0%,
+    rgba(121, 9, 9, 0.5) 47%,
+    rgba(161, 12, 6, 0.5) 75%,
+    rgba(255, 139, 0, 0.5) 100%
+  );
+}
+.DividerMain {
+  width: 100%;
+  height: 2px !important;
+  color: var(--red500);
+}
+
+
+
+.ListTextDark{
+  color:#ddd;
+}
+.ListTextLight{
+  color:#333
+}
+
+.LogOutBtn{
+  background-color: var(--red500) !important;
+  color: #ddd !important;
+}
