@@ -15,6 +15,7 @@ import Navbar from "./component/navbar/Navbar.js";
 import UserBar from "./component/userbar/UserBar.js";
 import BrainStorm from "./pages/SandBox.js";
 import Logout from "./pages/Logout.js";
+import Explore from "./pages/Explore.js";
 import { LandingPage } from "./pages/landingpage";
 import { Profile } from "./pages/profile.js";
 import { Login } from "./pages/Login.js";
@@ -43,6 +44,7 @@ const Layout = ({isLogged}) => {
           <Navbar />
           {store?.current_user ? <UserBar /> : null}
           <Routes>
+            <Route element={<Explore />} path="/explorar"  />
             <Route element={<LandingPage />} path="/home" />
             <Route element={<LandingPage />} path="/lp" />
             <Route element={<h1>Not found!</h1>} />
@@ -65,6 +67,7 @@ const Layout = ({isLogged}) => {
             <Route element={<Signup />} path="/signup" />
             <Route element={<BandProfile />} exact path="/bandprofile/:id" />
             <Route element={<BrainStorm />} path="/sandbox" />
+            
           </Routes>
           <Footer />
         </ThemeProvider>

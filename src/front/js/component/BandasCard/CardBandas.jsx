@@ -9,6 +9,7 @@ import { useTheme } from "@mui/material";
 export const CardBandas = () => {
   const theme = useTheme();
 
+  
   let generosMusica = {
     generoMusica1: "Rock",
     generoMusica2: "Pop",
