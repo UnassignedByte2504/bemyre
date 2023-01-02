@@ -11,6 +11,7 @@ import TodayIcon from '@mui/icons-material/Today';
 import { LandingJumbo } from "../component/jumbotron/landingjumbo";
 import { AsideLandingPgRegister } from "../component/asides/AsideLandingPgRegister";
 import { Musicians } from "../component/Musicians";
+import { Spain } from "../component/Spain.jsx";
 
 export const LandingPage = () => {
   const date = new Date();
@@ -32,6 +33,7 @@ export const LandingPage = () => {
         <Musicians />
         <AsideLandingPgRegister />
       </Box>
+      <Spain maxWidth='100vw'/>
       </Container>
     </Box>
   );
