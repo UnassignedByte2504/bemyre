@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: cba646cabc61
+Revision ID: 3960edc3af3f
 Revises: 
-Create Date: 2022-12-24 08:27:14.958563
+Create Date: 2023-01-03 07:12:17.336184
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'cba646cabc61'
+revision = '3960edc3af3f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,6 +29,14 @@ def upgrade():
     sa.Column('name', sa.String(length=80), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
+    )
+    op.create_table('img_test',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('img', sa.Unicode(), nullable=True),
+    sa.Column('img_name', sa.String(length=255), nullable=True),
+    sa.Column('img_type', sa.String(length=255), nullable=True),
+    sa.Column('img_size', sa.String(length=255), nullable=True),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('music_genre',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -61,6 +69,13 @@ def upgrade():
     sa.UniqueConstraint('description'),
     sa.UniqueConstraint('name')
     )
+    op.create_table('influence_band',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=80), nullable=False),
+    sa.Column('genre', sa.String(length=80), nullable=True),
+    sa.ForeignKeyConstraint(['genre'], ['music_genre.name'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('state',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=80), nullable=False),
@@ -77,6 +92,7 @@ def upgrade():
     sa.Column('password', sa.String(length=80), nullable=False),
     sa.Column('first_name', sa.String(length=80), nullable=False),
     sa.Column('last_name', sa.String(length=80), nullable=False),
+    sa.Column('description', sa.String(length=500), nullable=True),
     sa.Column('creation_date', sa.DateTime(), nullable=False),
     sa.Column('last_login', sa.DateTime(), nullable=False),
     sa.Column('is_active', sa.Boolean(), nullable=False),
@@ -229,10 +245,12 @@ def downgrade():
     op.drop_table('cities')
     op.drop_table('user')
     op.drop_table('state')
+    op.drop_table('influence_band')
     op.drop_table('event')
     op.drop_table('user_type')
     op.drop_table('musical_instruments_category')
     op.drop_table('music_genre')
+    op.drop_table('img_test')
     op.drop_table('event_types')
     op.drop_table('country')
     # ### end Alembic commands ###

@@ -93,13 +93,6 @@ function Navbar() {
                   <LightModeOutlined sx={{ fontSize: "25px" }} />
                 )}
               </IconButton>
-              <Link to="/sandbox" className="Link">
-                <IconButton>
-                  <Typography variant="h4" color="red">
-                    SandBox
-                  </Typography>
-                </IconButton>
-              </Link>
             </FlexBetween>
           </>
         )}
