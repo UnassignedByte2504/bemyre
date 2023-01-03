@@ -3,11 +3,12 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from datetime import datetime
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, ImgTest
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
+import base64
 
 
 api = Blueprint('api', __name__)
@@ -134,6 +135,8 @@ def handle_user(username_var):
             return jsonify({"message": "User not found"}), 404
     return jsonify(user.serialize()), 200
 
+
+
 #<<----1.1 START UserSocialMedia endpoint ----->>
 @api.route('/<string:username_var>/socialmedia', methods=['GET', 'PUT'])
 @jwt_required()
@@ -204,7 +207,6 @@ def user_contact_info(username_var):
         user_contact_info.last_update = datetime.now()
         db.session.commit()
         return jsonify({"message":"Informacion actualizada correctamente", "user_contact_info": user_contact_info.serialize()}), 200
-    
 
          #<<----1.2 UserContactInfo endpoint END ----->>
 
@@ -213,3 +215,40 @@ def user_contact_info(username_var):
 def logout():
     user = get_jwt_identity()
     return jsonify({"message": f"{user} has been logged out"}), 200
+
+
+@api.route('/imgtest', methods=['POST', 'GET'])
+def imgtest():
+    # img comes as base64 data not as a file
+    if request.method == 'POST':
+        request_data = request.get_json(force=True)
+        img = request_data['img_raw']
+        img_name = request_data['img_name']
+        img_type = request_data['img_type']
+        img_size = request_data['img_size']
+        new_img = ImgTest(img_name=img_name, img_type=img_type, img_size=img_size, img=img)
+        db.session.add(new_img)
+        db.session.commit()
+        return jsonify({"message": "Img added successfully"}), 201
+    if request.method == 'GET':
+        all_imgs = ImgTest.query.all()
+        all_img = list(map(lambda x: x.serialize(), all_imgs))
+        return jsonify({"all_imgs": all_img}), 200
+
+
+@api.route('/imgtest/<int:img_id>', methods=['GET'])
+def get_img(img_id):
+    img = ImgTest.query.filter_by(id=img_id).first()
+    if not img:
+        return jsonify({"message": "Img not found"}), 404
+    return jsonify({"img": img.serialize()}), 200
+
+
+
+
+
+
+
+
+
+        

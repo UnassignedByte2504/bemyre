@@ -20,4 +20,4 @@ address
 description
 
 
-if username === current_user 
+if username === current_us

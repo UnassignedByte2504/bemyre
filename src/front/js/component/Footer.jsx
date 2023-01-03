@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 
 //Import materials
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, IconButton } from "@mui/material";
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -22,6 +22,13 @@ export const Footer = () =>{
                 <Box className="imgfooter">
                     <img src={bemyrelogo}/>
                 </Box>
+                <Link to="/sandbox" className="Link">
+                <IconButton>
+                  <Typography variant="h4" color="red">
+                    SandBox
+                  </Typography>
+                </IconButton>
+              </Link>
             </Box>
             <Box className="center">
                 <Box className="marginfooter mx-3">

@@ -10,6 +10,24 @@ const getState = ({ getStore, getActions, setStore }) => {
       alert: "",
     },
     actions: {
+      sendImgTest: async (img) => {
+
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"},
+          body: JSON.stringify({
+            img: img,
+          })
+        };
+
+        const response = await fetch(`${process.env.BACKEND_URL}/api/signup`, options)
+        const data = await response.json();
+        setStore({
+          message: data.message,
+          resultados: data.resultados,
+        });
+      },
       signUp: async (
         username,
         email,

@@ -4,7 +4,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Button from '@mui/material/Button';
 import { Box, Divider, Typography, useTheme } from "@mui/material";
 
-export const CardProfile = ({first_name, last_name, description,}) =>{
+export const CardProfile = ({first_name, last_name, description, profilePicture}) =>{
 
     const theme = useTheme()
 

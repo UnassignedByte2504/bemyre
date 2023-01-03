@@ -1,7 +1,14 @@
 import React from "react";
 import { AspectRatio } from "@mui/icons-material";
-import { Box, Button, Divider, Typography, useTheme } from "@mui/material";
-import { useContext } from "react";
+import {
+  Box,
+  Button,
+  Divider,
+  Grid,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 
 import { CardConcert } from "../component/ConcertCard/CardConcert.jsx";
@@ -13,10 +20,107 @@ import FlexCentered from "../component/styledcomponents/FlexCentered.jsx";
 
 // Marcos imports
 import LinkButton from "../component/buttons/LinkButton.jsx";
+import AnimatedButton from "../component/buttons/AnimatedButton.jsx";
+import RoundedButton from "../component/buttons/RoundedButton.jsx";
+import ShadowButton from "../component/buttons/ShadowButton.jsx";
 
 const BrainStorm = () => {
   const theme = useTheme();
   const { actions, store } = useContext(Context);
+
+  const [image, setImage] = useState({
+    imageRaw: imageBinary,
+    imageName: imageName,
+    imageType: imageType,
+    imageSize: imageSize,
+  });
+  const [imageUrl, setImageUrl] = useState(null);
+  const [imageName, setImageName] = useState(null);
+  const [imageType, setImageType] = useState(null);
+  const [imageSize, setImageSize] = useState(null);
+  const [imageBase64, setImageBase64] = useState(null);
+  const [imageBinary, setImageBinary] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [displayImg, setDisplayImg] = useState(false);
+  const [imgId, setImgId] = useState(null);
+  const [imgs, setImgs] = useState([]);
+
+  const handleImageChange = (e) => {
+    e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    reader.onloadend = () => {
+      setImage(file);
+      setImageUrl(reader.result);
+      setImageName(file.name);
+      setImageType(file.type);
+      setImageSize(file.size);
+      setImageBase64(reader.result);
+      // convert base64 to binary
+      let binary = window.atob(reader.result.split(",")[1]);
+      let array = [];
+      for (let i = 0; i < binary.length; i++) {
+        array.push(binary.charCodeAt(i));
+      }
+      setImageBinary(new Uint8Array(array));
+      setImageFile(window.btoa(reader.result));
+    };
+    reader.readAsDataURL(file);
+  };
+  const postImge = async (imgRaw, imgName, imgType, imgSize) => {
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: `{
+        "img_raw": "${imgRaw}",
+        "img_name": "${imgName}",
+        "img_type": "${imgType}",
+        "img_size": "${imgSize}"
+      }`,
+    };
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/api/imgtest`,
+      options
+    );
+    const json = await response.json();
+    console.log(json);
+  };
+
+  const fetchAllImgs = async () => {
+    const options = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    };
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/api/imgtest`,
+      options
+    );
+    const json = await response.json();
+    console.log(json.all_imgs);
+    setImgs(json.all_imgs);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    postImge(imageBase64, imageName, imageType, imageSize);
+  };
+
+  const fetchImg = async (imgId) => {
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/api/imgtest/${imgId}`
+    );
+    const json = await response.json();
+    console.log(json);
+    console.log(json.img.img);
+    const imgToDisplay = await json.img.img;
+    setDisplayImg(imgToDisplay);
+  };
+
+  const handleImgIdChange = (e) => {
+    e.preventDefault();
+    setImgId(e.target.value);
+  };
+
   return (
     <Box className="container brainstormWrapper">
       <Box className="Marcos">
@@ -176,86 +280,102 @@ const BrainStorm = () => {
             color: theme.palette.primary.light,
           }}
         />
-        <FlexBetween className="my-3">
-          <Box
-            sx={{
-              width: "50%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Typography variant="h3">Buttons</Typography>
-            <FlexBetween>
-
-            </FlexBetween>
-          </Box>
-          <Box
-            sx={{
-              width: "50%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <FlexCentered>
-              <Box>
-                <Typography variant="h2">Pruebas</Typography>
-                {/* aqui empezaba el conflicto*/}
-                <Box
-                  height="600px"
-                  width="300px"
-                  sx={{
-                    backgroundColor: theme.palette.background.alt,
-                  }}
-                >
-                  <Box
-                    height="200px"
-                    width="100%"
-                    sx={{
-                      backgroundColor: theme.palette.background.default,
-                    }}
-                  ></Box>
-
-                  <Box
-                    height="500px"
-                    width="500px"
-                    gap="5rem"
-                    p="1rem"
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      backgroundColor: "white",
-                    }}
-                  >
-                    <Box className="bg-success" height="100px" width="100px">
-                      1
-                    </Box>
-                    <Box
-                      height="100px"
-                      width="100px"
-                      sx={{
-                        backgroundColor: "blue",
-                      }}
-                    >
-                      2
-                    </Box>
-                    <Box
-                      height="100px"
-                      width="100px"
-                      sx={{
-                        backgroundColor: "red",
-                      }}
-                    >
-                      3
-                    </Box>
-                    {/* aqui terminaba el conflicto*/}
-                  </Box>
-                </Box>
+        <FlexBetween>
+          <Box className="m-5">
+            <Typography variant="h2">Image to raw test</Typography>
+            <form onSubmit={handleSubmit}>
+              <input type="file" onChange={handleImageChange} />
+              <button type="submit">Submit</button>
+            </form>
+            <Box className="my-2">
+              <h2>Image</h2>{" "}
+              <Box
+                sx={{
+                  height: "300px",
+                  width: "300px",
+                }}
+                className="my-2"
+              >
+                <img src={imageUrl} alt={imageName} className="ImgTest" />
               </Box>
-            </FlexCentered>
+              <p>Name: {imageName}</p>
+              <p>Type: {imageType}</p>
+              <p>Size: {imageSize}</p>
+            </Box>
           </Box>
+          <Box className="my-2">
+            <h2>Fetching Img</h2>
+            <Box
+              sx={{
+                height: "300px",
+                width: "300px",
+              }}
+              className="my-2"
+            >
+              {displayImg ? (
+                <img src={displayImg} alt={imageName} className="ImgTest" />
+              ) : (
+                <p>No Image</p>
+              )}
+              <button onClick={() => fetchImg(imgId)}>Fetch</button>
+              <label htmlFor="imgId">select id</label>
+              <input type="number" id="imgId" onChange={handleImgIdChange} />
+            </Box>
+          </Box>
+        </FlexBetween>
+        <Box>
+          <Box>
+            <FlexCentered>
+              <Typography variant="h3">
+                Test mapping imgs from backend
+              </Typography>
+            </FlexCentered>
+            <Box
+              className="my-5"
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+              }}
+            >
+              {imgs &&
+                imgs.map((img) => (
+                  <Box
+                    sx={{
+                      height: "300px",
+                      width: "300px",
+                    }}
+                    className="my-2 ImgTest"
+                    key={img.id}
+                  >
+                    <img src={img.img} alt={img.name} className="ImgTest" />
+                    <p>Name: {img.img_name}</p>
+                    <p>Type: {img.img_type}</p>
+                    <p>Size: {img.img_size}</p>
+                  </Box>
+                ))}
+            </Box>
+            <Button
+              variant="contained"
+              onClick={() => fetchAllImgs()}
+              sx={{
+                background: "none",
+                border: "none",
+                outline: "none",
+                boxShadow: "none",
+                textTransform: "none",
+              }}
+            >
+              Do the Magic!
+            </Button>
+          </Box>
+        </Box>
+        <FlexCentered>
+          <Typography variant="h2">Buttons</Typography>
+        </FlexCentered>
+        <FlexBetween>
+          <AnimatedButton title="Test Animated" />
+          <RoundedButton title="Test Rounded"/>
+          <ShadowButton title="Test Shadow"/>
         </FlexBetween>
       </Box>
       {/* marcos */}
