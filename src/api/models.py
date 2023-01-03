@@ -397,7 +397,7 @@ class InfluenceBand(db.Model):
 
 
         }
-
+local_profile_img = db.Column(db.Unicode)
 
 class ImgTest (db.Model):
     __tablename__ = 'img_test'

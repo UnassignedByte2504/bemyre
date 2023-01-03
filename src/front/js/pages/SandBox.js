@@ -20,6 +20,9 @@ import FlexCentered from "../component/styledcomponents/FlexCentered.jsx";
 
 // Marcos imports
 import LinkButton from "../component/buttons/LinkButton.jsx";
+import AnimatedButton from "../component/buttons/AnimatedButton.jsx";
+import RoundedButton from "../component/buttons/RoundedButton.jsx";
+import ShadowButton from "../component/buttons/ShadowButton.jsx";
 
 const BrainStorm = () => {
   const theme = useTheme();
@@ -351,18 +354,29 @@ const BrainStorm = () => {
                   </Box>
                 ))}
             </Box>
-            <Button variant="contained" onClick={() => fetchAllImgs()} sx={{
-              background:"none",
-              border:"none",
-              outline:"none",
-              boxShadow:"none",
-              textTransform:"none"
-              
-            }}>
+            <Button
+              variant="contained"
+              onClick={() => fetchAllImgs()}
+              sx={{
+                background: "none",
+                border: "none",
+                outline: "none",
+                boxShadow: "none",
+                textTransform: "none",
+              }}
+            >
               Do the Magic!
             </Button>
           </Box>
         </Box>
+        <FlexCentered>
+          <Typography variant="h2">Buttons</Typography>
+        </FlexCentered>
+        <FlexBetween>
+          <AnimatedButton title="Test Animated" />
+          <RoundedButton title="Test Rounded"/>
+          <ShadowButton title="Test Shadow"/>
+        </FlexBetween>
       </Box>
       {/* marcos */}
       <Box className="Pablo">
