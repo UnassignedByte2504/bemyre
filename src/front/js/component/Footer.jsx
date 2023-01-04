@@ -33,10 +33,10 @@ export const Footer = () =>{
             <Box className="center">
                 <Box className="marginfooter mx-3">
                     <Typography><strong>Navegación</strong></Typography>
-                    <Link className="linkfooter" to="/"><Typography>Home</Typography></Link>
+                    <Link className="linkfooter" to="/home"><Typography>Home</Typography></Link>
                     <Link className="linkfooter" to="/"><Typography>Perfil</Typography></Link>
-                    <Link className="linkfooter" to="/"><Typography>Registro</Typography></Link>
-                    <Link className="linkfooter" to="/"><Typography>Inicio sesión</Typography></Link>
+                    <Link className="linkfooter" to="/signup"><Typography>Registro</Typography></Link>
+                    <Link className="linkfooter" to="/login"><Typography>Inicio sesión</Typography></Link>
                 </Box>
                 <Box className="mx-3">
                     <Typography><strong>Acerca de</strong></Typography>
