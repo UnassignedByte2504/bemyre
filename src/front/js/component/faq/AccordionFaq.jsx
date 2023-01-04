@@ -21,8 +21,8 @@ export const AccordionFaq= ({title, description, text}) => {
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>
-            {title}
+          <Typography className='me-2' sx={{ width: '33%', flexShrink: 0 }}>
+            <strong> {title} </strong> 
           </Typography>
           <Typography sx={{ color: 'text.secondary' }}>{description}</Typography>
         </AccordionSummary>
