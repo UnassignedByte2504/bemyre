@@ -10,6 +10,7 @@ import "../../../styles/index.css"
 
 //Import Components
 import { EditInfo } from "./EditInfo.jsx";
+import { CardInstruments } from "../card/CardInstruments.jsx";
 
 export const Equipment = ({currentUser, userName}) =>{
     return(
@@ -36,6 +37,7 @@ export const Equipment = ({currentUser, userName}) =>{
             <img src="https://hoygrabo.com/wp-content/uploads/2019/02/microfono-condensador.jpg" />
             <img src="https://16nou.com/wp-content/uploads/2019/01/Focusrite-scarlett-2i2-2nd-gen.jpg" />
         </Box>
+        <CardInstruments/>
 
         </Box>
 
