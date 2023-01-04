@@ -61,3 +61,7 @@
 .MuiListItemButton-root:focus{
   
 }
+
+.SelectedSetting{
+    background-color: var(--orange600) !important;
+}
