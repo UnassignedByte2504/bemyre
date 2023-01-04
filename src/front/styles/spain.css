@@ -1,4 +1,4 @@
-path:hover{
+.mapa path:hover{
     fill: #e0934f;
     cursor: pointer;
 }

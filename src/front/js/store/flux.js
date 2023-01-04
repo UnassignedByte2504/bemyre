@@ -8,6 +8,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       token_local: sessionStorage.getItem("access_token"),
       current_user: sessionStorage.getItem("current_user"),
       alert: "",
+      currentPath: ""
     },
     actions: {
       sendImgTest: async (img) => {
@@ -123,6 +124,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         //   .then((response) => console.log(response));
         sessionStorage.removeItem("access_token");
         sessionStorage.removeItem("current_user");
+        window.location.href = "/home"
         setStore({
           token_local: null,
           logged: false,
@@ -152,6 +154,12 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((result) => setStore({ resultados: result }));
       },
       // <<<< Functions realted on fetching user info from back
+      //misc functions
+      setLocation:(location)=>{
+        setStore({
+          currentPath: location})
+      }
+      //misc functions
     },
   };
 };

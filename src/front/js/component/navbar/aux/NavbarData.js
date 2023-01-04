@@ -53,7 +53,7 @@ export const iconsArray = [
 // <<< Icons/Name
 
 //Pages >>>
-export const globalPages = ["Home","Explorar", "Jam Sessions", "Events", "Sand Box"];
+export const globalPages = ["Home","Explorar", "Jam Sessions", "Events"];
 export const userPages = ["Settings", "Log out"];
 // <<< Pages
 

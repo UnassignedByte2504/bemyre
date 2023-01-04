@@ -18,10 +18,12 @@ import Logout from "./pages/Logout.js";
 import Explore from "./pages/Explore.js";
 import { LandingPage } from "./pages/landingpage";
 import { Profile } from "./pages/profile.js";
+import UserSettings from "./pages/UserSettings.js";
 import { Login } from "./pages/Login.js";
 import { Signup } from "./pages/Signup.js";
 import { BandProfile } from "./pages/BandProfile.js";
 import { Footer } from "./component/Footer.jsx";
+import { ProtectedRoute } from "./protected.route.js";
 
 // <<< components <<<<
 
@@ -42,13 +44,12 @@ const Layout = ({isLogged}) => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Navbar />
-          {store?.current_user ? <UserBar /> : null}
           <Routes>
             <Route element={<Explore />} path="/explorar"  />
             <Route element={<LandingPage />} path="/home" />
-            <Route element={<LandingPage />} path="/lp" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Profile />} path="user/:username" />
+            <Route element={<UserSettings />} path="user/:username/ajustes" />
             <Route
               element={
                 <Login
@@ -67,7 +68,6 @@ const Layout = ({isLogged}) => {
             <Route element={<Signup />} path="/signup" />
             <Route element={<BandProfile />} exact path="/bandprofile/:id" />
             <Route element={<BrainStorm />} path="/sandbox" />
-            
           </Routes>
           <Footer />
         </ThemeProvider>

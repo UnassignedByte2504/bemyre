@@ -11,13 +11,13 @@ const DrawerFooter = () => {
   const theme = useTheme();
   return (
     <FlexCentered className="mx-2">
-      <IconButton onClick={() => dispatch(setMode())}>
+      {/* <IconButton onClick={() => dispatch(setMode())}>
         {theme.palette.mode === "dark" ? (
           <DarkModeOutlined sx={{ fontSize: "25px" }} />
         ) : (
           <LightModeOutlined sx={{ fontSize: "25px" }} />
         )}
-      </IconButton>
+      </IconButton> */}
     </FlexCentered>
   );
 };
