@@ -21,5 +21,7 @@ export const CardInstruments = () =>{
             </Box>
         </Box>
 
+
+
     )
 }
