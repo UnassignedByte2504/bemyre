@@ -17,7 +17,7 @@ export const HeaderFaq = () => {
             backgroundRepeat: "no-repeat"
         }}
         >
-            <Typography variant="h2" className="text-black ms-5">
+            <Typography variant="h2" className="text-black ms-5 preguntasfrecuentes">
                 Preguntas Frecuentes
             </Typography>
         

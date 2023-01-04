@@ -1,12 +1,32 @@
-.faq{
-    height: 100vh;
-}
-
 .headerfaq{
     height: 20vh;
 }
 
-.accordionarea{
+.faq{
+    margin-bottom: 1rem;
+    min-height: 93vh;
+}
 
-    
+
+/* Media queries */
+
+@media(min-width: 1000px) {
+    .headerfaq{
+        height: 55vh;
+        background-position: 20% 70% !important;
+        
+    }
+    .preguntasfrecuentes{
+        font-weight: 700 !important;
+        margin-left: 5vw !important;
+    }
+    .preguntasfrecuentesmedia{
+        display: none;
+    }
+}
+
+@media(max-width:999px){
+    .preguntasfrecuentes{
+        display: none;
+    }
 }
