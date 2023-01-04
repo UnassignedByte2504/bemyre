@@ -8,7 +8,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       token_local: sessionStorage.getItem("access_token"),
       current_user: sessionStorage.getItem("current_user"),
       alert: "",
-      currentPath: ""
+      currentPath: "",
+      selected_settings: null
     },
     actions: {
       sendImgTest: async (img) => {
@@ -158,8 +159,14 @@ const getState = ({ getStore, getActions, setStore }) => {
       setLocation:(location)=>{
         setStore({
           currentPath: location})
-      }
+      },
+      setSelectedSettings:(settings)=>{
+        console.log("settings desde flux", settings)
+        setStore({
+          selected_settings: settings})
+      },
       //misc functions
+      
     },
   };
 };

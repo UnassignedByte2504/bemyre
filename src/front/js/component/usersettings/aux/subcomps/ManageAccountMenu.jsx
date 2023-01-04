@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
+import { Context } from "../../../../store/appContext.js";
 import {
   Menu,
   MenuItem,
@@ -20,12 +21,23 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import PrivacyTipOutlinedIcon from "@mui/icons-material/PrivacyTipOutlined";
 
-const ManageAccountMenu = () => {
-  const [open, setOpen] = useState(true);
+//Logic imports >>>
+import { UserSettingsMenuItems } from "../../UserSettingsData.js";
+//Logic imports <<<
 
+const ManageAccountMenu = () => {
+  const { actions, store } = useContext(Context);
+  const [open, setOpen] = useState(true);
+  const [isSelected, setIsSelected] = useState("");
+
+  const selectSetting = (settings) => {
+    console.log(settings, "desde comp");
+    actions.setSelectedSettings(settings);
+  };
   const handleClick = () => {
     setOpen(!open);
   };
+
   return (
     <React.Fragment>
       <ListItemButton onClick={handleClick}>
@@ -37,19 +49,43 @@ const ManageAccountMenu = () => {
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton
+            className={
+              UserSettingsMenuItems[4] === store.selected_settings
+                ? "SelectedSetting"
+                : null
+            }
+            sx={{ pl: 4 }}
+            onClick={() => selectSetting(UserSettingsMenuItems[4])}
+          >
             <ListItemIcon>
               <PasswordOutlinedIcon />
             </ListItemIcon>
             <ListItemText primary="Modificar Contraseña" />
           </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton
+            className={
+              UserSettingsMenuItems[5] === store.selected_settings
+                ? "SelectedSetting"
+                : null
+            }
+            sx={{ pl: 4 }}
+            onClick={() => selectSetting(UserSettingsMenuItems[5])}
+          >
             <ListItemIcon>
               <PrivacyTipOutlinedIcon />
             </ListItemIcon>
             <ListItemText primary="Ajustes de Privacidad" />
           </ListItemButton>
-          <ListItemButton sx={{ pl: 4, color: "red !important" }}>
+          <ListItemButton
+          className={
+            UserSettingsMenuItems[6] === store.selected_settings
+              ? "SelectedSetting"
+              : null
+          }
+            sx={{ pl: 4, color: "red !important" }}
+            onClick={() => selectSetting(UserSettingsMenuItems[6])}
+          >
             <ListItemIcon>
               <DeleteForeverOutlinedIcon />
             </ListItemIcon>
