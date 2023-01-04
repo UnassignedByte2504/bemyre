@@ -49,7 +49,7 @@ export const Profile = () => {
       </Box>
 
       {/* Contenedor de contenido */}
-      <Box className="cardandreproductor container ">
+      <Box className="cardandreproductor container mb-4">
         {/* Left side  */}
 
         <Box className="leftside">
