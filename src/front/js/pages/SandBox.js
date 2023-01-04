@@ -17,7 +17,7 @@ import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
 import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
 import FlexBetween from "../component/styledcomponents/FlexBetween.jsx";
 import FlexCentered from "../component/styledcomponents/FlexCentered.jsx";
-
+import { CardInstruments } from "../component/card/CardInstruments.jsx";
 // Marcos imports
 import LinkButton from "../component/buttons/LinkButton.jsx";
 import AnimatedButton from "../component/buttons/AnimatedButton.jsx";
@@ -381,6 +381,7 @@ const BrainStorm = () => {
       {/* marcos */}
       <Box className="Pablo">
         <h1>Pablo</h1>
+        <CardInstruments />
         <hr />
       </Box>
       <Box
