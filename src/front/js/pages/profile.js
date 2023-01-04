@@ -19,6 +19,7 @@ import { StyleAndMusicalCareer } from "../component/profile/StyleAndMusicalCaree
 import { Influences } from "../component/profile/Influences.jsx";
 import { Equipment } from "../component/profile/Equipment.jsx";
 import { Singer } from "../component/typeofuser/Singer.jsx";
+import { CardInstruments } from "../component/card/CardInstruments.jsx";
 //Function
 
 export const Profile = () => {
@@ -99,6 +100,10 @@ export const Profile = () => {
           {1 + 1 === 2 ? (
             <Equipment currentUser={currentUser} userName={username} />
           ) : null}
+          <CardInstruments
+          name="GUITARRA"
+          type="VIENTO"
+          />
         </Box>
       </Box>
     </>

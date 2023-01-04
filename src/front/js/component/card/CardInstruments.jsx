@@ -3,16 +3,27 @@ import React from "react";
 
 //Import Materials
 
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 
 
-export const CardInstruments = () =>{
+export const CardInstruments = ({img, type, name}) =>{
 
     return(
 
-        <Box className="card">
-
+        <Box className="cardinstrument">
+            <Box className="textcardinstrument textinstrument">
+            <Typography className="mt-4">
+                {type}
+            </Typography>
+            <Typography className="typoinstrument mt-4">
+                <strong>{name}</strong>
+            </Typography>
+            </Box>
         </Box>
+
+
+
+
 
     )
 }
