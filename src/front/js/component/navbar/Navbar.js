@@ -1,37 +1,58 @@
 import * as React from "react";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useContext } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux"; // Sends color mode to state reducer
+import { Context } from "../../store/appContext.js";
 import {
   AppBar,
   Button,
-  Box,
-  Tab,
-  Tabs,
   Typography,
   IconButton,
   InputBase,
   Toolbar,
-  Menu,
-  MenuItem,
   useMediaQuery,
   useTheme,
+  Box,
+  ButtonGroup,
 } from "@mui/material";
-import DrawerComp from "./aux/DrawerComp.js";
-import FlexBetween from "../styledcomponents/FlexBetween.jsx";
-import logo from "../../../img/Bemyre_logo.png";
 import {
   LightModeOutlined,
   DarkModeOutlined,
   Search,
 } from "@mui/icons-material";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux"; // Sends color mode to state reducer
-import { setMode } from "../../state"; //changes color mode
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import DrawerComp from "./aux/DrawerComp.js";
+import FlexBetween from "../styledcomponents/FlexBetween.jsx";
 import FlexCentered from "../styledcomponents/FlexCentered.jsx";
+import FlexEvenly from "../styledcomponents/FlexEvenly.jsx";
+import NavItem from "./aux/navbarcomps/NavItem.jsx";
+import logo from "../../../img/Bemyre_logo.png";
+import { setMode } from "../../state"; //changes color mode
+import { globalPages, filterIcon } from "./aux/NavbarData.js";
+import UserBar from "../userbar/UserBar.js";
+
 function Navbar() {
+  const { actions, store } = useContext(Context);
+  const currentPath = store?.currentPath;
+  const loginPath = "/login";
+  const signupPath = "/signup";
   const dispatch = useDispatch();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [activePage, setActivePage] = useState();
 
+  const getPath = (value) => {
+    const rawPath = value;
+    const path = rawPath?.toLowerCase().replace(/\s+/g, "");
+    return path;
+  };
+
+  useEffect(() => {
+    const currentPath = window.location.pathname;
+    console.log("use effect lp", currentPath);
+    setActivePage(currentPath);
+    actions.setLocation(currentPath);
+  }, [store.currentPath]);
   return (
     <AppBar className="sticky-top grad-red-light mb-3">
       <Toolbar
@@ -62,7 +83,6 @@ function Navbar() {
           </>
         ) : (
           <>
-            {" "}
             <FlexBetween>
               <FlexCentered>
                 <Link className="Link" to="/home">
@@ -84,15 +104,57 @@ function Navbar() {
               </FlexBetween>
             </FlexBetween>
             {/* <<< Left side */}
+
             {/* Right side  >>> */}
             <FlexBetween gap="1.5rem">
+              <ButtonGroup
+                className="NavButtonGroup"
+                variant="contained"
+                aria-label="text button group"
+                sx={{
+                  background: "none",
+                  boxShadow: "none",
+                }}
+              >
+                {globalPages.map((value, index) => (
+                  <Button
+                    key={index}
+                    variant="contained"
+                    sx={{
+                      background: "none",
+                      boxShadow: "none",
+                    }}
+                  >
+                    <Link className="LinkNav" to={getPath(value)}>
+                      {filterIcon(value)}
+                      {value}
+                    </Link>
+                  </Button>
+                ))}
+              </ButtonGroup>
+              {store?.current_user ? (
+                <UserBar />
+              ) : currentPath === loginPath ? null : (
+                <Link className="Link" to={"/login"}>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      fontWeight: "600",
+                      textTransform: "none",
+                    }}
+                  >
+                    <PersonOutlinedIcon className="me-2" /> Login
+                  </Button>
+                </Link>
+              )}
+{/* 
               <IconButton onClick={() => dispatch(setMode())}>
                 {theme.palette.mode === "dark" ? (
                   <DarkModeOutlined sx={{ fontSize: "25px" }} />
                 ) : (
                   <LightModeOutlined sx={{ fontSize: "25px" }} />
                 )}
-              </IconButton>
+              </IconButton> */}
             </FlexBetween>
           </>
         )}

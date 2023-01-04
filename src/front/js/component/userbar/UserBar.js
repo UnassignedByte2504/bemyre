@@ -1,9 +1,172 @@
-import React from 'react'
+import * as React from "react";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { Context } from "../../store/appContext.js";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import EmailIcon from "@mui/icons-material/Email";
+import LogoutIcon from '@mui/icons-material/Logout';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import FlexBetween from "../styledcomponents/FlexBetween.jsx";
+import { ButtonGroup, Divider, useTheme } from "@mui/material";
+
+const settings = ["Mi perfil", "Ajustes", "Dashboard", "Logout"];
 
 const UserBar = () => {
-  return (
-    <div>UserBar</div>
-  )
-}
+  const theme = useTheme();
+  const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
 
-export default UserBar
+  const menuItemClick =  ({to, logout}) => {
+    navigate(to)
+    handleCloseUserMenu()
+
+    if (logout) {
+      actions.logOut()}
+  }
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  return (
+    <Box
+      sx={{
+        flexGrow: 0,
+        width: "10rem",
+        background: "none",
+        padding: ".25rem",
+      }}
+    >
+      <FlexBetween>
+        <Box>
+          <ButtonGroup
+            variant="contained"
+            aria-label="text button group"
+            sx={{
+              background: "none",
+              boxShadow: "none",
+            }}
+          >
+            <Button
+              sx={{
+                background: "none",
+                boxShadow: "none",
+              }}
+            >
+              <EmailIcon />
+            </Button>
+            <Button
+              sx={{
+                background: "none",
+                boxShadow: "none",
+              }}
+            >
+              <NotificationsIcon />
+            </Button>
+          </ButtonGroup>
+        </Box>
+        <Box>
+          <Tooltip title="Open settings">
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt="Marcos Saez" src="/static/images/avatar/2.jpg" />
+            </IconButton>
+          </Tooltip>
+          <Menu
+            sx={{
+              "& .MuiMenu-paper": {
+                backgroundColor: theme.palette.background.drawer,
+              },
+              mt: "45px",
+            }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            <MenuItem
+              variant="contained"
+              onClick={() => menuItemClick({to: `/user/${store?.current_user}`})}
+              sx={{
+                gap:".20rem !important",
+                display:"flex !important",
+                flexDirection:"row !important",
+                justifyContent:"space-between !important",
+                alignItems:"center",
+              }}
+            >
+              <Box>
+                <Typography>Mi perfil</Typography>
+              </Box>
+              <Box>
+                <AccountCircleOutlinedIcon className="my-1"/>
+              </Box>
+            </MenuItem>
+            <MenuItem>1</MenuItem>
+            <MenuItem
+              variant="contained"
+              onClick={() => menuItemClick({to: `/user/${store?.current_user}/ajustes`})}
+              sx={{
+                gap:".20rem !important",
+                display:"flex !important",
+                flexDirection:"row !important",
+                justifyContent:"space-between !important",
+                alignItems:"center",
+              }}
+            >
+              <Box>
+                <Typography>Settings</Typography>
+              </Box>
+              <Box>
+                <ManageAccountsIcon className="my-1"/>
+              </Box>
+            </MenuItem>
+            <Divider />
+            <MenuItem
+              variant="contained"
+              onClick={() => menuItemClick({logout: true})}
+              sx={{
+                gap:".20rem !important",
+                display:"flex !important",
+                flexDirection:"row !important",
+                justifyContent:"space-between !important",
+                alignItems:"center",
+                color:"red !important"
+              }}
+            >
+              <Box>
+                <Typography>Log out</Typography>
+              </Box>
+              <Box>
+                <LogoutIcon className="my-1"/>
+              </Box>
+            </MenuItem>
+          </Menu>
+        </Box>
+      </FlexBetween>
+    </Box>
+  );
+};
+
+export default UserBar;

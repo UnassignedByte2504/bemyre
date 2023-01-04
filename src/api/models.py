@@ -31,7 +31,7 @@ class State(db.Model): #provincias
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
     country = db.Column(db.String(80), db.ForeignKey('country.name'), nullable=False)
-    cities = db.relationship('Cities', backref='State', lazy=True)
+    cities = db.relationship('City', backref='State', lazy=True)
     def __repr__(self):
         return f'<States {self.name}>'
     def serialize(self):
@@ -43,9 +43,9 @@ class State(db.Model): #provincias
         }
 
 
-class Cities(db.Model): #ciudades, pueblos
+class City(db.Model): #ciudades, pueblos
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=True, nullable=False)
+    name = db.Column(db.String(80), nullable=False)
     state = db.Column(db.String(80), db.ForeignKey('state.name'), nullable=False)
     def __repr__(self):
         return f'<Cities {self.name}>'
@@ -56,33 +56,15 @@ class Cities(db.Model): #ciudades, pueblos
             "state": self.state,
         }
 
-class ZipCodes (db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    zip_code = db.Column(db.String(80), unique=True, nullable=False)
-    city = db.Column(db.String(80), db.ForeignKey('cities.name'), nullable=False)
-    state = db.Column(db.String(80), db.ForeignKey('state.name'), nullable=False)
-    country = db.Column(db.String(80), db.ForeignKey('country.name'), nullable=False)
-    def __repr__(self):
-        return f'<ZipCodes {self.zip_code}>'
-    def serialize(self):
-        return {
-            "id": self.id,
-            "zip_code": self.zip_code,
-            "city": self.city,
-            "state": self.state,
-            "country": self.country,
-        }
-
 class UserContactInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = relationship("User", back_populates="user_contact_info")
     phone_number = db.Column(db.String(80), unique=True, nullable=True)
     address = db.Column(db.String(80), unique=True, nullable=True)
-    country = db.Column(db.String(80), db.ForeignKey('country.name'), nullable=True)
-    state = db.Column(db.String(80), db.ForeignKey('state.name'), nullable=True)
-    city = db.Column(db.String(80), db.ForeignKey('cities.name'), nullable=True)
-    zip_code = db.Column(db.String(80), db.ForeignKey('zip_codes.zip_code'), nullable=True)
+    country = db.Column(db.Integer , db.ForeignKey('country.id'), nullable=True)
+    state = db.Column (db.Integer, db.ForeignKey('state.id'), nullable=True)
+    city = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=True)
     last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
     def __repr__(self):
         return f'<UserContactInfo {self.user}>'
@@ -96,7 +78,6 @@ class UserContactInfo(db.Model):
             "country": self.country,
             "state": self.state,
             "city": self.city,
-            "zip_code": self.zip_code,
             "last_update": self.last_update,
         }
 class UserType(db.Model):

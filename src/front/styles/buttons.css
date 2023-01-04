@@ -179,10 +179,12 @@
   );
   text-shadow: -3px -3px 0px #f8f005, 3px 3px 0px #00e6f6;
   clip-path: var(--slice-0);
+  animation: 1s glitch infinite;
+  animation-timing-function: steps(2, end);
 }
 
 .AnimatedButton:hover:after {
-  animation: 1s glitch;
+  animation: 1s glitch infinite;
   animation-timing-function: steps(2, end);
 }
 

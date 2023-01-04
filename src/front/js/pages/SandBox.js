@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-
+import auth from "../auth";
 import { CardConcert } from "../component/ConcertCard/CardConcert.jsx";
 import { CardMusician } from "../component/MusicianCard/CardMusician.jsx";
 import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
@@ -24,7 +24,7 @@ import AnimatedButton from "../component/buttons/AnimatedButton.jsx";
 import RoundedButton from "../component/buttons/RoundedButton.jsx";
 import ShadowButton from "../component/buttons/ShadowButton.jsx";
 
-const BrainStorm = () => {
+const BrainStorm = (props) => {
   const theme = useTheme();
   const { actions, store } = useContext(Context);
 
@@ -56,14 +56,6 @@ const BrainStorm = () => {
       setImageType(file.type);
       setImageSize(file.size);
       setImageBase64(reader.result);
-      // convert base64 to binary
-      let binary = window.atob(reader.result.split(",")[1]);
-      let array = [];
-      for (let i = 0; i < binary.length; i++) {
-        array.push(binary.charCodeAt(i));
-      }
-      setImageBinary(new Uint8Array(array));
-      setImageFile(window.btoa(reader.result));
     };
     reader.readAsDataURL(file);
   };
@@ -374,8 +366,9 @@ const BrainStorm = () => {
         </FlexCentered>
         <FlexBetween>
           <AnimatedButton title="Test Animated" />
-          <RoundedButton title="Test Rounded" />
-          <ShadowButton title="Test Shadow" />
+          <RoundedButton title="Test Rounded" onclick={() => alert("clicked")}/>
+          <ShadowButton title="Test Shadow"/>
+
         </FlexBetween>
       </Box>
       {/* marcos */}

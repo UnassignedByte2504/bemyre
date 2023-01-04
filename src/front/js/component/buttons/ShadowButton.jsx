@@ -5,7 +5,7 @@ const ShadowButton = ({ to, title }) => {
   return (
     <>
       <Link className="Link" to={to}>
-        <button class="ShadowButton" role="button">
+        <button className="ShadowButton" role="button">
           {title}
         </button>
       </Link>

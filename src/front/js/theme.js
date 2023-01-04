@@ -112,6 +112,11 @@ export const themeSettings = (mode) => {
               main: tokensDark.primary[500],
               alt: tokensDark.primary[600],
             },
+            userSettings:{
+              main: tokensDark.primary[800],
+              menu: tokensDark.primary[600],
+              panel: tokensDark.primary[500],
+            },
           }
         : {
             // palette values for light mode
@@ -180,5 +185,17 @@ export const themeSettings = (mode) => {
         fontSize: 14,
       },
     },
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 768,
+        lg: 1200,
+        xl: 1536,
+      },
+    },
+    
   };
 };
+
+

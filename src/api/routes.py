@@ -70,7 +70,6 @@ def handle_signup():
         country = None,
         state = None,
         city = None,
-        zip_code = None,
         last_update = datetime.now()
         )
     db.session.add(new_user_contact_info)

@@ -41,6 +41,13 @@ export const Login = () => {
     onSubmit,
   });
 
+  const [activePage, setActivePage] = useState()
+  useEffect(() => {
+    const currentPath = window.location.pathname;
+    console.log("use effect lp", currentPath)
+    setActivePage(currentPath)
+    actions.setLocation(currentPath)
+  }, [])
   return (
     <Box className="backgroundSignup grad-orange">
       <Box
