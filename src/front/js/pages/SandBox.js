@@ -374,8 +374,8 @@ const BrainStorm = () => {
         </FlexCentered>
         <FlexBetween>
           <AnimatedButton title="Test Animated" />
-          <RoundedButton title="Test Rounded"/>
-          <ShadowButton title="Test Shadow"/>
+          <RoundedButton title="Test Rounded" />
+          <ShadowButton title="Test Shadow" />
         </FlexBetween>
       </Box>
       {/* marcos */}
@@ -390,10 +390,21 @@ const BrainStorm = () => {
         }}
       >
         <h1 className="mb-5">Carmen</h1>
-        <Box sx={{ display: "flex", gap: "30px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "flex-start",
+            height: "max-content",
+            gap: "2rem",
+          }}
+        >
           <CardConcert />
+
           <CardMusician />
+
           <CardBandas />
+
           <CardLocal />
         </Box>
         <hr className="mt-5" />

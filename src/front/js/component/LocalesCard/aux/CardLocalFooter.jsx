@@ -18,7 +18,7 @@ export const CardLocalFooter = ({
 
   return (
     <>
-      <Box className="p-3">
+      <Box className="ps-3 pe-3 pb-2">
         <Chip
           className={generoMusica1 ? "me-2 mb-2" : "d-none"}
           label={generoMusica1}
@@ -50,8 +50,11 @@ export const CardLocalFooter = ({
           onDelete={store.username === store.current_user ? handleDelete : null}
         ></Chip>
       </Box>
-      <Divider></Divider>
-      <CardsButton title="Más info" />
+
+      <Box sx={{ display: "flex", gap: "0.25rem" }}>
+        <CardsButton minWidth="126px" title="Más info" />
+        <CardsButton minWidth="126px" title="Aplicar" />
+      </Box>
     </>
   );
 };

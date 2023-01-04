@@ -14,48 +14,66 @@ import { Button } from "@mui/material";
 export const CardBandasInfo = ({
   nombreArtistico,
   municipioDeResidencia,
-  integrante1,
-  integrante2,
-  integrante3,
-  integrante4,
-  integrante5,
-  integrante6,
+  nombreArtisticointegrante1,
+  nombreArtisticointegrante2,
+  nombreArtisticointegrante3,
+  nombreArtisticointegrante4,
+  nombreArtisticointegrante5,
+  nombreArtisticointegrante6,
+  instrumento1,
+  instrumento2,
+  instrumento3,
+  instrumento4,
+  instrumento5,
+  instrumento6,
   integranteNuevo1,
   integranteNuevo2,
 }) => {
   return (
     <CardContent>
       <Box sx={{ display: "inline" }}>
-        <Typography variant="h4">
+        <Typography variant="h5">
           <strong>
             {nombreArtistico} | {municipioDeResidencia}
           </strong>
         </Typography>
 
-        <Typography variant="span">
-          <strong>
-            Somos: {integrante1}
-            {integrante2}
-            {integrante3}
-            {integrante4}
-            {integrante5}
-            {integrante6}
-          </strong>
+        <Typography variant="body1">
+          <span
+            className={nombreArtisticointegrante1 ? null : "d-none"}
+          >{`Somos: ${nombreArtisticointegrante1} (${instrumento1})`}</span>
+
+          <span
+            className={nombreArtisticointegrante2 ? null : "d-none"}
+          >{`, ${nombreArtisticointegrante2} (${instrumento2})`}</span>
+          <span
+            className={nombreArtisticointegrante3 ? null : "d-none"}
+          >{`, ${nombreArtisticointegrante3} (${instrumento3})`}</span>
+          <span
+            className={nombreArtisticointegrante4 ? null : "d-none"}
+          >{`, ${nombreArtisticointegrante4} (${instrumento4})`}</span>
+          <span
+            className={nombreArtisticointegrante5 ? null : "d-none"}
+          >{`, ${nombreArtisticointegrante5} (${instrumento5})`}</span>
+          <span
+            className={nombreArtisticointegrante6 ? null : "d-none"}
+          >{`, ${nombreArtisticointegrante6} (${instrumento6})`}</span>
         </Typography>
-        <Typography variant="span">
-          <strong>
-            Estamos buscando un bajista y un soprano para lorem.....
-          </strong>
+        <Typography variant="body1">
+          <span>
+            Estamos buscando un bajista y un soprano Lorem Ipsum ha sido el
+            texto de relleno estándar de las industrias desde el año...
+          </span>
         </Typography>
       </Box>
-      <Divider></Divider>
+      <Divider className="mb-1 mt-3"></Divider>
       <FlexBetween>
-        <Typography variant="h5">{integranteNuevo1}</Typography>
+        <Typography variant="body1">{integranteNuevo1}</Typography>
         <Button variant="contained">Aplicar</Button>
       </FlexBetween>
-      <Divider></Divider>
+      <Divider className="mb-1 mt-3"></Divider>
       <FlexBetween>
-        <Typography variant="h5">{integranteNuevo2}</Typography>
+        <Typography variant="body1">{integranteNuevo2}</Typography>
         <Button variant="contained">Aplicar</Button>
       </FlexBetween>
     </CardContent>

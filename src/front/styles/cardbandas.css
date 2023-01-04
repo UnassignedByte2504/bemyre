@@ -1,7 +1,8 @@
 @import url(colors.css);
 
 .card-bandas {
-  width: 20rem;
+  width: 40rem;
+  height: 24rem;
   cursor: pointer;
 }
 
@@ -20,7 +21,37 @@
 }
 
 .cardbandasimg {
-  max-height: 18rem;
+  min-height: 16rem;
+  max-height: 24rem;
   object-fit: cover;
   width: 100%;
+  height: 100%;
 }
+
+/* clases inspector */
+
+/* .MuiCardContent-root {
+  padding-bottom: 10px !important;
+}
+
+.MuiButtonBase-root {
+  box-sizing: content-box;
+}
+
+.MuiTypography-root {
+  margin: auto !important;
+}
+
+.MuiCardActions-root {
+  box-sizing: content-box;
+  padding: 0 !important;
+}
+
+.MuiList-root {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.MuiTypography-h5 {
+  padding-bottom: 6px;
+} */

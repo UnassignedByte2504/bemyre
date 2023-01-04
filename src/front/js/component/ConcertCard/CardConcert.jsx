@@ -1,11 +1,10 @@
-import { Box } from "@mui/material";
 import React from "react";
 import "../../../styles/cardconcert.css";
 import { CardConcertFooter } from "./aux/CardConcertFooter.jsx";
 import { CardConcertImg } from "./aux/CardConcertImg.jsx";
 import { CardConcertInfo } from "./aux/CardConcertInfo.jsx";
 import { Card } from "@mui/material";
-import { useTheme } from "@mui/material";
+import { useTheme, Box } from "@mui/material";
 
 export const CardConcert = () => {
   const theme = useTheme();
@@ -13,14 +12,19 @@ export const CardConcert = () => {
     generoMusica1: "Techno",
   };
   return (
-    <>
+    <Box>
       <Card
-        className="card-concert"
-        sx={{ backgroundColor: theme.palette.background.card }}
+        className="card-concert style-card"
+        sx={{
+          backgroundColor: theme.palette.background.card,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
       >
-        <CardConcertImg urlImg="https://images.unsplash.com/photo-1619961602105-16fa2a5465c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8bXVzaWNpYW58ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" />
+        <CardConcertImg urlImg="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y29uY2VydHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
         <CardConcertInfo
-          fechaConcierto="31/12/2022"
+          fechaConcierto="Sábado 18 de febrero"
           horaConcierto="22h"
           ubicacionConcierto="C/Capuchinos,72 (Málaga)"
           nombreArtistaConcierto="Black Bone Tango"
@@ -34,6 +38,6 @@ export const CardConcert = () => {
           generoMusica6={generosMusica.generoMusica6}
         />
       </Card>
-    </>
+    </Box>
   );
 };
