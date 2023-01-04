@@ -24,6 +24,8 @@ import { Signup } from "./pages/Signup.js";
 import { BandProfile } from "./pages/BandProfile.js";
 import { Footer } from "./component/Footer.jsx";
 import { ProtectedRoute } from "./protected.route.js";
+import { Faq } from "./pages/Faq.js";
+
 
 // <<< components <<<<
 
@@ -68,6 +70,9 @@ const Layout = ({isLogged}) => {
             <Route element={<Signup />} path="/signup" />
             <Route element={<BandProfile />} exact path="/bandprofile/:id" />
             <Route element={<BrainStorm />} path="/sandbox" />
+            <Route element={<Faq />} path="/faq" />
+
+
           </Routes>
           <Footer />
         </ThemeProvider>

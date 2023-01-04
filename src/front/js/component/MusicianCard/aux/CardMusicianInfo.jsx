@@ -21,19 +21,28 @@ export const CardMusicianInfo = ({
   return (
     <CardContent>
       <Box sx={{ display: "inline" }}>
-        <Typography variant="h4">
+        <Typography variant="h5">
           <strong>
             {nombreArtistico} | {municipioDeResidencia}
           </strong>
         </Typography>
       </Box>
-      <Typography variant="h6">
-        <strong>Mis instrumentos principales:</strong>
-      </Typography>
-      <Typography variant="p">
-        {instrumentosPrincipales.instrumentoPrincipal1}
-        {instrumentosPrincipales.instrumentoPrincipal2}
-        {instrumentosPrincipales.instrumentoPrincipal3}
+      <Typography variant="body1" gutterBottom sx={{ "margin-top": "5px" }}>
+        <span
+          className={
+            instrumentosPrincipales.instrumentoPrincipal1 ? null : "d-none"
+          }
+        >{`${instrumentosPrincipales.instrumentoPrincipal1}`}</span>
+        <span
+          className={
+            instrumentosPrincipales.instrumentoPrincipal2 ? null : "d-none"
+          }
+        >{`, ${instrumentosPrincipales.instrumentoPrincipal2}`}</span>
+        <span
+          className={
+            instrumentosPrincipales.instrumentoPrincipal3 ? null : "d-none"
+          }
+        >{`, ${instrumentosPrincipales.instrumentoPrincipal3}`}</span>
       </Typography>
     </CardContent>
   );

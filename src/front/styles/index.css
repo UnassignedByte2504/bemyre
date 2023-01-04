@@ -17,6 +17,9 @@
 @import url(footer.css);
 @import url(spain.css);
 @import url(usersettings.css);
+@import url(faq.css);
+@import url(cardinstruments.css);
+
 
 html,
 body,
@@ -31,15 +34,14 @@ body,
 
 .Link {
   text-decoration: none;
-  
 }
 
-.LinkLight{
+.LinkLight {
   text-decoration: none;
   color: #333 !important;
 }
 
-.LinkDark{
+.LinkDark {
   text-decoration: none;
   color: #ddd !important;
 }
@@ -56,3 +58,33 @@ body,
   font-size: small;
   margin: 0.25rem;
 }
+
+/* >>>>>>>>>>>CARDS */
+
+.style-card .MuiCardContent-root {
+  padding-bottom: 10px !important;
+}
+
+.style-card .MuiButtonBase-root {
+  box-sizing: content-box;
+}
+
+.style-card .MuiTypography-root {
+  margin: auto !important;
+}
+
+.style-card .MuiCardActions-root {
+  box-sizing: content-box;
+  padding: 0 !important;
+}
+
+.style-card .MuiList-root {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.style-card .MuiTypography-h5 {
+  padding-bottom: 6px;
+}
+
+/* CARDS<<<<<<<<<<<<<< */

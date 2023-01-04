@@ -6,6 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import FlexBetween from "../../styledcomponents/FlexBetween.jsx";
 
 export const CardConcertInfo = ({
   fechaConcierto,
@@ -20,8 +21,11 @@ export const CardConcertInfo = ({
       </Typography>
 
       <List>
-        <ListItemText>{fechaConcierto}</ListItemText>
-        <ListItemText>{horaConcierto}</ListItemText>
+        <FlexBetween>
+          <ListItemText>
+            {fechaConcierto} | {horaConcierto}
+          </ListItemText>
+        </FlexBetween>
         <ListItemText>{ubicacionConcierto}</ListItemText>
       </List>
     </CardContent>

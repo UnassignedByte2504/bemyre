@@ -4,7 +4,7 @@ import { CardMusicianFooter } from "./aux/CardMusicianFooter.jsx";
 import { CardMusicianImg } from "./aux/CardMusicianImg.jsx";
 import { CardMusicianInfo } from "./aux/CardMusicianInfo.jsx";
 import { Card } from "@mui/material";
-import { useTheme } from "@mui/material";
+import { useTheme, Box } from "@mui/material";
 
 export const CardMusician = () => {
   const theme = useTheme();
@@ -13,10 +13,15 @@ export const CardMusician = () => {
     generoMusica2: "Clasica",
   };
   return (
-    <>
+    <Box>
       <Card
-        className="card-musician"
-        sx={{ backgroundColor: theme.palette.background.card }}
+        className="card-musician style-card"
+        sx={{
+          backgroundColor: theme.palette.background.card,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
       >
         <CardMusicianImg urlImg="https://images.unsplash.com/photo-1618673747378-7e0d3561371a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80" />
         <CardMusicianInfo
@@ -33,6 +38,6 @@ export const CardMusician = () => {
           generoMusica6={generosMusica.generoMusica6}
         />
       </Card>
-    </>
+    </Box>
   );
 };

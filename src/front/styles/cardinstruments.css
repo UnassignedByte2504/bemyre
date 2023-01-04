@@ -1,0 +1,26 @@
+.cardinstrument{
+    width: 300px;
+    height: 400px;
+    background-image: url("https://images.unsplash.com/photo-1550291652-6ea9114a47b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80");
+    background-size: cover;
+}
+
+.textinstrument{
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+}
+
+.typoinstrument{
+    font-size: 1.5rem!important;
+    letter-spacing: 3px;
+}
+
+.textcardinstrument{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    height: 100%;
+    width: 100%;
+    margin: 1rem;
+
+}

@@ -17,7 +17,7 @@ import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
 import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
 import FlexBetween from "../component/styledcomponents/FlexBetween.jsx";
 import FlexCentered from "../component/styledcomponents/FlexCentered.jsx";
-
+import { CardInstruments } from "../component/card/CardInstruments.jsx";
 // Marcos imports
 import LinkButton from "../component/buttons/LinkButton.jsx";
 import AnimatedButton from "../component/buttons/AnimatedButton.jsx";
@@ -368,11 +368,13 @@ const BrainStorm = (props) => {
           <AnimatedButton title="Test Animated" />
           <RoundedButton title="Test Rounded" onclick={() => alert("clicked")}/>
           <ShadowButton title="Test Shadow"/>
+
         </FlexBetween>
       </Box>
       {/* marcos */}
       <Box className="Pablo">
         <h1>Pablo</h1>
+        <CardInstruments />
         <hr />
       </Box>
       <Box
@@ -382,10 +384,21 @@ const BrainStorm = (props) => {
         }}
       >
         <h1 className="mb-5">Carmen</h1>
-        <Box sx={{ display: "flex", gap: "30px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "flex-start",
+            height: "max-content",
+            gap: "2rem",
+          }}
+        >
           <CardConcert />
+
           <CardMusician />
+
           <CardBandas />
+
           <CardLocal />
         </Box>
         <hr className="mt-5" />
