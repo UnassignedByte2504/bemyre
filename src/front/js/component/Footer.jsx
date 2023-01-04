@@ -40,10 +40,11 @@ export const Footer = () =>{
                 </Box>
                 <Box className="mx-3">
                     <Typography><strong>Acerca de</strong></Typography>
-                    <Link className="linkfooter" to="/"><Typography>¿Qué es Bemyre?</Typography></Link>
-                    <Link className="linkfooter" to="/"><Typography>¿Cómo creo una banda?</Typography></Link>
-                    <Link className="linkfooter" to="/"><Typography>¿Puedo unirme a banda?</Typography></Link>
-                    <Link className="linkfooter" to="/"><Typography>Valores y objetivos</Typography></Link>
+                    <Link className="linkfooter" to="/faq"><Typography>Preguntas Frequentes</Typography></Link>
+                    <Link className="linkfooter" to="/faq"><Typography>¿Qué es Bemyre?</Typography></Link>
+                    <Link className="linkfooter" to="/faq"><Typography>¿Cómo creo una banda?</Typography></Link>
+                    <Link className="linkfooter" to="/faq"><Typography>¿Puedo unirme a banda?</Typography></Link>
+                    <Link className="linkfooter" to="/faq"><Typography>Valores y objetivos</Typography></Link>
                 </Box>
                 <Box className="mx-3">
                     <Typography><strong>Bandas/Locales</strong></Typography>
