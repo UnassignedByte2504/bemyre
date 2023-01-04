@@ -1,5 +1,5 @@
 //import React
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 
@@ -12,10 +12,10 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 //Import styles
 import "../../styles/index.css"
 import bemyrelogo from "../../img/Bemyre_logo.png"
-
-
+import { Context } from "../store/appContext";
 export const Footer = () =>{
 
+    const {store, actions} = useContext(Context)
     return (
         <Box className="footer">
             <Box className=" left"> 
@@ -34,7 +34,10 @@ export const Footer = () =>{
                 <Box className="marginfooter mx-3">
                     <Typography><strong>Navegación</strong></Typography>
                     <Link className="linkfooter" to="/home"><Typography>Home</Typography></Link>
-                    <Link className="linkfooter" to="/"><Typography>Perfil</Typography></Link>
+                    {store.current_user? 
+                    <Link className="linkfooter" to={`/user/${store.current_user}`}><Typography>Perfil</Typography></Link>
+                    :
+                    null}
                     <Link className="linkfooter" to="/signup"><Typography>Registro</Typography></Link>
                     <Link className="linkfooter" to="/login"><Typography>Inicio sesión</Typography></Link>
                 </Box>
