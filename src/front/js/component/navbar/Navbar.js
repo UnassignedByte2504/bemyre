@@ -49,7 +49,6 @@ function Navbar() {
 
   useEffect(() => {
     const currentPath = window.location.pathname;
-    console.log("use effect lp", currentPath);
     setActivePage(currentPath);
     actions.setLocation(currentPath);
   }, [store.currentPath]);

@@ -31,7 +31,6 @@ export const Signup = () => {
     sessionStorage.removeItem("alert_signup");
   }, []);
   const onSubmit = async (values, ax) => {
-    await console.log("esto es de signup", values);
     await actions.signUp(
       values.userName,
       values.email,

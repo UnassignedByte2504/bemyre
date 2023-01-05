@@ -81,7 +81,7 @@ const UserBar = () => {
         <Box>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Marcos Saez" src="/static/images/avatar/2.jpg" />
+              <Avatar alt={sessionStorage.getItem('current_user')} src={sessionStorage.getItem("profile_img")} />
             </IconButton>
           </Tooltip>
           <Menu

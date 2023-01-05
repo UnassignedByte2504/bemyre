@@ -25,12 +25,10 @@ export const LandingPage = () => {
 
   useEffect(() => {
     const currentPath = window.location.pathname;
-    console.log("use effect lp", currentPath)
     setActivePage(currentPath)
     actions.setLocation(currentPath)
   }, [store.currentPath])
   
-  console.log("active page",activePage)
   return (
     <Box>
       <LandingJumbo />

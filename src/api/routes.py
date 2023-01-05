@@ -36,9 +36,12 @@ def handle_signup():
     new_user = User(
         user_name=request_data['user_name'],
         email=request_data['email'],
+        profile_img = None,
+        portrait_img = None,
         password=request_data['password'],
         first_name=request_data['first_name'],
         last_name=request_data['last_name'],
+        description = None,
         is_active=True,
         is_musician=request_data['is_musician'],
         creation_date = datetime.now(),
@@ -114,7 +117,8 @@ def handle_login():
             "message": "Credenciales correctas",
             "access_token": access_token,
 	        "last_login":user.last_login,
-            "user_name": user.user_name
+            "user_name": user.user_name,
+            "profile_img": user.profile_img
         }
         ), 200
     
@@ -214,6 +218,16 @@ def user_contact_info(username_var):
 def logout():
     user = get_jwt_identity()
     return jsonify({"message": f"{user} has been logged out"}), 200
+
+@api.route('/isauth/<string:username_var>', methods=['GET'])
+@jwt_required()
+def is_auth(username_var):
+    user = get_jwt_identity()
+    if user == username_var:
+        return jsonify({"auth": True}), 200
+    elif user != username_var:
+        return jsonify({"auth": False}), 200
+
 
 
 @api.route('/imgtest', methods=['POST', 'GET'])
