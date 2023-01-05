@@ -13,7 +13,7 @@ export const CardProfile = ({first_name, last_name, description, profilePicture}
             color: theme.palette.text.card,
             backgroundColor: theme.palette.background.card
         }}>
-            <img src="https://images.unsplash.com/photo-1550560888-1009463ef168?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80" className="card-img-top" alt="..."/>
+            <img src={profilePicture}className="card-img-top" alt="..."/>
             <Box className="card-body">
                 <Typography variant="h5"className="card-title text-center" >{first_name} {last_name}</Typography>
                 <Typography className="card-text" >{description}</Typography>

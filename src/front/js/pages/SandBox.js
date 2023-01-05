@@ -7,10 +7,10 @@ import {
   Grid,
   Typography,
   useTheme,
+  Slider,
 } from "@mui/material";
 import { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import auth from "../auth";
 import { CardConcert } from "../component/ConcertCard/CardConcert.jsx";
 import { CardMusician } from "../component/MusicianCard/CardMusician.jsx";
 import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
@@ -23,6 +23,7 @@ import LinkButton from "../component/buttons/LinkButton.jsx";
 import AnimatedButton from "../component/buttons/AnimatedButton.jsx";
 import RoundedButton from "../component/buttons/RoundedButton.jsx";
 import ShadowButton from "../component/buttons/ShadowButton.jsx";
+import zIndex from "@mui/material/styles/zIndex";
 
 const BrainStorm = (props) => {
   const theme = useTheme();
@@ -44,6 +45,11 @@ const BrainStorm = (props) => {
   const [displayImg, setDisplayImg] = useState(false);
   const [imgId, setImgId] = useState(null);
   const [imgs, setImgs] = useState([]);
+  const [ejeY, setEjeY] = useState(0);
+
+  const handleEjeChange = (e) => {
+    setEjeY(e.target.value);
+  };
 
   const handleImageChange = (e) => {
     e.preventDefault();
@@ -366,10 +372,67 @@ const BrainStorm = (props) => {
         </FlexCentered>
         <FlexBetween>
           <AnimatedButton title="Test Animated" />
-          <RoundedButton title="Test Rounded" onclick={() => alert("clicked")}/>
-          <ShadowButton title="Test Shadow"/>
-
+          <RoundedButton
+            title="Test Rounded"
+            onclick={() => alert("clicked")}
+          />
+          <ShadowButton title="Test Shadow" />
         </FlexBetween>
+        <Divider />
+        <Typography variant="h1">Prueba overlay</Typography>
+        <Box>
+          <FlexBetween>
+            <Box
+              className="PadreHeader"
+              width="600px"
+              height="200px"
+              sx={{
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <Box
+                className="HermanoTexto"
+                sx={{
+                  height: "100%",
+                  width: "100%",
+                  position: "absolute",
+                  zIndex: "2",
+                }}
+              >
+                <Typography variant="h1">Prueba texto</Typography>
+              </Box>
+              <Box
+                className="HermanoImagen"
+                sx={{
+                  height: "100%",
+                  width: "100%",
+                  position: "absolute",
+                  zIndex: "1",
+                }}
+              >
+                <img
+                  style={{ transform: `translateY(${ejeY}%)` }}
+                  className="imagenPrueba"
+                  src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                  alt="imagen"
+                />
+              </Box>
+            </Box>
+            <Box marginRight="10rem">
+              <Typography variant="h2">Pruebame</Typography>
+              <Slider
+                aria-label="Eje Y"
+                defaultValue={0}
+                valueLabelDisplay="auto"
+                marks
+                min={-50}
+                max={0}
+                onChange={(e, value) => setEjeY(value)}
+              />
+            </Box>
+          </FlexBetween>
+        </Box>
       </Box>
       {/* marcos */}
       <Box className="Pablo">

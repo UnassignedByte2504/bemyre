@@ -96,6 +96,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_type = db.Column(db.String(80), db.ForeignKey('user_type.name'), nullable=True)
     user_name= db.Column(db.String(80), unique=True, nullable=False)
+    profile_img = db.Column(db.Unicode)
+    portrait_img = db.Column(db.Unicode)
     email = db.Column(db.String(120), unique=True, nullable=False)
     user_contact_info = relationship("UserContactInfo", back_populates="user")
     password = db.Column(db.String(80), unique=False, nullable=False)
@@ -117,6 +119,8 @@ class User(db.Model):
             "id": self.id,
             "user_type": self.user_type,
             "user_name": self.user_name,
+            "profile_img": self.profile_img,
+            "portrait_img": self.portrait_img,
             "email": self.email,
             "first_name": self.first_name,
             "last_name": self.last_name,
@@ -378,7 +382,6 @@ class InfluenceBand(db.Model):
 
 
         }
-local_profile_img = db.Column(db.Unicode)
 
 class ImgTest (db.Model):
     __tablename__ = 'img_test'

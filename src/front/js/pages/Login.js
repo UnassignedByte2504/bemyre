@@ -44,7 +44,6 @@ export const Login = () => {
   const [activePage, setActivePage] = useState()
   useEffect(() => {
     const currentPath = window.location.pathname;
-    console.log("use effect lp", currentPath)
     setActivePage(currentPath)
     actions.setLocation(currentPath)
   }, [])

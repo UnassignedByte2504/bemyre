@@ -28,14 +28,21 @@ export const Profile = () => {
   const params = useParams();
   const username = params.username;
   const currentUser = sessionStorage.getItem("current_user");
-
+  const profilePicture = store.resultados.profile_img ? store.resultados.profile_img : null;
+  const portraitPicture = store.resultados.portrait_img ? store.resultados.portrait_img : null;
   useEffect(() => {
     actions.fetchUser(username);
   }, []);
+  
+
 
   return (
     <>
-      <Box className="position-relative position-relative-example headerProfile">
+      <Box className="position-relative position-relative-example headerProfile" sx={{
+         backgroundImage: `url(${portraitPicture})`,
+         backgroundPosition: "center",
+         backgroundSize: "cover",
+      }}>
         <Box className=" d-flex flex-column justify-content-center align-items-end container nameheader">
           <Box>
             <Typography variant="h1">
@@ -59,6 +66,7 @@ export const Profile = () => {
               first_name={store.resultados.first_name}
               last_name={store.resultados.last_name}
               description={store?.resultados.description}
+              profilePicture={profilePicture}
             />
           </Box>
           {/* Import aside Bands */}

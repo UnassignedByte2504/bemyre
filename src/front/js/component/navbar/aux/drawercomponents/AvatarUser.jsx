@@ -12,10 +12,13 @@ export const AvatarUser = () => {
         <Box className="AvatarBox mt-3">
           <Box>
             <Avatar
-              className="AvatarSB shadow"
-              alt="Travis Howard"
-              src="https://avatars.dicebear.com/api/bottts/.svg"
-            />{" "}
+              alt={sessionStorage.getItem("current_user")}
+              src={sessionStorage.getItem("profile_img")}
+              sx={{
+                height:"6rem",
+                width:"6rem"
+              }}
+            />
           </Box>
           <Box className="mt-2">
             <Typography className="NameSB" variant="h4">

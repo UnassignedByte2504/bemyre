@@ -23,18 +23,16 @@ import { Login } from "./pages/Login.js";
 import { Signup } from "./pages/Signup.js";
 import { BandProfile } from "./pages/BandProfile.js";
 import { Footer } from "./component/Footer.jsx";
-import { ProtectedRoute } from "./protected.route.js";
 import { Faq } from "./pages/Faq.js";
-
+import ProtectedRoute from "./ProtectedRoute.js";
 
 // <<< components <<<<
 
 //create your first component
-const Layout = ({isLogged}) => {
+const Layout = ({ isLogged }) => {
   const { store, actions } = useContext(Context);
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
-
 
   //the basename is used when your project is published in a subdirectory and not in the root of the domain
   // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
@@ -47,11 +45,15 @@ const Layout = ({isLogged}) => {
           <CssBaseline />
           <Navbar />
           <Routes>
-            <Route element={<Explore />} path="/explorar"  />
+            <Route element={<Explore />} path="/explorar" />
             <Route element={<LandingPage />} path="/home" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Profile />} path="user/:username" />
-            <Route element={<UserSettings />} path="user/:username/ajustes" />
+            {/* {store.current_user ? (
+              <Route element={<UserSettings />} path="user/:username/ajustes" />
+            ) : (
+              <Route element={<LandingPage />} path="/home" />
+            )} */}
             <Route
               element={
                 <Login
@@ -71,8 +73,10 @@ const Layout = ({isLogged}) => {
             <Route element={<BandProfile />} exact path="/bandprofile/:id" />
             <Route element={<BrainStorm />} path="/sandbox" />
             <Route element={<Faq />} path="/faq" />
-
-
+            <Route
+              path="/user/:username/ajustes"
+              element={<ProtectedRoute component={<UserSettings />} />}
+            />
           </Routes>
           <Footer />
         </ThemeProvider>

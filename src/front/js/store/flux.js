@@ -9,7 +9,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       current_user: sessionStorage.getItem("current_user"),
       alert: "",
       currentPath: "",
-      selected_settings: null
+      selected_settings: null,
+      user_settings:[
+        {},
+        {},
+      ]
     },
     actions: {
       sendImgTest: async (img) => {
@@ -98,14 +102,12 @@ const getState = ({ getStore, getActions, setStore }) => {
             if (result.access_token != undefined) {
               sessionStorage.setItem("access_token", result.access_token);
               sessionStorage.setItem("current_user", result.user_name);
+              sessionStorage.setItem('profile_img', result.profile_img)
               window.location.href = `/user/${result.user_name}`
-              console.log("promise", result);
               setStore({
                 store_token: result.access_token,
                 logged: true,
               });
-              console.log("store", store.current_user);
-              console.log("must be true", store.logged);
               // navigate(`/${result.user_name}`);
             }
           });
@@ -136,6 +138,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // >>>> Functions realted on fetching user info from back
       fetchUser: async (username) => {
+        const store = getStore()
         const options = {
           method: "GET",
           headers: {
@@ -153,6 +156,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           // })
           .then((response) => response.json())
           .then((result) => setStore({ resultados: result }));
+        
+          await console.log(store.resultados)
+          
       },
       // <<<< Functions realted on fetching user info from back
       //misc functions
@@ -161,7 +167,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           currentPath: location})
       },
       setSelectedSettings:(settings)=>{
-        console.log("settings desde flux", settings)
         setStore({
           selected_settings: settings})
       },

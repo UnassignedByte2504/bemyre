@@ -28,12 +28,9 @@ import { UserSettingsMenuItems } from "../../UserSettingsData.js";
 const ProfileMenu = () => {
   const { actions, store } = useContext(Context);
   const [open, setOpen] = useState(true);
-  const [isSelected, setIsSelected] = useState();
 
   const selectSetting = (settings) => {
-    console.log(settings, "desde comp");
     actions.setSelectedSettings(settings);
-    setIsSelected(settings);
   };
   const handleClick = () => {
     setOpen(!open);
@@ -61,7 +58,7 @@ const ProfileMenu = () => {
             <ListItemIcon>
               <ModeEditIcon />
             </ListItemIcon>
-            <ListItemText primary="Editar Informacion" />
+            <ListItemText primary={UserSettingsMenuItems[0]} />
           </ListItemButton>
           <ListItemButton
             className={
@@ -75,7 +72,7 @@ const ProfileMenu = () => {
             <ListItemIcon>
               <AccountBoxIcon />
             </ListItemIcon>
-            <ListItemText primary="Imagen de Perfil y Portada" />
+            <ListItemText primary={UserSettingsMenuItems[1]} />
           </ListItemButton>
           <ListItemButton
             className={

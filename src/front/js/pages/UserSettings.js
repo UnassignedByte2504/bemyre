@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 //MUI imports >>>>
 import { Divider, Typography } from "@mui/material";
@@ -22,6 +23,15 @@ const UserSettings = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [selectedItem, setSelectedItem] = useState(UserSettingsMenuItems[0]);
 
+  const params = useParams()
+  const current_user = sessionStorage.getItem('current_user')
+  const userparams = params.username
+
+  useEffect(() =>{
+    if (current_user !== userparams) {
+      window.location.href = `/user/${current_user}`}
+  }, [])
+  
   useEffect(() => {
     if (store?.selected_settings !== null){
         setSelectedItem(store?.selected_settings)
