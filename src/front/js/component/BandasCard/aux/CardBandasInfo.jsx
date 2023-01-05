@@ -66,14 +66,18 @@ export const CardBandasInfo = ({
           </span>
         </Typography>
       </Box>
-      <Divider className="mb-1 mt-3"></Divider>
-      <FlexBetween>
-        <Typography variant="body1">{integranteNuevo1}</Typography>
+      <Divider className="mb-2 mt-3"></Divider>
+      <FlexBetween className="mx-5">
+        <span sx={{ marginLeft: 0 }} variant="body1">
+          {integranteNuevo1}
+        </span>
         <Button variant="contained">Aplicar</Button>
       </FlexBetween>
-      <Divider className="mb-1 mt-3"></Divider>
-      <FlexBetween>
-        <Typography variant="body1">{integranteNuevo2}</Typography>
+      <Divider className="mb-2 mt-3"></Divider>
+      <FlexBetween className="mx-5">
+        <span sx={{ marginLeft: 0 }} variant="body1">
+          {integranteNuevo2}
+        </span>
         <Button variant="contained">Aplicar</Button>
       </FlexBetween>
     </CardContent>
