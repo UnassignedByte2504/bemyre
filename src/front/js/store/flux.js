@@ -10,24 +10,31 @@ const getState = ({ getStore, getActions, setStore }) => {
       alert: "",
       currentPath: "",
       selected_settings: null,
-      user_settings:[
-        {},
-        {},
-      ]
+      user_img_settings: {
+        profile_img: sessionStorage.getItem("settings_profile_img")
+          ? sessionStorage.getItem("settings_profile_img")
+          : null,
+        portrait_img: sessionStorage.getItem("settings_portrait_img")
+          ? sessionStorage.getItem("settings_portrait_img")
+          : null,
+      },
     },
     actions: {
       sendImgTest: async (img) => {
-
         const options = {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"},
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
             img: img,
-          })
+          }),
         };
 
-        const response = await fetch(`${process.env.BACKEND_URL}/api/signup`, options)
+        const response = await fetch(
+          `${process.env.BACKEND_URL}/api/signup`,
+          options
+        );
         const data = await response.json();
         setStore({
           message: data.message,
@@ -102,8 +109,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             if (result.access_token != undefined) {
               sessionStorage.setItem("access_token", result.access_token);
               sessionStorage.setItem("current_user", result.user_name);
-              sessionStorage.setItem('profile_img', result.profile_img)
-              window.location.href = `/user/${result.user_name}`
+              sessionStorage.setItem("profile_img", result.profile_img);
+              window.location.href = `/user/${result.user_name}`;
               setStore({
                 store_token: result.access_token,
                 logged: true,
@@ -127,7 +134,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         //   .then((response) => console.log(response));
         sessionStorage.removeItem("access_token");
         sessionStorage.removeItem("current_user");
-        window.location.href = "/home"
+        window.location.href = "/home";
         setStore({
           token_local: null,
           logged: false,
@@ -138,7 +145,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       // >>>> Functions realted on fetching user info from back
       fetchUser: async (username) => {
-        const store = getStore()
+        const store = getStore();
         const options = {
           method: "GET",
           headers: {
@@ -156,22 +163,39 @@ const getState = ({ getStore, getActions, setStore }) => {
           // })
           .then((response) => response.json())
           .then((result) => setStore({ resultados: result }));
-        
-          await console.log(store.resultados)
-          
+
+        await console.log(store.resultados);
       },
       // <<<< Functions realted on fetching user info from back
       //misc functions
-      setLocation:(location)=>{
+      setLocation: (location) => {
         setStore({
-          currentPath: location})
+          currentPath: location,
+        });
       },
-      setSelectedSettings:(settings)=>{
+      setSelectedSettings: (settings) => {
         setStore({
-          selected_settings: settings})
+          selected_settings: settings,
+        });
+      },
+      preProfileImg: (profileImg) => {
+        const store = getStore()
+        setStore({
+          user_img_settings: {
+            profile_img: profileImg,
+            portrait_img: store.user_img_settings.portrait_img
+        }});
+      },
+      prePortraitImg: (portraitImg) => {
+        const store = getStore()
+        setStore({
+          user_img_settings: {
+            profile_img: store.user_img_settings.profile_img,
+            portrait_img: portraitImg,
+          },
+        });
       },
       //misc functions
-      
     },
   };
 };
