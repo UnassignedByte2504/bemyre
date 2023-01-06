@@ -201,14 +201,14 @@ class UserMusicalInstrument(db.Model):
     id= db.Column(db.Integer, primary_key=True)
     user_musician_info_id = db.Column(db.Integer, db.ForeignKey('user_musician_info.id'), nullable=False)
     user_musician_info = relationship("UserMusicianInfo", back_populates="user_musical_instruments")
-    musical_instrument = relationship("MusicalInstrument", backref="user_musical_instrument", lazy=True)	
+    # musical_instrument = relationship("MusicalInstrument", backref="user_musical_instrument", lazy=True)	
     last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
     def __repr__(self):	
         return f'<UserMusicalInstrument {self.musical_instrument.name}>'
         def serialize(self):
             return {
                 "id": self.id,
-                "musical_instrument_id": self.musical_instrument_id,
+                # "musical_instrument_id": self.musical_instrument_id,
                 "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
             }
 
@@ -235,7 +235,7 @@ class UserMusicGenre(db.Model):
 class MusicalInstrumentsCategory(db.Model):
         id = db.Column(db.Integer, primary_key=True)
         name = db.Column(db.String(80), unique=True, nullable=False)
-        musical_instruments = relationship("MusicalInstrument", back_populates="musical_instruments_category")
+        musical_instruments = relationship("MusicalInstrument", backref="musical_instruments_category", lazy=True)
         def __repr__(self):
             return f'<MusicalInstrumentsCategory {self.name}>'
 
@@ -249,12 +249,9 @@ class MusicalInstrumentsCategory(db.Model):
 
 class MusicalInstrument(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    musical_instruments_category_id = db.Column(db.Integer, db.ForeignKey('musical_instruments_category.id'), nullable=False)
-    musical_instruments_category = relationship("MusicalInstrumentsCategory")
-    user_musical_instruments_id = db.Column(db.Integer, db.ForeignKey('user_musical_instrument.id'), nullable=False)
-    name = db.Column(db.String(80), unique=True, nullable=False)
-    creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
-    last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
+    musical_instruments_category_name = db.Column(db.String, db.ForeignKey('musical_instruments_category.name'), nullable=False)
+    name = db.Column(db.String(80), nullable=False)
+    last_update = db.Column(db.DateTime, nullable=True, default = datetime.datetime.utcnow)
     def __repr__(self):
         return f'<MusicalInstrument {self.name}>'
 
