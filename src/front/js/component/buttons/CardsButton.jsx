@@ -21,7 +21,7 @@ export const CardsButton = ({ title, minWidth }) => {
             sx={{
               color: theme.palette.buttons.card,
               fontWeight: "500",
-              fontFamily: "Roboto",
+              // fontFamily: "Inter, sans serif",
               minWidth: { minWidth },
             }}
           >

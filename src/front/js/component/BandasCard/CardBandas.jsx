@@ -50,22 +50,6 @@ export const CardBandas = () => {
           <CardBandasInfo
             nombreArtistico="Nombre del grupo"
             municipioDeResidencia="Málaga"
-            //   integrante1={integrantes.integrante1 ? integrantes.integrante1 : null}
-            //   integrante2={integrantes.integrante2 ? integrantes.integrante2 : null}
-            //   integrante3={integrantes.integrante3 ? integrantes.integrante3 : null}
-            //   integrante4={integrantes.integrante4 ? integrantes.integrante4 : null}
-            //   integrante5={integrantes.integrante5 ? integrantes.integrante5 : null}
-            //   integrante6={integrantes.integrante6 ? integrantes.integrante6 : null}
-            //   integranteNuevo1={
-            //     integrantesNuevos.integranteNuevo1
-            //       ? integrantesNuevos.integranteNuevo1
-            //       : null
-            //   }
-            //   integranteNuevo2={
-            //     integrantesNuevos.integranteNuevo2
-            //       ? integrantesNuevos.integranteNuevo2
-            //       : null
-            //   }
             nombreArtisticointegrante1={
               integrantes.integrante1?.nombreArtisticointegrante1
             }
@@ -94,24 +78,6 @@ export const CardBandas = () => {
             integranteNuevo2={integrantesNuevos.integranteNuevo2}
           />
           <CardBandasFooter
-            //   generoMusica1={
-            //     generosMusica.generoMusica1 ? generosMusica.generoMusica1 : null
-            //   }
-            //   generoMusica2={
-            //     generosMusica.generoMusica2 ? generosMusica.generoMusica2 : null
-            //   }
-            //   generoMusica3={
-            //     generosMusica.generoMusica3 ? generosMusica.generoMusica3 : null
-            //   }
-            //   generoMusica4={
-            //     generosMusica.generoMusica4 ? generosMusica.generoMusica4 : null
-            //   }
-            //   generoMusica5={
-            //     generosMusica.generoMusica5 ? generosMusica.generoMusica5 : null
-            //   }
-            //   generoMusica6={
-            //     generosMusica.generoMusica6 ? generosMusica.generoMusica6 : null
-            //   }
             generoMusica1={generosMusica.generoMusica1}
             generoMusica2={generosMusica.generoMusica2}
             generoMusica3={generosMusica.generoMusica3}
