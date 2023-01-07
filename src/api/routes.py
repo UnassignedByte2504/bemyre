@@ -275,6 +275,11 @@ def get_img(img_id):
 
 
 
+# @api.route('/ciudadporprovincia/<string:provincia>', methods=['GET'])
+# def ciudad_por_provincia(provincia):
+#     state = db.session.query(State).filter(State.name == provincia)
+#     if state:
+
 
 
 

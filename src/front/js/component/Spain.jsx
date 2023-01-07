@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material"
 import React, { useState } from "react"
-
+import { ExploraDropdown } from "./Dropdown/ExploraDropdown.jsx"
 import "../../styles/index.css"
 
 export const Spain = () =>{
@@ -10,6 +10,19 @@ export const Spain = () =>{
         <>
 
             <Box className="padre">
+            <Box className="mb-3">
+                    {provincia ?
+                    <>
+                    <Typography className="text-center" variant="h3">Genial, me encanta {provincia}</Typography>
+                    <Typography className="text-center" variant="h4">Y ¿A qué ciudad vamos?</Typography>
+                    <ExploraDropdown />
+                    </>
+                    : 
+                    <Typography className="text-center" variant="h2">¿Dónde nos vamos a rockear?</Typography>
+
+                    }
+                   
+                </Box>
                 <Box className="mapa">
                 <svg
                 className="svg"
@@ -342,12 +355,7 @@ export const Spain = () =>{
                     />
                 </svg>
                 </Box>
-                <Box>
-                    <Typography className="text-center" variant="h3">Provincia seleccionada: {provincia}</Typography>
-                    <Typography className="text-center"> Info 1</Typography>
-                    <Typography className="text-center">Info 2</Typography>
-                    <Typography className="text-center">{provincia}</Typography>
-                </Box>
+
             </Box>
         </>
     )
