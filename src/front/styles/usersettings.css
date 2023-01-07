@@ -144,3 +144,19 @@
     width:45%;
 }
 /* UserPictures <<<<<< */
+
+/* Change Password */
+
+.changepasswordbox{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.changepasswordform{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    align-items: center;
+}
