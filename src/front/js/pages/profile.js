@@ -26,6 +26,20 @@ import { CardInstruments } from "../component/card/CardInstruments.jsx";
 import CreateIcon from '@mui/icons-material/Create';
 import exampleimg from "../../img/example_img_profile.jpg"
 import exampleheader from "../../img/exampleheader.jpg"
+
+//Import Images
+import Guitarra from "../../img/instruments/guitarra-sm.jpg"
+import Bajo from "../../img/instruments/bajo-sm.jpg"
+import Acordeon from "../../img/instruments/acordeon-sm.jpg"
+import Saxo from "../../img/instruments/saxo-sm.jpg"
+import Trompeta from "../../img/instruments/trompeta-sm.jpg"
+import Violin from "../../img/instruments/violin-sm.jpg"
+import Violonchello from "../../img/instruments/violonchello-sm.jpg"
+import Xilofono from "../../img/instruments/xilofono-sm.jpg"
+import Vient from "../../img/instruments/viento.jpg"
+import Bateria from "../../img/instruments/bateria-sm.jpg"
+import Cuerda from "../../img/instruments/cuerda.jpg"
+
 //Function
 
 export const Profile = () => {
@@ -184,6 +198,8 @@ export const Profile = () => {
           <CardInstruments
           name="GUITARRA"
           type="VIENTO"
+          img={Guitarra}  //Aqui traeriamos como variable
+
           />
         </Box>
       </Box>
