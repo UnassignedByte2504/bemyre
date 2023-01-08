@@ -138,7 +138,24 @@ def handle_user(username_var):
             return jsonify({"message": "User not found"}), 404
     return jsonify(user.serialize()), 200
 
+@api.route('settings/<string:username_var>/profileimgs', methods=['PUT'])
+@jwt_required()
+def handle_user_profile_img(username_var):
+    user = get_jwt_identity()
+    if user != username_var:
+        return jsonify({"message": "Access Denied"}), 401
+    if request.method == 'PUT':
+        user = db.session.query(User).filter(User.user_name == username_var).first()
+        if not user:
+            return jsonify({"message": "User not found"}), 404
+        user.profile_img = request.json.get("profile_img", None)
+        user.portrait_img = request.json.get("portrait_img", None)
+        last_update = datetime.now()
+        db.session.commit()
+        return jsonify({"msg":"Imagen actualizada con exito"}), 200
 
+
+    
 
 #<<----1.1 START UserSocialMedia endpoint ----->>
 @api.route('/<string:username_var>/socialmedia', methods=['GET', 'PUT'])
@@ -255,6 +272,15 @@ def get_img(img_id):
     if not img:
         return jsonify({"message": "Img not found"}), 404
     return jsonify({"img": img.serialize()}), 200
+
+
+
+
+# @api.route('/ciudadporprovincia/<string:provincia>', methods=['GET'])
+# def ciudad_por_provincia(provincia):
+#     state = db.session.query(State).filter(State.name == provincia)
+#     if state:
+
 
 
 

@@ -5,10 +5,13 @@ import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 //Imports material
-import { Box } from "@mui/system";
+import { Box, margin } from "@mui/system";
 import { CardProfile } from "../component/card/CardProfile.jsx";
-import { Button, Typography, useTheme } from "@mui/material";
+import { Button, Slider, Typography, useTheme } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 //Import Components
 import { AsideBands } from "../component/profile/AsideBands.jsx";
@@ -20,6 +23,7 @@ import { Influences } from "../component/profile/Influences.jsx";
 import { Equipment } from "../component/profile/Equipment.jsx";
 import { Singer } from "../component/typeofuser/Singer.jsx";
 import { CardInstruments } from "../component/card/CardInstruments.jsx";
+import CreateIcon from '@mui/icons-material/Create';
 //Function
 
 export const Profile = () => {
@@ -33,12 +37,13 @@ export const Profile = () => {
   useEffect(() => {
     actions.fetchUser(username);
   }, []);
-  
+  const [open, setOpen] = useState(false)
+  const [ejeY, setEjeY] = useState(0);
 
 
   return (
     <>
-      <Box className="position-relative position-relative-example headerProfile" sx={{
+      {/* <Box className="position-relative position-relative-example headerProfile" sx={{
          backgroundImage: `url(${portraitPicture})`,
          backgroundPosition: "center",
          backgroundSize: "cover",
@@ -52,6 +57,55 @@ export const Profile = () => {
           <Box>
             <Typography className="text-white">Localidad: Sevilla</Typography>
           </Box>
+        </Box>
+      </Box> */}
+
+      <Box 
+      className="padreheader"
+      height='20vh'
+      width='100vw'
+      sx={{
+        position: 'relative',
+        overflow: 'hidden'
+      }}
+      >
+        <Box className='hijotexto'
+          sx={{
+            height: "100%",
+            width: "100%",
+            position: "absolute",
+            zIndex: "2",
+          }}
+          > 
+            <Typography variant="h1">
+              {store.resultados.first_name} {store.resultados.last_name}
+            </Typography>
+            <Typography>
+              Sevilla, Spain
+            </Typography>
+        </Box >
+        <Box 
+        sx={{position: "absolute",
+        zIndex:"3",
+        margin: "15px"
+        }}
+        >
+        <Button onClick={(()=> setOpen(true))}><CreateIcon />Editar posición</Button>
+        </Box>
+        <Box className='hijoimg'
+              sx={{
+                height: "100%",
+                width: "100%",
+                position: "absolute",
+                zIndex: "0",
+              }}
+        >
+          <img 
+            style={{transform: `translateY(${ejeY}%)` }}
+            className="imagenheader"
+            src={portraitPicture}
+            alt='Imagen header'
+          />
         </Box>
       </Box>
 
@@ -81,6 +135,23 @@ export const Profile = () => {
             backgroundColor: theme.palette.background.card,
           }}
         >
+          {open===true? 
+          <Box className="mb-3">
+          <Typography className="">Mover imagen encabezado</Typography>
+          <Box className="d-flex">
+          <Slider
+          defaultValue={70}
+          aria-label="Small"
+          valueLabelDisplay="auto"
+          min={-40}
+          max={0}
+          onChange={(e, value) => setEjeY(value)}
+        />
+            <Button onClick={(()=> {setEjeY(0); setOpen(false)})}><CloseIcon/></Button>
+            <Button onClick={(()=>setOpen(false))}><CheckIcon/></Button>
+          </Box>
+        </Box>
+          :null}
           {/* Condicional ? Spotify */}
           {1 + 1 === 2 ? (
             <SpotifyProfile currentUser={currentUser} userName={username} />
