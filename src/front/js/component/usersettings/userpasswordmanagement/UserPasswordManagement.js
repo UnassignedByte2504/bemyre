@@ -7,7 +7,7 @@ const UserPasswordManagement = () => {
   const submitFormPassword = (values)=>{
     console.log(values)
   }
-  const {handleSubmit, handleChange} = useFormik({
+  const {handleSubmit, handleChange, isSubmitting} = useFormik({
     initialValues: {
       oldPassword: '',
       confirmOldPassword: '',
@@ -22,7 +22,7 @@ const UserPasswordManagement = () => {
       <Typography className='my-3' variant='h3'>Cambiar Contraseña</Typography>
       <form onSubmit={handleSubmit} className='changepasswordform'>
         <TextField
-        className='w-100'
+        className='w-100 my-2'
         variant='outlined'
         label='Old password'
         type='password'
@@ -31,7 +31,7 @@ const UserPasswordManagement = () => {
         
         />
         <TextField
-        className='w-100'
+        className='w-100 my-2'
         variant='outlined'
         label='Confirm Old Password'
         type='password'
@@ -40,7 +40,7 @@ const UserPasswordManagement = () => {
         
         />
         <TextField
-        className='w-100'
+        className='w-100 my-2'
         variant='outlined'
         label='New Password'
         type='password'
@@ -49,7 +49,7 @@ const UserPasswordManagement = () => {
         
         />
         <TextField
-        className='w-100'
+        className='w-100 my-2'
         variant='outlined'
         label='Confirm New Password'
         type='password'
@@ -60,6 +60,7 @@ const UserPasswordManagement = () => {
         <Button
         variant='contained'
         type='submit'
+        className='my-2'
         >Cambiar Contraseña</Button>
       </form>
     </Box>
