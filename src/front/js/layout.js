@@ -25,6 +25,7 @@ import { BandProfile } from "./pages/BandProfile.js";
 import { Footer } from "./component/Footer.jsx";
 import { Faq } from "./pages/Faq.js";
 import ProtectedRoute from "./ProtectedRoute.js";
+import { Locales } from "./pages/Locales";
 
 // <<< components <<<<
 
@@ -77,6 +78,7 @@ const Layout = ({ isLogged }) => {
               path="/user/:username/ajustes"
               element={<ProtectedRoute component={<UserSettings />} />}
             />
+            <Route element={<Locales />} path="/locales" />
           </Routes>
           <Footer />
         </ThemeProvider>

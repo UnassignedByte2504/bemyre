@@ -258,7 +258,17 @@ def get_img(img_id):
 
 
 
+#<<-----1 LOCALES ENDPOINT START ----->>
 
+@api.route('/locales', methods=['GET'])
+def get_locales():
+    locales = Locales.query.all()
+    locales_list = []
+    for local in locales:
+        locales_list.append(local.serialize())
+    return jsonify(locales_list), 200
+
+#<<-----1 LOCALES ENDPOINT END ----->>
 
 
 

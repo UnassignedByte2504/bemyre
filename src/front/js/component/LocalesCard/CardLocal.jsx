@@ -6,12 +6,19 @@ import { CardLocalInfo } from "./aux/CardLocalInfo.jsx";
 import { Card } from "@mui/material";
 import { useTheme, Box } from "@mui/material";
 
-export const CardLocal = () => {
+export const CardLocal = ({
+  generoMusica1,
+  generoMusica2,
+  generoMusica3,
+  generoMusica4,
+  generoMusica5,
+  generoMusica6,
+  urlImg,
+  nombreLocal,
+  ubicacion,
+}) => {
   const theme = useTheme();
-  let generosMusica = {
-    generoMusica1: "Jazz",
-    generoMusica2: "Clasica",
-  };
+
   return (
     <Box>
       <Card
@@ -23,18 +30,15 @@ export const CardLocal = () => {
           justifyContent: "space-between",
         }}
       >
-        <CardLocalImg urlImg="https://images.unsplash.com/photo-1609234700463-60e479775df0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bG9jYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" />
-        <CardLocalInfo
-          nombreLocal="Nombre"
-          ubicacion="c/ Calle, Numero (Localidad)"
-        />
+        <CardLocalImg urlImg={urlImg} />
+        <CardLocalInfo nombreLocal={nombreLocal} ubicacion={ubicacion} />
         <CardLocalFooter
-          generoMusica1={generosMusica.generoMusica1}
-          generoMusica2={generosMusica.generoMusica2}
-          generoMusica3={generosMusica.generoMusica3}
-          generoMusica4={generosMusica.generoMusica4}
-          generoMusica5={generosMusica.generoMusica5}
-          generoMusica6={generosMusica.generoMusica6}
+          generoMusica1={generoMusica1}
+          generoMusica2={generoMusica2}
+          generoMusica3={generoMusica3}
+          generoMusica4={generoMusica4}
+          generoMusica5={generoMusica5}
+          generoMusica6={generoMusica6}
         />
       </Card>
     </Box>
