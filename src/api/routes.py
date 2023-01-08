@@ -275,12 +275,26 @@ def get_img(img_id):
 
 
 
+
 # @api.route('/ciudadporprovincia/<string:provincia>', methods=['GET'])
 # def ciudad_por_provincia(provincia):
 #     state = db.session.query(State).filter(State.name == provincia)
 #     if state:
 
 
+
+
+#<<-----1 LOCALES ENDPOINT START ----->>
+
+@api.route('/locales', methods=['GET'])
+def get_locales():
+    locales = Locales.query.all()
+    locales_list = []
+    for local in locales:
+        locales_list.append(local.serialize())
+    return jsonify(locales_list), 200
+
+#<<-----1 LOCALES ENDPOINT END ----->>
 
 
 
