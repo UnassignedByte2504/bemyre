@@ -275,33 +275,20 @@ def get_img(img_id):
 
 
 
-@api.route('/provincias', methods=['GET'])
-def states():
-    states = State.query.all()
-    list_states = []
-    for state in states:
-        list_states.append(state.serialize())
-    return jsonify(list_states)
-
-@api.route('/ciudades', methods=['GET'])
-def get_cities():
-    cities = City.query.all()
-    list_cities = []
-    for city in cities:
-        list_cities.append(city.serialize())
-    return jsonify(list_cities)
-
-# @api.route('/provincias/<string:provincia>', methods=['GET'])
-# def ciudad_por_provincia(provincia):
-#     state = db.session.query(State).filter(State.name == provincia)
-#     if state:
-#         ciudades = 
-#         list_cities = []
-#         for ciudad in ciudades:
-#             list_cities.append(ciudad)
-#         return jsonify(list_cities)
 
 
+
+#<<-----1 LOCALES ENDPOINT START ----->>
+
+@api.route('/locales', methods=['GET'])
+def get_locales():
+    locales = Locales.query.all()
+    locales_list = []
+    for local in locales:
+        locales_list.append(local.serialize())
+    return jsonify(locales_list), 200
+
+#<<-----1 LOCALES ENDPOINT END ----->>
 
 
 

@@ -52,8 +52,8 @@ export const CardLocalFooter = ({
       </Box>
 
       <Box sx={{ display: "flex", gap: "0.25rem" }}>
-        <CardsButton minWidth="126px" title="Más info" />
-        <CardsButton minWidth="126px" title="Aplicar" />
+        <CardsButton minWidth="142px" title="Más info" />
+        <CardsButton minWidth="142px" title="Aplicar" />
       </Box>
     </>
   );

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 617ebbc0a6a1
+Revision ID: cd23fd8aef69
 Revises: 
-Create Date: 2023-01-05 08:30:21.419729
+Create Date: 2023-01-07 18:04:15.683414
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '617ebbc0a6a1'
+revision = 'cd23fd8aef69'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -50,24 +50,25 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
+    op.create_table('state',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=80), nullable=False),
+    sa.Column('country', sa.String(length=80), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('name')
+    )
     op.create_table('user_type',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=80), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
-    op.create_table('event',
+    op.create_table('city',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('event_types_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=80), nullable=False),
-    sa.Column('description', sa.String(length=80), nullable=True),
-    sa.Column('date', sa.DateTime(), nullable=False),
-    sa.Column('creation_date', sa.DateTime(), nullable=False),
-    sa.Column('last_update', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['event_types_id'], ['event_types.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('description'),
-    sa.UniqueConstraint('name')
+    sa.Column('state', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['state'], ['state.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('influence_band',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -76,13 +77,13 @@ def upgrade():
     sa.ForeignKeyConstraint(['genre'], ['music_genre.name'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('state',
+    op.create_table('musical_instrument',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('musical_instruments_category_name', sa.String(), nullable=False),
     sa.Column('name', sa.String(length=80), nullable=False),
-    sa.Column('country', sa.String(length=80), nullable=False),
-    sa.ForeignKeyConstraint(['country'], ['country.name'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name')
+    sa.Column('last_update', sa.DateTime(), nullable=True),
+    sa.ForeignKeyConstraint(['musical_instruments_category_name'], ['musical_instruments_category.name'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -104,12 +105,33 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('user_name')
     )
-    op.create_table('city',
+    op.create_table('locales',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=80), nullable=False),
-    sa.Column('state', sa.String(length=80), nullable=False),
-    sa.ForeignKeyConstraint(['state'], ['state.name'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.Column('name', sa.String(length=255), nullable=False),
+    sa.Column('ubicacion_local', sa.String(length=255), nullable=False),
+    sa.Column('city_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['city_id'], ['city.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('name')
+    )
+    op.create_table('user_contact_info',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('phone_number', sa.String(length=80), nullable=True),
+    sa.Column('address', sa.String(length=80), nullable=True),
+    sa.Column('country', sa.Integer(), nullable=True),
+    sa.Column('state', sa.Integer(), nullable=True),
+    sa.Column('city', sa.Integer(), nullable=True),
+    sa.Column('last_update', sa.DateTime(), nullable=False),
+    sa.ForeignKeyConstraint(['city'], ['city.id'], ),
+    sa.ForeignKeyConstraint(['country'], ['country.id'], ),
+    sa.ForeignKeyConstraint(['state'], ['state.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('address'),
+    sa.UniqueConstraint('phone_number')
     )
     op.create_table('user_musician_info',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -161,22 +183,28 @@ def upgrade():
     sa.UniqueConstraint('description'),
     sa.UniqueConstraint('name')
     )
-    op.create_table('user_contact_info',
+    op.create_table('event',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('phone_number', sa.String(length=80), nullable=True),
-    sa.Column('address', sa.String(length=80), nullable=True),
-    sa.Column('country', sa.Integer(), nullable=True),
-    sa.Column('state', sa.Integer(), nullable=True),
-    sa.Column('city', sa.Integer(), nullable=True),
+    sa.Column('event_type_name', sa.String(), nullable=False),
+    sa.Column('name', sa.String(length=80), nullable=False),
+    sa.Column('description', sa.String(length=80), nullable=True),
+    sa.Column('date', sa.DateTime(), nullable=False),
+    sa.Column('creation_date', sa.DateTime(), nullable=False),
     sa.Column('last_update', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['city'], ['city.id'], ),
-    sa.ForeignKeyConstraint(['country'], ['country.id'], ),
-    sa.ForeignKeyConstraint(['state'], ['state.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.Column('local_name', sa.String(), nullable=False),
+    sa.ForeignKeyConstraint(['event_type_name'], ['event_types.name'], ),
+    sa.ForeignKeyConstraint(['local_name'], ['locales.name'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('address'),
-    sa.UniqueConstraint('phone_number')
+    sa.UniqueConstraint('description'),
+    sa.UniqueConstraint('name')
+    )
+    op.create_table('locales_musicgenre',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('musicgenre_id', sa.Integer(), nullable=False),
+    sa.Column('locales_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['locales_id'], ['locales.id'], ),
+    sa.ForeignKeyConstraint(['musicgenre_id'], ['music_genre.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user_music_genre',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -203,37 +231,36 @@ def upgrade():
     sa.ForeignKeyConstraint(['member_id'], ['user_musician_info.user_id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('musical_instrument',
+    op.create_table('locales_bands',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('musical_instruments_category_id', sa.Integer(), nullable=False),
-    sa.Column('user_musical_instruments_id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=80), nullable=False),
-    sa.Column('creation_date', sa.DateTime(), nullable=False),
-    sa.Column('last_update', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['musical_instruments_category_id'], ['musical_instruments_category.id'], ),
-    sa.ForeignKeyConstraint(['user_musical_instruments_id'], ['user_musical_instrument.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name')
+    sa.Column('bands_id', sa.Integer(), nullable=False),
+    sa.Column('locales_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['bands_id'], ['bands.id'], ),
+    sa.ForeignKeyConstraint(['locales_id'], ['locales.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
 
 
 def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
-    op.drop_table('musical_instrument')
+    op.drop_table('locales_bands')
     op.drop_table('band_members')
     op.drop_table('user_musical_instrument')
     op.drop_table('user_music_genre')
-    op.drop_table('user_contact_info')
+    op.drop_table('locales_musicgenre')
+    op.drop_table('event')
     op.drop_table('bands')
     op.drop_table('user_social_media')
     op.drop_table('user_musician_info')
-    op.drop_table('city')
+    op.drop_table('user_contact_info')
+    op.drop_table('locales')
     op.drop_table('user')
-    op.drop_table('state')
+    op.drop_table('musical_instrument')
     op.drop_table('influence_band')
-    op.drop_table('event')
+    op.drop_table('city')
     op.drop_table('user_type')
+    op.drop_table('state')
     op.drop_table('musical_instruments_category')
     op.drop_table('music_genre')
     op.drop_table('img_test')
