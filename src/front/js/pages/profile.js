@@ -24,6 +24,8 @@ import { Equipment } from "../component/profile/Equipment.jsx";
 import { Singer } from "../component/typeofuser/Singer.jsx";
 import { CardInstruments } from "../component/card/CardInstruments.jsx";
 import CreateIcon from '@mui/icons-material/Create';
+import exampleimg from "../../img/example_img_profile.jpg"
+import exampleheader from "../../img/exampleheader.jpg"
 //Function
 
 export const Profile = () => {
@@ -32,13 +34,13 @@ export const Profile = () => {
   const params = useParams();
   const username = params.username;
   const currentUser = sessionStorage.getItem("current_user");
-  const profilePicture = store.resultados.profile_img ? store.resultados.profile_img : null;
-  const portraitPicture = store.resultados.portrait_img ? store.resultados.portrait_img : null;
+  const profilePicture = store.resultados.profile_img ? store.resultados.profile_img : exampleimg;
+  const portraitPicture = store.resultados.portrait_img ? store.resultados.portrait_img : exampleheader;
   useEffect(() => {
     actions.fetchUser(username);
   }, []);
   const [open, setOpen] = useState(false)
-  const [ejeY, setEjeY] = useState(0);
+  const [ejeY, setEjeY] = useState(-40);
 
 
   return (
@@ -62,7 +64,7 @@ export const Profile = () => {
 
       <Box 
       className="padreheader"
-      height='20vh'
+      height='30vh'
       width='100vw'
       sx={{
         position: 'relative',

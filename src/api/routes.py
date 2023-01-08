@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from datetime import datetime
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, ImgTest
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, ImgTest, State, City
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -275,10 +275,31 @@ def get_img(img_id):
 
 
 
-# @api.route('/ciudadporprovincia/<string:provincia>', methods=['GET'])
+@api.route('/provincias', methods=['GET'])
+def states():
+    states = State.query.all()
+    list_states = []
+    for state in states:
+        list_states.append(state.serialize())
+    return jsonify(list_states)
+
+@api.route('/ciudades', methods=['GET'])
+def get_cities():
+    cities = City.query.all()
+    list_cities = []
+    for city in cities:
+        list_cities.append(city.serialize())
+    return jsonify(list_cities)
+
+# @api.route('/provincias/<string:provincia>', methods=['GET'])
 # def ciudad_por_provincia(provincia):
 #     state = db.session.query(State).filter(State.name == provincia)
 #     if state:
+#         ciudades = 
+#         list_cities = []
+#         for ciudad in ciudades:
+#             list_cities.append(ciudad)
+#         return jsonify(list_cities)
 
 
 
