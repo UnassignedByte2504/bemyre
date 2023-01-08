@@ -382,25 +382,25 @@ class InfluenceBand(db.Model):
 
         }
 
-class ImgTest (db.Model):
-    __tablename__ = 'img_test'
-    id = db.Column(db.Integer, primary_key=True)
-    img = db.Column(db.Unicode)
-    img_name = db.Column(db.String(255), nullable=True)
-    img_type = db.Column(db.String(255), nullable=True)
-    img_size = db.Column(db.String(255), nullable=True)
+# class ImgTest (db.Model):
+#     __tablename__ = 'img_test'
+#     id = db.Column(db.Integer, primary_key=True)
+#     img = db.Column(db.Unicode)
+#     img_name = db.Column(db.String(255), nullable=True)
+#     img_type = db.Column(db.String(255), nullable=True)
+#     img_size = db.Column(db.String(255), nullable=True)
 
-    def __repr__(self):
-        return '<id {}>'.format(self.id)
+#     def __repr__(self):
+#         return '<id {}>'.format(self.id)
 
-    def serialize(self):
-        return {
-            "id": self.id,
-            "img": self.img,
-            "img_name": self.img_name,
-            "img_type": self.img_type,
-            "img_size": self.img_size
-        }
+#     def serialize(self):
+#         return {
+#             "id": self.id,
+#             "img": self.img,
+#             "img_name": self.img_name,
+#             "img_type": self.img_type,
+#             "img_size": self.img_size
+#         }
 
 
 class Locales (db.Model):

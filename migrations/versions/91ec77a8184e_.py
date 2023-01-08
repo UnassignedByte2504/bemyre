@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: cd23fd8aef69
+Revision ID: 91ec77a8184e
 Revises: 
-Create Date: 2023-01-07 18:04:15.683414
+Create Date: 2023-01-08 18:23:07.781159
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'cd23fd8aef69'
+revision = '91ec77a8184e'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,14 +29,6 @@ def upgrade():
     sa.Column('name', sa.String(length=80), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
-    )
-    op.create_table('img_test',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('img', sa.Unicode(), nullable=True),
-    sa.Column('img_name', sa.String(length=255), nullable=True),
-    sa.Column('img_type', sa.String(length=255), nullable=True),
-    sa.Column('img_size', sa.String(length=255), nullable=True),
-    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('music_genre',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -263,7 +255,6 @@ def downgrade():
     op.drop_table('state')
     op.drop_table('musical_instruments_category')
     op.drop_table('music_genre')
-    op.drop_table('img_test')
     op.drop_table('event_types')
     op.drop_table('country')
     # ### end Alembic commands ###
