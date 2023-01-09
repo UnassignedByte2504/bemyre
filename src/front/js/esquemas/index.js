@@ -30,10 +30,22 @@ export const signupSchema = Yup.object().shape({
   userName: Yup.string().required("Username necesario"),
   confirmUserName: Yup.string()
     .oneOf([Yup.ref("userName"), null], "UserName no coincide")
-    .required("Confirmación necesaria")
+    .required("Confirmación necesaria"),
 });
 
 export const loginSchema = Yup.object().shape({
   email: Yup.string().required("Correo obligatorio"),
   password: Yup.string().required("Contraseña obligatoria"),
+});
+
+export const changePasswordSchema = Yup.object().shape({
+  oldPassword: Yup.string().required("Contraseña obligatoria"),
+  newPassword: Yup.string()
+    .min(8, "No cumple caracteres minimos")
+    .required("Password necesaria")
+    .matches(passwordRules, "Password no cumple con los requisitos"),
+  confirmNewPassword: Yup.string()
+    .required("Confirmación contraseña obligatoria")
+    .oneOf([Yup.ref("newPassword"), null], "Password no coincide")
+    .required("Confirmación necesaria"),
 });
