@@ -10,11 +10,11 @@ db = SQLAlchemy()
 # back_populates on relationship 'Countries.states' refers to attribute 'States.country' that is not a relationship.  The back_populates parameter should refer to the name of a relationship on the target class.
 
 
-
+ 
 class Country(db.Model):#pais
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
-    # states = db.relationship('State', backref='Country', lazy=True) 
+    states = db.relationship('State', backref='Country', lazy=True) 
 
     def __repr__(self):
         return f'<Countries {self.name}>'
@@ -23,14 +23,14 @@ class Country(db.Model):#pais
         return {
             "id": self.id,
             "name": self.name,
-            # "states": [state.serialize() for state in self.states]
+            "states": [state.serialize() for state in self.states]
 
         }
 
 class State(db.Model): #provincias
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
-    country = db.Column(db.String(80), nullable=False)
+    country = db.Column(db.String(80), db.ForeignKey('country.name'), nullable=False)
     cities = db.relationship('City', backref='State', lazy=True)
     def __repr__(self):
         return f'<States {self.name}>'
@@ -46,7 +46,8 @@ class State(db.Model): #provincias
 class City(db.Model): #ciudades, pueblos
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
-    state = db.Column(db.Integer, db.ForeignKey('state.id'), nullable=False)
+    state = db.Column(db.String(80), db.ForeignKey('state.name'), nullable=False)
+    locales = db.relationship('Local', backref='City', lazy=True)
     def __repr__(self):
         return f'<Cities {self.name}>'
     def serialize(self):
@@ -54,6 +55,7 @@ class City(db.Model): #ciudades, pueblos
             "id": self.id,
             "name": self.name,
             "state": self.state,
+            "locales": [locales.serialize() for local in self.locales]
         }
 
 class UserContactInfo(db.Model):
@@ -110,6 +112,8 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     is_musician = db.Column(db.Boolean(), unique=False, nullable=False)
     user_musician_info = relationship("UserMusicianInfo", back_populates="user")
+    # prueba:
+    locales = db.relationship('Local', backref='User', lazy=True)
     
     def __repr__(self):
         return f'<User {self.email}>'
@@ -129,7 +133,8 @@ class User(db.Model):
             "last_login": self.last_login.strftime("%Y-%m-%d %H:%M:%S"),    
             "user_contact_info": [user_contact_info.serialize() for user_contact_info in self.user_contact_info],
             "user_social_media": [user_social_media.serialize() for user_social_media in self.user_social_media],
-            "user_musician_info": [user_musician_info.serialize() for user_musician_info in self.user_musician_info]
+            "user_musician_info": [user_musician_info.serialize() for user_musician_info in self.user_musician_info],
+            "locales": [x.serialize() for x in self.locales]
         }
             # do not serialize the password, its a security breach
 
@@ -201,14 +206,14 @@ class UserMusicalInstrument(db.Model):
     id= db.Column(db.Integer, primary_key=True)
     user_musician_info_id = db.Column(db.Integer, db.ForeignKey('user_musician_info.id'), nullable=False)
     user_musician_info = relationship("UserMusicianInfo", back_populates="user_musical_instruments")
-    # musical_instrument = relationship("MusicalInstrument", backref="user_musical_instrument", lazy=True)	
+    musical_instrument = relationship("MusicalInstrument", backref="user_musical_instrument", lazy=True)	
     last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
     def __repr__(self):	
         return f'<UserMusicalInstrument {self.musical_instrument.name}>'
         def serialize(self):
             return {
                 "id": self.id,
-                # "musical_instrument_id": self.musical_instrument_id,
+                "musical_instrument_id": self.musical_instrument_id,
                 "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
             }
 
@@ -235,7 +240,7 @@ class UserMusicGenre(db.Model):
 class MusicalInstrumentsCategory(db.Model):
         id = db.Column(db.Integer, primary_key=True)
         name = db.Column(db.String(80), unique=True, nullable=False)
-        musical_instruments = relationship("MusicalInstrument", backref="musical_instruments_category", lazy=True)
+        musical_instruments = relationship("MusicalInstrument", back_populates="musical_instruments_category")
         def __repr__(self):
             return f'<MusicalInstrumentsCategory {self.name}>'
 
@@ -249,9 +254,12 @@ class MusicalInstrumentsCategory(db.Model):
 
 class MusicalInstrument(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    musical_instruments_category_name = db.Column(db.String, db.ForeignKey('musical_instruments_category.name'), nullable=False)
-    name = db.Column(db.String(80), nullable=False)
-    last_update = db.Column(db.DateTime, nullable=True, default = datetime.datetime.utcnow)
+    musical_instruments_category_id = db.Column(db.Integer, db.ForeignKey('musical_instruments_category.id'), nullable=False)
+    musical_instruments_category = relationship("MusicalInstrumentsCategory")
+    user_musical_instruments_id = db.Column(db.Integer, db.ForeignKey('user_musical_instrument.id'), nullable=False)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
+    last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
     def __repr__(self):
         return f'<MusicalInstrument {self.name}>'
 
@@ -329,7 +337,7 @@ class MusicGenre(db.Model):
 class EventTypes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
-    events = relationship("Event", backref="event_types", lazy=True)
+    events = relationship("Event", back_populates="event_types")
     def __repr__(self):
         return f'<EventTypes {self.name}>'
 
@@ -342,13 +350,13 @@ class EventTypes(db.Model):
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    event_type_name = db.Column(db.String, db.ForeignKey('event_types.name'), nullable=False)
+    event_types_id = db.Column(db.Integer, db.ForeignKey('event_types.id'), nullable=False)
+    event_types = relationship("EventTypes", back_populates="events")
     name = db.Column(db.String(80), unique=True, nullable=False)
     description = db.Column(db.String(80), unique=True, nullable=True)
     date = db.Column(db.DateTime, nullable=False)
     creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
-    local_name = db.Column(db.String, db.ForeignKey('locales.name'), nullable=False)
 
     def __repr__(self):
         return f'<Events {self.name}>'
@@ -356,13 +364,11 @@ class Event(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "event_type_name": self.event_type_name,
             "name": self.name,
             "description": self.description,
             "date": self.date.strftime("%Y-%m-%d %H:%M:%S"),
             "creation_date": self.creation_date.strftime("%Y-%m-%d %H:%M:%S"),
             "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
-            "local_name": self.local_name
         }
 
 class InfluenceBand(db.Model):
@@ -382,34 +388,39 @@ class InfluenceBand(db.Model):
 
         }
 
-# class ImgTest (db.Model):
-#     __tablename__ = 'img_test'
-#     id = db.Column(db.Integer, primary_key=True)
-#     img = db.Column(db.Unicode)
-#     img_name = db.Column(db.String(255), nullable=True)
-#     img_type = db.Column(db.String(255), nullable=True)
-#     img_size = db.Column(db.String(255), nullable=True)
+class ImgTest (db.Model):
+    __tablename__ = 'img_test'
+    id = db.Column(db.Integer, primary_key=True)
+    img = db.Column(db.Unicode)
+    img_name = db.Column(db.String(255), nullable=True)
+    img_type = db.Column(db.String(255), nullable=True)
+    img_size = db.Column(db.String(255), nullable=True)
 
-#     def __repr__(self):
-#         return '<id {}>'.format(self.id)
+    def __repr__(self):
+        return '<id {}>'.format(self.id)
 
-#     def serialize(self):
-#         return {
-#             "id": self.id,
-#             "img": self.img,
-#             "img_name": self.img_name,
-#             "img_type": self.img_type,
-#             "img_size": self.img_size
-#         }
+    def serialize(self):
+        return {
+            "id": self.id,
+            "img": self.img,
+            "img_name": self.img_name,
+            "img_type": self.img_type,
+            "img_size": self.img_size
+        }
 
 
-class Locales (db.Model):
-    __tablename__='locales'
+class Local (db.Model):
+    __tablename__='local'
     id=db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), unique=True, nullable=False)
-    ubicacion_local = db.Column(db.String(255), nullable=False)
-    city_id = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    name = db.Column(db.String(255), unique=True, nullable=True)
+    ubicacion_local = db.Column(db.String(255), nullable=True)
+    description = db.Column(db.String(500), nullable=True)
+    city_id = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=True)
+    city = db.relationship('City', backref=('local'), lazy=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    local_music_genres = relationship("LocalMusicGenre", backref=('Local'), lazy=True)
+    local_type = db.Column(db.String(255), nullable=True)
+
     
 
     def __repr__(self):
@@ -420,8 +431,12 @@ class Locales (db.Model):
             "id": self.id,
             "name": self.name,
             "ubicacion_local": self.ubicacion_local,
-            "city_id": self.city_id,
-            "user_id": self.user_id
+            "description": self.description,
+            "city": self.city.name,
+            "local_music_genres": [musicgenre.serialize() for musicgenre in self.local_music_genres],
+            "local_type": self.local_type
+            
+
         }
 
 
@@ -436,27 +451,14 @@ class Locales (db.Model):
 #     db.Column("locales_id", db.Integer, ForeignKey("locales.id"), primary_key=True)
 # )
 
-class Locales_Bands (db.Model):
-    __tablename__='locales_bands'
-    id= db.Column(db.Integer, primary_key=True)
-    bands_id = db.Column(db.Integer, db.ForeignKey('bands.id'), nullable=False)
-    locales_id = db.Column(db.Integer, db.ForeignKey('locales.id'), nullable=False)
 
-    def __repr__(self):
-        return '<id {}>'.format(self.id)
 
-    def serialize(self):
-        return {
-            "id": self.id,
-            "bands_id": self.bands_id,
-            "locales_id": self.locales_id,
-        }
-
-class Locales_MusicGenre (db.Model):
-    __tablename__='locales_musicgenre'
+class LocalMusicGenre (db.Model):
     id= db.Column(db.Integer, primary_key=True)
     musicgenre_id = db.Column(db.Integer, db.ForeignKey('music_genre.id'), nullable=False)
-    locales_id = db.Column(db.Integer, db.ForeignKey('locales.id'), nullable=False)
+    music_genre = db.relationship ('MusicGenre')
+    local_id = db.Column(db.Integer, db.ForeignKey('local.id'), nullable=False)
+    local = relationship("Local")
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
@@ -465,5 +467,7 @@ class Locales_MusicGenre (db.Model):
         return {
             "id": self.id,
             "musicgenre_id": self.musicgenre_id,
-            "locales_id": self.locales_id,
+            "music_genre": self.music_genre.name,
+            "local_id": self.local_id,
+            "local": self.local
         }
