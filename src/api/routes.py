@@ -155,10 +155,36 @@ def handle_user_profile_img(username_var):
         return jsonify({"msg":"Imagen actualizada con exito"}), 200
 
 
+@api.route('settings/<string:username_var>/socialmedia', methods=['PUT'])
+@jwt_required()
+def handle_user_social_media(username_var):
+    current_user = get_jwt_identity()
+    if current_user != username_var:
+        return jsonify({"message": "Access denied"}), 401
+
+    if request.method == 'PUT':
+        request_data = request.get_json(force=True)
+        user = db.session.query(User).filter(User.user_name == username_var).first()
+        user_social_media = db.session.query(UserSocialMedia).filter(UserSocialMedia.user_id == user.id).first()
+    if not user or not user_social_media:
+        return jsonify({"message": "User not found"}), 404
+        user_social_media.website_url = request_data['website_url']
+        user_social_media.youtube_url = request_data['youtube_url']
+        user_social_media.soundcloud_url = request_data['soundcloud_url']
+        user_social_media.instagram_url = request_data['instagram_url']
+        user_social_media.facebook_url = request_data['facebook_url']
+        user_social_media.twitter_url = request_data['twitter_url']
+        user_social_media.tiktok_url = request_data['tiktok_url']
+        user_social_media.snapchat_url = request_data['snapchat_url']
+        user_social_media.spotify_url = request_data['spotify_url']
+        last_update = datetime.now()
+    db.session.commit()
     
+    return jsonify({"message":"Informacion actualizada correctamente", "user_social_media": user_social_media.serialize()}), 200
+
 
 #<<----1.1 START UserSocialMedia endpoint ----->>
-@api.route('/<string:username_var>/socialmedia', methods=['GET', 'PUT'])
+@api.route('/<string:username_var>/socialmedia', methods=['GET'])
 @jwt_required()
 def handle_user_socialmedia(username_var):
     current_user = get_jwt_identity()
@@ -173,25 +199,7 @@ def handle_user_socialmedia(username_var):
         return jsonify({"social_media": [social_media.serialize() for social_media in user_social_media]}), 200
 
     #put BASICAMENTE PARA ACTUALIZAR CUALQUIER CAMPO RELACIONADO CON SOCIAL MEDIA
-    if request.method == 'PUT':
-        request_data = request.get_json(force=True)
-        user = db.session.query(User).filter(User.user_name == username_var).first()
-        user_social_media = db.session.query(UserSocialMedia).filter(UserSocialMedia.user_id == user.id).first()
-        if not user or not user_social_media:
-            return jsonify({"message": "User not found"}), 404
-        user_social_media.website_url = request_data['website_url']
-        user_social_media.youtube_url = request_data['youtube_url']
-        user_social_media.soundcloud_url = request_data['soundcloud_url']
-        user_social_media.instagram_url = request_data['instagram_url']
-        user_social_media.facebook_url = request_data['facebook_url']
-        user_social_media.twitter_url = request_data['twitter_url']
-        user_social_media.tiktok_url = request_data['tiktok_url']
-        user_social_media.snapchat_url = request_data['snapchat_url']
-        user_social_media.spotify_url = request_data['spotify_url']
-        last_update = datetime.now()
-        db.session.commit()
-      
-        return jsonify({"message":"Informacion actualizada correctamente", "user_social_media": user_social_media.serialize()}), 200
+
 
         #<<----1.1 UserSocialMedia endpoint END ----->>
 
