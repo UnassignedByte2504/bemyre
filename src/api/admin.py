@@ -2,7 +2,7 @@
 import os
 from flask_admin import Admin
 
-from .models import db, User, UserType, Country, State, City, UserContactInfo, UserSocialMedia, MusicGenre, InfluenceBand, Locales, Locales_Bands, Locales_MusicGenre
+from .models import db, User, UserType, Country, State, City, UserContactInfo, UserSocialMedia, ImgTest, MusicGenre, InfluenceBand, Local, LocalMusicGenre
 
 
 
@@ -22,12 +22,11 @@ def setup_admin(app):
     admin.add_view(ModelView(Country, db.session))
     admin.add_view(ModelView(State, db.session))
     admin.add_view(ModelView(City, db.session))
-    # admin.add_view(ModelView(ImgTest, db.session))
+    admin.add_view(ModelView(ImgTest, db.session))
     admin.add_view(ModelView(MusicGenre, db.session))
     admin.add_view(ModelView(InfluenceBand, db.session))
-    admin.add_view(ModelView(Locales, db.session))
-    admin.add_view(ModelView(Locales_Bands, db.session))
-    admin.add_view(ModelView(Locales_MusicGenre, db.session))
+    admin.add_view(ModelView(Local, db.session))
+    admin.add_view(ModelView(LocalMusicGenre, db.session))
 
 
     # You can duplicate that line to add mew models
