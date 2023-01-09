@@ -1,5 +1,5 @@
 //Import React
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 //Import Material
 import { TextField, Typography, Box, Button } from '@mui/material'
@@ -40,10 +40,13 @@ const UserPasswordManagement = () => {
   }
   const {handleSubmit, handleChange, isSubmitting} = useFormik({
     initialValues: {
-      oldPassword: '',
-      confirmOldPassword: '',
-      newPassword: '',
-      confirmNewPassword: ''
+      youtube: '',
+      web: '',
+      instagram: '',
+      facebook: '',
+      twitter: '',
+      tiktok: '',
+      snapchat:'',
     },
     onSubmit: submitFormPassword
   })
@@ -55,15 +58,21 @@ const UserPasswordManagement = () => {
       
       {/* Condicional Website */}
 
-      {1+1==32? 
+      {1+1==22? 
+        <Box  className='d-flex w-100'>
         <TextField
         className='w-100 my-2'
         variant='outlined'
-        label='Website'
+        label='Añadir sitio web'
         type='url'
         onChange={handleChange}
-        name='confirmNewPassword'
-        />  
+        name='web'
+        />
+        <Button
+        className='ms-2'>
+          Añadir sitio web
+        </Button>
+        </Box>  
         : 
         <>
         {web==false ?
@@ -72,12 +81,15 @@ const UserPasswordManagement = () => {
           <Button onClick={()=> setWeb(true)} className='text-white'>Editar<EditIcon className='ms-2'/></Button>
           </Box>
         :
-        <Box className='w-100 d-flex'>
+        <Box className='w-100 d-flex' onSubmit={handleSubmit}>
           <TextField
+          onChange={handleChange}
           className='w-100 me-2'
           label='Modificar URL Web'
+          name='web'
           />
           <Button
+          type='submit'
           variant='contained'
           >Modificar</Button>
           <Button
@@ -92,15 +104,21 @@ const UserPasswordManagement = () => {
 
 
         {/* Condicional Youtube */}
-        {1+1==32? 
+        {1+1==22? 
+        <Box className='d-flex'>
         <TextField
         className='w-100 my-2'
         variant='outlined'
         label='Youtube'
         type='url'
         onChange={handleChange}
-        name='confirmNewPassword'
+        name='youtube'
         />  
+        <Button
+        className='ms-2'>
+          Añadir YouTube
+        </Button>
+        </Box>
         :   
         <>
         {youtube==false ?
@@ -109,13 +127,16 @@ const UserPasswordManagement = () => {
         <Button onClick={()=> setYoutube(true)} className='text-white'>Editar<EditIcon className='ms-2'/></Button>
         </Box>
         :
-        <Box className='w-100 d-flex'>
+        <Box className='w-100 d-flex' onSubmit={handleSubmit}>
           <TextField
+          onChange={handleChange}
           className='w-100 me-2'
-          label='Modificar URL Web'
+          label='Modificar perfl Youtube'
+          name='youtube'
           />
           <Button
           variant='contained'
+          type='submit'
           >Modificar</Button>
           <Button
           variant='contained'
@@ -129,14 +150,22 @@ const UserPasswordManagement = () => {
 
         {/* Condicional soundcloud */}
         {1+1==32? 
+        <Box className='d-flex'>
         <TextField
         className='w-100 my-2'
         variant='outlined'
         label='Soundcloud'
         type='url'
         onChange={handleChange}
-        name='confirmNewPassword'
+        name='soundcloud'
         />  
+        <Button
+        className='ms-2'
+        type='submit'
+        >
+          Añadir soundcloud
+        </Button>
+        </Box>
         : 
         <>
         {soundcloud==false ?
@@ -147,10 +176,13 @@ const UserPasswordManagement = () => {
         :
         <Box className='w-100 d-flex'>
           <TextField
+          onChange={handleChange}
+          name='soundcloud'
           className='w-100 me-2'
-          label='Modificar URL Web'
+          label='Modificar perfil soundcloud'
           />
           <Button
+          type='submit'
           variant='contained'
           >Modificar</Button>
           <Button
@@ -165,14 +197,21 @@ const UserPasswordManagement = () => {
 
         {/* Condicional Instagram */}
         {1+1==32? 
+        <Box>
         <TextField
         className='w-100 my-2'
         variant='outlined'
         label='Instagram'
         type='url'
         onChange={handleChange}
-        name='confirmNewPassword'
+        name='instagram'
         />  
+        <Button
+        type='submit'
+        className='ms-2'>
+        Añadir Instagram
+        </Button>
+        </Box>
         :   
         <>
         {instagram==false ?
@@ -184,9 +223,12 @@ const UserPasswordManagement = () => {
         <Box className='w-100 d-flex'>
           <TextField
           className='w-100 me-2'
-          label='Modificar URL Web'
+          label='Modificar perfil Instagram'
+          name='instagram'
+          onChange={handleChange}
           />
           <Button
+          type='submit'
           variant='contained'
           >Modificar</Button>
           <Button
@@ -202,15 +244,21 @@ const UserPasswordManagement = () => {
 
         {/* Condicional Facebook */}
         {1+1==32? 
+        <Box className='d-flex'>
         <TextField
         className='w-100 my-2'
         variant='outlined'
         label='Facebook'
         type='url'
         onChange={handleChange}
-        name='confirmNewPassword'
-        
+        name='facebook'
         />  
+        <Button className='ms-2'
+        type='submit'
+        >
+          Añadir Facebook
+        </Button>
+        </Box>
         :   
         <>
         {facebook==false ?
@@ -221,10 +269,13 @@ const UserPasswordManagement = () => {
           :
           <Box className='w-100 d-flex'>
             <TextField
+            name='facebook'
             className='w-100 me-2'
-            label='Modificar URL Web'
+            label='Modificar perfil Facebook'
+            onChange={handleChange}
             />
             <Button
+            type='submit'
             variant='contained'
             >Modificar</Button>
             <Button
@@ -241,14 +292,20 @@ const UserPasswordManagement = () => {
 
         {/* Condicional Twitter */}
         {1+1==32? 
+        <Box className='d-flex w-100'>
         <TextField
         className='w-100 my-2'
         variant='outlined'
         label='Twitter'
         type='url'
         onChange={handleChange}
-        name='confirmNewPassword'  
-        />  
+        name='twitter'  
+        /> 
+        <Button
+        className='ms-2'
+        type='submit'
+        >Añadir</Button> 
+        </Box>
         :   
         <>
         {twitter==false ?
@@ -259,11 +316,14 @@ const UserPasswordManagement = () => {
           :
           <Box className='w-100 d-flex'>
             <TextField
+            onChange={handleChange}
             className='w-100 me-2'
-            label='Modificar URL Web'
+            label='Modificar perfil Twitter'
+            name='twitter'
             />
             <Button
             variant='contained'
+            type='submit'
             >Modificar</Button>
             <Button
             variant='contained'
@@ -279,15 +339,22 @@ const UserPasswordManagement = () => {
 
         {/* Condicional TikTok */}
         {1+1==32? 
+        <Box>
         <TextField
         className='w-100 my-2'
         variant='outlined'
         label='TikTok'
         type='url'
         onChange={handleChange}
-        name='confirmNewPassword'
-        
+        name='tiktok'
         />  
+        <Button
+        className='ms-2'
+        type='submit'
+        >
+          Añadir Tiktok
+        </Button>
+        </Box>
         :   
         <>
         {tiktok==false ?
@@ -299,10 +366,13 @@ const UserPasswordManagement = () => {
           <Box className='w-100 d-flex'>
             <TextField
             className='w-100 me-2'
-            label='Modificar URL Web'
+            label='Modificar perfil Tiktok'
+            onChange={handleChange}
+            name='tiktok'
             />
             <Button
             variant='contained'
+            type='submit'
             >Modificar</Button>
             <Button
             variant='contained'
@@ -316,15 +386,19 @@ const UserPasswordManagement = () => {
 
         {/* Condicional snapchat */}
         {1+1==32? 
+        <Box className='d-flex'>
         <TextField
         className='w-100 my-2'
         variant='outlined'
         label='Snapchat'
         type='url'
         onChange={handleChange}
-        name='confirmNewPassword'
-        
+        name='snapchat'
         />  
+        <Button
+        type='submit'
+        >Añadir Snapchat</Button>
+        </Box>
         :   
          <>
          {snapchat==false ?
@@ -333,13 +407,16 @@ const UserPasswordManagement = () => {
         <Button onClick={()=>setSnapchat(true)} className='text-white'>Editar<EditIcon className='ms-2'/></Button>
         </Box>
            :
-           <Box className='w-100 d-flex'>
+           <Box className='w-100 d-flex' onSubmit={handleSubmit}>
              <TextField
+              name='snapchat'
+             onChange={handleChange}
              className='w-100 me-2'
-             label='Modificar URL Web'
+             label='Modificar perfil snapchat'
              />
              <Button
              variant='contained'
+             type='submit'
              >Modificar</Button>
              <Button
              variant='contained'
@@ -354,11 +431,11 @@ const UserPasswordManagement = () => {
         
         
         }
-        <Button
+        {/* <Button
         variant='contained'
         type='submit'
         className='my-2'
-        >Cambiar Contraseña</Button>
+        >Cambiar Contraseña</Button> */}
       </form>
     </Box>
   )
