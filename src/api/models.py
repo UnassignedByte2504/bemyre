@@ -112,8 +112,7 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     is_musician = db.Column(db.Boolean(), unique=False, nullable=False)
     user_musician_info = relationship("UserMusicianInfo", back_populates="user")
-    # prueba:
-    locales = db.relationship('Local', backref='User', lazy=True)
+    locales = relationship("Local", back_populates="user")
     
     def __repr__(self):
         return f'<User {self.email}>'
@@ -418,6 +417,7 @@ class Local (db.Model):
     city_id = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=True)
     city = db.relationship('City', backref=('local'), lazy=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    user = db.relationship('User', backref=('local'), lazy=True)
     local_music_genres = relationship("LocalMusicGenre", backref=('Local'), lazy=True)
     local_type = db.Column(db.String(255), nullable=True)
 

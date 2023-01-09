@@ -19,4 +19,4 @@ export const handleImageChange = (e) => {
       setImageFile(window.btoa(reader.result));
     };
     reader.readAsDataURL(file);
-  };
+  }; 
