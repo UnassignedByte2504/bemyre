@@ -113,6 +113,8 @@ class User(db.Model):
     is_musician = db.Column(db.Boolean(), unique=False, nullable=False)
     user_musician_info = relationship("UserMusicianInfo", back_populates="user")
     locales = relationship("Local", back_populates="user")
+    # followers = relationship("User", secondary=followers, back_populates="following")
+    # following = relationship("User", secondary=followers, back_populates="followers")
     
     def __repr__(self):
         return f'<User {self.email}>'
@@ -133,9 +135,22 @@ class User(db.Model):
             "user_contact_info": [user_contact_info.serialize() for user_contact_info in self.user_contact_info],
             "user_social_media": [user_social_media.serialize() for user_social_media in self.user_social_media],
             "user_musician_info": [user_musician_info.serialize() for user_musician_info in self.user_musician_info],
-            "locales": [x.serialize() for x in self.locales]
+            "locales": [x.serialize() for x in self.locales],
+            # "followers": [x.serialize() for x in self.followers],
+            # "following": [x.serialize() for x in self.following]
         }
             # do not serialize the password, its a security breach
+
+# # create association table for user followers
+# class Followers(db.Model):
+#     __tablename__ = "followers"
+#     id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+#     follower_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+#     def __repr__(self):
+#         return f'<User {self.user and self.follower}>'
+
 
 class UserSocialMedia(db.Model):
     id = db.Column(db.Integer, primary_key=True)
