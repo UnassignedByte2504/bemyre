@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from datetime import datetime
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -303,14 +303,15 @@ def is_auth(username_var):
 
 
 
-
+ 
 
 
 #<<-----1 LOCALES ENDPOINT START ----->>
 
 @api.route('/locales', methods=['GET'])
 def get_locales():
-    locales = Locales.query.all()
+    print('holaaa')
+    locales = Local.query.all()
     locales_list = []
     for local in locales:
         locales_list.append(local.serialize())

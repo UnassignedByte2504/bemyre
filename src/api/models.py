@@ -433,7 +433,7 @@ class Local (db.Model):
     city = db.relationship('City', backref=('local'), lazy=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     user = db.relationship('User', backref=('local'), lazy=True)
-    local_music_genres = relationship("LocalMusicGenre", backref=('Local'), lazy=True)
+    # local_music_genres = relationship("LocalMusicGenre", backref=('Local'), lazy=True)
     local_type = db.Column(db.String(255), nullable=True)
 
     
@@ -448,7 +448,7 @@ class Local (db.Model):
             "ubicacion_local": self.ubicacion_local,
             "description": self.description,
             "city": self.city.name,
-            "local_music_genres": [musicgenre.serialize() for musicgenre in self.local_music_genres],
+            # "local_music_genres": [musicgenre.serialize() for musicgenre in self.local_music_genres],
             "local_type": self.local_type
             
 
@@ -466,7 +466,7 @@ class Local (db.Model):
 #     db.Column("locales_id", db.Integer, ForeignKey("locales.id"), primary_key=True)
 # )
 
-
+ 
 
 class LocalMusicGenre (db.Model):
     id= db.Column(db.Integer, primary_key=True)
