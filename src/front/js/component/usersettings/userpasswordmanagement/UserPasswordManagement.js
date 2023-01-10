@@ -1,11 +1,17 @@
 import { TextField, Typography, Box, Button } from "@mui/material";
 import { useFormik, Formik } from "formik";
-import React from "react";
+import React, { useContext } from "react";
+import { useParams } from "react-router-dom";
 import * as Yup from "yup";
 import "../../../../styles/index.css";
 import { changePasswordSchema } from "../../../esquemas";
+import { Context } from "../../../store/appContext";
 const UserPasswordManagement = () => {
+  const {actions, store} = useContext(Context)
+  const params= useParams()
+  const username = params.username
   const onSubmit = async (values, ax) => {
+    await actions.changePassword(username, values.oldPassword, values.newPassword)
     console.log("hola mundo");
     console.log(values);
   };
