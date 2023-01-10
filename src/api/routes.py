@@ -126,6 +126,26 @@ def handle_login():
 
 #<<-----1 LOGIN ENDPOINT END ----->>
  
+#<<-----Change password ----->>
+
+@api.route('/settings/<string:username_var>/changepassword', methods=['PUT'])
+@jwt_required()
+def change_password(username_var):
+    user = get_jwt_identity()
+    if user != username_var:
+        return jsonify({"message": "Access Denied"}), 401
+    request_data = request.get_json(force=True)
+    old_password= request_data['password']
+    user = db.session.query(User).filter(User.user_name == username_var, User.password == old_password).first()
+    if user == None:
+        return jsonify({"msg": "contraseña no coincide"})
+
+    else: 
+        user.password = request.json.get('new_password', None)
+        db.session.commit()
+        return jsonify({"msg":"Contraseña modificada con exito", })
+
+
 #<<-----1 User related endpoints ----->>
 
 @api.route('/<string:username_var>', methods=['GET'])
