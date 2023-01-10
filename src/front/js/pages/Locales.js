@@ -40,29 +40,6 @@ export const Locales = () => {
               />
             </Grid>
           ))}
-
-          {/* <Grid item xs={4}>
-            <CardLocal
-              generoMusica1={local1.generosMusica.generoMusica1}
-              generoMusica2={local1.generosMusica.generoMusica2}
-              urlImg={local1.urlImg}
-              nombreLocal={local1.nombreLocal}
-              ubicacion={local1.ubicacion}
-            />
-          </Grid> */}
-
-          {/* <Grid item xs={4}>
-            <CardLocal />
-          </Grid>
-          <Grid item xs={4}>
-            <CardLocal />
-          </Grid>
-          <Grid item xs={4}>
-            <CardLocal />
-          </Grid>
-          <Grid item xs={4}>
-            <CardLocal />
-          </Grid> */}
         </Grid>
       </Container>
     </>
