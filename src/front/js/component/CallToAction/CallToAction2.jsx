@@ -4,19 +4,22 @@ import { Typography } from "@mui/material";
 import "../../../styles/calltoaction.css";
 import RoundedButton from "../buttons/RoundedButton.jsx";
 
-export const CallToAction2 = ({ text1, text2, to, tittle, onClick }) => {
+export const CallToAction2 = ({ text1, text2, to, title, onClick }) => {
   const theme = useTheme();
   return (
     <>
       <Box className="header-cta">
-        <Typography variant="h2">{text1} </Typography>
-        <Typography variant="h6">{text2} </Typography>
-        <RoundedButton
-          to={to}
-          tittle={tittle}
-          onClick={onClick}
-          className="d-none"
-        />
+        <Box className="container">
+          <Typography variant="h1">{text1} </Typography>
+          <Typography className="mt-3 mb-5" variant="h4">
+            {text2}
+          </Typography>
+          <RoundedButton
+            to={to}
+            title={title}
+            // onClick={onClick}
+          />
+        </Box>
       </Box>
     </>
   );
