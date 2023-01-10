@@ -2,7 +2,7 @@
 
 .header-cta {
   /* altura del contenedor */
-  height: 25vh;
+  min-height: 25vh;
   /* imagen de fondo del contenedor */
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("https://images.unsplash.com/photo-1593167751520-95a058b903c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
@@ -16,5 +16,6 @@
   align-items: center;
   text-align: center;
   padding-bottom: 3rem;
+  padding-top: 3rem;
   margin-bottom: 3rem;
 }

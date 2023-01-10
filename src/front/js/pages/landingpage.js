@@ -2,6 +2,7 @@ import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import { locales } from "../mockingData";
 
 //Import materials
 import { Typography } from "@mui/material";
@@ -14,10 +15,13 @@ import { LandingJumbo } from "../component/jumbotron/landingjumbo";
 import { AsideLandingPgRegister } from "../component/asides/AsideLandingPgRegister";
 import { Musicians } from "../component/Musicians";
 import { Spain } from "../component/Spain.jsx";
+import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
+import RoundedButton from "../component/buttons/RoundedButton.jsx";
+import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
 
 export const LandingPage = () => {
   const { actions, store } = useContext(Context);
-  const [activePage, setActivePage] = useState()
+  const [activePage, setActivePage] = useState();
   const date = new Date();
 
   const day = date.getDate();
@@ -25,26 +29,54 @@ export const LandingPage = () => {
 
   useEffect(() => {
     const currentPath = window.location.pathname;
-    setActivePage(currentPath)
-    actions.setLocation(currentPath)
-  }, [store.currentPath])
-  
+    setActivePage(currentPath);
+    actions.setLocation(currentPath);
+  }, [store.currentPath]);
+
   return (
     <Box>
       <LandingJumbo />
       <Container maxWidth="xl">
-        <Typography variant="h2" className=" mt-5 ms-5">
+        <Typography variant="h3" className=" mt-5 mb-5">
           Conciertos en Sevilla esta semana{" "}
           <i className="far fa-calendar-alt"></i>
           {day}/{month} - <i className="far fa-calendar-alt"></i>
           {day + 7}/{month}
         </Typography>
-        <Box className="d-flex container changetoflexwrap flex-nowrap justify-content-center">
+        <Typography sx={{ marginTop: "2rem" }} variant="h2">
+          Locales
+        </Typography>
+        <Box
+          className="rowCards"
+          sx={{ display: "flex", gap: "1.5rem", paddingY: "1.5rem" }}
+        >
+          {locales?.map((element) => (
+            <CardLocal
+              // generoMusica1={element.generosMusica.generoMusica1}
+              // generoMusica2={element.generosMusica.generoMusica2}
+              // las imagenes van en el csv y en models?
+              local_img={element.local_img}
+              name={element.name}
+              city={element.city}
+              ubicacion_local={element.ubicacion_local}
+              description={element.description}
+            />
+          ))}
+        </Box>
+        {/* >>>>>Cards y asides de antes comentados >>>> */}
+        {/* <Box className="d-flex container changetoflexwrap flex-nowrap justify-content-center">
           <Musicians />
           <AsideLandingPgRegister />
-        </Box>
+        </Box> */}
+        {/* <<<<<<Cards y asides de antes comentados <<<<< */}
         <Spain maxWidth="100vw" />
       </Container>
+      <CallToAction2
+        text1="¿Eres músico?"
+        text2="Conecta con melómanos como tú y forma tu propia banda"
+        to="user/:username"
+        title="Crear perfil"
+      />
     </Box>
   );
 };
