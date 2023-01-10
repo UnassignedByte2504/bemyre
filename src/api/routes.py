@@ -158,6 +158,7 @@ def handle_user(username_var):
             return jsonify({"message": "User not found"}), 404
     return jsonify(user.serialize()), 200
 
+#<<-----1.1 User Settings related endpoints START----->>
 @api.route('settings/<string:username_var>/profileimgs', methods=['PUT'])
 @jwt_required()
 def handle_user_profile_img(username_var):
@@ -201,7 +202,7 @@ def handle_user_social_media(username_var):
     db.session.commit()
     
     return jsonify({"message":"Informacion actualizada correctamente", "user_social_media": user_social_media.serialize()}), 200
-
+#<<-----1.1 User Settings related endpoints END----->>
 
 #<<----1.1 START UserSocialMedia endpoint ----->>
 @api.route('/<string:username_var>/socialmedia', methods=['GET'])
@@ -303,8 +304,76 @@ def is_auth(username_var):
 
 
 
- 
 
+#<<-----1.1 User Follow Unfollow endpoints----->>
+@api.route('/follow/<string:username_var>', methods=['POST'])
+@jwt_required()
+def follow(username_var):
+    user = get_jwt_identity()
+    user_to_follow = User.query.filter_by(user_name=username_var).first()
+    if not user_to_follow:
+        return jsonify({"message": "User not found"}), 404
+
+    user_to_follow_id = user_to_follow.id
+    user_id = User.query.filter_by(user_name=user).first().id 
+    if user_id == user_to_follow_id:
+        return jsonify({"message": "You cannot follow yourself"}), 400
+
+    user_to_follow_followers = user_to_follow.followers 
+    if user_id in user_to_follow_followers:
+        return jsonify({"message": "You are already following this user"}), 400
+
+    user = User.query.filter_by(user_name=user).first()
+    user.follow(user_to_follow)
+    db.session.commit()
+    return jsonify({"message": "You are now following this user"}), 201
+
+
+
+@api.route('/unfollow/<string:username_var>', methods=['POST'])
+@jwt_required()
+def unfollow(username_var):
+    user = get_jwt_identity()
+    user_to_unfollow = User.query.filter_by(user_name=username_var).first()
+    if not user_to_unfollow:
+        return jsonify({"message": "User not found"}), 404
+
+    user_to_unfollow_id = user_to_unfollow.id
+    user_id = User.query.filter_by(user_name=user).first().id 
+    if user_id == user_to_unfollow_id:
+        return jsonify({"message": "You cannot unfollow yourself"}), 400
+
+    user_to_unfollow_followers = user_to_unfollow.followers 
+    user = User.query.filter_by(user_name=user).first()
+    user.unfollow(user_to_unfollow)
+    db.session.commit()
+    return jsonify({"message": "You are no longer following this user"}), 201 
+
+@api.route('/followers/<string:username_var>', methods=['GET'])
+def followers(username_var):
+    user = User.query.filter_by(user_name=username_var).first()
+    if not user:
+        return jsonify ({"message": "User not found"}), 404
+
+    followers_list = user.followers
+    followers_list_names = []
+    for follower in followers_list:
+        user = User.query.filter_by(id=follower.id).first()
+        followers_list_names.append(user.user_name)
+    return jsonify({"followers": followers_list_names}), 200
+
+@api.route('/following/<string:username_var>', methods=['GET'])
+def following(username_var):
+    user = User.query.filter_by(user_name=username_var).first()
+    if not user:
+        return jsonify ({"message": "User not found"}), 404
+
+    following_list = user.followed
+    following_list_names = []
+    for following in following_list:
+        user = User.query.filter_by(id=following.id).first()
+        following_list_names.append(user.user_name)
+    return jsonify({"following": following_list_names}), 200
 
 #<<-----1 LOCALES ENDPOINT START ----->>
 
