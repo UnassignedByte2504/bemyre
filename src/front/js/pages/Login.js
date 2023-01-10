@@ -14,11 +14,11 @@ import { ErrorSharp, WindowSharp } from "@mui/icons-material";
 import { AlertLogin } from "../component/AlertLogin.jsx";
 
 export const Login = () => {
-
-
   const theme = useTheme();
   const { actions, store } = useContext(Context);
-  const currentUser = sessionStorage.getItem("current_user") ? sessionStorage.getItem("current_user") :null;
+  const currentUser = sessionStorage.getItem("current_user")
+    ? sessionStorage.getItem("current_user")
+    : null;
   const [trigger, setTrigger] = useState(false);
   const navigate = useNavigate();
 
@@ -41,14 +41,17 @@ export const Login = () => {
     onSubmit,
   });
 
-  const [activePage, setActivePage] = useState()
+  const [activePage, setActivePage] = useState();
   useEffect(() => {
     const currentPath = window.location.pathname;
-    setActivePage(currentPath)
-    actions.setLocation(currentPath)
-  }, [])
+    setActivePage(currentPath);
+    actions.setLocation(currentPath);
+  }, []);
   return (
-    <Box className="backgroundSignup grad-orange">
+    <Box
+      className="backgroundSignup "
+      sx={{ backgroundColor: theme.palette.background.card }}
+    >
       <Box
         className="cardSignup"
         sx={{ backgroundColor: theme.palette.background.default }}
