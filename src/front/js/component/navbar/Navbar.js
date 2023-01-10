@@ -53,7 +53,7 @@ function Navbar() {
     actions.setLocation(currentPath);
   }, [store.currentPath]);
   return (
-    <AppBar className="sticky-top grad-red-light mb-3">
+    <AppBar className="sticky-top grad-redv2 mb-3">
       <Toolbar
         sx={{
           justifyContent: "space-between",
@@ -146,7 +146,7 @@ function Navbar() {
                   </Button>
                 </Link>
               )}
-{/* 
+              {/* 
               <IconButton onClick={() => dispatch(setMode())}>
                 {theme.palette.mode === "dark" ? (
                   <DarkModeOutlined sx={{ fontSize: "25px" }} />
