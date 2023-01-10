@@ -166,6 +166,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         await console.log(store.resultados);
       },
+      changePassword : async(username, password, new_password) =>{
+        const store = getStore();
+        const options = {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            password: password,
+            new_password: new_password,
+          }),
+      }
+      await fetch(`${process.env.BACKEND_URL}/api/settings/${username}/changepassword`, options)
+      .then((response) => response.json())
+      .then((result) => console.log("contraseña cambiada"));
+    },
       // <<<< Functions realted on fetching user info from back
       //misc functions
       setLocation: (location) => {
