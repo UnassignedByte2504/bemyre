@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 import math
-
+from sqlalchemy import Column, ForeignKey, Integer, String, Date
 
 
 from sqlalchemy.orm import relationship
@@ -94,6 +94,11 @@ class UserType(db.Model):
             "name": self.name,
         }
 
+followers = db.Table('followers',
+    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
+)
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_type = db.Column(db.String(80), db.ForeignKey('user_type.name'), nullable=True)
@@ -113,8 +118,24 @@ class User(db.Model):
     is_musician = db.Column(db.Boolean(), unique=False, nullable=False)
     user_musician_info = relationship("UserMusicianInfo", back_populates="user")
     locales = relationship("Local", back_populates="user")
-    # followers = relationship("User", secondary=followers, back_populates="following")
-    # following = relationship("User", secondary=followers, back_populates="followers")
+    followed = db.relationship(
+        'User', secondary=followers,
+        primaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.followed_id == id),
+        backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
+
+
+    def follow(self, user):
+        if not self.is_following(user):
+            self.followed.append(user)
+
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
+
+    def is_following(self, user):
+        return self.followed.filter(
+            followers.c.followed_id == user.id).count() > 0
     
     def __repr__(self):
         return f'<User {self.email}>'
@@ -136,20 +157,13 @@ class User(db.Model):
             "user_social_media": [user_social_media.serialize() for user_social_media in self.user_social_media],
             "user_musician_info": [user_musician_info.serialize() for user_musician_info in self.user_musician_info],
             "locales": [x.serialize() for x in self.locales],
-            # "followers": [x.serialize() for x in self.followers],
-            # "following": [x.serialize() for x in self.following]
+            "followed": [x.user_name for x in self.followed],
+            
+
         }
             # do not serialize the password, its a security breach
 
-# # create association table for user followers
-# class Followers(db.Model):
-#     __tablename__ = "followers"
-#     id = db.Column(db.Integer, primary_key=True)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-#     follower_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-#     def __repr__(self):
-#         return f'<User {self.user and self.follower}>'
 
 
 class UserSocialMedia(db.Model):
