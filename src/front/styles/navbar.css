@@ -4,33 +4,32 @@
   background-color: var(--red600) !important;
 }
 
-.NavButtonGroup  >  .MuiButtonBase-root{
-  color: #f9f9f9
+.NavButtonGroup > .MuiButtonBase-root {
+  color: #f9f9f9;
 }
-.NavButtonGroup  >  .MuiButtonBase-root:hover{
+.NavButtonGroup > .MuiButtonBase-root:hover {
   color: var(--white500);
   background-color: rgba(241, 69, 6, 0.5) !important;
 }
 
-.LinkNav{
-  color:var(--red600) !important;
+.LinkNav {
+  color: #fff !important;
   text-decoration: none;
 }
 
-.MuiButtonGroup-root{
+.MuiButtonGroup-root {
   background: linear-gradient(45deg, rgba(0 0 0 0.8));
 }
 
-.MuiMenuItem-root{
+.MuiMenuItem-root {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.MuiMenuItem-root:hover{
+.MuiMenuItem-root:hover {
   background-color: rgba(239, 68, 0, 0.467) !important;
-
 }
 
-.MuiMenu-paper{
-  width:10rem;
+.MuiMenu-paper {
+  width: 10rem;
 }
