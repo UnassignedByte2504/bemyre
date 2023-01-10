@@ -13,9 +13,11 @@ export const CardLocal = ({
   generoMusica4,
   generoMusica5,
   generoMusica6,
-  urlImg,
-  nombreLocal,
-  ubicacion,
+  local_img,
+  name,
+  ubicacion_local,
+  city,
+  description,
 }) => {
   const theme = useTheme();
 
@@ -30,8 +32,13 @@ export const CardLocal = ({
           justifyContent: "space-between",
         }}
       >
-        <CardLocalImg urlImg={urlImg} />
-        <CardLocalInfo nombreLocal={nombreLocal} ubicacion={ubicacion} />
+        <CardLocalImg local_img={local_img} />
+        <CardLocalInfo
+          name={name}
+          ubicacion_local={ubicacion_local}
+          city={city}
+          description={description}
+        />
         <CardLocalFooter
           generoMusica1={generoMusica1}
           generoMusica2={generoMusica2}
