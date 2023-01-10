@@ -48,10 +48,10 @@ export const Signup = () => {
 
   function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log("Name: " + profile.getName());
+    console.log("Image URL: " + profile.getImageUrl());
+    console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
   }
   const {
     values,
@@ -78,7 +78,10 @@ export const Signup = () => {
   });
 
   return (
-    <Box className="backgroundSignup grad-orange">
+    <Box
+      className="backgroundSignup"
+      sx={{ backgroundColor: theme.palette.background.card }}
+    >
       <Box
         className="cardSignup"
         sx={{
@@ -220,7 +223,7 @@ export const Signup = () => {
               />
             </FlexBetween>
             <Typography sx={{ textAlign: "center" }}>
-              ¿Eres músico? <Checkbox/>  {/* <<<<<< rompè el tema claro */}
+              ¿Eres músico? <Checkbox /> {/* <<<<<< rompè el tema claro */}
             </Typography>
             <AlertSignUp />
             <FlexCentered className="mt-2">

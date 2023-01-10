@@ -43,12 +43,17 @@ export const LandingPage = () => {
           {day}/{month} - <i className="far fa-calendar-alt"></i>
           {day + 7}/{month}
         </Typography>
-        <Typography sx={{ marginTop: "2rem" }} variant="h2">
+        <Typography sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
           Locales
         </Typography>
         <Box
           className="rowCards"
-          sx={{ display: "flex", gap: "1.5rem", paddingY: "1.5rem" }}
+          sx={{
+            display: "flex",
+            gap: "1.5rem",
+            paddingY: "1.5rem",
+            paddingX: "0.5rem",
+          }}
         >
           {locales?.map((element) => (
             <CardLocal
