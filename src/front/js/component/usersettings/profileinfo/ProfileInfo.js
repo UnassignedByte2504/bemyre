@@ -14,6 +14,7 @@ import { SelectSettings } from '../../Dropdown/SelectSettings.jsx'
 import {Context} from "../../../store/appContext"
 
 const ProfileInfo = () => {
+  const maxLengthText = 240
   const params= useParams()
   const username = params.username
   const {actions, store} = useContext(Context)
@@ -82,7 +83,9 @@ const ProfileInfo = () => {
             variant='outlined'
             label='Cambiar la descripción'
             multiline
-        />
+            inputProps={{ maxLength: 240 }}
+            helperText={`${values.descripcion.length}/${maxLengthText}`}
+            />
 
         {/* <TextField
             value={values.city}
