@@ -183,6 +183,28 @@ const getState = ({ getStore, getActions, setStore }) => {
       .then((response) => response.json())
       .then((result) => console.log("contraseña cambiada"));
     },
+
+    editInfoSettings: async(username, user_name, first_name, last_name, description) =>{
+      const store = getStore();
+      const options = {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_name: user_name,
+          first_name: first_name,
+          last_name: last_name,
+          description: description,
+        }),
+}
+      await fetch(`${process.env.BACKEND_URL}/api/settings/${username}/editinfo`, options)
+      .then((response) => response.json())
+      .then((result) => console.log("Información actualizada"));
+      },
+
+
       // <<<< Functions realted on fetching user info from back
       //misc functions
       setLocation: (location) => {
