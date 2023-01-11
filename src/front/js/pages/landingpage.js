@@ -36,7 +36,7 @@ export const LandingPage = () => {
   return (
     <Box>
       <LandingJumbo />
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" className="text-center">
         <Typography variant="h3" className=" mt-5 mb-5">
           Conciertos en Sevilla esta semana{" "}
           <i className="far fa-calendar-alt"></i>
