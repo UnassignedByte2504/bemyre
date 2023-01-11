@@ -8,7 +8,6 @@ import { locales } from "../mockingData";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import { Container } from "@mui/material";
-import TodayIcon from "@mui/icons-material/Today";
 
 // Import components
 import { LandingJumbo } from "../component/jumbotron/landingjumbo";

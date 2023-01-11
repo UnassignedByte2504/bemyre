@@ -123,7 +123,6 @@ const UserBar = () => {
                 <AccountCircleOutlinedIcon className="my-1"/>
               </Box>
             </MenuItem>
-            <MenuItem>1</MenuItem>
             <MenuItem
               variant="contained"
               onClick={() => menuItemClick({to: `/user/${store?.current_user}/ajustes`})}

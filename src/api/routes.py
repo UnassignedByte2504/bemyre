@@ -194,6 +194,26 @@ def handle_user_profile_img(username_var):
         return jsonify({"msg":"Imagen actualizada con exito"}), 200
 
 
+# @api.route('/settings/<string:username_var>/contactinfo', methods=['PUT'])
+# @jwt_required()
+# def handle_user_contact_info(username_var):
+#     user = get_jwt_identity()
+#     if user != username_var:
+#         return jsonify({"Access Denied"})
+#     if request.method == 'PUT':
+#         user = db.session.query(User).filter(User.user_name == username_var).first()
+#         if not user:
+#             return jsonify({"message": "User not found"}), 404
+#         user.contact_info = db.session.query(UserContactInfo).filter(UserContactInfo.user_id == user.id).first()
+#         request_data = request.get_json(force=True)
+#         user.contact_info.phone_number = request_data['phone_number']
+#         user.contact_info.address = request_data['address']
+
+
+
+
+
+
 @api.route('settings/<string:username_var>/socialmedia', methods=['PUT'])
 @jwt_required()
 def handle_user_social_media(username_var):
@@ -375,10 +395,23 @@ def followers(username_var):
 
     followers_list = user.followers
     followers_list_names = []
+    followers_profile_img = []
     for follower in followers_list:
-        user = User.query.filter_by(id=follower.id).first()
-        followers_list_names.append(user.user_name)
-    return jsonify({"followers": followers_list_names}), 200
+        followers_list_names.append(follower.user_name)
+        followers_profile_img.append(follower.profile_img)
+    return jsonify({"followers": followers_list_names, "profile_img": followers_profile_img}), 200
+@api.route('/followerscount/<string:username>', methods=['GET'])
+def followerscount(username):
+    user = User.query.filter_by(user_name=username).first()
+    if not user:
+        return jsonify ({"message": "User not found"}), 404
+
+    followers_list = user.followers
+    followers_names = []
+    for follower in followers_list:
+        followers_names.append(follower.user_name)
+    number_of_followers = len(followers_names)
+    return jsonify(number_of_followers)
 
 @api.route('/following/<string:username_var>', methods=['GET'])
 def following(username_var):
@@ -388,10 +421,26 @@ def following(username_var):
 
     following_list = user.followed
     following_list_names = []
+    following_profile_img= []
     for following in following_list:
         user = User.query.filter_by(id=following.id).first()
         following_list_names.append(user.user_name)
-    return jsonify({"following": following_list_names}), 200
+        following_profile_img.append(user.profile_img)
+    return jsonify({"following": following_list_names, "profile_img": following_profile_img}),200
+
+@api.route('/followingcount/<string:username>', methods=['GET'])
+def followingcount(username):
+    user = User.query.filter_by(user_name=username).first()
+    if not user:
+        return jsonify ({"message": "User not found"}), 404
+
+    following_list = user.followed
+    following_names = []
+    for following in following_list:
+        following_names.append(following.user_name)
+    number_of_following = len(following_names)
+    return jsonify(number_of_following)
+
 
 #<<-----1 LOCALES ENDPOINT START ----->>
 

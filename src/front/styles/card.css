@@ -1,33 +1,39 @@
 @import url(colors.css);
+.Follows {
+  transition: 0.03s;
+}
+.Follows:hover {
+  cursor: pointer;
+  color: #f9f9f9;
+  scale: 1.04;
+  text-decoration: underline;
+}
 
-.MainCard{
-    display: flex;
-    background-color: var(--black400);
-    height: 300px;
-    width:600px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.Follows-active {
+  color: #f9f9f9;
+  scale: 1.04;
+  text-decoration: underline;
+}
+
+.FollowBox {
+  height: max-content;
+  width: 5rem;
+  border-radius: 50%;
 
 }
 
-.CardImg{
-    height: 100%;
-    width: 15rem;
-    object-fit: contain;
-    position: relative;
+.FollowBox:hover {
+  cursor: pointer;
 }
 
-.CardImg-Container{
-    display: flex;
-    flex-direction: column;
-    margin: 1rem 0.5rem 1rem 0.5rem ;
-}
-
-.CardInfo{
-    margin: 1rem 0.5rem 1rem 0;
-    padding: 1rem;
-    background-color: var(--orange300);
-    height: 100%;
-    width:100%;
+.FollowBox-Container {
+  display: grid;
+  column-gap: .25rem;
+  row-gap: .5rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 6rem), 1fr));
+  grid-auto-rows: 6rem;
+  place-items: center;
+  height:15rem;
+  padding: 1rem;
+  overflow-y: scroll;
 }

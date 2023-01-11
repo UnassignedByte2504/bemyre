@@ -1,39 +1,57 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import Button from '@mui/material/Button';
+import { useState, useContext } from "react";
+import { Context } from "../../store/appContext.js";
+import { Link, useParams, Navigate, useNavigate } from "react-router-dom";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Button from "@mui/material/Button";
 import { Box, Divider, Typography, useTheme } from "@mui/material";
+import Follows from "./aux/Follows.jsx";
+import FlexEvenly from "../styledcomponents/FlexEvenly.jsx";
+import { followUser, unfollowUser } from "../../api calls/follows.js";
+import FollowButtons from "./aux/FollowButtons.jsx";
+import DefaultBody from "./aux/DefaultBody.jsx";
+import { profileCardViews, componentToRender } from "./ProfileCardData.js";
 
-export const CardProfile = ({first_name, last_name, description, profilePicture}) =>{
-    const params = useParams();
-    const username = params.username;
-    const currentUser = sessionStorage.getItem("current_user");  
-    const theme = useTheme()
+export const CardProfile = ({
+  first_name,
+  last_name,
+  description,
+  profilePicture,
+  reRender,
+}) => {
+  const params = useParams();
+  const { store, actions } = useContext(Context);
+  const username = params.username;
+  const [trigger, setTrigger] = useState();
+  const theme = useTheme();
+  const view = store.profileCardView;
 
-    return (
-        <Box className="card m-2 shadow" sx={{
-            color: theme.palette.text.card,
-            backgroundColor: theme.palette.background.card
-        }}>
-            <img src={profilePicture}className="card-img-top" alt="..."/>
-            <Box className="card-body">
-                <Typography variant="h5"className="card-title text-center" >{first_name} {last_name}</Typography>
-                <Typography className="card-text" >{description}</Typography>
-                <Typography><strong>Leer más</strong> <ArrowForwardIcon /></Typography>
-                <Divider className="mb-3"></Divider>
-                <Typography><strong>Instrumentos: </strong>Guitarra y piano</Typography>
-                <Typography><strong>Influencias:</strong> Nirvana, Guns&Roses, Def Leppard and Metallica</Typography>
-                
-                {username==currentUser? 
-                null
-                :
+  const follow = async (username) => {
+    await followUser(username);
+    await window.location.reload;
+  };
 
-                <Box className="d-flex justify-content-evenly">
-                    <Link className="btn"><Button  variant="contained" sx={{color: "white", backgroundColor : "red"}}>Seguir</Button></Link>
-                    <Link className="btn"><Button  variant="contained" sx={{color: "white", backgroundColor : "red"}}>Contactar</Button></Link>
-                </Box>}
-            </Box>
-        </Box>
-    )
-
-}
+  const unFollow = async (username) => {
+    await unfollowUser(username);
+    window.location.reload;
+  };
+  return (
+    <Box
+      className="card m-2 shadow"
+      sx={{
+        color: theme.palette.text.card,
+        backgroundColor: theme.palette.background.card,
+      }}
+    >
+      <Box sx={{ display: "none" }}>{trigger}</Box>
+      <img src={profilePicture} className="card-img-top" alt="..." />
+      <Box className="card-body">
+        <Typography variant="h3" className="card-title text-center">
+          {first_name} {last_name}
+        </Typography>
+        <Follows />
+        {componentToRender(view)}
+      </Box>
+    </Box>
+  );
+};
