@@ -12,9 +12,12 @@ import { useFormik } from 'formik'
 import "../../../../styles/index.css"
 import { SelectSettings } from '../../Dropdown/SelectSettings.jsx'
 import {Context} from "../../../store/appContext"
+import { AlertEditInfo } from '../../Alerts/AlertEditInfo.jsx'
 
 const ProfileInfo = () => {
   useEffect(()=>{actions.fetchUser(username)
+  },[])
+  useEffect(()=>{sessionStorage.removeItem("cambios")
   },[])
   const maxLengthText = 240
   const params= useParams()
@@ -91,16 +94,10 @@ const ProfileInfo = () => {
             helperText={`${values.descripcion?.length}/${maxLengthText}`}
             />
 
-        {/* <TextField
-            value={values.city}
-            name='city'
-            onChange={handleChange}
-            className='w-100 mb-3'
-            variant='outlined'
-            label='Cambiar la ciudad'
-            multiline
-        /> */}
-
+        <AlertEditInfo 
+        
+        className='w-100'/>
+        
         <Button
         type='submit'
         className='mt-3'

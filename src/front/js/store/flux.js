@@ -246,7 +246,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   }
         await fetch(`${process.env.BACKEND_URL}/api/settings/${username}/editinfo`, options)
         .then((response) => response.json())
-        .then((result) => console.log("Información actualizada"));
+        .then((result) => sessionStorage.setItem("cambios", "Información cambiada con éxito"));
         },
   
   
