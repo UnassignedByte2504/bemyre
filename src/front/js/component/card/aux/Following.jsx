@@ -35,7 +35,7 @@ const Following = () => {
             height: "60px",
             width: "60px",
             marginBottom: "0.5rem",
-            outline:"2px solid red"
+            outline: "2px solid red",
           }}
         />
         <Typography variant="h5">{userName}</Typography>
@@ -43,7 +43,7 @@ const Following = () => {
     );
   };
   useEffect(() => {
-    setData(fetchFollowing(userName));
+    setData(store.following);
   }, []);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const Following = () => {
     data && (
       <Box>
         <FlexBetween>
-          <IconButton>
+          <IconButton onClick={() => actions.setProfileCardView("default")}>
             <ArrowBackIcon />
           </IconButton>
           <Divider

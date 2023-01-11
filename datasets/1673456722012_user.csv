@@ -1,0 +1,3 @@
+id,user_type,user_name,profile_img,portrait_img,email,password,first_name,last_name,description,creation_date,last_login,is_active,is_musician
+1,,pablotori98,,,pablotori98@gmail.com,Hola@1234,Pablo,Toribio,,2023-01-11 12:28:20.363163,2023-01-11 12:45:22.994556,true,true
+2,,user1,https://picsum.photos/200/300,,user1@email.com,Hola@12345,User1,User1,,2023-01-11 12:27:21,2023-01-11 16:43:46.134949,true,true

@@ -209,6 +209,25 @@ const getState = ({ getStore, getActions, setStore }) => {
             sessionStorage.setItem("following_list", result.following);
           });
       },
+      fetchFollowers: async (username) => {
+        const store = getStore();
+
+        const opts = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        await fetch(
+          `${process.env.BACKEND_URL}/api/followers/${username}`,
+          opts
+        )
+          .then((response) => response.json())
+          .then((result) => {
+            setStore({ followers: result });
+            sessionStorage.setItem("followers_list", result.followers);
+          });
+      },
       // <<<< Functions realted on fetching user info from back
       //misc functions
       setLocation: (location) => {
@@ -255,13 +274,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({
           reRender: add,
         });
-        console.log(store.reRender);
       },
       setProfileCardView: (view) => {
         setStore({
           profileCardView: view,
         });
-        console.log("i was called");
       },
 
       //misc functions

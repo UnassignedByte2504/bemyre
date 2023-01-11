@@ -12,7 +12,6 @@ import injectContext from "./store/appContext";
 
 // >>> components >>>>
 import Navbar from "./component/navbar/Navbar.js";
-import UserBar from "./component/userbar/UserBar.js";
 import BrainStorm from "./pages/SandBox.js";
 import Logout from "./pages/Logout.js";
 import Explore from "./pages/Explore.js";
@@ -20,6 +19,7 @@ import { LandingPage } from "./pages/landingpage";
 import { Profile } from "./pages/profile.js";
 import UserSettings from "./pages/UserSettings.js";
 import { Login } from "./pages/Login.js";
+import Inbox from "./pages/Inbox.js";
 import { Signup } from "./pages/Signup.js";
 import { BandProfile } from "./pages/BandProfile.js";
 import { Footer } from "./component/Footer.jsx";
@@ -73,6 +73,10 @@ const Layout = ({ isLogged }) => {
             <Route
               path="/user/:username/ajustes"
               element={<ProtectedRoute component={<UserSettings />} />}
+            />
+            <Route
+              path="/user/:username/inbox"
+              element={<ProtectedRoute component={<Inbox />} />}
             />
             <Route element={<Locales />} path="/locales" />
             <Route element={<Bandas />} path="/bandas" />

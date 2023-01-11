@@ -22,14 +22,14 @@ const Follows = () => {
   useEffect(() => {
     fetchFollowersCount(userName);
     fetchFollowingCount(userName);
-    actions.setFollowers(fetchFollowers(userName));
+    actions.fetchFollowers(userName);
     actions.fetchFollowing(userName);
   }, []);
 
   useEffect(() => {
     fetchFollowersCount(userName);
     fetchFollowingCount(userName);
-    actions.setFollowers(fetchFollowers(userName));
+    actions.fetchFollowers(userName);
     actions.fetchFollowing(userName);
   }, [store.reRender]);
 

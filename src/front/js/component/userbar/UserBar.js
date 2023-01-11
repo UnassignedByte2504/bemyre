@@ -25,6 +25,7 @@ const UserBar = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const currentUser = sessionStorage.getItem('current_user')
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -65,6 +66,7 @@ const UserBar = () => {
                 background: "none",
                 boxShadow: "none",
               }}
+              onClick={()=> navigate(`/user/${currentUser}/inbox`)}
             >
               <EmailIcon />
             </Button>
@@ -81,7 +83,7 @@ const UserBar = () => {
         <Box>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt={sessionStorage.getItem('current_user')} src={sessionStorage.getItem("profile_img")} />
+              <Avatar alt={currentUser} src={sessionStorage.getItem("profile_img")} />
             </IconButton>
           </Tooltip>
           <Menu
@@ -107,7 +109,7 @@ const UserBar = () => {
           >
             <MenuItem
               variant="contained"
-              onClick={() => menuItemClick({to: `/user/${store?.current_user}`})}
+              onClick={() => menuItemClick({to: `/user/${currentUser}`})}
               sx={{
                 gap:".20rem !important",
                 display:"flex !important",
@@ -125,7 +127,7 @@ const UserBar = () => {
             </MenuItem>
             <MenuItem
               variant="contained"
-              onClick={() => menuItemClick({to: `/user/${store?.current_user}/ajustes`})}
+              onClick={() => menuItemClick({to: `/user/${currentUser}/ajustes`})}
               sx={{
                 gap:".20rem !important",
                 display:"flex !important",
