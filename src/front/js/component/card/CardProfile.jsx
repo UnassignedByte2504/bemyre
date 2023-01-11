@@ -47,10 +47,13 @@ export const CardProfile = ({
       <img src={profilePicture} className="card-img-top" alt="..." />
       <Box className="card-body">
         <Typography variant="h3" className="card-title text-center">
-          {first_name} {last_name}
+          {first_name} {last_name} 
         </Typography>
         <Follows />
+        <Typography className="mb-2" variant="h5">{description}</Typography>
+        
         {componentToRender(view)}
+        
       </Box>
     </Box>
   );

@@ -12,9 +12,12 @@ import { useFormik } from 'formik'
 import "../../../../styles/index.css"
 import { SelectSettings } from '../../Dropdown/SelectSettings.jsx'
 import {Context} from "../../../store/appContext"
+import { AlertEditInfo } from '../../AlertEditInfo.jsx'
 
 const ProfileInfo = () => {
   useEffect(()=>{actions.fetchUser(username)
+  },[])
+  useEffect(()=>{sessionStorage.removeItem("Cambios")
   },[])
   const maxLengthText = 240
   const params= useParams()
@@ -101,6 +104,7 @@ const ProfileInfo = () => {
             multiline
         /> */}
 
+      <AlertEditInfo/>
         <Button
         type='submit'
         className='mt-3'
