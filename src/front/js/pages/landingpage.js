@@ -43,6 +43,8 @@ export const LandingPage = () => {
           {day}/{month} - <i className="far fa-calendar-alt"></i>
           {day + 7}/{month}
         </Typography>
+      </Container>
+      <Box className="mx-4">
         <Typography sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
           Locales
         </Typography>
@@ -68,6 +70,8 @@ export const LandingPage = () => {
             />
           ))}
         </Box>
+      </Box>
+      <Container>
         {/* >>>>>Cards y asides de antes comentados >>>> */}
         {/* <Box className="d-flex container changetoflexwrap flex-nowrap justify-content-center">
           <Musicians />
