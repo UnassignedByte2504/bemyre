@@ -146,6 +146,24 @@ def change_password(username_var):
         return jsonify({"msg":"Contraseña modificada con exito", })
 
 
+#<<----- Editar Información ----->>
+@api.route('/settings/<string:username_var>/editinfo', methods=['PUT'])
+@jwt_required()
+def edit_info(username_var):
+    user = get_jwt_identity()
+    if user != username_var:
+        return jsonify({"message": "Access Denied"}), 401
+    user = db.session.query(User).filter(User.user_name == username_var).first()
+    request_data = request.get_json(force=True)
+    # user.user_name = request_data['user_name']
+    user.first_name = request_data['first_name']
+    user.last_name = request_data['last_name']
+    user.description = request_data['description']
+
+    db.session.commit()
+    return jsonify({"msg":"Información actualizada", })
+
+
 #<<-----1 User related endpoints ----->>
 
 @api.route('/<string:username_var>', methods=['GET'])
