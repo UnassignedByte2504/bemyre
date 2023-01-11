@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "../../styles/locales.css";
+// import "../../styles/locales.css";
 import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
-import { Box, Container } from "@mui/system";
+import { Container } from "@mui/system";
 import { CallToAction1 } from "../component/CallToAction/CallToAction1.jsx";
-import { Grid, Item } from "@mui/material";
+import { Grid } from "@mui/material";
 import { locales } from "../mockingData";
 
 export const Locales = () => {
@@ -26,8 +26,8 @@ export const Locales = () => {
       <CallToAction1 text1="¿Te gustaría tocar en un local?" />
       <Container className="mb-5">
         <Grid container spacing={3}>
-          {locales?.map((element) => (
-            <Grid item xs={4}>
+          {locales?.map((element, index) => (
+            <Grid item xs={4} key={index}>
               <CardLocal
                 // generoMusica1={element.generosMusica.generoMusica1}
                 // generoMusica2={element.generosMusica.generoMusica2}
@@ -37,6 +37,7 @@ export const Locales = () => {
                 city={element.city}
                 ubicacion_local={element.ubicacion_local}
                 description={element.description}
+                generosMusica={element.generosMusica}
               />
             </Grid>
           ))}

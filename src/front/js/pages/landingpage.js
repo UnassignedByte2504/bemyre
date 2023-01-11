@@ -2,7 +2,7 @@ import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { locales } from "../mockingData";
+import { locales, bandas } from "../mockingData";
 
 //Import materials
 import { Typography } from "@mui/material";
@@ -18,6 +18,7 @@ import { Spain } from "../component/Spain.jsx";
 import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
 import RoundedButton from "../component/buttons/RoundedButton.jsx";
 import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
+import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
 
 export const LandingPage = () => {
   const { actions, store } = useContext(Context);
@@ -44,6 +45,8 @@ export const LandingPage = () => {
           {day + 7}/{month}
         </Typography>
       </Container>
+
+      {/* ------LOCALES----------- */}
       <Box className="mx-4">
         <Typography sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
           Locales
@@ -67,19 +70,40 @@ export const LandingPage = () => {
               city={element.city}
               ubicacion_local={element.ubicacion_local}
               description={element.description}
+              generosMusica={element.generosMusica}
             />
           ))}
         </Box>
       </Box>
-      <Container>
-        {/* >>>>>Cards y asides de antes comentados >>>> */}
-        {/* <Box className="d-flex container changetoflexwrap flex-nowrap justify-content-center">
-          <Musicians />
-          <AsideLandingPgRegister />
-        </Box> */}
-        {/* <<<<<<Cards y asides de antes comentados <<<<< */}
-        <Spain maxWidth="100vw" />
-      </Container>
+      {/* ------BANDAS----------- */}
+      <Box className="mx-4 mb-5">
+        <Typography sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
+          Bandas
+        </Typography>
+        <Box
+          className="rowCards"
+          sx={{
+            display: "flex",
+            gap: "1.5rem",
+            paddingY: "1.5rem",
+            paddingX: "0.5rem",
+          }}
+        >
+          {bandas?.map((element) => (
+            <CardBandas
+              banda_img={element.banda_img}
+              name={element.name}
+              generosMusica={element.generosMusica}
+              city={element.city}
+              ubicacion_local={element.ubicacion_local}
+              description={element.description}
+              integrantes={element.integrantes}
+              integrantes_nuevos={element.integrantes_nuevos}
+            />
+          ))}
+        </Box>
+      </Box>
+
       <CallToAction2
         text1="¿Eres músico?"
         text2="Conecta con melómanos como tú y forma tu propia banda"
