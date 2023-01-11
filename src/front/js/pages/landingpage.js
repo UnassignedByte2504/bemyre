@@ -11,11 +11,7 @@ import { Container } from "@mui/material";
 
 // Import components
 import { LandingJumbo } from "../component/jumbotron/landingjumbo";
-import { AsideLandingPgRegister } from "../component/asides/AsideLandingPgRegister";
-import { Musicians } from "../component/Musicians";
-import { Spain } from "../component/Spain.jsx";
 import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
-import RoundedButton from "../component/buttons/RoundedButton.jsx";
 import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
 
 export const LandingPage = () => {
@@ -70,15 +66,6 @@ export const LandingPage = () => {
           ))}
         </Box>
       </Box>
-      <Container>
-        {/* >>>>>Cards y asides de antes comentados >>>> */}
-        {/* <Box className="d-flex container changetoflexwrap flex-nowrap justify-content-center">
-          <Musicians />
-          <AsideLandingPgRegister />
-        </Box> */}
-        {/* <<<<<<Cards y asides de antes comentados <<<<< */}
-        <Spain maxWidth="100vw" />
-      </Container>
       <CallToAction2
         text1="¿Eres músico?"
         text2="Conecta con melómanos como tú y forma tu propia banda"

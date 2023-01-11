@@ -312,37 +312,6 @@ def is_auth(username_var):
     elif user != username_var:
         return jsonify({"auth": False}), 200
 
-
-
-# @api.route('/imgtest', methods=['POST', 'GET'])
-# def imgtest():
-#     # img comes as base64 data not as a file
-#     if request.method == 'POST':
-#         request_data = request.get_json(force=True)
-#         img = request_data['img_raw']
-#         img_name = request_data['img_name']
-#         img_type = request_data['img_type']
-#         img_size = request_data['img_size']
-#         new_img = ImgTest(img_name=img_name, img_type=img_type, img_size=img_size, img=img)
-#         db.session.add(new_img)
-#         db.session.commit()
-#         return jsonify({"message": "Img added successfully"}), 201
-#     if request.method == 'GET':
-#         all_imgs = ImgTest.query.all()
-#         all_img = list(map(lambda x: x.serialize(), all_imgs))
-#         return jsonify({"all_imgs": all_img}), 200
-
-
-# @api.route('/imgtest/<int:img_id>', methods=['GET'])
-# def get_img(img_id):
-#     img = ImgTest.query.filter_by(id=img_id).first()
-#     if not img:
-#         return jsonify({"message": "Img not found"}), 404
-#     return jsonify({"img": img.serialize()}), 200
-
-
-
-
 #<<-----1.1 User Follow Unfollow endpoints----->>
 @api.route('/follow/<string:username_var>', methods=['POST'])
 @jwt_required()
