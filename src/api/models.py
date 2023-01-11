@@ -99,6 +99,95 @@ followers = db.Table('followers',
     db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
 )
 
+# class Like(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+#     def __repr__(self):
+#         return f'<Like {self.user_id}>'
+
+#     def serialize(self):
+#         return {
+#             "id": self.id,
+#             "post_id": self.post_id,
+#             "user_id": self.user_id,
+#         }
+
+# class Dislike(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     post_id = db. Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+#     def __repr__(self):
+#         return f'<Dislike {self.user_id}>'
+
+#     def serialize(self):
+#         return {
+#             "id": self.id,
+#             "post_id": self.post_id,
+#             "user_id": self.user_id
+#             }
+
+# class Post(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     author = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+#     title = db.Column(db.String(80), nullable = False)
+#     img = db.Column(db.Unicode)
+#     content = db.Column(db.Text, nullable = False)
+#     body = db.Column(db.Text, nullable = False)
+#     likes = db.relationship('Like', backref='post', lazy='dynamic')
+#     comments = db.relationship('Comment', backref='post', lazy='dynamic')
+#     total_likes = db.session.query(db.func.count(Like.id)).filter(Like.post_id == id).scalar()
+#     total_comments = db.session.query(db.func.count(Comment.id)).filter(Comment.post_id == id).scalar()
+#     total_dislikes = db.session.query(db.func.count(Dislike.id)).filter(Dislike.post_id == id).scalar()
+#     created_at = db.Column(db.DateTime, nullable = False , default = datetime.datetime.utcnow)
+#     updated_at = db.Column(db.DateTime, nullable = False , default = datetime.datetime.utcnow)
+
+#     def __repr__(self):
+#         return f'<Post {self.title}>'
+
+#     def serialize(self):
+#         return {
+#             "id": self.id,
+#             "author": self.author,
+#             "title": self.title,
+#             "img": self.img,
+#             "content": self.content,
+#             "body": self.body,
+#             "likes": [ like.serialize() for like in self.likes ],
+#             "comments": [ comment.serialize() for comment in self.comments ],
+#             "total_likes": self.total_likes,
+#             "total_comments": self.total_comments,
+#             "total_dislikes": self.total_dislikes,
+#             "created_at": self.created_at,
+#             "updated_at": self.updated_at,
+#         }
+
+# class Comment(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+#     author = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+#     content = db.Column(db.Text, nullable = False)
+#     created_at = db.Column(db.DateTime, nullable = False , default = datetime.datetime.utcnow)
+#     updated_at = db.Column(db.DateTime, nullable = False , default = datetime.datetime.utcnow)
+
+#     def __repr__(self):
+#         return f'<Comment {self.content}>'
+
+#     def serialize(self):
+#         return {
+#             "id": self.id,
+#             "post_id": self.post_id,
+#             "author": self.author,
+#             "content": self.content,
+#             "created_at": self.created_at,
+#             "updated_at": self.updated_at,
+#         }
+
+
+
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_type = db.Column(db.String(80), db.ForeignKey('user_type.name'), nullable=True)
@@ -124,7 +213,6 @@ class User(db.Model):
         secondaryjoin=(followers.c.followed_id == id),
         backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
 
-
     def follow(self, user):
         if not self.is_following(user):
             self.followed.append(user)
@@ -136,6 +224,7 @@ class User(db.Model):
     def is_following(self, user):
         return self.followed.filter(
             followers.c.followed_id == user.id).count() > 0
+    
     
     def __repr__(self):
         return f'<User {self.email}>'
@@ -157,14 +246,11 @@ class User(db.Model):
             "user_social_media": [user_social_media.serialize() for user_social_media in self.user_social_media],
             "user_musician_info": [user_musician_info.serialize() for user_musician_info in self.user_musician_info],
             "locales": [x.serialize() for x in self.locales],
-            "followed": [x.user_name for x in self.followed],
+            "followed": [x.user_name for x in self.followed]
             
 
         }
             # do not serialize the password, its a security breach
-
-
-
 
 class UserSocialMedia(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -211,9 +297,6 @@ class UserMusicianInfo(db.Model):
     bands = relationship("Bands")
     band_member = relationship("BandMembers")
     last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
-
-  
-   
 
     def __repr__(self):
         return f'<UserMusicianInfo {self.id}>'
@@ -362,24 +445,8 @@ class MusicGenre(db.Model):
         }
 
 
-class EventTypes(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=True, nullable=False)
-    events = relationship("Event", back_populates="event_types")
-    def __repr__(self):
-        return f'<EventTypes {self.name}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "events": [event.serialize() for event in self.events],
-        }
-
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    event_types_id = db.Column(db.Integer, db.ForeignKey('event_types.id'), nullable=False)
-    event_types = relationship("EventTypes", back_populates="events")
     name = db.Column(db.String(80), unique=True, nullable=False)
     description = db.Column(db.String(80), unique=True, nullable=True)
     date = db.Column(db.DateTime, nullable=False)
@@ -414,26 +481,6 @@ class InfluenceBand(db.Model):
             "genre": self.music_genre.name,
 
 
-        }
-
-class ImgTest (db.Model):
-    __tablename__ = 'img_test'
-    id = db.Column(db.Integer, primary_key=True)
-    img = db.Column(db.Unicode)
-    img_name = db.Column(db.String(255), nullable=True)
-    img_type = db.Column(db.String(255), nullable=True)
-    img_size = db.Column(db.String(255), nullable=True)
-
-    def __repr__(self):
-        return '<id {}>'.format(self.id)
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "img": self.img,
-            "img_name": self.img_name,
-            "img_type": self.img_type,
-            "img_size": self.img_size
         }
 
 

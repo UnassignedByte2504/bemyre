@@ -121,7 +121,15 @@ def handle_login():
             "profile_img": user.profile_img
         }
         ), 200
-    
+
+@api.route('/isauth/<string:username_var>', methods=['GET'])
+@jwt_required()
+def is_auth(username_var):
+    user = get_jwt_identity()
+    if user == username_var:
+        return jsonify({"auth": True}), 200
+    elif user != username_var:
+        return jsonify({"auth": False}), 200   
 
 
 #<<-----1 LOGIN ENDPOINT END ----->>
@@ -244,18 +252,16 @@ def handle_user_social_media(username_var):
 
 #<<----1.1 START UserSocialMedia endpoint ----->>
 @api.route('/<string:username_var>/socialmedia', methods=['GET'])
-@jwt_required()
+
 def handle_user_socialmedia(username_var):
-    current_user = get_jwt_identity()
-    if current_user != username_var:
-        return jsonify({"message": "Access denied"}), 401
+
     #GET, ES EL QUE USAREMOS POR DEFECTO PARA REPRSENTAR EN EL FRONT TODA LA INFORMACION QUE DICHO USUARIO TENGA EN SU PERFIL
     if request.method == 'GET':
         user = db.session.query(User).filter(User.user_name == username_var).first()
-        user_social_media = db.session.query(UserSocialMedia).filter(UserSocialMedia.user_id == user.id).all()
+        user_social_media = db.session.query(UserSocialMedia).filter(UserSocialMedia.user_id == user.id).first()
         if not user_social_media:
             return jsonify({"message": "User not found"}), 404
-        return jsonify({"social_media": [social_media.serialize() for social_media in user_social_media]}), 200
+        return jsonify(user_social_media.serialize()), 200
 
     #put BASICAMENTE PARA ACTUALIZAR CUALQUIER CAMPO RELACIONADO CON SOCIAL MEDIA
 
@@ -303,14 +309,7 @@ def logout():
     user = get_jwt_identity()
     return jsonify({"message": f"{user} has been logged out"}), 200
 
-@api.route('/isauth/<string:username_var>', methods=['GET'])
-@jwt_required()
-def is_auth(username_var):
-    user = get_jwt_identity()
-    if user == username_var:
-        return jsonify({"auth": True}), 200
-    elif user != username_var:
-        return jsonify({"auth": False}), 200
+
 
 #<<-----1.1 User Follow Unfollow endpoints----->>
 @api.route('/follow/<string:username_var>', methods=['POST'])

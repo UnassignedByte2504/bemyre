@@ -40,8 +40,11 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-        favicon: '4geeks.ico',
-        template: 'template.html'
+        // favicon: '/src/front/img/favicon.ico',
+        template: 'template.html',
+        favicon: "public/favicon.ico",
+        // name: 'index',
+        // inject: true
     }),
     new Dotenv({ safe: true, systemvars: true })
   ]
