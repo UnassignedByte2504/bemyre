@@ -51,9 +51,10 @@ const UserPictures = () => {
   console.log();
   return (
     <Box className="UserPicturesWrapper">
-      <SettingHeader title="Cambiar Imagen de Perfil y Portada" />
+      {/* <SettingHeader title="Cambiar Imagen de Perfil y Portada" /> */}
       <Box className="UImgsBody">
-        <FlexCentered>
+          <Typography variant='h3' className='mt-3 mb-3'>Cambiar Imagen de Perfil y Portada</Typography>
+          <FlexCentered>
           <Typography variant="h5">Vista Previa</Typography>
         </FlexCentered>
         <Divider
