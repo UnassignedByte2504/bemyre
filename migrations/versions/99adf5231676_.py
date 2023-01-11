@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 6f7bc5331377
+Revision ID: 99adf5231676
 Revises: 
-Create Date: 2023-01-10 17:08:27.480540
+Create Date: 2023-01-11 20:27:13.433614
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '6f7bc5331377'
+revision = '99adf5231676'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,19 +24,16 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
-    op.create_table('event_types',
+    op.create_table('event',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=80), nullable=False),
+    sa.Column('description', sa.String(length=80), nullable=True),
+    sa.Column('date', sa.DateTime(), nullable=False),
+    sa.Column('creation_date', sa.DateTime(), nullable=False),
+    sa.Column('last_update', sa.DateTime(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('description'),
     sa.UniqueConstraint('name')
-    )
-    op.create_table('img_test',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('img', sa.Unicode(), nullable=True),
-    sa.Column('img_name', sa.String(length=255), nullable=True),
-    sa.Column('img_type', sa.String(length=255), nullable=True),
-    sa.Column('img_size', sa.String(length=255), nullable=True),
-    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('music_genre',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -54,19 +51,6 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=80), nullable=False),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name')
-    )
-    op.create_table('event',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('event_types_id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=80), nullable=False),
-    sa.Column('description', sa.String(length=80), nullable=True),
-    sa.Column('date', sa.DateTime(), nullable=False),
-    sa.Column('creation_date', sa.DateTime(), nullable=False),
-    sa.Column('last_update', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['event_types_id'], ['event_types.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('description'),
     sa.UniqueConstraint('name')
     )
     op.create_table('influence_band',
@@ -262,11 +246,9 @@ def downgrade():
     op.drop_table('user')
     op.drop_table('state')
     op.drop_table('influence_band')
-    op.drop_table('event')
     op.drop_table('user_type')
     op.drop_table('musical_instruments_category')
     op.drop_table('music_genre')
-    op.drop_table('img_test')
-    op.drop_table('event_types')
+    op.drop_table('event')
     op.drop_table('country')
     # ### end Alembic commands ###
