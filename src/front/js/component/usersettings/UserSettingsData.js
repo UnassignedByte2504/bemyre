@@ -7,9 +7,11 @@ import UserPasswordManagement from "./userpasswordmanagement/UserPasswordManagem
 import UserPictures from "./userpictures/UserPictures.js";
 import UserPrivacySettings from "./userprivacysettings/UserPrivacySettings.js";
 import UserSocialMedia from "./usersocialmedia/UserSocialMedia.js";
+import ContactInfo from "./contactinfo/ContactInfo.js";
 
 export const UserSettingsMenuItems = [
   "Editar Informacion",
+  "Informacion de Contacto",
   "Imagen de Perfil y Portada",
   "Redes Sociales",
   "Perfil de Artista",
@@ -46,6 +48,10 @@ export const UserSettingsComponents = [
   {
     name: "Eliminar Cuenta",
     component: <DeleteAccount />,
+  },
+  {
+    name: "Informacion de Contacto",
+    component: <ContactInfo />,
   },
 ];
 
@@ -86,7 +92,6 @@ export const clearUserImgs = (username) => {
   sessionStorage.removeItem("settings_profile_img");
   sessionStorage.removeItem("settings_portrait_img");
   window.location.href = `/user/${username}/ajustes`;
-
 };
 
 export const updateUserImgs = async (username) => {

@@ -51,11 +51,6 @@ const Layout = ({ isLogged }) => {
             <Route element={<LandingPage />} path="/home" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Profile />} path="user/:username" />
-            {/* {store.current_user ? (
-              <Route element={<UserSettings />} path="user/:username/ajustes" />
-            ) : (
-              <Route element={<LandingPage />} path="/home" />
-            )} */}
             <Route
               element={
                 <Login

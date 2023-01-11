@@ -8,15 +8,10 @@ import { locales, bandas } from "../mockingData";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import { Container } from "@mui/material";
-import TodayIcon from "@mui/icons-material/Today";
 
 // Import components
 import { LandingJumbo } from "../component/jumbotron/landingjumbo";
-import { AsideLandingPgRegister } from "../component/asides/AsideLandingPgRegister";
-import { Musicians } from "../component/Musicians";
-import { Spain } from "../component/Spain.jsx";
 import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
-import RoundedButton from "../component/buttons/RoundedButton.jsx";
 import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
 import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
 
@@ -75,6 +70,7 @@ export const LandingPage = () => {
           ))}
         </Box>
       </Box>
+
       {/* ------BANDAS----------- */}
       <Box className="mx-4 mb-5">
         <Typography sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
@@ -103,6 +99,7 @@ export const LandingPage = () => {
           ))}
         </Box>
       </Box>
+
 
       <CallToAction2
         text1="¿Eres músico?"

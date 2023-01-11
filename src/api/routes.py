@@ -146,6 +146,24 @@ def change_password(username_var):
         return jsonify({"msg":"Contraseña modificada con exito", })
 
 
+#<<----- Editar Información ----->>
+@api.route('/settings/<string:username_var>/editinfo', methods=['PUT'])
+@jwt_required()
+def edit_info(username_var):
+    user = get_jwt_identity()
+    if user != username_var:
+        return jsonify({"message": "Access Denied"}), 401
+    user = db.session.query(User).filter(User.user_name == username_var).first()
+    request_data = request.get_json(force=True)
+    # user.user_name = request_data['user_name']
+    user.first_name = request_data['first_name']
+    user.last_name = request_data['last_name']
+    user.description = request_data['description']
+
+    db.session.commit()
+    return jsonify({"msg":"Información actualizada", })
+
+
 #<<-----1 User related endpoints ----->>
 
 @api.route('/<string:username_var>', methods=['GET'])
@@ -174,6 +192,26 @@ def handle_user_profile_img(username_var):
         last_update = datetime.now()
         db.session.commit()
         return jsonify({"msg":"Imagen actualizada con exito"}), 200
+
+
+# @api.route('/settings/<string:username_var>/contactinfo', methods=['PUT'])
+# @jwt_required()
+# def handle_user_contact_info(username_var):
+#     user = get_jwt_identity()
+#     if user != username_var:
+#         return jsonify({"Access Denied"})
+#     if request.method == 'PUT':
+#         user = db.session.query(User).filter(User.user_name == username_var).first()
+#         if not user:
+#             return jsonify({"message": "User not found"}), 404
+#         user.contact_info = db.session.query(UserContactInfo).filter(UserContactInfo.user_id == user.id).first()
+#         request_data = request.get_json(force=True)
+#         user.contact_info.phone_number = request_data['phone_number']
+#         user.contact_info.address = request_data['address']
+
+
+
+
 
 
 @api.route('settings/<string:username_var>/socialmedia', methods=['PUT'])
@@ -274,37 +312,6 @@ def is_auth(username_var):
     elif user != username_var:
         return jsonify({"auth": False}), 200
 
-
-
-# @api.route('/imgtest', methods=['POST', 'GET'])
-# def imgtest():
-#     # img comes as base64 data not as a file
-#     if request.method == 'POST':
-#         request_data = request.get_json(force=True)
-#         img = request_data['img_raw']
-#         img_name = request_data['img_name']
-#         img_type = request_data['img_type']
-#         img_size = request_data['img_size']
-#         new_img = ImgTest(img_name=img_name, img_type=img_type, img_size=img_size, img=img)
-#         db.session.add(new_img)
-#         db.session.commit()
-#         return jsonify({"message": "Img added successfully"}), 201
-#     if request.method == 'GET':
-#         all_imgs = ImgTest.query.all()
-#         all_img = list(map(lambda x: x.serialize(), all_imgs))
-#         return jsonify({"all_imgs": all_img}), 200
-
-
-# @api.route('/imgtest/<int:img_id>', methods=['GET'])
-# def get_img(img_id):
-#     img = ImgTest.query.filter_by(id=img_id).first()
-#     if not img:
-#         return jsonify({"message": "Img not found"}), 404
-#     return jsonify({"img": img.serialize()}), 200
-
-
-
-
 #<<-----1.1 User Follow Unfollow endpoints----->>
 @api.route('/follow/<string:username_var>', methods=['POST'])
 @jwt_required()
@@ -357,10 +364,23 @@ def followers(username_var):
 
     followers_list = user.followers
     followers_list_names = []
+    followers_profile_img = []
     for follower in followers_list:
-        user = User.query.filter_by(id=follower.id).first()
-        followers_list_names.append(user.user_name)
-    return jsonify({"followers": followers_list_names}), 200
+        followers_list_names.append(follower.user_name)
+        followers_profile_img.append(follower.profile_img)
+    return jsonify({"followers": followers_list_names, "profile_img": followers_profile_img}), 200
+@api.route('/followerscount/<string:username>', methods=['GET'])
+def followerscount(username):
+    user = User.query.filter_by(user_name=username).first()
+    if not user:
+        return jsonify ({"message": "User not found"}), 404
+
+    followers_list = user.followers
+    followers_names = []
+    for follower in followers_list:
+        followers_names.append(follower.user_name)
+    number_of_followers = len(followers_names)
+    return jsonify(number_of_followers)
 
 @api.route('/following/<string:username_var>', methods=['GET'])
 def following(username_var):
@@ -370,10 +390,26 @@ def following(username_var):
 
     following_list = user.followed
     following_list_names = []
+    following_profile_img= []
     for following in following_list:
         user = User.query.filter_by(id=following.id).first()
         following_list_names.append(user.user_name)
-    return jsonify({"following": following_list_names}), 200
+        following_profile_img.append(user.profile_img)
+    return jsonify({"following": following_list_names, "profile_img": following_profile_img}),200
+
+@api.route('/followingcount/<string:username>', methods=['GET'])
+def followingcount(username):
+    user = User.query.filter_by(user_name=username).first()
+    if not user:
+        return jsonify ({"message": "User not found"}), 404
+
+    following_list = user.followed
+    following_names = []
+    for following in following_list:
+        following_names.append(following.user_name)
+    number_of_following = len(following_names)
+    return jsonify(number_of_following)
+
 
 #<<-----1 LOCALES ENDPOINT START ----->>
 

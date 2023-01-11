@@ -42,7 +42,7 @@ import Cuerda from "../../img/instruments/cuerda.jpg"
 
 //Function
 
-export const Profile = () => {
+export const Profile = ({reRender}) => {
   const theme = useTheme();
   const { actions, store } = useContext(Context);
   const params = useParams();
@@ -52,7 +52,7 @@ export const Profile = () => {
   const portraitPicture = store.resultados.portrait_img ? store.resultados.portrait_img : exampleheader;
   useEffect(() => {
     actions.fetchUser(username);
-  }, []);
+  }, [store.reRender]);
   const [open, setOpen] = useState(false)
   const [ejeY, setEjeY] = useState(-40);
 
@@ -137,6 +137,7 @@ export const Profile = () => {
               last_name={store.resultados.last_name}
               description={store?.resultados.description}
               profilePicture={profilePicture}
+              reRender={store.reRender}
             />
           </Box>
           {/* Import aside Bands */}

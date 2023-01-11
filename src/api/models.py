@@ -487,7 +487,6 @@ class LocalMusicGenre (db.Model):
     musicgenre_id = db.Column(db.Integer, db.ForeignKey('music_genre.id'), nullable=False)
     music_genre = db.relationship ('MusicGenre')
     local_id = db.Column(db.Integer, db.ForeignKey('local.id'), nullable=False)
-    local = relationship("Local")
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
@@ -498,5 +497,4 @@ class LocalMusicGenre (db.Model):
             "musicgenre_id": self.musicgenre_id,
             "music_genre": self.music_genre.name,
             "local_id": self.local_id,
-            "local": self.local
         }

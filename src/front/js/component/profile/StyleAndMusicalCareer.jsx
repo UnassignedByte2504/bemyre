@@ -21,57 +21,77 @@ export const StyleAndMusicalCareer = ({ currentUser, userName }) => {
         sx={{ display: "flex", justifyContent: "space-between" }}
       >
         <strong>Mi estilo de música y trayectoria</strong>
-        {open==false?
-        <Button onClick={() => setOpen(true)}>
-        <EditInfo currentUser={currentUser} userName={userName} />
-        </Button>
-        :
-        <Button onClick={() => setOpen(false)}>
-          <EditInfo currentUser={currentUser} userName={userName} />
-        </Button>
-        }
-
+        {open == false ? (
+          <Button onClick={() => setOpen(true)}>
+            <EditInfo currentUser={currentUser} userName={userName} />
+          </Button>
+        ) : (
+          <Button onClick={() => setOpen(false)}>
+            <EditInfo currentUser={currentUser} userName={userName} />
+          </Button>
+        )}
       </Typography>
       <Divider />
-      <Box className="musicstyle my-3">
-        <Box className="bubbles">
-          <strong>Rock</strong>
-        </Box>
-        <Box className="bubbles">
-          <strong>Metal</strong>
-        </Box>
-        <Box className="bubbles">
-          <strong>Indie</strong>
-        </Box>
-      </Box>
-      {open == false ? 
-        <Typography>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum
-        </Typography>
-       : 
-       <>
-        <TextField
-          id="outlined-multiline-static"
-          label="Define tu estilo de música"
-          multiline
-          rows={4}
-          className='w-100'
-          defaultValue="Mi estilo de música es"
-        />
-        <Button
-        variant="contained"
-        className="mt-2"
-        >Guardar cambios</Button>
+
+      {open == false ? (
+        <>
+          <Box className="musicstyle my-3">
+            <Box className="bubbles">
+              <strong>Rock</strong>
+            </Box>
+            <Box className="bubbles">
+              <strong>Metal</strong>
+            </Box>
+            <Box className="bubbles">
+              <strong>Indie</strong>
+            </Box>
+          </Box>
+          <Typography>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus
+            PageMaker including versions of Lorem Ipsum
+          </Typography>
         </>
-      }
+      ) : (
+        <>
+          <TextField
+            className="bubbles my-3 me-2 border-0"
+            placeholder="Estilo de musica 1"
+            style={{ border: "none"}}
+          />
+            
+
+            <TextField
+            className="bubbles my-3 mx-2 border-0"
+            placeholder="Estilo de musica 2"
+            style={{ border: "none"}}
+          />
+
+            <TextField
+            className="bubbles ms-2 my-3 border-0"
+            placeholder="Estilo de musica 3"
+            style={{ border: "none"}}
+         />
+
+          <TextField
+            id="outlined-multiline-static"
+            label="Define tu estilo de música"
+            multiline
+            rows={4}
+            className="w-100"
+            defaultValue="Mi estilo de música es"
+          />
+          <Button variant="contained" className="mt-2">
+            Guardar cambios
+          </Button>
+        </>
+      )}
     </Box>
   );
 };
