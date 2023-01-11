@@ -3,11 +3,11 @@ import React from "react";
 
 import "../../../../styles/cardlocal.css";
 
-export const CardLocalImg = ({ urlImg }) => {
+export const CardLocalImg = ({ local_img }) => {
   return (
     <>
       <Box className="contendorImg">
-        <img className="cardlocalimg" src={urlImg} />
+        <img className="cardlocalimg" src={local_img} />
       </Box>
     </>
   );

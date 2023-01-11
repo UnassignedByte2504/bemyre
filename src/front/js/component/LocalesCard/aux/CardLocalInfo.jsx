@@ -7,24 +7,22 @@ import {
 } from "@mui/material";
 import React from "react";
 
-export const CardLocalInfo = ({ nombreLocal, ubicacion }) => {
+export const CardLocalInfo = ({ name, ubicacion_local, city, description }) => {
   return (
     <CardContent>
       <Box>
         <Typography variant="h5">
-          <strong>{nombreLocal}</strong>
+          <strong>
+            {name} | {city}
+          </strong>
         </Typography>
       </Box>
       <Box>
         <Typography variant="body1">
-          <strong>{ubicacion}</strong>
+          <strong>{ubicacion_local}</strong>
         </Typography>
       </Box>
-      <Typography variant="body1">
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-        ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-        dis parturient montes, nascetur
-      </Typography>
+      <Typography variant="body1">{description}</Typography>
     </CardContent>
   );
 };

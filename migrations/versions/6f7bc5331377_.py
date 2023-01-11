@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 787c6976bedb
+Revision ID: 6f7bc5331377
 Revises: 
-Create Date: 2023-01-10 10:40:23.188446
+Create Date: 2023-01-10 17:08:27.480540
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '787c6976bedb'
+revision = '6f7bc5331377'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -110,6 +110,12 @@ def upgrade():
     sa.Column('state', sa.String(length=80), nullable=False),
     sa.ForeignKeyConstraint(['state'], ['state.name'], ),
     sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('followers',
+    sa.Column('follower_id', sa.Integer(), nullable=True),
+    sa.Column('followed_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['followed_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['follower_id'], ['user.id'], )
     )
     op.create_table('user_musician_info',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -251,6 +257,7 @@ def downgrade():
     op.drop_table('bands')
     op.drop_table('user_social_media')
     op.drop_table('user_musician_info')
+    op.drop_table('followers')
     op.drop_table('city')
     op.drop_table('user')
     op.drop_table('state')

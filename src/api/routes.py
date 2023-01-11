@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from datetime import datetime
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -144,6 +144,24 @@ def change_password(username_var):
         user.password = request.json.get('new_password', None)
         db.session.commit()
         return jsonify({"msg":"Contraseña modificada con exito", })
+
+
+#<<----- Editar Información ----->>
+@api.route('/settings/<string:username_var>/editinfo', methods=['PUT'])
+@jwt_required()
+def edit_info(username_var):
+    user = get_jwt_identity()
+    if user != username_var:
+        return jsonify({"message": "Access Denied"}), 401
+    user = db.session.query(User).filter(User.user_name == username_var).first()
+    request_data = request.get_json(force=True)
+    # user.user_name = request_data['user_name']
+    user.first_name = request_data['first_name']
+    user.last_name = request_data['last_name']
+    user.description = request_data['description']
+
+    db.session.commit()
+    return jsonify({"msg":"Información actualizada", })
 
 
 #<<-----1 User related endpoints ----->>
@@ -324,6 +342,7 @@ def is_auth(username_var):
 
 
 
+
 #<<-----1.1 User Follow Unfollow endpoints----->>
 @api.route('/follow/<string:username_var>', methods=['POST'])
 @jwt_required()
@@ -346,6 +365,7 @@ def follow(username_var):
     user.follow(user_to_follow)
     db.session.commit()
     return jsonify({"message": "You are now following this user"}), 201
+
 
 
 @api.route('/unfollow/<string:username_var>', methods=['POST'])
@@ -426,7 +446,8 @@ def followingcount(username):
 
 @api.route('/locales', methods=['GET'])
 def get_locales():
-    locales = Locales.query.all()
+    print('holaaa')
+    locales = Local.query.all()
     locales_list = []
     for local in locales:
         locales_list.append(local.serialize())
