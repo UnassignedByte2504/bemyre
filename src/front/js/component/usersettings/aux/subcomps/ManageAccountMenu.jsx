@@ -51,20 +51,6 @@ const ManageAccountMenu = () => {
         <List component="div" disablePadding>
           <ListItemButton
             className={
-              UserSettingsMenuItems[4] === store.selected_settings
-                ? "SelectedSetting"
-                : null
-            }
-            sx={{ pl: 4 }}
-            onClick={() => selectSetting(UserSettingsMenuItems[4])}
-          >
-            <ListItemIcon>
-              <PasswordOutlinedIcon />
-            </ListItemIcon>
-            <ListItemText primary="Modificar Contraseña" />
-          </ListItemButton>
-          <ListItemButton
-            className={
               UserSettingsMenuItems[5] === store.selected_settings
                 ? "SelectedSetting"
                 : null
@@ -73,18 +59,32 @@ const ManageAccountMenu = () => {
             onClick={() => selectSetting(UserSettingsMenuItems[5])}
           >
             <ListItemIcon>
+              <PasswordOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText primary="Modificar Contraseña" />
+          </ListItemButton>
+          <ListItemButton
+            className={
+              UserSettingsMenuItems[6] === store.selected_settings
+                ? "SelectedSetting"
+                : null
+            }
+            sx={{ pl: 4 }}
+            onClick={() => selectSetting(UserSettingsMenuItems[6])}
+          >
+            <ListItemIcon>
               <PrivacyTipOutlinedIcon />
             </ListItemIcon>
             <ListItemText primary="Ajustes de Privacidad" />
           </ListItemButton>
           <ListItemButton
           className={
-            UserSettingsMenuItems[6] === store.selected_settings
+            UserSettingsMenuItems[7] === store.selected_settings
               ? "SelectedSetting"
               : null
           }
             sx={{ pl: 4, color: "red !important" }}
-            onClick={() => selectSetting(UserSettingsMenuItems[6])}
+            onClick={() => selectSetting(UserSettingsMenuItems[7])}
           >
             <ListItemIcon>
               <DeleteForeverOutlinedIcon />

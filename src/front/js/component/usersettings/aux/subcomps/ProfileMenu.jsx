@@ -21,6 +21,7 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import ConnectWithoutContactOutlinedIcon from "@mui/icons-material/ConnectWithoutContactOutlined";
+import ContactMailIcon from '@mui/icons-material/ContactMail';
 //MUI imports <<<
 //Logic imports >>>
 import { UserSettingsMenuItems } from "../../UserSettingsData.js";
@@ -70,7 +71,7 @@ const ProfileMenu = () => {
             onClick={() => selectSetting(UserSettingsMenuItems[1])}
           >
             <ListItemIcon>
-              <AccountBoxIcon />
+              <ContactMailIcon />
             </ListItemIcon>
             <ListItemText primary={UserSettingsMenuItems[1]} />
           </ListItemButton>
@@ -84,9 +85,9 @@ const ProfileMenu = () => {
             onClick={() => selectSetting(UserSettingsMenuItems[2])}
           >
             <ListItemIcon>
-              <ConnectWithoutContactOutlinedIcon />
+              <AccountBoxIcon />
             </ListItemIcon>
-            <ListItemText primary="Redes Sociales" />
+            <ListItemText primary={UserSettingsMenuItems[2]} />
           </ListItemButton>
           <ListItemButton
             className={
@@ -98,9 +99,23 @@ const ProfileMenu = () => {
             onClick={() => selectSetting(UserSettingsMenuItems[3])}
           >
             <ListItemIcon>
+              <ConnectWithoutContactOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText primary={UserSettingsMenuItems[3]}/>
+          </ListItemButton>
+          <ListItemButton
+            className={
+              UserSettingsMenuItems[4] === store.selected_settings
+                ? "SelectedSetting"
+                : null
+            }
+            sx={{ pl: 4 }}
+            onClick={() => selectSetting(UserSettingsMenuItems[4])}
+          >
+            <ListItemIcon>
               <LibraryMusicOutlinedIcon />
             </ListItemIcon>
-            <ListItemText primary="Perfil de Artista" />
+            <ListItemText primary={UserSettingsMenuItems[4]} />
           </ListItemButton>
         </List>
       </Collapse>
