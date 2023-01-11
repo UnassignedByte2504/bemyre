@@ -50,6 +50,7 @@ export const CardProfile = ({
           {first_name} {last_name}
         </Typography>
         <Follows />
+        <Typography variant="h5" className="mb-3">{description}</Typography>
         {componentToRender(view)}
       </Box>
     </Box>
