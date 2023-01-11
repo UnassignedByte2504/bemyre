@@ -40,7 +40,7 @@ export const Signup = () => {
       values.is_musician
     );
     if (!sessionStorage.getItem("alert_signup")) {
-      navigate("/");
+      window.location.href = "/home";
     }
 
     await ax.resetForm();
