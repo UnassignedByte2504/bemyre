@@ -1,5 +1,7 @@
 import React from "react";
-import { Container, Box, useTheme } from "@mui/system";
+import { Container, Box } from "@mui/system";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material";
 import { Card, Typography } from "@mui/material";
 import "../../../styles/calltoaction.css";
 

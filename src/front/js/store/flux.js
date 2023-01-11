@@ -18,6 +18,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           ? sessionStorage.getItem("settings_portrait_img")
           : null,
       },
+      followers: undefined,
+      following: undefined,
+      reRender: 1,
+      profileCardView: "default",
     },
     actions: {
       sendImgTest: async (img) => {
@@ -132,8 +136,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         // await fetch(`${process.env.BACKEND_URL}/api/logout`, opts)
         //   .then((response) => response.json())
         //   .then((response) => console.log(response));
-        sessionStorage.removeItem("access_token");
-        sessionStorage.removeItem("current_user");
+        sessionStorage.clear();
         window.location.href = "/home";
         setStore({
           token_local: null,
@@ -166,7 +169,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         await console.log(store.resultados);
       },
-      changePassword : async(username, password, new_password) =>{
+      changePassword: async (username, password, new_password) => {
         const store = getStore();
         const options = {
           method: "PUT",
@@ -178,11 +181,34 @@ const getState = ({ getStore, getActions, setStore }) => {
             password: password,
             new_password: new_password,
           }),
-      }
-      await fetch(`${process.env.BACKEND_URL}/api/settings/${username}/changepassword`, options)
-      .then((response) => response.json())
-      .then((result) => console.log("contraseña cambiada"));
-    },
+        };
+        await fetch(
+          `${process.env.BACKEND_URL}/api/settings/${username}/changepassword`,
+          options
+        )
+          .then((response) => response.json())
+          .then((result) => console.log("contraseña cambiada", result))
+          .then((window.location.href = `/user/${username}/ajustes`));
+      },
+      fetchFollowing: async (username) => {
+        const store = getStore();
+
+        const opts = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        await fetch(
+          `${process.env.BACKEND_URL}/api/following/${username}`,
+          opts
+        )
+          .then((response) => response.json())
+          .then((result) => {
+            setStore({ following: result });
+            sessionStorage.setItem("following_list", result.following);
+          });
+      },
       // <<<< Functions realted on fetching user info from back
       //misc functions
       setLocation: (location) => {
@@ -196,15 +222,16 @@ const getState = ({ getStore, getActions, setStore }) => {
         });
       },
       preProfileImg: (profileImg) => {
-        const store = getStore()
+        const store = getStore();
         setStore({
           user_img_settings: {
             profile_img: profileImg,
-            portrait_img: store.user_img_settings.portrait_img
-        }});
+            portrait_img: store.user_img_settings.portrait_img,
+          },
+        });
       },
       prePortraitImg: (portraitImg) => {
-        const store = getStore()
+        const store = getStore();
         setStore({
           user_img_settings: {
             profile_img: store.user_img_settings.profile_img,
@@ -212,6 +239,31 @@ const getState = ({ getStore, getActions, setStore }) => {
           },
         });
       },
+      setFollowers: (data) => {
+        setStore({
+          followers: data,
+        });
+      },
+      setFollowing: (data) => {
+        setStore({
+          following: data,
+        });
+      },
+      setReRender: () => {
+        const store = getStore();
+        let add = store.reRender + 1;
+        setStore({
+          reRender: add,
+        });
+        console.log(store.reRender);
+      },
+      setProfileCardView: (view) => {
+        setStore({
+          profileCardView: view,
+        });
+        console.log("i was called");
+      },
+
       //misc functions
     },
   };

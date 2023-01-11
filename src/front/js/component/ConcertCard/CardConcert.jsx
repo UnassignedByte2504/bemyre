@@ -6,8 +6,10 @@ import { CardConcertInfo } from "./aux/CardConcertInfo.jsx";
 import { Card } from "@mui/material";
 import { useTheme, Box } from "@mui/material";
 
+
 export const CardConcert = () => {
   const theme = useTheme();
+
   let generosMusica = {
     generoMusica1: "Techno",
   };

@@ -14,6 +14,7 @@ import { LandingJumbo } from "../component/jumbotron/landingjumbo";
 import { AsideLandingPgRegister } from "../component/asides/AsideLandingPgRegister";
 import { Musicians } from "../component/Musicians";
 import { Spain } from "../component/Spain.jsx";
+import { CallToAction } from "../component/CallToAction/CallToAction.jsx";
 
 export const LandingPage = () => {
   const { actions, store } = useContext(Context);
@@ -31,7 +32,7 @@ export const LandingPage = () => {
   
   return (
     <Box>
-      <LandingJumbo />
+      {sessionStorage.getItem('current_user') ? <CallToAction/> : <LandingJumbo /> }
       <Container maxWidth="xl">
         <Typography variant="h2" className=" mt-5 ms-5">
           Conciertos en Sevilla esta semana{" "}
@@ -41,9 +42,7 @@ export const LandingPage = () => {
         </Typography>
         <Box className="d-flex container changetoflexwrap flex-nowrap justify-content-center">
           <Musicians />
-          <AsideLandingPgRegister />
         </Box>
-        <Spain maxWidth="100vw" />
       </Container>
     </Box>
   );

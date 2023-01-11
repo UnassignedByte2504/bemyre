@@ -447,7 +447,8 @@ class Local (db.Model):
     city = db.relationship('City', backref=('local'), lazy=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     user = db.relationship('User', backref=('local'), lazy=True)
-    local_music_genres = relationship("LocalMusicGenre", backref=('Local'), lazy=True)
+    # local_music_genre_id = db.Column(db.Integer, db.ForeignKey('local_music_genre.id'), nullable=True)
+    # local_music_genre = db.relationship ('LocalMusicGenre')
     local_type = db.Column(db.String(255), nullable=True)
 
     
@@ -487,7 +488,6 @@ class LocalMusicGenre (db.Model):
     musicgenre_id = db.Column(db.Integer, db.ForeignKey('music_genre.id'), nullable=False)
     music_genre = db.relationship ('MusicGenre')
     local_id = db.Column(db.Integer, db.ForeignKey('local.id'), nullable=False)
-    local = relationship("Local")
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
@@ -498,5 +498,4 @@ class LocalMusicGenre (db.Model):
             "musicgenre_id": self.musicgenre_id,
             "music_genre": self.music_genre.name,
             "local_id": self.local_id,
-            "local": self.local
         }
