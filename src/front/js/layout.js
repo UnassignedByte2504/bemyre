@@ -26,6 +26,7 @@ import { Footer } from "./component/Footer.jsx";
 import { Faq } from "./pages/Faq.js";
 import ProtectedRoute from "./ProtectedRoute.js";
 import { Locales } from "./pages/Locales";
+import { Bandas } from "./pages/Bandas.js";
 
 // <<< components <<<<
 
@@ -74,6 +75,7 @@ const Layout = ({ isLogged }) => {
               element={<ProtectedRoute component={<UserSettings />} />}
             />
             <Route element={<Locales />} path="/locales" />
+            <Route element={<Bandas />} path="/bandas" />
           </Routes>
           <Footer />
         </ThemeProvider>
