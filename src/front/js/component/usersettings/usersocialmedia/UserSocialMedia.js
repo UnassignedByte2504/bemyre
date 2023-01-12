@@ -34,14 +34,13 @@ const UserPasswordManagement = () => {
   const [twitter, setTwitter] = useState(false)
   const [tiktok, setTiktok] = useState(false)
   const [snapchat, setSnapchat] = useState(false)
-
   const onSubmit = (values)=>{
     console.log(values)
   }
   const {handleSubmit, handleChange, isSubmitting} = useFormik({
     initialValues: {
-      youtube: '',
-      web: '',
+      youtube: store.resultados.user_social_media[0].facebook_url,
+      web: store.resultados.user_social_media[0].website_url,
       instagram: '',
       facebook: '',
       twitter: '',
@@ -50,7 +49,7 @@ const UserPasswordManagement = () => {
     },
     onSubmit
   })
-  console.log(store.resultados.user_social_media)
+  console.log("hola",store.resultados.user_social_media[0])
 
   return (
     <Box className='m-2 changepasswordbox'>
@@ -84,10 +83,12 @@ const UserPasswordManagement = () => {
         :
         <Box className='w-100 d-flex' onSubmit={handleSubmit}>
           <TextField
+          value={values.web}
           onChange={handleChange}
           className='w-100 me-2'
           label='Modificar URL Web'
           name='web'
+
           />
           <Button
           type='submit'

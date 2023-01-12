@@ -265,7 +265,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     }
           await fetch(`${process.env.BACKEND_URL}/api/settings/${username}/editcontactinfo`, options)
           .then((response) => response.json())
-          .then((result) => sessionStorage.setItem("cambios_contact", "Información de contacto cambiada con éxito"));
+          .then((result) => localStorage.setItem("cambios_contact", "Información de contacto cambiada con éxito"));
           },
   
   
