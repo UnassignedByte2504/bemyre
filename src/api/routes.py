@@ -164,6 +164,27 @@ def edit_info(username_var):
     return jsonify({"msg":"Información actualizada", })
 
 
+#<<----- Edit Contact Info ------>>
+
+@api.route('/settings/<string:username_var>/editcontactinfo', methods=['PUT'])
+@jwt_required()
+def edit_contact_info(username_var):
+    user = get_jwt_identity()
+    if user != username_var:
+        return jsonify({"message": "Access Denied"}), 401
+    user_contact_info = db.session.query(UserContactInfo).filter(User.user_name == username_var).first()
+    request_data = request.get_json(force=True)
+    # user.user_name = request_data['user_name']
+    user_contact_info.phone_number = request_data['phone_number']
+    # user_contact_info.city = request_data['city']
+    user_contact_info.address = request_data['address']
+    db.session.commit()
+    return jsonify({"msg":"Información actualizada", })
+
+
+
+
+
 #<<-----1 User related endpoints ----->>
 
 @api.route('/<string:username_var>', methods=['GET'])

@@ -1,5 +1,5 @@
 //Import React
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 //Import Material
 import { TextField, Typography, Box, Button } from '@mui/material'
@@ -18,14 +18,14 @@ import TiktokIcon from "../../../../img/RRSS/tiktok_logo.png"
 import SoundcloudIcon from "../../../../img/RRSS/soundcloud.png"
 import SnapchatIcon from "../../../../img/RRSS/snapchat.png"
 import CancelIcon from '@mui/icons-material/Cancel';
-
+import {Context} from "../../../store/appContext"
 //Import Styles
 import "../../../../styles/index.css"
 
 //Main Function
 
 const UserPasswordManagement = () => {
-
+  const {store, actions} = useContext(Context)
   const [web, setWeb] = useState(false)
   const [youtube, setYoutube] = useState(false)
   const [soundcloud, setSoundcloud] = useState(false)
@@ -35,7 +35,7 @@ const UserPasswordManagement = () => {
   const [tiktok, setTiktok] = useState(false)
   const [snapchat, setSnapchat] = useState(false)
 
-  const submitFormPassword = (values)=>{
+  const onSubmit = (values)=>{
     console.log(values)
   }
   const {handleSubmit, handleChange, isSubmitting} = useFormik({
@@ -48,8 +48,9 @@ const UserPasswordManagement = () => {
       tiktok: '',
       snapchat:'',
     },
-    onSubmit: submitFormPassword
+    onSubmit
   })
+  console.log(store.resultados.user_social_media)
 
   return (
     <Box className='m-2 changepasswordbox'>
@@ -431,6 +432,7 @@ const UserPasswordManagement = () => {
         
         
         }
+
         {/* <Button
         variant='contained'
         type='submit'
