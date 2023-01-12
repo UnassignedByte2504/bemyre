@@ -248,6 +248,25 @@ const getState = ({ getStore, getActions, setStore }) => {
         .then((response) => response.json())
         .then((result) => sessionStorage.setItem("cambios", "Información cambiada con éxito"));
         },
+
+        editContactInfo: async(username, phone_number, address) =>{
+          const store = getStore();
+          const options = {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              phone_number: phone_number,
+              address: address,
+
+            }),
+    }
+          await fetch(`${process.env.BACKEND_URL}/api/settings/${username}/editcontactinfo`, options)
+          .then((response) => response.json())
+          .then((result) => sessionStorage.setItem("cambios_contact", "Información de contacto cambiada con éxito"));
+          },
   
   
 

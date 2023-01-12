@@ -12,19 +12,18 @@ import { useFormik } from 'formik'
 import "../../../../styles/index.css"
 import { SelectSettings } from '../../Dropdown/SelectSettings.jsx'
 import {Context} from "../../../store/appContext"
-import { AlertEditInfo } from '../../Alerts/AlertEditInfo.jsx'
+import { AlertContactInfo } from '../../Alerts/AlertContactInfo.jsx'
 
 const ContactInfo = () => {
   useEffect(()=>{actions.fetchUser(username)
   },[])
-  useEffect(()=>{sessionStorage.removeItem("cambios")
+  useEffect(()=>{sessionStorage.removeItem("cambios_contact")
   },[])
-  const maxLengthText = 240
   const params= useParams()
   const username = params.username
   const {actions, store} = useContext(Context)
   const onSubmit = async(values, ax) =>{
-    await actions.editInfoSettings(username, values.user_name, values.nombre, values.apellidos, values.descripcion)
+    actions.editContactInfo(username, values.phone_number, values.address)
     console.log(values)
   }
   const {
@@ -39,7 +38,7 @@ const ContactInfo = () => {
     initialValues: {
       phone_number: "",
       address: "",
-      city: "",
+      // city: "",
 
     },
     onSubmit,
@@ -54,7 +53,6 @@ const ContactInfo = () => {
         
         <TextField 
             value={values.phone_number}
-            type='number'
             name='phone_number'
             onChange={handleChange}
             className='w-100 mb-3'
@@ -62,7 +60,7 @@ const ContactInfo = () => {
             label='Cambiar número teléfono'
         />
 
-        <TextField 
+        {/* <TextField 
             value={values.city}
             name='city'
             onChange={handleChange}
@@ -70,7 +68,7 @@ const ContactInfo = () => {
             variant='outlined'
             label='Cambiar ciudad'
         />
-        
+         */}
 
         <TextField
             value={values.address}
@@ -81,9 +79,7 @@ const ContactInfo = () => {
             label='Cambiar la dirección'
             />
 
-        <AlertEditInfo 
-        
-        className='w-100'/>
+         <AlertContactInfo/>
         
         <Button
         type='submit'
