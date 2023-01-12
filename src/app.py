@@ -8,12 +8,13 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from api.utils import APIException, generate_sitemap
-from api.models import db
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager 
-
+from flask_socketio import SocketIO
+from flask_socketio import send, emit
 #from models import Person
 
 ENV = os.getenv("FLASK_ENV")
@@ -25,7 +26,7 @@ app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SUPERSECRETKEY")
 # app.config['JWT_EXPIRATION_DELTA'] = datetime.timedelta(days=10)
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = datetime.timedelta(hours=1)
 jwt = JWTManager(app)
-
+socketio = SocketIO(app, cors_allowed_origins="*")
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
 
@@ -71,9 +72,34 @@ def serve_any_other_file(path):
     response = send_from_directory(static_file_dir, path)
     response.cache_control.max_age = 0 # avoid cache memory
     return response
+@socketio.on('connect')
+def test_connect():
+    print('client connected')
+
+@socketio.on('disconect')
+def test_disconnect():
+    print('Client disconnected')
+
+@socketio.on('message')
+def handle_message(data):
+    print(data)
+    socketio.emit('message', data)
+
+@socketio.on('is_connected')
+def handle_is_connected(username):
+    users = User.query.all()
+    users_list = []
+    print(username)
+    for user in users:
+        users_list.append(user.user_name)
+    if username in users_list:
+        socketio.emit('is_connected', True)
+
+
+
 
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
-    app.run(host='0.0.0.0', port=PORT, debug=True)
+    socketio.run(app, host='0.0.0.0', port=PORT, debug=True)

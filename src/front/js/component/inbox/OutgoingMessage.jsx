@@ -3,7 +3,7 @@ import ChatBubble from "react-chat-bubble";
 import { Box, Typography, Paper } from "@mui/material";
 
 
-const OutgoingMessage = () => {
+const OutgoingMessage = ({message}) => {
   return (
     <Box
     sx={{
@@ -21,7 +21,7 @@ const OutgoingMessage = () => {
         width: "50%",
       }}
     >
-      <Typography variant="h5">I am an Incoming Msg</Typography>
+      <Typography variant="h5">{message}</Typography>
     </Paper>
   </Box>
   )
