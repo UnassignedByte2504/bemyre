@@ -3,7 +3,7 @@ import ChatBubble from "react-chat-bubble";
 import { Box, Typography, Paper } from "@mui/material";
 import FlexCentered from "../styledcomponents/FlexCentered.jsx";
 
-const IncomingMessage = () => {
+const IncomingMessage = ({message}) => {
   const test = [
     {
       type: 0,
@@ -33,7 +33,7 @@ const IncomingMessage = () => {
           width: "50%",
         }}
       >
-        <Typography variant="h5">I am an Incoming Msg</Typography>
+        <Typography variant="h5">{message}</Typography>
       </Paper>
     </Box>
   );

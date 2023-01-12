@@ -48,6 +48,14 @@ class City(db.Model): #ciudades, pueblos
     name = db.Column(db.String(80), nullable=False)
     state = db.Column(db.String(80), db.ForeignKey('state.name'), nullable=False)
     locales = db.relationship('Local', backref='City', lazy=True)
+
+
+    @staticmethod
+    def cities_paginated (page=1, per_page=50):
+        return City.query.order_by(City.name.asc()).\
+            paginate(page=page, per_page=per_page, error_out=False)
+
+
     def __repr__(self):
         return f'<Cities {self.name}>'
     def serialize(self):
@@ -99,94 +107,6 @@ followers = db.Table('followers',
     db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
 )
 
-# class Like(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-#     def __repr__(self):
-#         return f'<Like {self.user_id}>'
-
-#     def serialize(self):
-#         return {
-#             "id": self.id,
-#             "post_id": self.post_id,
-#             "user_id": self.user_id,
-#         }
-
-# class Dislike(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     post_id = db. Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-#     def __repr__(self):
-#         return f'<Dislike {self.user_id}>'
-
-#     def serialize(self):
-#         return {
-#             "id": self.id,
-#             "post_id": self.post_id,
-#             "user_id": self.user_id
-#             }
-
-# class Post(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     author = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-#     title = db.Column(db.String(80), nullable = False)
-#     img = db.Column(db.Unicode)
-#     content = db.Column(db.Text, nullable = False)
-#     body = db.Column(db.Text, nullable = False)
-#     likes = db.relationship('Like', backref='post', lazy='dynamic')
-#     comments = db.relationship('Comment', backref='post', lazy='dynamic')
-#     total_likes = db.session.query(db.func.count(Like.id)).filter(Like.post_id == id).scalar()
-#     total_comments = db.session.query(db.func.count(Comment.id)).filter(Comment.post_id == id).scalar()
-#     total_dislikes = db.session.query(db.func.count(Dislike.id)).filter(Dislike.post_id == id).scalar()
-#     created_at = db.Column(db.DateTime, nullable = False , default = datetime.datetime.utcnow)
-#     updated_at = db.Column(db.DateTime, nullable = False , default = datetime.datetime.utcnow)
-
-#     def __repr__(self):
-#         return f'<Post {self.title}>'
-
-#     def serialize(self):
-#         return {
-#             "id": self.id,
-#             "author": self.author,
-#             "title": self.title,
-#             "img": self.img,
-#             "content": self.content,
-#             "body": self.body,
-#             "likes": [ like.serialize() for like in self.likes ],
-#             "comments": [ comment.serialize() for comment in self.comments ],
-#             "total_likes": self.total_likes,
-#             "total_comments": self.total_comments,
-#             "total_dislikes": self.total_dislikes,
-#             "created_at": self.created_at,
-#             "updated_at": self.updated_at,
-#         }
-
-# class Comment(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
-#     author = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-#     content = db.Column(db.Text, nullable = False)
-#     created_at = db.Column(db.DateTime, nullable = False , default = datetime.datetime.utcnow)
-#     updated_at = db.Column(db.DateTime, nullable = False , default = datetime.datetime.utcnow)
-
-#     def __repr__(self):
-#         return f'<Comment {self.content}>'
-
-#     def serialize(self):
-#         return {
-#             "id": self.id,
-#             "post_id": self.post_id,
-#             "author": self.author,
-#             "content": self.content,
-#             "created_at": self.created_at,
-#             "updated_at": self.updated_at,
-#         }
-
-
-
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -195,17 +115,17 @@ class User(db.Model):
     profile_img = db.Column(db.Unicode)
     portrait_img = db.Column(db.Unicode)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    user_contact_info = relationship("UserContactInfo", back_populates="user")
+    user_contact_info = relationship("UserContactInfo")
     password = db.Column(db.String(80), unique=False, nullable=False)
     first_name = db.Column(db.String(80), unique=False, nullable=False)
     last_name = db.Column(db.String(80), unique=False, nullable=False)
     description = db.Column(db.String(500), unique=False, nullable=True)
-    user_social_media = relationship("UserSocialMedia", back_populates="user")
+    user_social_media = relationship("UserSocialMedia")
     creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     last_login = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     is_musician = db.Column(db.Boolean(), unique=False, nullable=False)
-    user_musician_info = relationship("UserMusicianInfo", back_populates="user")
+    user_musician_info = relationship("UserMusicianInfo")
     locales = relationship("Local", back_populates="user")
     followed = db.relationship(
         'User', secondary=followers,
@@ -255,7 +175,6 @@ class User(db.Model):
 class UserSocialMedia(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = relationship("User", back_populates="user_social_media")
     website_url = db.Column(db.String(80), unique=True, nullable=True)
     youtube_url = db.Column(db.String(80), unique=True, nullable=True)
     soundcloud_url = db.Column(db.String(80), unique=True, nullable=True)
@@ -265,7 +184,7 @@ class UserSocialMedia(db.Model):
     tiktok_url = db.Column(db.String(80), unique=True, nullable=True)
     snapchat_url = db.Column(db.String(80), unique=True, nullable=True)
     spotify_url = db.Column(db.String(80), unique=True, nullable=True)
-    last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
+    last_update = db.Column(db.DateTime, nullable=False)
     def __repr__(self):
         return f'<UserSocialMedia {self.user}>'
 
@@ -288,7 +207,6 @@ class UserSocialMedia(db.Model):
 class UserMusicianInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True, nullable=False)
-    user = relationship("User", back_populates="user_musician_info")
     user_musical_instruments = relationship("UserMusicalInstrument", back_populates="user_musician_info")
     artistic_name = db.Column(db.String(80), unique=False, nullable=True)
     user_music_genre = relationship("UserMusicGenre", back_populates="user_musician_info")

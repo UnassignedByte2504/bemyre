@@ -167,7 +167,6 @@ def edit_info(username_var):
     user.first_name = request_data['first_name']
     user.last_name = request_data['last_name']
     user.description = request_data['description']
-
     db.session.commit()
     return jsonify({"msg":"Información actualizada", })
 
@@ -216,32 +215,36 @@ def handle_user_profile_img(username_var):
         user = db.session.query(User).filter(User.user_name == username_var).first()
         if not user:
             return jsonify({"message": "User not found"}), 404
-        user.profile_img = request.json.get("profile_img", None)
-        user.portrait_img = request.json.get("portrait_img", None)
+        default_values = user
+        request_data = request.get_json(force=True)
+        user.profile_img = request_data.get("profile_img", default_values.profile_img)
+        user.portrait_img = request_data.get("portrait_img", default_values.portrait_img)
         last_update = datetime.now()
         db.session.commit()
         return jsonify({"msg":"Imagen actualizada con exito"}), 200
 
 
-# @api.route('/settings/<string:username_var>/contactinfo', methods=['PUT'])
-# @jwt_required()
-# def handle_user_contact_info(username_var):
-#     user = get_jwt_identity()
-#     if user != username_var:
-#         return jsonify({"Access Denied"})
-#     if request.method == 'PUT':
-#         user = db.session.query(User).filter(User.user_name == username_var).first()
-#         if not user:
-#             return jsonify({"message": "User not found"}), 404
-#         user.contact_info = db.session.query(UserContactInfo).filter(UserContactInfo.user_id == user.id).first()
-#         request_data = request.get_json(force=True)
-#         user.contact_info.phone_number = request_data['phone_number']
-#         user.contact_info.address = request_data['address']
-
-
-
-
-
+@api.route('/settings/<string:username_var>/contactinfo', methods=['PUT'])
+@jwt_required()
+def handle_user_contact_info(username_var):
+    user = get_jwt_identity()
+    if user != username_var:
+        return jsonify({"Access Denied"})
+    if request.method == 'PUT':
+        request_data = request.get_json(force=True)
+        user = db.session.query(User).filter(User.user_name == username_var).first()
+        user_contact_info = db.session.query(UserContactInfo).filter(UserContactInfo.user_id == user.id).first()
+        if not user or not user_contact_info:
+            return jsonify({"message": "User not found"}), 404
+        default_values = user_contact_info
+        user_contact_info.phone_number = request_data.get("phone_number", default_values.phone_number)
+        user_contact_info.address = request_data.get("address", default_values.address)
+        user_contact_info.city = request_data.get("city", default_values.city)
+        user_contact_info.country = request_data.get("country", default_values.country)
+        user_contact_info.state = request_data.get("state", default_values.state)
+        user_contact_info.last_update = datetime.now()
+        db.session.commit()
+        return jsonify({"message":"Informacion actualizada correctamente", "user_contact_info": user_contact_info.serialize()}), 200
 
 @api.route('settings/<string:username_var>/socialmedia', methods=['PUT'])
 @jwt_required()
@@ -249,31 +252,30 @@ def handle_user_social_media(username_var):
     current_user = get_jwt_identity()
     if current_user != username_var:
         return jsonify({"message": "Access denied"}), 401
-
     if request.method == 'PUT':
         request_data = request.get_json(force=True)
         user = db.session.query(User).filter(User.user_name == username_var).first()
         user_social_media = db.session.query(UserSocialMedia).filter(UserSocialMedia.user_id == user.id).first()
-    if not user or not user_social_media:
-        return jsonify({"message": "User not found"}), 404
-        user_social_media.website_url = request_data['website_url']
-        user_social_media.youtube_url = request_data['youtube_url']
-        user_social_media.soundcloud_url = request_data['soundcloud_url']
-        user_social_media.instagram_url = request_data['instagram_url']
-        user_social_media.facebook_url = request_data['facebook_url']
-        user_social_media.twitter_url = request_data['twitter_url']
-        user_social_media.tiktok_url = request_data['tiktok_url']
-        user_social_media.snapchat_url = request_data['snapchat_url']
-        user_social_media.spotify_url = request_data['spotify_url']
-        last_update = datetime.now()
-    db.session.commit()
+        if not user or not user_social_media:
+            return jsonify({"message": "User not found"}), 404
+        default_values = user_social_media
+        user_social_media.website_url = request_data.get("website_url", default_values.website_url)
+        user_social_media.youtube_url = request_data.get("youtube_url", default_values.youtube_url)
+        user_social_media.soundcloud_url = request_data.get("soundcloud_url", default_values.soundcloud_url)
+        user_social_media.instagram_url = request_data.get("instagram_url", default_values.instagram_url)
+        user_social_media.facebook_url = request_data.get("facebook_url", default_values.facebook_url)
+        user_social_media.twitter_url = request_data.get("twitter_url", default_values.twitter_url)
+        user_social_media.tiktok_url = request_data.get("tiktok_url", default_values.tiktok_url)
+        user_social_media.snapchat_url = request_data.get("snapchat_url", default_values.snapchat_url)
+        user_social_media.spotify_url = request_data.get("spotify_url", default_values.spotify_url)
+        user_social_media.last_update = datetime.now()
+        db.session.commit()
     
     return jsonify({"message":"Informacion actualizada correctamente", "user_social_media": user_social_media.serialize()}), 200
 #<<-----1.1 User Settings related endpoints END----->>
 
 #<<----1.1 START UserSocialMedia endpoint ----->>
 @api.route('/<string:username_var>/socialmedia', methods=['GET'])
-
 def handle_user_socialmedia(username_var):
 
     #GET, ES EL QUE USAREMOS POR DEFECTO PARA REPRSENTAR EN EL FRONT TODA LA INFORMACION QUE DICHO USUARIO TENGA EN SU PERFIL
@@ -291,8 +293,7 @@ def handle_user_socialmedia(username_var):
 
         #<<----1.2 UserContactInfo endpoint START ----->>
 
-@api.route('/<string:username_var>/contactinfo', methods=['GET', 'PUT'])
-@jwt_required()
+@api.route('/<string:username_var>/contactinfo', methods=['GET'])
 def user_contact_info(username_var):
     #GET CURRENT IDENTITY AND COMPERE WITH CURRENT USER
     current_user = get_jwt_identity()
@@ -306,21 +307,7 @@ def user_contact_info(username_var):
             return jsonify({"message": "User not found"}), 404
         return jsonify({"user_contact_info": user_contact_info.serialize()}), 200
     #PUT ACTUALIZA CAMPOS DE CONTACTO DE USUARIO
-    if request.method == 'PUT':
-        request_data = request.get_json(force=True)
-        user = db.session.query(User).filter(User.user_name == username_var).first()
-        user_contact_info = db.session.query(UserContactInfo).filter(UserContactInfo.user_id == user.id).first()
-        if not user or not user_contact_info:
-            return jsonify({"message": "User not found"}), 404
-        user_contact_info.phone_number = request_data['phone_number']
-        user_contact_info.address = request_data['address'] #direccion
-        user_contact_info.country = request_data['country']#pais
-        user_contact_info.state = request_data['state']#provincia
-        user_contact_info.city = request_data['city']#ciudad, poblacion, etc..
-        user_contact_info.zip_code = request_data['zip_code']#codigo postal
-        user_contact_info.last_update = datetime.now()
-        db.session.commit()
-        return jsonify({"message":"Informacion actualizada correctamente", "user_contact_info": user_contact_info.serialize()}), 200
+
 
          #<<----1.2 UserContactInfo endpoint END ----->>
 
@@ -445,7 +432,27 @@ def get_locales():
 #<<-----1 LOCALES ENDPOINT END ----->>
 
 
+#<<-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FILTER ENDPOINTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ----->>
+
+
+@api.route('<string:country_var>/states', methods=['GET'])
+def get_states(country_var):
+    states = State.query.filter_by(country = country_var).all()
+    states_list = []
+    for state in states:
+        states_list.append(state.name)
+    return jsonify(states_list), 200
+
+@api.route('/<string:state_var>/cities/<int:page_var>', methods=['GET'])
+def get_cities(state_var, page_var):
+    cities = City.query.filter_by(state = state_var).paginate(page = page_var, per_page = 20)
+    cities_list = []
+    for city in cities.items:
+        cities_list.append(city.name)
+    return jsonify(cities_list), 200
 
 
 
-        
+
+
+

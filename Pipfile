@@ -20,6 +20,8 @@ flask-admin = "*"
 typing-extensions = "*"
 datetime = "*"
 flask-jwt-extended = "*"
+flask-socketio = "*"
+eventlet = "*"
 
 [requires]
 python_version = "3.10"

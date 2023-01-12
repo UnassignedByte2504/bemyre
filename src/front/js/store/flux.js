@@ -317,6 +317,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({
           reRender: add,
         });
+        console.log("FROM FLUX", store.reRender)
       },
       setProfileCardView: (view) => {
         setStore({
