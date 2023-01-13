@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
@@ -9,11 +9,9 @@ import { useMemo } from "react";
 import { useContext } from "react";
 import { Context } from "./store/appContext";
 import injectContext from "./store/appContext";
-import { SocketProvider } from "./state/socketContext.js";
 
 // >>> components >>>>
 import Navbar from "./component/navbar/Navbar.js";
-import BrainStorm from "./pages/SandBox.js";
 import Logout from "./pages/Logout.js";
 import Explore from "./pages/Explore.js";
 import { LandingPage } from "./pages/landingpage";
@@ -29,10 +27,12 @@ import ProtectedRoute from "./ProtectedRoute.js";
 import { Locales } from "./pages/Locales";
 import { Bandas } from "./pages/Bandas.js";
 
+
 // <<< components <<<<
 
 //create your first component
-const Layout = ({ isLogged }) => {
+const Layout = ( ) => {
+
   const { store, actions } = useContext(Context);
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -69,7 +69,6 @@ const Layout = ({ isLogged }) => {
             )}
             <Route element={<Signup />} path="/signup" />
             <Route element={<BandProfile />} exact path="/bandprofile/:id" />
-            <Route element={<BrainStorm />} path="/sandbox" />
             <Route element={<Faq />} path="/faq" />
             <Route
               path="/user/:username/ajustes"

@@ -22,13 +22,6 @@ export const Footer = () =>{
                 <Box className="imgfooter">
                     <img src={bemyrelogo}/>
                 </Box>
-                <Link to="/sandbox" className="Link">
-                <IconButton>
-                  <Typography variant="h4" color="red">
-                    SandBox
-                  </Typography>
-                </IconButton>
-              </Link>
             </Box>
             <Box className="center">
                 <Box className="marginfooter mx-3">

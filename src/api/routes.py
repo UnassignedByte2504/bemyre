@@ -45,7 +45,8 @@ def handle_signup():
         is_active=True,
         is_musician=request_data['is_musician'],
         creation_date = datetime.now(),
-        last_login = datetime.now()
+        last_login = datetime.now(),
+        is_logged = False
     ) 
     db.session.add(new_user)
     db.session.commit()
@@ -110,6 +111,7 @@ def handle_login():
         return jsonify({"msg": "usuario o password incorrecto"}), 401
     # actualizamos last_login
     user.last_login = datetime.now()
+    user.is_logged = True
     db.session.commit()
     access_token = create_access_token(identity=user.user_name)
     return jsonify(

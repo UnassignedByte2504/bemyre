@@ -25,7 +25,6 @@ import { AlertEditInfo } from '../../Alerts/AlertEditInfo.jsx'
   const {actions, store} = useContext(Context)
   const onSubmit = async(values, ax) =>{
     await actions.editInfoSettings(username, values.user_name, values.nombre, values.apellidos, values.descripcion)
-    console.log(values)
   }
   const {
     values,

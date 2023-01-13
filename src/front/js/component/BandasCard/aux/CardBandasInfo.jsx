@@ -33,10 +33,10 @@ export const CardBandasInfo = ({
   integrantes,
   integrantes_nuevos,
   description,
+  Key
 }) => {
-  console.log(integrantes);
   return (
-    <CardContent>
+    <CardContent key={Key}>
       <Box sx={{ display: "inline" }}>
         <Typography variant="h5">
           <strong>
@@ -46,8 +46,8 @@ export const CardBandasInfo = ({
 
         <Typography variant="body1">
           Somos
-          {integrantes?.map((element) => (
-            <span>{`, ${element.integrante_name}, (${element.integrante_instrument})`}</span>
+          {integrantes?.map((element, index) => (
+            <span key={index}>{`, ${element.integrante_name}, (${element.integrante_instrument})`}</span>
           ))}
           {/* Somos:
           {integrantes?.map((element, i) => (
@@ -63,16 +63,16 @@ export const CardBandasInfo = ({
           <span>{description}</span>
         </Typography>
       </Box>
-      {integrantes_nuevos.map((element) => (
-        <>
+      {integrantes_nuevos.map((element, index) => (
+        <Box key={index}>
           <Divider className="mb-2 mt-3"></Divider>
           <FlexBetween className="mx-5">
-            <span sx={{ marginLeft: 0 }} variant="body1">
+            <span  sx={{ marginLeft: 0 }} variant="body1">
               {element.integrante_instrument}
             </span>
             <Button variant="contained">Aplicar</Button>
           </FlexBetween>
-        </>
+        </Box>
       ))}
       {/* <Divider className="mb-2 mt-3"></Divider>
       <FlexBetween className="mx-5">

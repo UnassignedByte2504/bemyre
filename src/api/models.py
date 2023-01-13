@@ -17,7 +17,7 @@ class LoggedUsers(db.Model):
     user_ip = db.Column(db.String(80), nullable=False)
     user_agent = db.Column(db.String(80), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
+    
     def __repr__(self):
         return '<LoggedUsers %r>' % self.username
 

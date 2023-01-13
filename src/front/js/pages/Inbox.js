@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import IncomingMessage from "../component/inbox/IncomingMessage.jsx";
 import OutgoingMessage from "../component/inbox/OutgoingMessage.jsx";
-import  Context  from "../state/socketContext";
+import  SocketContext  from "../state/socketContext";
 import {
   Box,
   Typography,
@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 
 const Inbox = () => {
-  const  Socket  = useContext(Context);
+  const  Socket  = useContext(SocketContext);
   const [message, setMessage] = React.useState("");
   const [messages, setMessages] = React.useState([]);
   const [status, setStatus] = React.useState(false);

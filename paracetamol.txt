@@ -1,0 +1,33 @@
+
+
+
+onClick={()=> actions.editSocialmedia(username, keytochange, valuetochange)}
+pablotori98
+  12:17
+const editSocialMedia = async (username, fieldtomodify, newvalue) => {}
+        username, keytochange,
+        valuetochange
+      ) => {
+
+        const options = {
+          method: "PUT",
+          headers: {
+            "Authorization": `Bearer ${sessionStorage.getItem("access_token")}`,
+            "Content-Type": "application/json",
+          },
+          body: `{
+                "${keytochange}":"${valuetochange}
+          }`
+        };
+        await fetch(
+          `${process.env.BACKEND_URL}/api/settings/${username}/socialmedia`,
+          options
+        )
+          .then((response) => response.json())
+          .then((result) =>
+            sessionStorage.setItem(
+              "cambios_rrss",
+              "Información de redes sociales cambiada con éxito"
+            )
+          );
+      }

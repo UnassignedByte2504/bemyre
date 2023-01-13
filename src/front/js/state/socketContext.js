@@ -1,7 +1,7 @@
 import React from "react";
 import { createContext, useEffect, useState } from "react";
 import client from "socket.io-client";
-const Context = createContext({});
+const SocketContext = createContext({});
 
 export function SocketProvider({ children }) {
   const [Socket, setSocket] = useState(null);
@@ -13,8 +13,8 @@ export function SocketProvider({ children }) {
   }, []);
   console.log(Socket);
   return (
-    <Context.Provider value={Socket}>{children}</Context.Provider>
+    <SocketContext.Provider value={Socket}>{children}</SocketContext.Provider>
   );
 }
 
-export default Context;
+export default SocketContext;

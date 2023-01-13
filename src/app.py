@@ -8,7 +8,7 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from api.utils import APIException, generate_sitemap
-from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, LoggedUsers
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
@@ -85,15 +85,16 @@ def handle_message(data):
     print(data)
     socketio.emit('message', data)
 
-@socketio.on('is_connected')
-def handle_is_connected(username):
-    users = User.query.all()
-    users_list = []
-    print(username)
-    for user in users:
-        users_list.append(user.user_name)
-    if username in users_list:
-        socketio.emit('is_connected', True)
+@socketio.on('logged_users')
+def handle_is_connected():
+    logged_users = User.query.filter_by(is_logged=True).all()
+    logged_users_name = [user.user_name for user in logged_users]
+    print("hola estos son los usuarios conectados", logged_users_name)
+    socketio.emit('logged_users', logged_users_name)
+
+
+
+ 
 
 
 

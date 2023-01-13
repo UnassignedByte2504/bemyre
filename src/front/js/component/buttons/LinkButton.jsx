@@ -16,7 +16,6 @@ const LinkButton = ({ title, to, variant, }) => {
             textTransform: "none",
             backgroundColor: theme.palette.buttons.main,
           }}
-          onClick={() => console.log(theme.palette.mode)}
         >
           <Typography
             sx={{

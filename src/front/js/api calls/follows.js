@@ -53,7 +53,7 @@ export const fetchFollowing = async (username) => {
    sessionStorage.setItem("following_list", json.following);
    data=json
  })
- .catch((err) => console.log(err));
+
  return data
  
 };
@@ -76,7 +76,6 @@ export const fetchFollowers = async (username) =>{
     followers: json.followers,
     profile_img: json.profile_img
   }
-  console.log("followrs data:",data)
   return data
 }
 

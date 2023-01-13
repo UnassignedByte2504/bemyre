@@ -22,6 +22,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       following: undefined,
       reRender: 1,
       profileCardView: "default",
+      loggedUsers: [],
     },
     actions: {
       sendImgTest: async (img) => {
@@ -53,14 +54,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         lastname,
         is_musician
       ) => {
-        console.log(
-          "hola he sido llamada",
-          username,
-          email,
-          password,
-          firstname,
-          lastname
-        );
         const options = {
           method: "POST",
           body: `{ 
@@ -74,8 +67,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  `,
         };
 
-        await fetch(`${process.env.BACKEND_URL}/api/signup`, options)
-          .then((resp) => {
+        await fetch(`${process.env.BACKEND_URL}/api/signup`, options).then(
+          (resp) => {
             if (resp.status == 200) {
               return resp.json();
             } else if (resp.status == 400) {
@@ -84,8 +77,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             // else {
             //   return sessionStorage.setItem("alert_signup", "Registro incorrecto");
             // }
-          })
-          .then((response) => console.log(response));
+          }
+        );
       },
       login: async (email, password) => {
         const store = getStore();
@@ -124,18 +117,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       logOut: async (access_token) => {
-        const store = getStore();
-
-        // const opts = {
-        //   method: "GET",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     Authorization: `Bearer ${access_token}`,
-        //   },
-        // };
-        // await fetch(`${process.env.BACKEND_URL}/api/logout`, opts)
-        //   .then((response) => response.json())
-        //   .then((response) => console.log(response));
         sessionStorage.clear();
         window.location.href = "/home";
         setStore({
@@ -166,8 +147,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           // })
           .then((response) => response.json())
           .then((result) => setStore({ resultados: result }));
-
-        await console.log(store.resultados);
       },
       changePassword: async (username, password, new_password) => {
         const store = getStore();
@@ -187,7 +166,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           options
         )
           .then((response) => response.json())
-          .then((result) => console.log("contraseña cambiada", result))
           .then((window.location.href = `/user/${username}/ajustes`));
       },
       fetchFollowing: async (username) => {
@@ -228,8 +206,14 @@ const getState = ({ getStore, getActions, setStore }) => {
             sessionStorage.setItem("followers_list", result.followers);
           });
       },
-      
-      editInfoSettings: async(username, user_name, first_name, last_name, description) =>{
+
+      editInfoSettings: async (
+        username,
+        user_name,
+        first_name,
+        last_name,
+        description
+      ) => {
         const store = getStore();
         const options = {
           method: "PUT",
@@ -243,79 +227,17 @@ const getState = ({ getStore, getActions, setStore }) => {
             last_name: last_name,
             description: description,
           }),
-  }
-        await fetch(`${process.env.BACKEND_URL}/api/settings/${username}/editinfo`, options)
-        .then((response) => response.json())
-        .then((result) => sessionStorage.setItem("cambios", "Información cambiada con éxito"));
-        },
-
-        editContactInfo: async(username, phone_number, address) =>{
-          const store = getStore();
-          const options = {
-            method: "PUT",
-            headers: {
-              Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              phone_number: phone_number,
-              address: address,
-
-            }),
-    }
-          await fetch(`${process.env.BACKEND_URL}/api/settings/${username}/editcontactinfo`, options)
-          .then((response) => response.json())
-          .then((result) => localStorage.setItem("cambios_contact", "Información de contacto cambiada con éxito"));
-          },
-
-          
-      editSocialMedia: async (
-        username,
-        website_url,
-        youtube_url,
-        soundcloud_url,
-        instagram_url,
-        facebook_url,
-        twitter_url,
-        tiktok_url,
-        snapchat_url,
-        spotify_url
-      ) => {
-        const store = getStore();
-        const options = {
-          method: "PUT",
-          headers: {
-            "Authorization": `Bearer ${sessionStorage.getItem("access_token")}`,
-            "Content-Type": "application/json",
-          },
-          body: `{
-            "website_url": "${website_url}",
-            "youtube_url": "${youtube_url}",
-           "soundcloud_url": "${soundcloud_url}",
-            "instagram_url": "${instagram_url}",
-            "facebook_url": "${facebook_url}",
-            "twitter_url": "${twitter_url}",
-            "tiktok_url": "${tiktok_url}",
-            "snapchat_url": "${snapchat_url}",
-            "spotify_url": "${spotify_url}"
-          }`
         };
         await fetch(
-          `${process.env.BACKEND_URL}/api/settings/${username}/socialmedia`,
+          `${process.env.BACKEND_URL}/api/settings/${username}/editinfo`,
+
           options
         )
           .then((response) => response.json())
           .then((result) =>
-            sessionStorage.setItem(
-              "cambios_rrss",
-              "Información de redes sociales cambiada con éxito"
-            )
+            sessionStorage.setItem("cambios", "Información cambiada con éxito")
           );
       },
-
-
-  
-  
 
 
       // <<<< Functions realted on fetching user info from back
@@ -364,12 +286,18 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({
           reRender: add,
         });
-        console.log("FROM FLUX", store.reRender)
       },
       setProfileCardView: (view) => {
         setStore({
           profileCardView: view,
         });
+      },
+      setLoggedUsers: (data) => {
+        const store = getStore();
+        setStore({
+          loggedUsers: [...store.loggedUsers, data],
+        });
+        console.log("logged users", store.loggedUsers);
       },
 
       //misc functions

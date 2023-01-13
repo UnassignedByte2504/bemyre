@@ -23,8 +23,8 @@ const ContactInfo = () => {
   const username = params.username
   const {actions, store} = useContext(Context)
   const onSubmit = async(values, ax) =>{
-    actions.editContactInfo(username, values.phone_number, values.address)
-    console.log(values)
+  await actions.editContactInfo(username, values.phone_number, values.address)
+
   }
   const {
     values,
