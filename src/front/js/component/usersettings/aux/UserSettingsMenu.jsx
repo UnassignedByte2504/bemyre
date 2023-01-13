@@ -41,6 +41,7 @@ const UserSettingsMenu = () => {
         <ListSubheader component="div" id="nested-list-subheader">
           Creación de Bandas y Locales
         </ListSubheader>
+        <Divider />
         <BandsMenu />
         <Divider />
         <LocalsMenu />

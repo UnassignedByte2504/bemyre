@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import "../../styles/login.css";
-import imgSignup from "../../img/Bemyre_signup.jpg";
+import imgSignup from "../../img/Bemyre_signup.jpg"; 
 import Logo from "../../img/Bemyre_logo.png";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import TextField from "@mui/material/TextField";

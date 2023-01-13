@@ -49,3 +49,9 @@ export const changePasswordSchema = Yup.object().shape({
     .oneOf([Yup.ref("newPassword"), null], "Password no coincide")
     .required("Confirmación necesaria"),
 });
+
+export const createLocalSchema = Yup.object().shape({
+  nameLocal: Yup.string().required("Escribe el nombre de tu local"),
+  ubicationLocal: Yup.string().required("Escribe la ubicación de tu local"),
+  description: Yup.string()
+})
