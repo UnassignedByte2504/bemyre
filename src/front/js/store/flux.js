@@ -267,6 +267,53 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((response) => response.json())
           .then((result) => localStorage.setItem("cambios_contact", "Información de contacto cambiada con éxito"));
           },
+
+          
+      editSocialMedia: async (
+        username,
+        website_url,
+        youtube_url,
+        soundcloud_url,
+        instagram_url,
+        facebook_url,
+        twitter_url,
+        tiktok_url,
+        snapchat_url,
+        spotify_url
+      ) => {
+        const store = getStore();
+        const options = {
+          method: "PUT",
+          headers: {
+            "Authorization": `Bearer ${sessionStorage.getItem("access_token")}`,
+            "Content-Type": "application/json",
+          },
+          body: `{
+            "website_url": "${website_url}",
+            "youtube_url": "${youtube_url}",
+           "soundcloud_url": "${soundcloud_url}",
+            "instagram_url": "${instagram_url}",
+            "facebook_url": "${facebook_url}",
+            "twitter_url": "${twitter_url}",
+            "tiktok_url": "${tiktok_url}",
+            "snapchat_url": "${snapchat_url}",
+            "spotify_url": "${spotify_url}"
+          }`
+        };
+        await fetch(
+          `${process.env.BACKEND_URL}/api/settings/${username}/socialmedia`,
+          options
+        )
+          .then((response) => response.json())
+          .then((result) =>
+            sessionStorage.setItem(
+              "cambios_rrss",
+              "Información de redes sociales cambiada con éxito"
+            )
+          );
+      },
+
+
   
   
 
