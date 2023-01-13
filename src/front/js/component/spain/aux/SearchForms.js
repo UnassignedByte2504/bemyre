@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Box, Divider, Typography } from "@mui/material";
-import { ExploraDropdown } from "../../Dropdown/ExploraDropdown.jsx";
+import { ExploraDropdown } from "../../Dropdown/ExploraDropdown.js";
 const SearchForms = ({ provincia }) => {
   return (
     <Box className="ExploreFormWrapper">
