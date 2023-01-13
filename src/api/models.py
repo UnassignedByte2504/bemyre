@@ -198,6 +198,7 @@ class User(db.Model):
 class UserSocialMedia(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = relationship("User", back_populates="user_social_media")
     website_url = db.Column(db.String(80), unique=True, nullable=True)
     youtube_url = db.Column(db.String(80), unique=True, nullable=True)
     soundcloud_url = db.Column(db.String(80), unique=True, nullable=True)

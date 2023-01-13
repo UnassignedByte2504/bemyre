@@ -18,6 +18,7 @@ import TiktokIcon from "../../../../img/RRSS/tiktok_logo.png";
 import SoundcloudIcon from "../../../../img/RRSS/soundcloud.png";
 import SnapchatIcon from "../../../../img/RRSS/snapchat.png";
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import SpotifyIcon from '../../../../img/RRSS/Spotify.png'
 import CancelIcon from "@mui/icons-material/Cancel";
 import { Context } from "../../../store/appContext";
 
@@ -25,6 +26,7 @@ import { Context } from "../../../store/appContext";
 //Main Function
 const userName = sessionStorage.getItem("current_user");
 const UserPasswordManagement = () => {
+  const {store, actions} = useContext(Context)
 
   const editSocialMedia = async (username, fieldtomodify, newvalue) => {
     console.log("edit rrss values", username, fieldtomodify, newvalue);
@@ -51,8 +53,9 @@ const UserPasswordManagement = () => {
       );
   };
 
+  console.log("hola" ,store.resultados?.user_social_media[0].facebook_url)
   const fieldNames = {
-    website: "website_url",
+    web: "website_url",
     youtube: "youtube_url",
     soundcloud: "soundcloud_url",
     instagram: "instagram_url",
@@ -115,24 +118,31 @@ const UserPasswordManagement = () => {
       <form onSubmit={handleSubmit} className="changepasswordform">
         {/* Condicional Website */}
 
-        {1 + 1 == 22 ? (
+        {!store.resultados?.user_social_media[0].website_url ? (
           <Box className="d-flex w-100">
             <TextField
               className="w-100 my-2"
               variant="outlined"
               label="Añadir sitio web"
-              type="url"
-              onChange={handleChange}
+              onChange={handleValueChange}
               name="web"
             />
-            <Button className="ms-2">Añadir sitio web</Button>
+            <Button 
+                onClick={() =>
+                  editSocialMedia(
+                    userName,
+                    fieldNames.web,
+                    values.web
+                  )
+                }             
+            className="ms-2">Añadir sitio web</Button>
           </Box>
         ) : (
           <>
             {!open.web ? (
               <Box className="d-flex justify-content-between w-100 align-items-center">
                 <Typography variant="h5" className="my-3 w-100 text-start">
-                  <LanguageIcon className="me-2" /> www.bemyre.com
+                  <LanguageIcon className="me-2" /> {store.resultados?.user_social_media[0].website_url}
                 </Typography>
                 <Button
                   onClick={() => setOpen({ web: true })}
@@ -145,13 +155,21 @@ const UserPasswordManagement = () => {
             ) : (
               <Box className="w-100 d-flex" onSubmit={handleSubmit}>
                 <TextField
-                  onChange={handleChange}
+                  onChange={handleValueChange}
                   className="w-100 me-2"
                   label="Modificar URL Web"
                   name="web"
 
                 />
-                <Button type="submit" variant="contained">
+                <Button 
+                  onClick={() =>
+                    editSocialMedia(
+                      userName,
+                      fieldNames.website,
+                      values.web
+                    )
+                  }                
+                type="submit" variant="contained">
                   Modificar
                 </Button>
                 <Button
@@ -168,24 +186,31 @@ const UserPasswordManagement = () => {
         )}
 
         {/* Condicional Youtube */}
-        {1 + 1 == 22 ? (
-          <Box className="d-flex">
+        {!store.resultados?.user_social_media[0].soundcloud_url ? (
+          <Box className="d-flex w-100">
             <TextField
               className="w-100 my-2"
               variant="outlined"
               label="Youtube"
-              type="url"
-              onChange={handleChange}
+              onChange={handleValueChange}
               name="youtube"
             />
-            <Button className="ms-2">Añadir YouTube</Button>
+            <Button
+                onClick={() =>
+                  editSocialMedia(
+                    userName,
+                    fieldNames.youtube,
+                    values.youtube
+                  )
+                }            
+            className="ms-2">Añadir YouTube</Button>
           </Box>
         ) : (
           <>
             {!open.youtube ? (
               <Box className="d-flex justify-content-between w-100 align-items-center">
                 <Typography variant="h5" className="my-3 w-100 text-start">
-                  <YouTubeIcon className="me-2" /> www.YouTube.com/bemyre
+                  <YouTubeIcon className="me-2" /> {store.resultados?.user_social_media[0].youtube_url}
                 </Typography>
 
                 <Button
@@ -199,13 +224,21 @@ const UserPasswordManagement = () => {
             ) : (
               <Box className="w-100 d-flex" onSubmit={handleSubmit}>
                 <TextField
-                  onChange={handleChange}
+                  onChange={handleValueChange}
                   className="w-100 me-2"
                   label="Modificar perfl Youtube"
 
                   name="youtube"
                 />
-                <Button variant="contained" type="submit">
+                <Button
+                  onClick={() =>
+                    editSocialMedia(
+                      userName,
+                      fieldNames.youtube,
+                      values.youtube
+                    )
+                  }
+                variant="contained" type="submit">
                   Modificar
                 </Button>
                 <Button
@@ -223,18 +256,24 @@ const UserPasswordManagement = () => {
 
         {/* Condicional soundcloud */}
 
-        {1 + 1 == 32 ? (
-          <Box className="d-flex">
+        {!store.resultados?.user_social_media[0].soundcloud_url ? (
+          <Box className="d-flex w-100">
             <TextField
               className="w-100 my-2"
               variant="outlined"
               label="Soundcloud"
-
-              type="url"
-              onChange={handleChange}
+              onChange={handleValueChange}
               name="soundcloud"
             />
-            <Button className="ms-2" type="submit">
+            <Button 
+              onClick={() =>
+                editSocialMedia(
+                  userName,
+                  fieldNames.soundcloud,
+                  values.soundcloud
+                )
+              }
+            className="ms-2" type="submit">
               Añadir soundcloud
             </Button>
           </Box>
@@ -246,7 +285,7 @@ const UserPasswordManagement = () => {
               <Box className="d-flex justify-content-between w-100 align-items-center">
                 <Typography variant="h5" className="my-3 w-100 text-start">
                   <img src={SoundcloudIcon} className="logorrsssettings me-2" />{" "}
-                  @bemyre
+                  {store.resultados?.user_social_media[0].soundcloud_url}
                 </Typography>
                 <Button
 
@@ -293,18 +332,25 @@ const UserPasswordManagement = () => {
 
         {/* Condicional Instagram */}
 
-        {1 + 1 == 32 ? (
-          <Box>
+        {!store.resultados?.user_social_media[0].instagram_url? (
+          <Box className="d-flex w-100">
             <TextField
               className="w-100 my-2"
               variant="outlined"
               label="Instagram"
-
-              type="url"
-              onChange={handleChange}
+              onChange={handleValueChange}
               name="instagram"
             />
-            <Button type="submit" className="ms-2">
+            <Button 
+              onClick={() =>
+                editSocialMedia(
+                  userName,
+                  fieldNames.instagram,
+                  values.instagram
+                )
+              }      
+                  
+            className="ms-2">
               Añadir Instagram
             </Button>
           </Box>
@@ -314,7 +360,7 @@ const UserPasswordManagement = () => {
             {!open.instagram ? (
               <Box className="d-flex justify-content-between w-100 align-items-center">
                 <Typography variant="h5" className="my-3 w-100 text-start">
-                  <InstagramIcon className="me-2" /> @bemyre
+                  <InstagramIcon className="me-2" /> {store.resultados?.user_social_media[0].instagram_url}
                 </Typography>
                 <Button
 
@@ -332,9 +378,17 @@ const UserPasswordManagement = () => {
                   label="Modificar perfil Instagram"
 
                   name="instagram"
-                  onChange={handleChange}
+                  onChange={handleValueChange}
                 />
-                <Button type="submit" variant="contained">
+                <Button 
+                  onClick={() =>
+                    editSocialMedia(
+                      userName,
+                      fieldNames.instagram,
+                      values.instagram
+                    )
+                  }
+                type="submit" variant="contained">
                   Modificar
                 </Button>
                 <Button
@@ -352,18 +406,25 @@ const UserPasswordManagement = () => {
 
         {/* Condicional Facebook */}
 
-        {1 + 1 == 32 ? (
-          <Box className="d-flex">
+        {!store.resultados?.user_social_media[0].facebook_url ? (
+          <Box className="d-flex w-100">
             <TextField
               className="w-100 my-2"
               variant="outlined"
               label="Facebook"
 
-              type="url"
-              onChange={handleChange}
+              onChange={handleValueChange}
               name="facebook"
             />
-            <Button className="ms-2" type="submit">
+            <Button 
+              onClick={() =>
+                editSocialMedia(
+                  userName,
+                  fieldNames.facebook,
+                  values.facebook
+                )
+              }  
+            className="ms-2" >
               Añadir Facebook
             </Button>
           </Box>
@@ -373,7 +434,7 @@ const UserPasswordManagement = () => {
             {!open.facebook ? (
               <Box className="d-flex justify-content-between w-100 align-items-center">
                 <Typography variant="h5" className="my-3 w-100 text-start">
-                  <FacebookIcon className="me-2" /> facebook.com/bemyre
+                  <FacebookIcon className="me-2" /> {store.resultados?.user_social_media[0].facebook_url}
                 </Typography>
                 <Button
 
@@ -391,9 +452,17 @@ const UserPasswordManagement = () => {
                   name="facebook"
                   className="w-100 me-2"
                   label="Modificar perfil Facebook"
-                  onChange={handleChange}
+                  onChange={handleValueChange}
                 />
-                <Button type="submit" variant="contained">
+                <Button 
+                  onClick={() =>
+                    editSocialMedia(
+                      userName,
+                      fieldNames.facebook,
+                      values.facebook
+                    )
+                  }                
+                type="submit" variant="contained">
                   Modificar
                 </Button>
                 <Button
@@ -411,19 +480,25 @@ const UserPasswordManagement = () => {
 
         {/* Condicional Twitter */}
 
-        {1 + 1 == 32 ? (
+        {!store.resultados?.user_social_media[0].twitter_url ? (
           <Box className="d-flex w-100">
             <TextField
               className="w-100 my-2"
               variant="outlined"
               label="Twitter"
-
-              type="url"
-              onChange={handleChange}
+              onChange={handleValueChange}
               name="twitter"
             />
-            <Button className="ms-2" type="submit">
-              Añadir
+            <Button 
+                  onClick={() =>
+                    editSocialMedia(
+                      userName,
+                      fieldNames.twitter,
+                      values.twitter
+                    )
+                  }            
+            className="ms-2" >
+              Añadir Twitter
             </Button>
           </Box>
         ) : (
@@ -432,7 +507,7 @@ const UserPasswordManagement = () => {
             {!open.twitter ? (
               <Box className="d-flex justify-content-between w-100 align-items-center">
                 <Typography variant="h5" className="my-3 w-100 text-start">
-                  <TwitterIcon className="me-2" /> @bemyre{" "}
+                  <TwitterIcon className="me-2" /> {store.resultados?.user_social_media[0].twitter_url}
                 </Typography>
 
                 <Button
@@ -446,13 +521,21 @@ const UserPasswordManagement = () => {
             ) : (
               <Box className="w-100 d-flex">
                 <TextField
-                  onChange={handleChange}
+                  onChange={handleValueChange}
                   className="w-100 me-2"
                   label="Modificar perfil Twitter"
 
                   name="twitter"
                 />
-                <Button variant="contained" type="submit">
+                <Button 
+                  onClick={() =>
+                    editSocialMedia(
+                      userName,
+                      fieldNames.twitter,
+                      values.twitter
+                    )
+                  }                
+                variant="contained" type="submit">
                   Modificar
                 </Button>
                 <Button
@@ -470,18 +553,24 @@ const UserPasswordManagement = () => {
 
         {/* Condicional TikTok */}
 
-        {1 + 1 == 32 ? (
-          <Box>
+        {!store.resultados?.user_social_media[0].tiktok_url ? (
+          <Box className="d-flex w-100">
             <TextField
               className="w-100 my-2"
               variant="outlined"
               label="TikTok"
-
-              type="url"
-              onChange={handleChange}
+              onChange={handleValueChange}
               name="tiktok"
             />
-            <Button className="ms-2" type="submit">
+            <Button 
+              onClick={() =>
+                editSocialMedia(
+                  userName,
+                  fieldNames.tiktok,
+                  values.tiktok
+                )
+              }   
+            className="ms-2" >
               Añadir Tiktok
             </Button>
           </Box>
@@ -492,7 +581,7 @@ const UserPasswordManagement = () => {
               <Box className="d-flex justify-content-between w-100 align-items-center">
                 <Typography variant="h5" className="my-3 w-100 text-start">
                   <img src={TiktokIcon} className="logorrsssettings me-2" />{" "}
-                  @bemyre
+                  {store.resultados?.user_social_media[0].tiktok_url}
                 </Typography>
 
                 <Button
@@ -508,11 +597,19 @@ const UserPasswordManagement = () => {
                 <TextField
                   className="w-100 me-2"
                   label="Modificar perfil Tiktok"
-                  onChange={handleChange}
+                  onChange={handleValueChange}
 
                   name="tiktok"
                 />
-                <Button variant="contained" type="submit">
+                <Button 
+                  onClick={() =>
+                    editSocialMedia(
+                      userName,
+                      fieldNames.tiktok,
+                      values.tiktok
+                    )
+                  }                
+                variant="contained" type="submit">
                   Modificar
                 </Button>
                 <Button
@@ -530,18 +627,24 @@ const UserPasswordManagement = () => {
 
         {/* Condicional snapchat */}
 
-        {1 + 1 == 32 ? (
-          <Box className="d-flex">
+        {!store.resultados?.user_social_media[0].snapchat_url ? (
+          <Box className="d-flex w-100">
             <TextField
               className="w-100 my-2"
               variant="outlined"
               label="Snapchat"
-
-              type="url"
-              onChange={handleChange}
+              onChange={handleValueChange}
               name="snapchat"
             />
-            <Button type="submit">Añadir Snapchat</Button>
+            <Button 
+              onClick={() =>
+              editSocialMedia(
+                userName,
+                fieldNames.snapchat,
+                values.snapchat
+              )
+            }            
+            >Añadir Snapchat</Button>
           </Box>
         ) : (
           <>
@@ -550,7 +653,7 @@ const UserPasswordManagement = () => {
               <Box className="d-flex justify-content-between w-100 align-items-center">
                 <Typography variant="h5" className="my-3 w-100 text-start">
                   <img src={SnapchatIcon} className="logorrsssettings me-2" />{" "}
-                  @bemyre
+                  {store.resultados?.user_social_media[0].snapchat_url}
                 </Typography>
                 <Button
 
@@ -566,11 +669,21 @@ const UserPasswordManagement = () => {
                 <TextField
 
                   name="snapchat"
-                  onChange={handleChange}
+                  onChange={handleValueChange}
                   className="w-100 me-2"
                   label="Modificar perfil snapchat"
                 />
-                <Button variant="contained" type="submit">
+                <Button 
+                  onClick={() =>
+                    editSocialMedia(
+                      userName,
+                      fieldNames.snapchat,
+                      values.snapchat
+                    )
+                  }
+                variant="contained" 
+                type="submit">
+
                   Modificar
                 </Button>
                 <Button
@@ -587,25 +700,33 @@ const UserPasswordManagement = () => {
         )}
 
         {/* Condicional spotify */}
-        {1 + 1 == 32 ? (
-          <Box className="d-flex">
+        {!store.resultados?.user_social_media[0].spotify_url ? (
+          <Box className="d-flex w-100">
             <TextField
               className="w-100 my-2"
               variant="outlined"
               label="spotify"
-              type="url"
-              onChange={handleChange}
+              onChange={handleValueChange}
               name="spotify"
             />
-            <Button type="submit">Añadir spotify</Button>
+            <Button 
+              onClick={() =>
+                editSocialMedia(
+                  userName,
+                  fieldNames.spotify,
+                  values.spotify
+                )
+              }                
+            
+            type="submit">Añadir spotify</Button>
           </Box>
         ) : (
           <>
             {!open.spotify ? (
               <Box className="d-flex justify-content-between w-100 align-items-center">
                 <Typography variant="h5" className="my-3 w-100 text-start">
-                  <PlayCircleIcon/>
-                  @bemyre
+                <img src={SpotifyIcon} className="logorrsssettings me-2" />{" "}
+                  {store.resultados?.user_social_media[0].spotify_url}
                 </Typography>
                 <Button
                   onClick={() => setOpen({ spotify: true })}
@@ -619,11 +740,20 @@ const UserPasswordManagement = () => {
               <Box className="w-100 d-flex" onSubmit={handleSubmit}>
                 <TextField
                   name="spotify"
-                  onChange={handleChange}
+                  onChange={handleValueChange}
                   className="w-100 me-2"
                   label="Modificar perfil spotify"
                 />
-                <Button variant="contained" type="submit">
+                <Button 
+                  onClick={() =>
+                    editSocialMedia(
+                      userName,
+                      fieldNames.spotify,
+                      values.spotify
+                    )
+                  }                
+                variant="contained" 
+                type="submit">
                   Modificar
                 </Button>
                 <Button
