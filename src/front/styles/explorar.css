@@ -1,12 +1,62 @@
-.titleexplorar{
-    font-size: 3vw;
+@import url(colors.css);
 
+.ExploreWrapper{
+    height: 60vh;
+    background-color: blue !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+}
+.ExploreContentWrapper{
+    background-color: red;
+    height: 100%;
+    width:90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-.headerexplorar{
-    margin-top: 3rem!important;
+.ExploreFormWrapper{
+    height: 100%;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: green;
+}
+.ExploreFormHeader{
+    justify-self: start;
+    height:5rem;
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.explorar{
-    margin-top: 6rem;
+.ExploreForm{
+    padding: .5rem;
+    background-color: blueviolet;
+    height: 40rem;
+    width:90%
+}
+
+.FormMessage-1{
+    height:6rem;
+    background-color: aquamarine;
+    padding-top: 1rem;
+    box-sizing: border-box;
+}
+
+.ExploreFormBody{
+    margin-top: 1rem;
+    height:28rem;
+}
+
+.MuiTooltip-tooltip{
+    background-color: #df3432 !important;
+    font-size: 20px !important;
 }
