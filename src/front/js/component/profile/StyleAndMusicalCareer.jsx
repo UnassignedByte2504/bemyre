@@ -53,7 +53,6 @@ const [values, setValues] = useState({
 
 });
 
-console.log(values)
 const handleValueChange = (e) => {
   setValues({
     ...values,
