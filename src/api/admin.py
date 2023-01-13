@@ -2,7 +2,7 @@
 import os
 from flask_admin import Admin
 
-from .models import db, User, UserType, Country, State, City, UserContactInfo, UserSocialMedia, MusicGenre, InfluenceBand, Local, LocalMusicGenre
+from .models import db, User, Country, State, City, UserContactInfo, UserSocialMedia, MusicGenre, InfluenceBand, Local, LocalMusicGenre
 
 
 
@@ -16,7 +16,6 @@ def setup_admin(app):
     
     # Add your models here, for example this is how we add a the User model to the admin
     admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(UserType, db.session))
     admin.add_view(ModelView(UserSocialMedia, db.session))
     admin.add_view(ModelView(UserContactInfo, db.session))
     admin.add_view(ModelView(Country, db.session))
