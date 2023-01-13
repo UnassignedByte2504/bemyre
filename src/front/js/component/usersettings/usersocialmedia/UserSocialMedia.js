@@ -17,6 +17,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import TiktokIcon from "../../../../img/RRSS/tiktok_logo.png";
 import SoundcloudIcon from "../../../../img/RRSS/soundcloud.png";
 import SnapchatIcon from "../../../../img/RRSS/snapchat.png";
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import CancelIcon from "@mui/icons-material/Cancel";
 import { Context } from "../../../store/appContext";
 

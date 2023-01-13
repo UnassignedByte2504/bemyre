@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 269a5ee0038f
+Revision ID: 30698f92414f
 Revises: 
-Create Date: 2023-01-13 09:38:33.499477
+Create Date: 2023-01-13 12:45:19.365860
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '269a5ee0038f'
+revision = '30698f92414f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -166,16 +166,15 @@ def upgrade():
     )
     op.create_table('local',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=255), nullable=True),
-    sa.Column('ubicacion_local', sa.String(length=255), nullable=True),
-    sa.Column('description', sa.String(length=500), nullable=True),
-    sa.Column('city_id', sa.Integer(), nullable=True),
-    sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('local_type', sa.String(length=255), nullable=True),
+    sa.Column('local_img', sa.Unicode(), nullable=True),
+    sa.Column('name', sa.String(length=255), nullable=False),
+    sa.Column('ubicacion_local', sa.String(length=255), nullable=False),
+    sa.Column('description', sa.String(length=500), nullable=False),
+    sa.Column('city_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['city_id'], ['city.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user_contact_info',
     sa.Column('id', sa.Integer(), nullable=False),

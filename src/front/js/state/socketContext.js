@@ -7,7 +7,7 @@ export function SocketProvider({ children }) {
   const [Socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const SOCKET_URI = process.env.APP_SOCKET;
+    const SOCKET_URI = process.env.BACKEND_URL;
     const socket = client(SOCKET_URI);
     setSocket(socket);
   }, []);
