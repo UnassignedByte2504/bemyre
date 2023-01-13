@@ -38,7 +38,6 @@ const ContactInfo = () => {
     initialValues: {
       phone_number: store.resultados.user_contact_info[0].phone_number,
       address: store.resultados.user_contact_info[0].address,
-      // city: "",
 
     },
     onSubmit,
