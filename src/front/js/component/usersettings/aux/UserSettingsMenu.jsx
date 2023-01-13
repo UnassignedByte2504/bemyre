@@ -16,11 +16,11 @@ import {
 //supcomps
 import ProfileMenu from "./subcomps/ProfileMenu.jsx";
 import ManageAccountMenu from "./subcomps/ManageAccountMenu.jsx";
+import BandsMenu from "./subcomps/BandsMenu.jsx";
+import LocalsMenu from "./subcomps/LocalsMenu.jsx";
 //subcomps
 
 const UserSettingsMenu = () => {
-
-
   return (
     <React.Fragment>
       <List
@@ -33,10 +33,17 @@ const UserSettingsMenu = () => {
           </ListSubheader>
         }
       >
-        <Divider/>
-        <ProfileMenu/>
-        <Divider/>
-        <ManageAccountMenu/>
+        <Divider />
+        <ProfileMenu />
+        <Divider />
+        <ManageAccountMenu />
+        <Divider />
+        <ListSubheader component="div" id="nested-list-subheader">
+          Creación de Bandas y Locales
+        </ListSubheader>
+        <BandsMenu />
+        <Divider />
+        <LocalsMenu />
       </List>
     </React.Fragment>
   );

@@ -1,13 +1,8 @@
   
 import os
 from flask_admin import Admin
-
 from .models import db, User, UserType, Country, State, City, UserContactInfo, UserMusicianInfo, UserSocialMedia, MusicGenre, InfluenceBand, Local, LocalMusicGenre
-
-
-
 from flask_admin.contrib.sqla import ModelView
-
 def setup_admin(app):
     app.secret_key = os.environ.get('FLASK_APP_KEY', 'sample key')
     app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
@@ -16,7 +11,6 @@ def setup_admin(app):
     
     # Add your models here, for example this is how we add a the User model to the admin
     admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(UserType, db.session))
     admin.add_view(ModelView(UserSocialMedia, db.session))
     admin.add_view(ModelView(UserContactInfo, db.session))
     admin.add_view(ModelView(UserMusicianInfo, db.session))

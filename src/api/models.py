@@ -17,7 +17,7 @@ class LoggedUsers(db.Model):
     user_ip = db.Column(db.String(80), nullable=False)
     user_agent = db.Column(db.String(80), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
+    
     def __repr__(self):
         return '<LoggedUsers %r>' % self.username
 
@@ -147,7 +147,7 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     is_musician = db.Column(db.Boolean(), unique=False, nullable=False)
     user_musician_info = relationship("UserMusicianInfo")
-    locales = relationship("Local", back_populates="user")
+    locales = relationship("Local", backref="user", lazy=True)
     is_logged = db.Column(db.Boolean(), unique=False, nullable=False)
     followed = db.relationship(
         'User', secondary=followers,
@@ -424,21 +424,19 @@ class InfluenceBand(db.Model):
 
         }
 
-
 class Local (db.Model):
-    __tablename__='local'
+    # __tablename__='local'
     id=db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), unique=True, nullable=True)
-    ubicacion_local = db.Column(db.String(255), nullable=True)
-    description = db.Column(db.String(500), nullable=True)
-    city_id = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=True)
-    city = db.relationship('City', backref=('local'), lazy=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
-    user = db.relationship('User', backref=('local'), lazy=True)
-    # local_music_genres = relationship("LocalMusicGenre", backref=('Local'), lazy=True)
-    local_type = db.Column(db.String(255), nullable=True)
+    local_img = db.Column(db.Unicode)
+    name = db.Column(db.String(255), nullable=False)
+    ubicacion_local = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(500), nullable=False)
+    city_id = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    # events = db.relationship('Event', backref='local', lazy=True)
+    local_music_genres = db.relationship('LocalMusicGenre', backref='local', lazy=True)
 
-    
+  
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
@@ -450,7 +448,6 @@ class Local (db.Model):
             "ubicacion_local": self.ubicacion_local,
             "description": self.description,
             "city": self.city.name,
-            # "local_music_genres": [musicgenre.serialize() for musicgenre in self.local_music_genres],
             "local_type": self.local_type
             
 

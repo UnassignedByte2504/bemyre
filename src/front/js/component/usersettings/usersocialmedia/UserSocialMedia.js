@@ -1,9 +1,9 @@
 //Import React
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-//Import Material
+//Import Material >>>
 import { TextField, Typography, Box, Button } from "@mui/material";
-
+//Import Material <<<
 //Import Formik
 import { useFormik } from "formik";
 
@@ -18,13 +18,13 @@ import TiktokIcon from "../../../../img/RRSS/tiktok_logo.png";
 import SoundcloudIcon from "../../../../img/RRSS/soundcloud.png";
 import SnapchatIcon from "../../../../img/RRSS/snapchat.png";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { Context } from "../../../store/appContext";
 
-//Import Styles
-import "../../../../styles/index.css";
 
 //Main Function
 const userName = sessionStorage.getItem("current_user");
 const UserPasswordManagement = () => {
+
   const editSocialMedia = async (username, fieldtomodify, newvalue) => {
     console.log("edit rrss values", username, fieldtomodify, newvalue);
     const options = {
@@ -71,6 +71,7 @@ const UserPasswordManagement = () => {
     tiktok: "",
     snapchat: "",
     soundcloud: "",
+    spotify:"",
   });
   const [open, setOpen] = useState({
     web: false,
@@ -81,6 +82,7 @@ const UserPasswordManagement = () => {
     twitter: false,
     tiktok: false,
     snapchat: false,
+    spotify: false
   });
 
   const submitFormPassword = (values) => {};
@@ -146,6 +148,7 @@ const UserPasswordManagement = () => {
                   className="w-100 me-2"
                   label="Modificar URL Web"
                   name="web"
+
                 />
                 <Button type="submit" variant="contained">
                   Modificar
@@ -154,6 +157,7 @@ const UserPasswordManagement = () => {
                   variant="contained"
                   className="ms-2"
                   onClick={() => setOpen({ web: false })}
+
                 >
                   Cancel
                 </Button>
@@ -182,6 +186,7 @@ const UserPasswordManagement = () => {
                 <Typography variant="h5" className="my-3 w-100 text-start">
                   <YouTubeIcon className="me-2" /> www.YouTube.com/bemyre
                 </Typography>
+
                 <Button
                   onClick={() => setOpen({ youtube: true })}
                   className="text-white"
@@ -196,6 +201,7 @@ const UserPasswordManagement = () => {
                   onChange={handleChange}
                   className="w-100 me-2"
                   label="Modificar perfl Youtube"
+
                   name="youtube"
                 />
                 <Button variant="contained" type="submit">
@@ -204,6 +210,7 @@ const UserPasswordManagement = () => {
                 <Button
                   variant="contained"
                   className="ms-2"
+
                   onClick={() => setOpen({ youtube: false })}
                 >
                   Cancel
@@ -214,12 +221,14 @@ const UserPasswordManagement = () => {
         )}
 
         {/* Condicional soundcloud */}
+
         {1 + 1 == 32 ? (
           <Box className="d-flex">
             <TextField
               className="w-100 my-2"
               variant="outlined"
               label="Soundcloud"
+
               type="url"
               onChange={handleChange}
               name="soundcloud"
@@ -230,13 +239,16 @@ const UserPasswordManagement = () => {
           </Box>
         ) : (
           <>
+
             {!open.soundcloud ? (
+
               <Box className="d-flex justify-content-between w-100 align-items-center">
                 <Typography variant="h5" className="my-3 w-100 text-start">
                   <img src={SoundcloudIcon} className="logorrsssettings me-2" />{" "}
                   @bemyre
                 </Typography>
                 <Button
+
                   onClick={() => setOpen({ soundcloud: true })}
                   className="text-white"
                 >
@@ -247,6 +259,7 @@ const UserPasswordManagement = () => {
             ) : (
               <Box className="w-100 d-flex">
                 <TextField
+
                   onChange={handleValueChange}
                   name="soundcloud"
                   className="w-100 me-2"
@@ -267,6 +280,7 @@ const UserPasswordManagement = () => {
                 <Button
                   variant="contained"
                   className="ms-2"
+
                   onClick={() => setOpen({ soundcloud: false })}
                 >
                   Cancel
@@ -277,12 +291,14 @@ const UserPasswordManagement = () => {
         )}
 
         {/* Condicional Instagram */}
+
         {1 + 1 == 32 ? (
           <Box>
             <TextField
               className="w-100 my-2"
               variant="outlined"
               label="Instagram"
+
               type="url"
               onChange={handleChange}
               name="instagram"
@@ -293,12 +309,14 @@ const UserPasswordManagement = () => {
           </Box>
         ) : (
           <>
+
             {!open.instagram ? (
               <Box className="d-flex justify-content-between w-100 align-items-center">
                 <Typography variant="h5" className="my-3 w-100 text-start">
                   <InstagramIcon className="me-2" /> @bemyre
                 </Typography>
                 <Button
+
                   onClick={() => setOpen({ instagram: true })}
                   className="text-white"
                 >
@@ -311,6 +329,7 @@ const UserPasswordManagement = () => {
                 <TextField
                   className="w-100 me-2"
                   label="Modificar perfil Instagram"
+
                   name="instagram"
                   onChange={handleChange}
                 />
@@ -320,6 +339,7 @@ const UserPasswordManagement = () => {
                 <Button
                   variant="contained"
                   className="ms-2"
+
                   onClick={() => setOpen({ instagram: false })}
                 >
                   Cancel
@@ -330,12 +350,14 @@ const UserPasswordManagement = () => {
         )}
 
         {/* Condicional Facebook */}
+
         {1 + 1 == 32 ? (
           <Box className="d-flex">
             <TextField
               className="w-100 my-2"
               variant="outlined"
               label="Facebook"
+
               type="url"
               onChange={handleChange}
               name="facebook"
@@ -346,12 +368,14 @@ const UserPasswordManagement = () => {
           </Box>
         ) : (
           <>
+
             {!open.facebook ? (
               <Box className="d-flex justify-content-between w-100 align-items-center">
                 <Typography variant="h5" className="my-3 w-100 text-start">
                   <FacebookIcon className="me-2" /> facebook.com/bemyre
                 </Typography>
                 <Button
+
                   onClick={() => setOpen({ facebook: true })}
                   className="text-white"
                 >
@@ -362,6 +386,7 @@ const UserPasswordManagement = () => {
             ) : (
               <Box className="w-100 d-flex">
                 <TextField
+
                   name="facebook"
                   className="w-100 me-2"
                   label="Modificar perfil Facebook"
@@ -373,6 +398,7 @@ const UserPasswordManagement = () => {
                 <Button
                   variant="contained"
                   className="ms-2"
+
                   onClick={() => setOpen({ facebook: false })}
                 >
                   Cancel
@@ -383,12 +409,14 @@ const UserPasswordManagement = () => {
         )}
 
         {/* Condicional Twitter */}
+
         {1 + 1 == 32 ? (
           <Box className="d-flex w-100">
             <TextField
               className="w-100 my-2"
               variant="outlined"
               label="Twitter"
+
               type="url"
               onChange={handleChange}
               name="twitter"
@@ -399,11 +427,13 @@ const UserPasswordManagement = () => {
           </Box>
         ) : (
           <>
+
             {!open.twitter ? (
               <Box className="d-flex justify-content-between w-100 align-items-center">
                 <Typography variant="h5" className="my-3 w-100 text-start">
                   <TwitterIcon className="me-2" /> @bemyre{" "}
                 </Typography>
+
                 <Button
                   onClick={() => setOpen({ twitter: true })}
                   className="text-white"
@@ -418,6 +448,7 @@ const UserPasswordManagement = () => {
                   onChange={handleChange}
                   className="w-100 me-2"
                   label="Modificar perfil Twitter"
+
                   name="twitter"
                 />
                 <Button variant="contained" type="submit">
@@ -426,6 +457,7 @@ const UserPasswordManagement = () => {
                 <Button
                   variant="contained"
                   className="ms-2"
+
                   onClick={() => setOpen({ twitter: false })}
                 >
                   Cancel
@@ -436,12 +468,14 @@ const UserPasswordManagement = () => {
         )}
 
         {/* Condicional TikTok */}
+
         {1 + 1 == 32 ? (
           <Box>
             <TextField
               className="w-100 my-2"
               variant="outlined"
               label="TikTok"
+
               type="url"
               onChange={handleChange}
               name="tiktok"
@@ -452,12 +486,14 @@ const UserPasswordManagement = () => {
           </Box>
         ) : (
           <>
+
             {!open.tiktok ? (
               <Box className="d-flex justify-content-between w-100 align-items-center">
                 <Typography variant="h5" className="my-3 w-100 text-start">
                   <img src={TiktokIcon} className="logorrsssettings me-2" />{" "}
                   @bemyre
                 </Typography>
+
                 <Button
                   onClick={() => setOpen({ tiktok: true })}
                   className="text-white"
@@ -472,6 +508,7 @@ const UserPasswordManagement = () => {
                   className="w-100 me-2"
                   label="Modificar perfil Tiktok"
                   onChange={handleChange}
+
                   name="tiktok"
                 />
                 <Button variant="contained" type="submit">
@@ -480,6 +517,7 @@ const UserPasswordManagement = () => {
                 <Button
                   variant="contained"
                   className="ms-2"
+
                   onClick={() => setOpen({ tiktok: false })}
                 >
                   Cancel
@@ -490,12 +528,14 @@ const UserPasswordManagement = () => {
         )}
 
         {/* Condicional snapchat */}
+
         {1 + 1 == 32 ? (
           <Box className="d-flex">
             <TextField
               className="w-100 my-2"
               variant="outlined"
               label="Snapchat"
+
               type="url"
               onChange={handleChange}
               name="snapchat"
@@ -504,6 +544,7 @@ const UserPasswordManagement = () => {
           </Box>
         ) : (
           <>
+
             {!open.snapchat ? (
               <Box className="d-flex justify-content-between w-100 align-items-center">
                 <Typography variant="h5" className="my-3 w-100 text-start">
@@ -511,6 +552,7 @@ const UserPasswordManagement = () => {
                   @bemyre
                 </Typography>
                 <Button
+
                   onClick={() => setOpen({ snapchat: true })}
                   className="text-white"
                 >
@@ -521,6 +563,7 @@ const UserPasswordManagement = () => {
             ) : (
               <Box className="w-100 d-flex" onSubmit={handleSubmit}>
                 <TextField
+
                   name="snapchat"
                   onChange={handleChange}
                   className="w-100 me-2"
@@ -532,6 +575,7 @@ const UserPasswordManagement = () => {
                 <Button
                   variant="contained"
                   className="ms-2"
+
                   onClick={() => setOpen({ snapchat: false })}
                 >
                   Cancel
@@ -540,11 +584,58 @@ const UserPasswordManagement = () => {
             )}
           </>
         )}
-        {/* <Button
-        variant='contained'
-        type='submit'
-        className='my-2'
-        >Cambiar Contraseña</Button> */}
+
+        {/* Condicional spotify */}
+        {1 + 1 == 32 ? (
+          <Box className="d-flex">
+            <TextField
+              className="w-100 my-2"
+              variant="outlined"
+              label="spotify"
+              type="url"
+              onChange={handleChange}
+              name="spotify"
+            />
+            <Button type="submit">Añadir spotify</Button>
+          </Box>
+        ) : (
+          <>
+            {!open.spotify ? (
+              <Box className="d-flex justify-content-between w-100 align-items-center">
+                <Typography variant="h5" className="my-3 w-100 text-start">
+                  <PlayCircleIcon/>
+                  @bemyre
+                </Typography>
+                <Button
+                  onClick={() => setOpen({ spotify: true })}
+                  className="text-white"
+                >
+                  Editar
+                  <EditIcon className="ms-2" />
+                </Button>
+              </Box>
+            ) : (
+              <Box className="w-100 d-flex" onSubmit={handleSubmit}>
+                <TextField
+                  name="spotify"
+                  onChange={handleChange}
+                  className="w-100 me-2"
+                  label="Modificar perfil spotify"
+                />
+                <Button variant="contained" type="submit">
+                  Modificar
+                </Button>
+                <Button
+                  variant="contained"
+                  className="ms-2"
+                  onClick={() => setOpen({ spotify: false })}
+                >
+                  Cancel
+                </Button>
+              </Box>
+            )}
+          </>
+        )}
       </form>
     </Box>
   );

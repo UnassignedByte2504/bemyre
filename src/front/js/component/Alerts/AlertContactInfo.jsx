@@ -5,15 +5,15 @@ import { Link } from "react-router-dom";
 //Import Materials
 import { Alert, Box, Snackbar, Stack, Typography } from "@mui/material";
 
-export const AlertEditInfo = () => {
+export const AlertContactInfo = () => {
 
-  const alert_edit_info = sessionStorage.getItem("cambios");
+  const alert_contact = localStorage.getItem("cambios_contact");
 
   return (
     <Box>
-      {alert_edit_info ? (
+      {alert_contact ? (
         <Stack>
-          <Alert severity="success">{alert_edit_info}</Alert>
+          <Alert severity="success">{alert_contact}</Alert>
         </Stack>
       ) : null}
     </Box>

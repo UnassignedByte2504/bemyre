@@ -17,7 +17,7 @@ import {
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import PasswordOutlinedIcon from "@mui/icons-material/PasswordOutlined";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
+import MicExternalOnIcon from "@mui/icons-material/MicExternalOn";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import PrivacyTipOutlinedIcon from "@mui/icons-material/PrivacyTipOutlined";
 
@@ -25,12 +25,13 @@ import PrivacyTipOutlinedIcon from "@mui/icons-material/PrivacyTipOutlined";
 import { UserSettingsMenuItems } from "../../UserSettingsData.js";
 //Logic imports <<<
 
-const ManageAccountMenu = () => {
+const BandsMenu = () => {
   const { actions, store } = useContext(Context);
   const [open, setOpen] = useState(false);
   const [isSelected, setIsSelected] = useState("");
 
   const selectSetting = (settings) => {
+    console.log(settings, "desde comp");
     actions.setSelectedSettings(settings);
   };
   const handleClick = () => {
@@ -41,54 +42,42 @@ const ManageAccountMenu = () => {
     <React.Fragment>
       <ListItemButton onClick={handleClick}>
         <ListItemIcon>
-          <AdminPanelSettingsOutlinedIcon />
+          <MicExternalOnIcon />
         </ListItemIcon>
-        <ListItemText primary="Cuenta y Privacidad" />
+        <ListItemText primary="Creación de Banda" />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
+          {/* empieza componente del submenu creacion de bandas */}
           <ListItemButton
             className={
-              UserSettingsMenuItems[5] === store.selected_settings
+              UserSettingsMenuItems[9] === store.selected_settings
                 ? "SelectedSetting"
                 : null
             }
             sx={{ pl: 4 }}
-            onClick={() => selectSetting(UserSettingsMenuItems[5])}
+            onClick={() => selectSetting(UserSettingsMenuItems[9])}
           >
             <ListItemIcon>
               <PasswordOutlinedIcon />
             </ListItemIcon>
-            <ListItemText primary="Modificar Contraseña" />
+            <ListItemText primary={UserSettingsMenuItems[9]} />
           </ListItemButton>
+          {/* empieza componente del submenu creacion de casting */}
           <ListItemButton
             className={
-              UserSettingsMenuItems[6] === store.selected_settings
+              UserSettingsMenuItems[10] === store.selected_settings
                 ? "SelectedSetting"
                 : null
             }
             sx={{ pl: 4 }}
-            onClick={() => selectSetting(UserSettingsMenuItems[6])}
+            onClick={() => selectSetting(UserSettingsMenuItems[10])}
           >
             <ListItemIcon>
               <PrivacyTipOutlinedIcon />
             </ListItemIcon>
-            <ListItemText primary="Ajustes de Privacidad" />
-          </ListItemButton>
-          <ListItemButton
-            className={
-              UserSettingsMenuItems[7] === store.selected_settings
-                ? "SelectedSetting"
-                : null
-            }
-            sx={{ pl: 4, color: "red !important" }}
-            onClick={() => selectSetting(UserSettingsMenuItems[7])}
-          >
-            <ListItemIcon>
-              <DeleteForeverOutlinedIcon />
-            </ListItemIcon>
-            <ListItemText primary="Eliminar Cuenta" />
+            <ListItemText primary={UserSettingsMenuItems[10]} />
           </ListItemButton>
         </List>
       </Collapse>
@@ -96,4 +85,4 @@ const ManageAccountMenu = () => {
   );
 };
 
-export default ManageAccountMenu;
+export default BandsMenu;

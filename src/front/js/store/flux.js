@@ -230,6 +230,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         await fetch(
           `${process.env.BACKEND_URL}/api/settings/${username}/editinfo`,
+
           options
         )
           .then((response) => response.json())
@@ -237,6 +238,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             sessionStorage.setItem("cambios", "Información cambiada con éxito")
           );
       },
+
 
       // <<<< Functions realted on fetching user info from back
       //misc functions

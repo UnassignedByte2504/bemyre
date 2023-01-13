@@ -21,14 +21,14 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import ConnectWithoutContactOutlinedIcon from "@mui/icons-material/ConnectWithoutContactOutlined";
-import ContactMailIcon from '@mui/icons-material/ContactMail';
+import ContactMailIcon from "@mui/icons-material/ContactMail";
 //MUI imports <<<
 //Logic imports >>>
 import { UserSettingsMenuItems } from "../../UserSettingsData.js";
 //Logic imports <<<
 const ProfileMenu = () => {
   const { actions, store } = useContext(Context);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const selectSetting = (settings) => {
     actions.setSelectedSettings(settings);
@@ -101,7 +101,7 @@ const ProfileMenu = () => {
             <ListItemIcon>
               <ConnectWithoutContactOutlinedIcon />
             </ListItemIcon>
-            <ListItemText primary={UserSettingsMenuItems[3]}/>
+            <ListItemText primary={UserSettingsMenuItems[3]} />
           </ListItemButton>
           <ListItemButton
             className={

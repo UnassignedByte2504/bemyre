@@ -25,12 +25,13 @@ import PrivacyTipOutlinedIcon from "@mui/icons-material/PrivacyTipOutlined";
 import { UserSettingsMenuItems } from "../../UserSettingsData.js";
 //Logic imports <<<
 
-const ManageAccountMenu = () => {
+const BandsMenu = () => {
   const { actions, store } = useContext(Context);
   const [open, setOpen] = useState(false);
   const [isSelected, setIsSelected] = useState("");
 
   const selectSetting = (settings) => {
+    console.log(settings, "desde comp");
     actions.setSelectedSettings(settings);
   };
   const handleClick = () => {
@@ -96,4 +97,4 @@ const ManageAccountMenu = () => {
   );
 };
 
-export default ManageAccountMenu;
+export default BandsMenu;
