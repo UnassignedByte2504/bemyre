@@ -33,8 +33,11 @@ export const ExploraDropdown = ({ provincia }) => {
   console.log(Provincia);
   useEffect(() => {
     fetchCities(Provincia, page);
-  }, [Provincia, page]);
+  }, [page]);
 
+  useEffect(() =>{
+    setPage(1)
+  },[Provincia])
   console.log(cities);
 
   return (
