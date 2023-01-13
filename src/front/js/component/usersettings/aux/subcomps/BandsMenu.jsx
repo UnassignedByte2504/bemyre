@@ -16,10 +16,9 @@ import {
 
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import PasswordOutlinedIcon from "@mui/icons-material/PasswordOutlined";
-import MicExternalOnIcon from "@mui/icons-material/MicExternalOn";
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import PrivacyTipOutlinedIcon from "@mui/icons-material/PrivacyTipOutlined";
+import GroupsIcon from '@mui/icons-material/Groups';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
 //Logic imports >>>
 import { UserSettingsMenuItems } from "../../UserSettingsData.js";
@@ -42,7 +41,7 @@ const BandsMenu = () => {
     <React.Fragment>
       <ListItemButton onClick={handleClick}>
         <ListItemIcon>
-          <MicExternalOnIcon />
+          <GroupsIcon />
         </ListItemIcon>
         <ListItemText primary="Creación de Banda" />
         {open ? <ExpandLess /> : <ExpandMore />}
@@ -50,6 +49,21 @@ const BandsMenu = () => {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {/* empieza componente del submenu creacion de bandas */}
+          <ListItemButton
+            className={
+              UserSettingsMenuItems[8] === store.selected_settings
+                ? "SelectedSetting"
+                : null
+            }
+            sx={{ pl: 4 }}
+            onClick={() => selectSetting(UserSettingsMenuItems[8])}
+          >
+            <ListItemIcon>
+              <GroupAddIcon />
+            </ListItemIcon>
+            <ListItemText primary={UserSettingsMenuItems[8]} />
+          </ListItemButton>
+          {/* empieza componente del submenu creacion de casting */}
           <ListItemButton
             className={
               UserSettingsMenuItems[9] === store.selected_settings
@@ -60,24 +74,9 @@ const BandsMenu = () => {
             onClick={() => selectSetting(UserSettingsMenuItems[9])}
           >
             <ListItemIcon>
-              <PasswordOutlinedIcon />
+              <ManageSearchIcon />
             </ListItemIcon>
             <ListItemText primary={UserSettingsMenuItems[9]} />
-          </ListItemButton>
-          {/* empieza componente del submenu creacion de casting */}
-          <ListItemButton
-            className={
-              UserSettingsMenuItems[10] === store.selected_settings
-                ? "SelectedSetting"
-                : null
-            }
-            sx={{ pl: 4 }}
-            onClick={() => selectSetting(UserSettingsMenuItems[10])}
-          >
-            <ListItemIcon>
-              <PrivacyTipOutlinedIcon />
-            </ListItemIcon>
-            <ListItemText primary={UserSettingsMenuItems[10]} />
           </ListItemButton>
         </List>
       </Collapse>

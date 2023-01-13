@@ -8,9 +8,11 @@ import UserPictures from "./userpictures/UserPictures.js";
 import UserPrivacySettings from "./userprivacysettings/UserPrivacySettings.js";
 import UserSocialMedia from "./usersocialmedia/UserSocialMedia.js";
 import ContactInfo from "./contactinfo/ContactInfo.js";
-import { LocalsCreation } from "./localscreation/LocalsCreation.js";
+import { PublicLocal } from "./publiclocal/PublicLocal.js";
 import { BandsCreation } from "./bandscreation/BandsCreation.js";
 import { CreateCasting } from "./createcasting/CreateCasting.js";
+import { MusicForMyLocal } from "./musicformylocal/MusicForMyLocal.js";
+import { ConcertCreation } from "./concertcreation/ConcertCreation.js";
 
 export const UserSettingsMenuItems = [
   "Editar Informacion",
@@ -22,9 +24,11 @@ export const UserSettingsMenuItems = [
   "Ajustes de Privacidad",
   "Eliminar Cuenta",
   // Creación banda locales empieza por 8
-  "Creación Locales",
   "Creación Bandas",
   "Abrir un casting",
+  "Publicar mi local",
+  "Publicar concierto",
+  "Música en vivo para mi local"
 ];
 
 export const UserSettingsComponents = [
@@ -60,10 +64,7 @@ export const UserSettingsComponents = [
     name: "Informacion de Contacto",
     component: <ContactInfo />,
   },
-  {
-    name: "Creación Locales",
-    component: <LocalsCreation />,
-  },
+
   {
     name: "Creación Bandas",
     component: <BandsCreation />,
@@ -71,6 +72,18 @@ export const UserSettingsComponents = [
   {
     name: "Abrir un casting",
     component: <CreateCasting />,
+  },
+  {
+    name: "Publicar mi local",
+    component: <PublicLocal />,
+  },
+  {
+    name: "Publicar concierto",
+    component: <ConcertCreation />,
+  },
+  {
+    name: "Música en vivo para mi local",
+    component: <MusicForMyLocal />,
   },
 ];
 

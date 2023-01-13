@@ -16,16 +16,17 @@ import {
 
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import PasswordOutlinedIcon from "@mui/icons-material/PasswordOutlined";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import PrivacyTipOutlinedIcon from "@mui/icons-material/PrivacyTipOutlined";
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import MicExternalOnIcon from '@mui/icons-material/MicExternalOn';
+import EventIcon from '@mui/icons-material/Event';
+
 
 //Logic imports >>>
 import { UserSettingsMenuItems } from "../../UserSettingsData.js";
 //Logic imports <<<
 
-const BandsMenu = () => {
+const LocalsMenu = () => {
   const { actions, store } = useContext(Context);
   const [open, setOpen] = useState(false);
   const [isSelected, setIsSelected] = useState("");
@@ -42,59 +43,60 @@ const BandsMenu = () => {
     <React.Fragment>
       <ListItemButton onClick={handleClick}>
         <ListItemIcon>
-          <AdminPanelSettingsOutlinedIcon />
+          <StorefrontIcon />
         </ListItemIcon>
-        <ListItemText primary="Cuenta y Privacidad" />
+        <ListItemText primary="Publicar sobre mi local" />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItemButton
             className={
-              UserSettingsMenuItems[5] === store.selected_settings
+              UserSettingsMenuItems[10] === store.selected_settings
                 ? "SelectedSetting"
                 : null
             }
             sx={{ pl: 4 }}
-            onClick={() => selectSetting(UserSettingsMenuItems[5])}
+            onClick={() => selectSetting(UserSettingsMenuItems[10])}
           >
             <ListItemIcon>
-              <PasswordOutlinedIcon />
+              <AddBusinessIcon />
             </ListItemIcon>
-            <ListItemText primary="Modificar Contraseña" />
+            <ListItemText primary={UserSettingsMenuItems[10]} />
           </ListItemButton>
           <ListItemButton
             className={
-              UserSettingsMenuItems[6] === store.selected_settings
+              UserSettingsMenuItems[11] === store.selected_settings
                 ? "SelectedSetting"
                 : null
             }
             sx={{ pl: 4 }}
-            onClick={() => selectSetting(UserSettingsMenuItems[6])}
+            onClick={() => selectSetting(UserSettingsMenuItems[11])}
           >
             <ListItemIcon>
-              <PrivacyTipOutlinedIcon />
+              <EventIcon />
             </ListItemIcon>
-            <ListItemText primary="Ajustes de Privacidad" />
+            <ListItemText primary={UserSettingsMenuItems[11]} />
           </ListItemButton>
           <ListItemButton
             className={
-              UserSettingsMenuItems[7] === store.selected_settings
+              UserSettingsMenuItems[12] === store.selected_settings
                 ? "SelectedSetting"
                 : null
             }
-            sx={{ pl: 4, color: "red !important" }}
-            onClick={() => selectSetting(UserSettingsMenuItems[7])}
+            sx={{ pl: 4 }}
+            onClick={() => selectSetting(UserSettingsMenuItems[12])}
           >
             <ListItemIcon>
-              <DeleteForeverOutlinedIcon />
+              <MicExternalOnIcon />
             </ListItemIcon>
-            <ListItemText primary="Eliminar Cuenta" />
+            <ListItemText primary={UserSettingsMenuItems[12]} />
           </ListItemButton>
+          
         </List>
       </Collapse>
     </React.Fragment>
   );
 };
 
-export default BandsMenu;
+export default LocalsMenu;
