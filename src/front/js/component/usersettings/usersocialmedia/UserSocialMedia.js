@@ -49,7 +49,7 @@ const UserPasswordManagement = () => {
           "Información de redes sociales cambiada con éxito"
         )
       );
-  };
+  }; 
 
   const fieldNames = {
     website: "website_url",

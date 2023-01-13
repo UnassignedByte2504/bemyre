@@ -431,6 +431,63 @@ def get_locales():
         locales_list.append(local.serialize())
     return jsonify(locales_list), 200
 
+
+# PUBLIC LOCAL
+
+# @api.route('settings/<string:username_var>/publiclocal', methods=['POST'])
+# @jwt_required(username_var)
+# def public_local():
+#     data = request.data
+#     data = json.loads(data)
+#     city = City.query.filter_by(name = request_data['city']).first():
+#     user = User.query.filter_by(user_name = username_var).first():
+    
+
+#     if db.session.query(Local).filter(Local.name == request_data['name']).first():
+#         return jsonify({"message": "El local ya está registrado"}),400
+#     new_local = Local(
+#         name = data["name"],
+#         ubicacion_local = data["ubicacion_local"],
+#         description = data["description"],
+#         city = city
+#     )
+#     db.session.add(new_local)
+#     db.session.commit()
+#     response_body = {
+#         "msg": "local añadido"
+#     }
+#     return jsonify(response_body), 201
+
+
+
+
+
+
+
+
+# @api.route('settings/<string:username_var>/publiclocal', methods=['PUT'])
+# @jwt_required()
+# def handle_public_local(username_var):
+#     current_user = get_jwt_identity()
+#     if current_user != username_var:
+#         return jsonify({"message": "Access denied"}), 401
+#     if request.method == 'PUT':
+#         request_data = request.get_json(force=True)
+#         user = db.session.query(User).filter(User.user_name == username_var).first()
+#         user_social_media = db.session.query(UserSocialMedia).filter(UserSocialMedia.user_id == user.id).first()
+#         if not user or not user_social_media:
+#             return jsonify({"message": "User not found"}), 404
+#         default_values = user_social_media
+#         user_social_media.website_url = request_data.get("website_url", default_values.website_url)
+#         user_social_media.youtube_url = request_data.get("youtube_url", default_values.youtube_url)
+#         user_social_media.soundcloud_url = request_data.get("soundcloud_url", default_values.soundcloud_url)
+#         user_social_media.last_update = datetime.now()
+#         db.session.commit()
+    
+#     return jsonify({"message":"Informacion actualizada correctamente", "user_social_media": user_social_media.serialize()}), 200
+
+
+
 #<<-----1 LOCALES ENDPOINT END ----->>
 
 
@@ -452,9 +509,6 @@ def get_cities(state_var, page_var):
     for city in cities.items:
         cities_list.append(city.name)
     return jsonify(cities_list), 200
-
-
-
 
 
 

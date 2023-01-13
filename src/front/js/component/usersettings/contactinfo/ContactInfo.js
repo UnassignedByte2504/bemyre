@@ -42,7 +42,7 @@ const ContactInfo = () => {
     },
     onSubmit,
   });
-
+ 
 
   return (
     <Box className='editinfobox'>
