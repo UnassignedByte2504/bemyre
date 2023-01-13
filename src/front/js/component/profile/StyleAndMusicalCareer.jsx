@@ -10,10 +10,56 @@ import "../../../styles/index.css";
 
 //Import Components
 import { EditInfo } from "./EditInfo.jsx";
-
+const userName = sessionStorage.getItem("current_user");
 export const StyleAndMusicalCareer = ({ currentUser, userName }) => {
   const [open, setOpen] = useState(false);
+  
+  const editStyle = async(username, fieldtomodify, newvalue) =>{
+  const options = {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+      "Content-Type": "application/json",
+    },
+    body: `{
+          "${fieldtomodify}": "${newvalue}"
+    }`,
+  }
+  await fetch(
+    `${process.env.BACKEND_URL}/api/settings/${username}/style`,
+    options
+  )
+    .then((response) => response.json())
+    .then((result) =>
+      sessionStorage.setItem(
+        "cambios_style",
+        "Información de redes sociales cambiada con éxito"
+      )
+    );
+};
 
+const fieldNames = {
+  estilo1: "estilo1",
+  estilo2: "estilo2",
+  estilo3: "estilo3",
+  textstyle: "textstyle"
+};
+
+const [values, setValues] = useState({
+  estilo1: "estilo1",
+  estilo2: "estilo2",
+  estilo3: "estilo3",
+  textstyle: "textstyle"
+
+});
+
+console.log(values)
+const handleValueChange = (e) => {
+  setValues({
+    ...values,
+    [e.target.name]: e.target.value,
+  });
+};
   return (
     <Box className="mt-5">
       <Typography
@@ -64,6 +110,9 @@ export const StyleAndMusicalCareer = ({ currentUser, userName }) => {
             className="bubbles my-3 me-2 border-0"
             placeholder="Estilo de musica 1"
             style={{ border: "none"}}
+            onChange={handleValueChange}
+            name="estilo1"
+
           />
             
 
@@ -71,12 +120,18 @@ export const StyleAndMusicalCareer = ({ currentUser, userName }) => {
             className="bubbles my-3 mx-2 border-0"
             placeholder="Estilo de musica 2"
             style={{ border: "none"}}
+            onChange={handleValueChange}
+            name="estilo2"
+
           />
 
             <TextField
             className="bubbles ms-2 my-3 border-0"
             placeholder="Estilo de musica 3"
             style={{ border: "none"}}
+            onChange={handleValueChange}
+            name="estilo3"
+
          />
 
           <TextField
@@ -86,8 +141,19 @@ export const StyleAndMusicalCareer = ({ currentUser, userName }) => {
             rows={4}
             className="w-100"
             defaultValue="Mi estilo de música es"
+            onChange={handleValueChange}
+            name="textstyle"
+
           />
-          <Button variant="contained" className="mt-2">
+          <Button 
+            onClick={() =>
+              editStyle(
+                userName,
+                fieldNames,
+                values
+              )
+            }   
+          variant="contained" className="mt-2">
             Guardar cambios
           </Button>
         </>
