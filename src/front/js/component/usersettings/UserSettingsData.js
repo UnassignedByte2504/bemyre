@@ -8,6 +8,9 @@ import UserPictures from "./userpictures/UserPictures.js";
 import UserPrivacySettings from "./userprivacysettings/UserPrivacySettings.js";
 import UserSocialMedia from "./usersocialmedia/UserSocialMedia.js";
 import ContactInfo from "./contactinfo/ContactInfo.js";
+import { LocalsCreation } from "./localscreation/LocalsCreation.js";
+import { BandsCreation } from "./bandscreation/BandsCreation.js";
+import { CreateCasting } from "./createcasting/CreateCasting.js";
 
 export const UserSettingsMenuItems = [
   "Editar Informacion",
@@ -18,6 +21,10 @@ export const UserSettingsMenuItems = [
   "Modificar Contraseña",
   "Ajustes de Privacidad",
   "Eliminar Cuenta",
+  // Creación banda locales empieza por 8
+  "Creación Locales",
+  "Creación Bandas",
+  "Abrir un casting",
 ];
 
 export const UserSettingsComponents = [
@@ -52,6 +59,18 @@ export const UserSettingsComponents = [
   {
     name: "Informacion de Contacto",
     component: <ContactInfo />,
+  },
+  {
+    name: "Creación Locales",
+    component: <LocalsCreation />,
+  },
+  {
+    name: "Creación Bandas",
+    component: <BandsCreation />,
+  },
+  {
+    name: "Abrir un casting",
+    component: <CreateCasting />,
   },
 ];
 

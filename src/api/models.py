@@ -82,17 +82,7 @@ class UserContactInfo(db.Model):
             "city": self.city,
             "last_update": self.last_update,
         }
-class UserType(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=True, nullable=False)
-    def __repr__(self):
-        return f'<UserType {self.name}>'
 
-    def serialize(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-        }
 
 followers = db.Table('followers',
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
@@ -190,7 +180,6 @@ followers = db.Table('followers',
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_type = db.Column(db.String(80), db.ForeignKey('user_type.name'), nullable=True)
     user_name= db.Column(db.String(80), unique=True, nullable=False)
     profile_img = db.Column(db.Unicode)
     portrait_img = db.Column(db.Unicode)
@@ -206,7 +195,7 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     is_musician = db.Column(db.Boolean(), unique=False, nullable=False)
     user_musician_info = relationship("UserMusicianInfo", back_populates="user")
-    locales = relationship("Local", back_populates="user")
+    locales = db.relationship("Local", backref="user", lazy=True)
     followed = db.relationship(
         'User', secondary=followers,
         primaryjoin=(followers.c.follower_id == id),
@@ -232,7 +221,6 @@ class User(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "user_type": self.user_type,
             "user_name": self.user_name,
             "profile_img": self.profile_img,
             "portrait_img": self.portrait_img,
@@ -312,7 +300,7 @@ class UserMusicianInfo(db.Model):
             "bands": [band.serialize() for band in self.bands],
             "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
         }
-
+# por testar
 class UserMusicalInstrument(db.Model):
     id= db.Column(db.Integer, primary_key=True)
     user_musician_info_id = db.Column(db.Integer, db.ForeignKey('user_musician_info.id'), nullable=False)
@@ -330,7 +318,7 @@ class UserMusicalInstrument(db.Model):
 
 
 
-    
+# por testar    
 class UserMusicGenre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_musician_info_id = db.Column(db.Integer, db.ForeignKey('user_musician_info.id'), nullable=False)
@@ -382,6 +370,7 @@ class MusicalInstrument(db.Model):
             "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
         }
 
+# por testar
 class Bands(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey('user_musician_info.user_id'), nullable=False)
@@ -408,6 +397,7 @@ class Bands(db.Model):
             "band_members ": [band_member.serialize() for band_member in self.band_members],
         }
 
+# por testar
 class BandMembers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     band_id = db.Column(db.Integer, db.ForeignKey('bands.id'), nullable=False)
@@ -484,20 +474,50 @@ class InfluenceBand(db.Model):
         }
 
 
-class Local (db.Model):
-    __tablename__='local'
-    id=db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), unique=True, nullable=True)
-    ubicacion_local = db.Column(db.String(255), nullable=True)
-    description = db.Column(db.String(500), nullable=True)
-    city_id = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=True)
-    city = db.relationship('City', backref=('local'), lazy=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
-    user = db.relationship('User', backref=('local'), lazy=True)
-    # local_music_genres = relationship("LocalMusicGenre", backref=('Local'), lazy=True)
-    local_type = db.Column(db.String(255), nullable=True)
+# class Local (db.Model):
+#     __tablename__='local'
+#     id=db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(255), unique=True, nullable=True)
+#     ubicacion_local = db.Column(db.String(255), nullable=True)
+#     description = db.Column(db.String(500), nullable=True)
+#     city_id = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=True)
+#     city = db.relationship('City', backref=('local'), lazy=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+#     user = db.relationship('User', backref=('local'), lazy=True)
+#     # local_music_genres = relationship("LocalMusicGenre", backref=('Local'), lazy=True)
+#     local_type = db.Column(db.String(255), nullable=True)
 
     
+
+#     def __repr__(self):
+#         return '<id {}>'.format(self.id)
+
+#     def serialize(self):
+#         return {
+#             "id": self.id,
+#             "name": self.name,
+#             "ubicacion_local": self.ubicacion_local,
+#             "description": self.description,
+#             "city": self.city.name,
+#             # "local_music_genres": [musicgenre.serialize() for musicgenre in self.local_music_genres],
+#             "local_type": self.local_type
+            
+
+#         }
+
+class Local (db.Model):
+    # __tablename__='local'
+    id=db.Column(db.Integer, primary_key=True)
+    local_img = db.Column(db.Unicode)
+    name = db.Column(db.String(255), nullable=False)
+    ubicacion_local = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(500), nullable=False)
+    city_id = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    # events = db.relationship('Event', backref='local', lazy=True)
+    local_music_genres = db.relationship('LocalMusicGenre', backref='local', lazy=True)
+
+  
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
@@ -509,7 +529,6 @@ class Local (db.Model):
             "ubicacion_local": self.ubicacion_local,
             "description": self.description,
             "city": self.city.name,
-            # "local_music_genres": [musicgenre.serialize() for musicgenre in self.local_music_genres],
             "local_type": self.local_type
             
 
