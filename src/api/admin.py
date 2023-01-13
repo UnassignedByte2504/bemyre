@@ -2,7 +2,7 @@
 import os
 from flask_admin import Admin
 
-from .models import db, User, UserType, Country, State, City, UserContactInfo, UserSocialMedia, MusicGenre, InfluenceBand, Local, LocalMusicGenre
+from .models import db, User, UserType, Country, State, City, UserContactInfo, UserMusicianInfo, UserSocialMedia, MusicGenre, InfluenceBand, Local, LocalMusicGenre
 
 
 
@@ -19,6 +19,7 @@ def setup_admin(app):
     admin.add_view(ModelView(UserType, db.session))
     admin.add_view(ModelView(UserSocialMedia, db.session))
     admin.add_view(ModelView(UserContactInfo, db.session))
+    admin.add_view(ModelView(UserMusicianInfo, db.session))
     admin.add_view(ModelView(Country, db.session))
     admin.add_view(ModelView(State, db.session))
     admin.add_view(ModelView(City, db.session))

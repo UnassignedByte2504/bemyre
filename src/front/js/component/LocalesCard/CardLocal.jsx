@@ -19,11 +19,12 @@ export const CardLocal = ({
   city,
   description,
   generosMusica,
+  Key
 }) => {
   const theme = useTheme();
 
   return (
-    <Box>
+    <Box key={Key}>
       <Card
         className="card-local style-card"
         sx={{
@@ -48,6 +49,7 @@ export const CardLocal = ({
           // generoMusica5={generoMusica5}
           // generoMusica6={generoMusica6}
           generosMusica={generosMusica}
+          Key={Key}
         />
       </Card>
     </Box>

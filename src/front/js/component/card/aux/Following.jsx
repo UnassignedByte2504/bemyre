@@ -45,12 +45,6 @@ const Following = () => {
   useEffect(() => {
     setData(store.following);
   }, []);
-
-  useEffect(() => {
-    console.log("component data:", store.following.following);
-    console.log("component data:", store.following.profile_img);
-  }, [data]);
-  // console.log(following.user_name[0])
   return (
     data && (
       <Box>

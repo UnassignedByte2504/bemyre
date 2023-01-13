@@ -12,9 +12,10 @@ import logo_facebook from "../../img/RRSS/fb-logo-icon-azul.png";
 import { loginSchema } from "../esquemas";
 import { ErrorSharp, WindowSharp } from "@mui/icons-material";
 import { AlertLogin } from "../component/AlertLogin.jsx";
-
+import SocketContext from "../state/socketContext";
 export const Login = () => {
   const theme = useTheme();
+  const Socket = useContext(SocketContext);
   const { actions, store } = useContext(Context);
   const currentUser = sessionStorage.getItem("current_user")
     ? sessionStorage.getItem("current_user")
@@ -25,6 +26,7 @@ export const Login = () => {
   const onSubmit = async (values, ax) => {
     await actions.login(values.email, values.password);
     await ax.resetForm();
+    Socket.emit('logged_users');
   };
 
   const {

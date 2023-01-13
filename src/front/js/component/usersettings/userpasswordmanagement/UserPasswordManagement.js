@@ -12,8 +12,6 @@ const UserPasswordManagement = () => {
   const username = params.username
   const onSubmit = async (values, ax) => {
     await actions.changePassword(username, values.oldPassword, values.newPassword)
-    console.log("hola mundo");
-    console.log(values);
   };
   const {
     values,

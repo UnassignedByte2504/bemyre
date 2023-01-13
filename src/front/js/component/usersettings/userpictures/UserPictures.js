@@ -48,7 +48,7 @@ const UserPictures = () => {
       window.location.href = `/user/${current_user}`;
     }
   }, []);
-  console.log();
+ 
   return (
     <Box className="UserPicturesWrapper">
       {/* <SettingHeader title="Cambiar Imagen de Perfil y Portada" /> */}

@@ -45,7 +45,6 @@ const Followers = () => {
     setData(store.followers);
   }, []);
 
-  // console.log(followers.user_name[0])
   return (
     data && (
       <Box>

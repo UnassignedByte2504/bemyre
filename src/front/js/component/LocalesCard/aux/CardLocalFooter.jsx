@@ -11,6 +11,7 @@ export const CardLocalFooter = ({
   // generoMusica5,
   // generoMusica6,
   generosMusica,
+  Key
 }) => {
   const handleDelete = () => {
     console.info("You clicked the delete icon.");
@@ -19,9 +20,10 @@ export const CardLocalFooter = ({
 
   return (
     <>
-      <Box className="ps-3 pe-3 pb-2">
-        {generosMusica?.map((element) => (
+      <Box className="ps-3 pe-3 pb-2" key={Key}>
+        {generosMusica?.map((element, index) => (
           <Chip
+            key={index}
             className="me-2 mb-2"
             onDelete={
               store.username === store.current_user ? handleDelete : null

@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-
+import SocketContext from "../state/socketContext.js";
 //Imports material
 import { Box, margin } from "@mui/system";
 import { CardProfile } from "../component/card/CardProfile.jsx";
@@ -39,10 +39,13 @@ import Xilofono from "../../img/instruments/xilofono-sm.jpg"
 import Vient from "../../img/instruments/viento.jpg"
 import Bateria from "../../img/instruments/bateria-sm.jpg"
 import Cuerda from "../../img/instruments/cuerda.jpg"
+import { FireExtinguisherRounded } from "@mui/icons-material";
 
 //Function
 
 export const Profile = ({reRender}) => {
+  const [isLoading, setIsLoading] = useState(true)
+  const Socket = useContext(SocketContext)
   const theme = useTheme();
   const { actions, store } = useContext(Context);
   const params = useParams();
@@ -59,22 +62,6 @@ export const Profile = ({reRender}) => {
 
   return (
     <>
-      {/* <Box className="position-relative position-relative-example headerProfile" sx={{
-         backgroundImage: `url(${portraitPicture})`,
-         backgroundPosition: "center",
-         backgroundSize: "cover",
-      }}>
-        <Box className=" d-flex flex-column justify-content-center align-items-end container nameheader">
-          <Box>
-            <Typography variant="h1">
-              {store.resultados.first_name} {store.resultados.last_name}
-            </Typography>
-          </Box>
-          <Box>
-            <Typography className="text-white">Localidad: Sevilla</Typography>
-          </Box>
-        </Box>
-      </Box> */}
 
       <Box 
       className="padreheader"

@@ -55,7 +55,8 @@ export const LandingPage = () => {
             paddingX: "0.5rem",
           }}
         >
-          {locales?.map((element) => (
+          {locales?.map((element, index) => (
+            <Box key={index}>
             <CardLocal
               // generoMusica1={element.generosMusica.generoMusica1}
               // generoMusica2={element.generosMusica.generoMusica2}
@@ -66,7 +67,9 @@ export const LandingPage = () => {
               ubicacion_local={element.ubicacion_local}
               description={element.description}
               generosMusica={element.generosMusica}
+              Key={index}
             />
+            </Box>
           ))}
         </Box>
       </Box>
@@ -85,7 +88,8 @@ export const LandingPage = () => {
             paddingX: "0.5rem",
           }}
         >
-          {bandas?.map((element) => (
+          {bandas?.map((element, index) => (
+            <Box key={index}>
             <CardBandas
               banda_img={element.banda_img}
               name={element.name}
@@ -95,7 +99,9 @@ export const LandingPage = () => {
               description={element.description}
               integrantes={element.integrantes}
               integrantes_nuevos={element.integrantes_nuevos}
+              Key={index}
             />
+            </Box>
           ))}
         </Box>
       </Box>
