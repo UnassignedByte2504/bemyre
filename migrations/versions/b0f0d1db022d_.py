@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: fca5b794d476
+Revision ID: b0f0d1db022d
 Revises: 
-Create Date: 2023-01-12 06:25:51.592826
+Create Date: 2023-01-13 10:05:25.032371
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'fca5b794d476'
+revision = 'b0f0d1db022d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -83,6 +83,7 @@ def upgrade():
     sa.Column('last_login', sa.DateTime(), nullable=False),
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.Column('is_musician', sa.Boolean(), nullable=False),
+    sa.Column('is_logged', sa.Boolean(), nullable=False),
     sa.ForeignKeyConstraint(['user_type'], ['user_type.name'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
@@ -100,6 +101,18 @@ def upgrade():
     sa.Column('followed_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['followed_id'], ['user.id'], ),
     sa.ForeignKeyConstraint(['follower_id'], ['user.id'], )
+    )
+    op.create_table('logged_users',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('username', sa.String(length=80), nullable=False),
+    sa.Column('login_timestamp', sa.DateTime(), nullable=False),
+    sa.Column('logout_timestamp', sa.DateTime(), nullable=True),
+    sa.Column('user_ip', sa.String(length=80), nullable=False),
+    sa.Column('user_agent', sa.String(length=80), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('username')
     )
     op.create_table('user_musician_info',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -153,16 +166,15 @@ def upgrade():
     )
     op.create_table('local',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=255), nullable=True),
-    sa.Column('ubicacion_local', sa.String(length=255), nullable=True),
-    sa.Column('description', sa.String(length=500), nullable=True),
-    sa.Column('city_id', sa.Integer(), nullable=True),
-    sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('local_type', sa.String(length=255), nullable=True),
+    sa.Column('local_img', sa.Unicode(), nullable=True),
+    sa.Column('name', sa.String(length=255), nullable=False),
+    sa.Column('ubicacion_local', sa.String(length=255), nullable=False),
+    sa.Column('description', sa.String(length=500), nullable=False),
+    sa.Column('city_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['city_id'], ['city.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user_contact_info',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -241,6 +253,7 @@ def downgrade():
     op.drop_table('bands')
     op.drop_table('user_social_media')
     op.drop_table('user_musician_info')
+    op.drop_table('logged_users')
     op.drop_table('followers')
     op.drop_table('city')
     op.drop_table('user')
