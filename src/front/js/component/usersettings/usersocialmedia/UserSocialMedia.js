@@ -4,9 +4,6 @@ import React, { useContext, useEffect, useState } from "react";
 //Import Material >>>
 import { TextField, Typography, Box, Button } from "@mui/material";
 //Import Material <<<
-//Import Formik
-import { useFormik } from "formik";
-
 //Import Icons
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -17,7 +14,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import TiktokIcon from "../../../../img/RRSS/tiktok_logo.png";
 import SoundcloudIcon from "../../../../img/RRSS/soundcloud.png";
 import SnapchatIcon from "../../../../img/RRSS/snapchat.png";
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+
 import SpotifyIcon from '../../../../img/RRSS/Spotify.png'
 import CancelIcon from "@mui/icons-material/Cancel";
 import { Context } from "../../../store/appContext";
@@ -53,7 +50,7 @@ const UserPasswordManagement = () => {
       );
   };
 
-  console.log("hola" ,store.resultados?.user_social_media[0].facebook_url)
+
   const fieldNames = {
     web: "website_url",
     youtube: "youtube_url",
@@ -89,19 +86,6 @@ const UserPasswordManagement = () => {
     spotify: false
   });
 
-  const submitFormPassword = (values) => {};
-  const { handleSubmit, handleChange, isSubmitting } = useFormik({
-    initialValues: {
-      youtube: "",
-      web: "",
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      tiktok: "",
-      snapchat: "",
-    },
-    onSubmit: submitFormPassword,
-  });
 
   const handleValueChange = (e) => {
     setValues({
@@ -115,7 +99,7 @@ const UserPasswordManagement = () => {
       <Typography className="my-3" variant="h3">
         Redes Sociales
       </Typography>
-      <form onSubmit={handleSubmit} className="changepasswordform">
+      <Box className="changepasswordform">
         {/* Condicional Website */}
 
         {!store.resultados?.user_social_media[0].website_url ? (
@@ -767,7 +751,7 @@ const UserPasswordManagement = () => {
             )}
           </>
         )}
-      </form>
+      </Box>
     </Box>
   );
 };
