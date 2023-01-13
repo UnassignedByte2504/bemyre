@@ -2,7 +2,7 @@ import { Box, Typography, Tooltip } from "@mui/material";
 import React, { useState } from "react";
 import Fade from "@mui/material/Fade";
 import Zoom from "@mui/material/Zoom";
-import SearchForm from "./aux/SearchForms.jsx";
+import SearchForm from "./aux/SearchForms.js";
 import FlexEvenly from "../styledcomponents/FlexEvenly.jsx";
 
 export const Spain = () => {

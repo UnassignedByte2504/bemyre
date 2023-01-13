@@ -4,8 +4,8 @@ import { Context } from "../store/appContext"
 
 const {actions, store } = useContext()
 
-export const fetchBand = async () => {
-
+export const fetchBand = async () => { 
+    
 
 
 }
