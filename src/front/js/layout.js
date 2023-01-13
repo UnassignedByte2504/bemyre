@@ -9,6 +9,7 @@ import { useMemo } from "react";
 import { useContext } from "react";
 import { Context } from "./store/appContext";
 import injectContext from "./store/appContext";
+import { SocketProvider } from "./state/socketContext.js";
 
 // >>> components >>>>
 import Navbar from "./component/navbar/Navbar.js";

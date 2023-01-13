@@ -17,7 +17,7 @@ import { AlertContactInfo } from '../../Alerts/AlertContactInfo.jsx'
 const ContactInfo = () => {
   useEffect(()=>{actions.fetchUser(username)
   },[])
-  useEffect(()=>{sessionStorage.removeItem("cambios_contact")
+  useEffect(()=>{localStorage.removeItem("cambios_contact")
   },[])
   const params= useParams()
   const username = params.username
@@ -36,13 +36,13 @@ const ContactInfo = () => {
     isSubmiting,
   } = useFormik({
     initialValues: {
-      phone_number: "",
-      address: "",
-      // city: "",
+      phone_number: store.resultados.user_contact_info[0].phone_number,
+      address: store.resultados.user_contact_info[0].address,
 
     },
     onSubmit,
   });
+
 
   return (
     <Box className='editinfobox'>
@@ -80,7 +80,8 @@ const ContactInfo = () => {
             />
 
          <AlertContactInfo/>
-        
+
+       
         <Button
         type='submit'
         className='mt-3'

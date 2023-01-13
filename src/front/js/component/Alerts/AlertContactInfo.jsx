@@ -7,7 +7,7 @@ import { Alert, Box, Snackbar, Stack, Typography } from "@mui/material";
 
 export const AlertContactInfo = () => {
 
-  const alert_contact = sessionStorage.getItem("cambios_contact");
+  const alert_contact = localStorage.getItem("cambios_contact");
 
   return (
     <Box>
