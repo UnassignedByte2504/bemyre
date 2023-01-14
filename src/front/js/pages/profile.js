@@ -165,6 +165,12 @@ export const Profile = ({reRender}) => {
           {1 + 1 === 2 ? (
             <MyInstruments currentUser={currentUser} userName={username} />
           ) : null}
+          {/* <CardInstruments
+          name="GUITARRA"
+          type="VIENTO"
+          img={Guitarra}  //Aqui traeriamos como variable
+
+          /> */}
 
           {/* Condicional Carrera musical y estilo */}
           {1 + 1 === 2 ? (
