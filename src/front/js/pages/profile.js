@@ -190,8 +190,8 @@ export const Profile = ({reRender}) => {
             <Equipment currentUser={currentUser} userName={username} />
           ) : null}
           <CardInstruments
-          name="GUITARRA"
-          type="VIENTO"
+          name="Guitarra"
+          type="Cuerda"
           img={Guitarra}  //Aqui traeriamos como variable
 
           />
