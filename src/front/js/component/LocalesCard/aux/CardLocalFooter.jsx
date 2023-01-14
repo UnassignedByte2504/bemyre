@@ -4,7 +4,6 @@ import { Context } from "../../../store/appContext";
 import { CardsButton } from "../../buttons/CardsButton.jsx";
 
 export const CardLocalFooter = ({
-
   generosMusica,
   Key
 }) => {
@@ -13,7 +12,7 @@ export const CardLocalFooter = ({
   };
   const { actions, store } = useContext(Context);
 
-  return (
+  return ( 
     <>
       <Box className="ps-3 pe-3 pb-2" key={Key}>
         {generosMusica?.map((element, index) => (
@@ -30,8 +29,8 @@ export const CardLocalFooter = ({
       </Box>
 
       <Box sx={{ display: "flex", gap: "0.25rem" }}>
-        <CardsButton minWidth="142px" title="Más info" />
-        <CardsButton minWidth="142px" title="Aplicar" />
+        <CardsButton minWidth="223px" title="Más info" />
+        {/* <CardsButton minWidth="142px" title="Aplicar" /> */}
       </Box>
     </>
   );

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import "../../styles/locales.css";
 import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
 import { Container } from "@mui/system";
-import { CallToAction1 } from "../component/CallToAction/CallToAction1.jsx";
+import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
 import { Grid } from "@mui/material";
 import { locales } from "../mockingData";
 
@@ -23,15 +23,12 @@ export const Locales = () => {
 
   return (
     <>
-      <CallToAction1 text1="¿Te gustaría tocar en un local?" />
+      <CallToAction2 text1="¿Te gustaría ofrecer música en vivo en tu local?" text2="Contacta con músicos cerca de tí" title="Músicos cerca de mi" to="/musicians" />
       <Container className="mb-5">
-        <Grid container spacing={3}>
+        <Grid container spacing={2} >
           {locales?.map((element, index) => (
-            <Grid item xs={4} key={index}>
+            <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
               <CardLocal
-                // generoMusica1={element.generosMusica.generoMusica1}
-                // generoMusica2={element.generosMusica.generoMusica2}
-                // las imagenes van en el csv y en models?
                 local_img={element.local_img}
                 name={element.name}
                 city={element.city}
@@ -43,6 +40,7 @@ export const Locales = () => {
           ))}
         </Grid>
       </Container>
+  
     </>
   );
 };

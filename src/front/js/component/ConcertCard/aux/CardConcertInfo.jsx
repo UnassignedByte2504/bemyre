@@ -9,24 +9,26 @@ import React from "react";
 import FlexBetween from "../../styledcomponents/FlexBetween.jsx";
 
 export const CardConcertInfo = ({
-  fechaConcierto,
-  horaConcierto,
-  ubicacionConcierto,
-  nombreArtistaConcierto,
+  date,
+  hour,
+  ubicacion_event,
+  name,
+  city,
+  description, 
 }) => {
   return (
     <CardContent>
       <Typography variant="h5">
-        <strong>{nombreArtistaConcierto}</strong>
+        <strong>{name} | {city}</strong>
       </Typography>
 
       <List>
         <FlexBetween>
           <ListItemText>
-            {fechaConcierto} | {horaConcierto}
+            {date} | {hour}
           </ListItemText>
         </FlexBetween>
-        <ListItemText>{ubicacionConcierto}</ListItemText>
+        <ListItemText>{ubicacion_event}</ListItemText>
       </List>
     </CardContent>
   );

@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import FlexBetween from "../../../component/styledcomponents/FlexBetween.jsx";
-import LinkButton from "../../buttons/LinkButton.jsx";
 import { Button } from "@mui/material";
 
 export const CardBandasInfo = ({

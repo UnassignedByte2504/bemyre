@@ -12,6 +12,9 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import GroupsIcon from '@mui/icons-material/Groups';
+import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 
 
 
@@ -53,11 +56,15 @@ export const iconsArray = [
   },
   {
     name: "Locales",
-    icon: <LogoutIcon />,
+    icon: <StorefrontIcon />,
   },
   {
     name: "Bandas",
-    icon: <LogoutIcon />,
+    icon: <GroupsIcon />,
+  },
+  {
+    name: "Musicians",
+    icon: <GraphicEqIcon />,
   },
 ];
 // <<< Icons/Name
@@ -70,6 +77,7 @@ export const globalPages = [
   "Events",
   "Locales",
   "Bandas",
+  "Musicians"
 ];
 export const userPages = ["Settings", "Log out"];
 // <<< Pages

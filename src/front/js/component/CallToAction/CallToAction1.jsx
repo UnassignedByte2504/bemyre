@@ -7,7 +7,7 @@ export const CallToAction1 = ({ text1 }) => {
   const theme = useTheme();
   return (
     <>
-      <Box className="header-cta">
+      <Box className="container-fluid header-cta">
         <Typography variant="h2">{text1} </Typography>
       </Box>
     </>
