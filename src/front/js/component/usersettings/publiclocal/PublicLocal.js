@@ -4,6 +4,7 @@ import {createLocalSchema} from "../../../esquemas/index"
 import { Box, Button } from "@mui/material";
 import { Typography } from "@mui/material";
 import {TextField} from "@mui/material";
+import { ArchiveSharp } from "@mui/icons-material";
 
 
 
@@ -13,18 +14,23 @@ export const PublicLocal = () => {
   const [ubicacionLocal, setUbicacionLocal] = useState("");
   const [descripcionLocal, setDescripcionLocal] = useState("");
 
-  const publicar = () => {
-    fetch(`${process.env.BACKEND_URL}/api/settings/<string:username_var>/publiclocal`,
-    {
+    const userName = sessionStorage.getItem('current_user')
+
+  const publicar = async () => {
+    const token = sessionStorage.getItem('access_token')
+    const options  =  {
       method: "POST",
-      headers: {"Content-Type": "application/json",
+      headers: {"Content-Type": "application/json",  Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      nombreLocal: nombreLocal,
-      ubicacionLocal: ubicacionLocal,
-      descripcionLocal: descripcionLocal
+      name: nombreLocal,
+      ubicacion_local: ubicacionLocal,
+      description: descripcionLocal,
+      city: 'Ares'
     })
-    })
+    }
+    await fetch(`${process.env.BACKEND_URL}/api/settings/${userName}/publiclocal`, options
+)
     .then((resp)=> resp.json())
     .then((result) => console.log(result))
   }
@@ -69,7 +75,7 @@ export const PublicLocal = () => {
             onChange={(e) => setDescripcionLocal(e.target.value) }
             />
       
-          <Button onClick={publicar}>Publicar</Button>
+          <Button onClick={() => publicar()}>Publicar</Button>
 
       </form>
       </Box>
