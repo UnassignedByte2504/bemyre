@@ -71,10 +71,10 @@ class City(db.Model): #ciudades, pueblos
     locales = db.relationship('Local', backref='City', lazy=True)
 
 
-    @staticmethod
-    def cities_paginated (page=1, per_page=50):
-        return City.query.order_by(City.name.asc()).\
-            paginate(page=page, per_page=per_page, error_out=False)
+    # @staticmethod
+    # def cities_paginated (page=1, per_page=50):
+    #     return City.query.order_by(City.name.asc()).\
+    #         paginate(page=page, per_page=per_page, error_out=False)
 
 
     def __repr__(self):

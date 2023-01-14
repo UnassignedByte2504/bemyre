@@ -445,13 +445,23 @@ def get_states(country_var):
         states_list.append(state.name)
     return jsonify(states_list), 200
 
-@api.route('/<string:state_var>/cities/<int:page_var>', methods=['GET'])
-def get_cities(state_var, page_var):
-    cities = City.query.filter_by(state = state_var).paginate(page = page_var, per_page = 20)
+@api.route('/<string:state_var>/cities', methods=['GET'])
+def get_cities(state_var):
+    cities = City.query.filter_by(state = state_var).all()
     cities_list = []
-    for city in cities.items:
+    for city in cities:
         cities_list.append(city.name)
     return jsonify(cities_list), 200
+
+
+
+@api.route('<string:state_var>/<string:city_var>', methods= ['GET'])
+def get_city(state_var, city_var):
+    cities = City.query.filter_by(state = state_var).all()
+    cities_list = []
+    for city in cities:
+        cities_list.append(city.name)
+    filtered_cities 
 
 
 

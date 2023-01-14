@@ -28,6 +28,7 @@ import { Locales } from "./pages/Locales";
 import { Bandas } from "./pages/Bandas.js";
 
 
+
 // <<< components <<<<
 
 //create your first component
