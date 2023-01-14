@@ -28,8 +28,8 @@ export const CardMusicianFooter = ({
 
       </Box>
       <Box sx={{ display: "flex", gap: "0.25rem" }}>
-        <CardsButton minWidth="126px" title="Más info" />
-        <CardsButton minWidth="126px" title="Seguir" />
+        <CardsButton minWidth="102px" title="Más info" />
+        <CardsButton minWidth="102px" title="Seguir" />
       </Box>
     </>
   );
