@@ -18,27 +18,24 @@ export const CardMusicianInfo = ({
 }) => {
 
   return (
+    <>
     <CardContent>
-      {/* <Box sx={{ display: "inline" }}>
+      
+      <Box sx={{ display: "inline" }}>
         <Typography variant="h5">
           <strong>
             {artistic_name} | {city}
           </strong>
         </Typography>
       </Box>
-      <Typography variant="body1" gutterBottom sx={{ "margin-top": "5px" }}>
-    
-        {instruments?.map((element, index) => (
-          <span
-            Key={index}
-            {instruments}
-            
-           
-          ></span>
+      <Typography variant="body1">Mis instrumentos {instruments?.map((element, index) => (
+          <span>{` ,${element}`}</span>
         ))}
 
-      </Box>
-      </Typography> */}
+      
+      </Typography>
+      
     </CardContent>
+    </>
   );
 };

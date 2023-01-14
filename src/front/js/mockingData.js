@@ -431,7 +431,139 @@ export const musicos = [
     musico_img:
       "https://images.unsplash.com/photo-1662952208058-2e0dccfe8f7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG11c2ljaWFufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
     user_name: "Nombre",
-    artistic_name: "nombre artístico",
+    artistic_name: "Nombre artístico",
+    instruments: ["Guitarra", "Bajo"],
+    city: "Madrid",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+
+  },
+  {
+    generosMusica: ["Jazz", "Clasica"],
+    musico_img:
+      "https://images.unsplash.com/photo-1593697972672-b1c1902219e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    user_name: "Nombre",
+    artistic_name: "Nombre artístico",
+    instruments: ["Guitarra", "Bajo"],
+    city: "Madrid",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+
+  },
+  {
+    generosMusica: ["Jazz", "Clasica"],
+    musico_img:
+      "https://images.unsplash.com/photo-1528143358888-6d3c7f67bd5d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=741&q=80",
+    user_name: "Nombre",
+    artistic_name: "Nombre artístico",
+    instruments: ["Guitarra", "Bajo"],
+    city: "Madrid",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+
+  },
+  {
+    generosMusica: ["Jazz", "Clasica"],
+    musico_img:
+      "https://images.unsplash.com/photo-1615826622658-99ac210c7cca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    user_name: "Nombre",
+    artistic_name: "Nombre artístico",
+    instruments: ["Guitarra", "Bajo"],
+    city: "Madrid",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+
+  },
+  {
+    generosMusica: ["Jazz", "Clasica"],
+    musico_img:
+      "https://images.unsplash.com/photo-1662952208058-2e0dccfe8f7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG11c2ljaWFufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    user_name: "Nombre",
+    artistic_name: "Nombre artístico",
+    instruments: ["Guitarra", "Bajo"],
+    city: "Madrid",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+
+  },
+  {
+    generosMusica: ["Jazz", "Clasica"],
+    musico_img:
+      "https://images.unsplash.com/photo-1593697972672-b1c1902219e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    user_name: "Nombre",
+    artistic_name: "Nombre artístico",
+    instruments: ["Guitarra", "Bajo"],
+    city: "Madrid",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+
+  },
+  {
+    generosMusica: ["Jazz", "Clasica"],
+    musico_img:
+      "https://images.unsplash.com/photo-1528143358888-6d3c7f67bd5d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=741&q=80",
+    user_name: "Nombre",
+    artistic_name: "Nombre artístico",
+    instruments: ["Guitarra", "Bajo"],
+    city: "Madrid",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+
+  },
+  {
+    generosMusica: ["Jazz", "Clasica"],
+    musico_img:
+      "https://images.unsplash.com/photo-1615826622658-99ac210c7cca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    user_name: "Nombre",
+    artistic_name: "Nombre artístico",
+    instruments: ["Guitarra", "Bajo"],
+    city: "Madrid",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+
+  },
+  {
+    generosMusica: ["Jazz", "Clasica"],
+    musico_img:
+      "https://images.unsplash.com/photo-1662952208058-2e0dccfe8f7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG11c2ljaWFufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    user_name: "Nombre",
+    artistic_name: "Nombre artístico",
+    instruments: ["Guitarra", "Bajo"],
+    city: "Madrid",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+
+  },
+  {
+    generosMusica: ["Jazz", "Clasica"],
+    musico_img:
+      "https://images.unsplash.com/photo-1593697972672-b1c1902219e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    user_name: "Nombre",
+    artistic_name: "Nombre artístico",
+    instruments: ["Guitarra", "Bajo"],
+    city: "Madrid",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+
+  },
+  {
+    generosMusica: ["Jazz", "Clasica"],
+    musico_img:
+      "https://images.unsplash.com/photo-1528143358888-6d3c7f67bd5d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=741&q=80",
+    user_name: "Nombre",
+    artistic_name: "Nombre artístico",
+    instruments: ["Guitarra", "Bajo"],
+    city: "Madrid",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+
+  },
+  {
+    generosMusica: ["Jazz", "Clasica"],
+    musico_img:
+      "https://images.unsplash.com/photo-1615826622658-99ac210c7cca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    user_name: "Nombre",
+    artistic_name: "Nombre artístico",
     instruments: ["Guitarra", "Bajo"],
     city: "Madrid",
     description:

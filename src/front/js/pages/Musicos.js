@@ -14,7 +14,7 @@ export const Musicos = () => {
       <Container className="mb-5">
         <Grid container spacing={2} >
           {musicos?.map((element, index) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+            <Grid item xs={12} sm={6} md={6} lg={3} key={index}>
               <CardMusician
                 musico_img={element.musico_img} 
                 user_name={element.user_name}
