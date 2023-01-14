@@ -151,7 +151,7 @@ export const Signup = () => {
                 }
               />
             </FlexBetween>
-
+            <FlexBetween>
             <TextField
               id="email"
               label="Email"
@@ -180,6 +180,7 @@ export const Signup = () => {
                 errors.confirmEmail
               }
             />
+            </FlexBetween>
             <FlexBetween>
               <TextField
                 id="password"

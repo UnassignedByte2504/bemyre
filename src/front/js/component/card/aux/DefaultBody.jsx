@@ -13,9 +13,9 @@ const DefaultBody = ({description}) => {
   return (
     <>
       <Typography className="card-text">{description}</Typography>
-      <Typography>
+      {/* <Typography>
         <strong>Leer más</strong> <ArrowForwardIcon />
-      </Typography>
+      </Typography> */}
       <Divider className="mb-3"></Divider>
       <Typography>
         <strong>Instrumentos: </strong>Guitarra y piano
