@@ -431,32 +431,31 @@ def get_locales():
         locales_list.append(local.serialize())
     return jsonify(locales_list), 200
 
-
+ 
 # PUBLIC LOCAL
 
-# @api.route('settings/<string:username_var>/publiclocal', methods=['POST'])
-# @jwt_required(username_var)
-# def public_local():
-#     data = request.data
-#     data = json.loads(data)
-#     city = City.query.filter_by(name = request_data['city']).first():
-#     user = User.query.filter_by(user_name = username_var).first():
+@api.route('settings/<string:username_var>/publiclocal', methods=['POST'])
+@jwt_required()
+def public_local(username_var):
+    data=request.get_json(force=True)
+    city = City.query.filter_by(city.name == data['city']).first()
+    user = User.query.filter_by(user_name == username_var).first()
     
 
-#     if db.session.query(Local).filter(Local.name == request_data['name']).first():
-#         return jsonify({"message": "El local ya está registrado"}),400
-#     new_local = Local(
-#         name = data["name"],
-#         ubicacion_local = data["ubicacion_local"],
-#         description = data["description"],
-#         city = city
-#     )
-#     db.session.add(new_local)
-#     db.session.commit()
-#     response_body = {
-#         "msg": "local añadido"
-#     }
-#     return jsonify(response_body), 201
+    if db.session.query(Local).filter(Local.name == data['name']).first():
+        return jsonify({"message": "El local ya está registrado"}),400
+    new_local = Local(
+        name = data["name"],
+        ubicacion_local = data["ubicacion_local"],
+        description = data["description"],
+        city = city
+    )
+    db.session.add(new_local)
+    db.session.commit()
+    response_body = {
+        "msg": "local añadido"
+    }
+    return jsonify(response_body), 201
 
 
 
