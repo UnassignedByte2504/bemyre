@@ -26,6 +26,8 @@ import { Faq } from "./pages/Faq.js";
 import ProtectedRoute from "./ProtectedRoute.js";
 import { Locales } from "./pages/Locales";
 import { Bandas } from "./pages/Bandas.js";
+import { Eventos } from "./pages/Eventos.js";
+import { Musicos } from "./pages/Musicos.js";
 
 
 
@@ -81,6 +83,8 @@ const Layout = ( ) => {
             />
             <Route element={<Locales />} path="/locales" />
             <Route element={<Bandas />} path="/bandas" />
+            <Route element={<Eventos />} path="/events" />
+            <Route element={<Musicos />} path="/musicians" />
           </Routes>
           <Footer />
         </ThemeProvider>

@@ -127,7 +127,7 @@ followers = db.Table('followers',
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
     db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
 )
-
+ 
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -388,7 +388,7 @@ class MusicGenre(db.Model):
 
 
 class Event(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True) 
     name = db.Column(db.String(80), unique=True, nullable=False)
     description = db.Column(db.String(80), unique=True, nullable=True)
     date = db.Column(db.DateTime, nullable=False)

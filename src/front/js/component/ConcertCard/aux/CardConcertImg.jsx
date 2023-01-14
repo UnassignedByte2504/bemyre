@@ -3,12 +3,12 @@ import React from "react";
 
 import "../../../../styles/cardconcert.css";
 
-export const CardConcertImg = ({ urlImg }) => {
+export const CardConcertImg = ({ event_img}) => {
   const theme = useTheme();
   return (
     <>
       <Box className="contendorImg">
-        <img className="cardconcertimg" src={urlImg} />
+        <img className="cardconcertimg" src={event_img} />
       </Box>
     </>
   );

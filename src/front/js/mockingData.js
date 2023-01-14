@@ -277,3 +277,165 @@ export const bandas = [
     ],
   },
 ];
+
+export const event = [
+  {
+    generosMusica: ["Jazz", "Clasica"],
+    event_img:
+      "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+    name: "Nombre evento 1",
+    city: "Madrid",
+    ubicacion_event: "c/ Calle, Numero (Localidad)",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+    date: "23/01/22",
+    hour: "22h",
+  },
+  {
+    generosMusica: ["Pop", "Rock"],
+    event_img:
+      "https://images.unsplash.com/photo-1565035010268-a3816f98589a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
+    name: "Nombre evento 2",
+    city: "Madrid",
+    ubicacion_event: "c/ Calle, Numero (Localidad)",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+    date: "23/01/22",
+    hour: "22h",
+  },
+  {
+    generosMusica: ["Indie", "Blues"],
+    event_img:
+      "https://images.unsplash.com/photo-1557787163-1635e2efb160?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1473&q=80",
+    name: "Nombre evento 3",
+    city: "Madrid",
+    ubicacion_event: "c/ Calle, Numero (Localidad)",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+    date: "23/01/22",
+    hour: "22h",
+  },
+  {
+    generosMusica: ["Techno"],
+    event_img:
+      "https://images.unsplash.com/photo-1509824227185-9c5a01ceba0d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80",
+    name: "Nombre evento 4",
+    city: "Madrid",
+    ubicacion_event: "c/ Calle, Numero (Localidad)",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+    date: "23/01/22",
+    hour: "22h",
+  },
+  {
+    generosMusica: ["Jazz", "Clasica"],
+    event_img:
+      "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+    name: "Nombre evento 1",
+    city: "Madrid",
+    ubicacion_event: "c/ Calle, Numero (Localidad)",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+    date: "23/01/22",
+    hour: "22h",
+  },
+  {
+    generosMusica: ["Pop", "Rock"],
+    event_img:
+      "https://images.unsplash.com/photo-1565035010268-a3816f98589a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
+    name: "Nombre evento 2",
+    city: "Madrid",
+    ubicacion_event: "c/ Calle, Numero (Localidad)",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+    date: "23/01/22",
+    hour: "22h",
+  },
+  {
+    generosMusica: ["Indie", "Blues"],
+    event_img:
+      "https://images.unsplash.com/photo-1557787163-1635e2efb160?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1473&q=80",
+    name: "Nombre evento 3",
+    city: "Madrid",
+    ubicacion_event: "c/ Calle, Numero (Localidad)",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+    date: "23/01/22",
+    hour: "22h",
+  },
+  {
+    generosMusica: ["Techno"],
+    event_img:
+      "https://images.unsplash.com/photo-1509824227185-9c5a01ceba0d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80",
+    name: "Nombre evento 4",
+    city: "Madrid",
+    ubicacion_event: "c/ Calle, Numero (Localidad)",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+    date: "23/01/22",
+    hour: "22h",
+  },
+  {
+    generosMusica: ["Jazz", "Clasica"],
+    event_img:
+      "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+    name: "Nombre evento 1",
+    city: "Madrid",
+    ubicacion_event: "c/ Calle, Numero (Localidad)",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+    date: "23/01/22",
+    hour: "22h",
+  },
+  {
+    generosMusica: ["Pop", "Rock"],
+    event_img:
+      "https://images.unsplash.com/photo-1565035010268-a3816f98589a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
+    name: "Nombre evento 2",
+    city: "Madrid",
+    ubicacion_event: "c/ Calle, Numero (Localidad)",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+    date: "23/01/22",
+    hour: "22h",
+  },
+  {
+    generosMusica: ["Indie", "Blues"],
+    event_img:
+      "https://images.unsplash.com/photo-1557787163-1635e2efb160?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1473&q=80",
+    name: "Nombre evento 3",
+    city: "Madrid",
+    ubicacion_event: "c/ Calle, Numero (Localidad)",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+    date: "23/01/22",
+    hour: "22h",
+  },
+  {
+    generosMusica: ["Techno"],
+    event_img:
+      "https://images.unsplash.com/photo-1509824227185-9c5a01ceba0d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80",
+    name: "Nombre evento 4",
+    city: "Madrid",
+    ubicacion_event: "c/ Calle, Numero (Localidad)",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+    date: "23/01/22",
+    hour: "22h",
+  },
+];
+
+export const musicos = [
+  {
+    generosMusica: ["Jazz", "Clasica"],
+    musico_img:
+      "https://images.unsplash.com/photo-1662952208058-2e0dccfe8f7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG11c2ljaWFufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    user_name: "Nombre",
+    artistic_name: "nombre artístico",
+    instruments: ["Guitarra", "Bajo"],
+    city: "Madrid",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+
+  },
+];

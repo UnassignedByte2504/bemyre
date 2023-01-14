@@ -1,7 +1,7 @@
 @import url(colors.css);
 
 .card-local {
-  width: 22rem;
+  width: 16rem;
   height: 30rem;
   cursor: pointer;
 }

@@ -14,19 +14,10 @@ export const Bandas = () => {
         title="Crear banda"
         to="/home"
       />
-      <Box className="mb-5" sx={{ marginX: "16rem" }}>
-        <Grid
-          spacing={2}
-          // container
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "2rem",
-            // justifyContent: "center",
-          }}
-        >
-          {bandas.map((element, index) => (
-            <Grid item xs={6} key={index}>
+ <Container className="mb-5">
+        <Grid container spacing={2}>
+          {bandas?.map((element, index) => (
+            <Grid item xs={12} sm={12} md={12} lg={6} key={index}>
               <CardBandas
                 banda_img={element.banda_img}
                 name={element.name}
@@ -40,7 +31,7 @@ export const Bandas = () => {
             </Grid>
           ))}
         </Grid>
-      </Box>
+      </Container>
     </>
   );
 };
