@@ -428,11 +428,12 @@ class InfluenceBand(db.Model):
 class Local (db.Model):
     # __tablename__='local'
     id=db.Column(db.Integer, primary_key=True)
-    local_img = db.Column(db.Unicode)
+    local_img = db.Column(db.Unicode, nullable=True)
     name = db.Column(db.String(255), nullable=False)
     ubicacion_local = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(500), nullable=False)
     city_id = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=False)
+    city = db.relationship('City', backref=('local'), lazy=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     # events = db.relationship('Event', backref='local', lazy=True)
     local_music_genres = db.relationship('LocalMusicGenre', backref='local', lazy=True)
