@@ -92,10 +92,10 @@ export const MyInstruments = ({ currentUser, userName }) => {
   
 
   return (
-    <Box className="mt-5">
+    <Box className=" mt-5">
       <Typography
         variant="h3"
-        sx={{ display: "flex", justifyContent: "space-between" }}
+        sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
       >
         <strong>Mis instrumentos</strong>
         {open == false ? (
@@ -108,7 +108,8 @@ export const MyInstruments = ({ currentUser, userName }) => {
           </Button>
         )}
       </Typography>
-      <Divider />
+      <Divider 
+      className="mb-4"/>
       {open == false ? (
         <>
         {1+1==2? 
