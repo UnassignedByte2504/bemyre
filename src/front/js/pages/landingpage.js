@@ -18,27 +18,60 @@ import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
 export const LandingPage = () => {
   const { actions, store } = useContext(Context);
   const [activePage, setActivePage] = useState();
+  const [lattitude, setLattitude] = useState();
+  const [longitude, setLongitude] = useState();
+  const [currentCity, setCurrentCity] = useState();
+
   const date = new Date();
 
   const day = date.getDate();
   const month = date.getMonth() + 1;
 
+  const fetchCityName = async () => {
+    const apiKey = store.geo_api_key;
+    const opts = {
+      method: "GET",
+    };
+    const geoApiurl = `https://api.geoapify.com/v1/geocode/reverse?lat=${lattitude}&lon=${longitude}&apiKey=${apiKey}`;
+    await fetch(geoApiurl, opts)
+      .then((response) => response.json())
+      .then((data) => { setCurrentCity(data.features[0].properties.city)
+      });
+  };
+  
   useEffect(() => {
     const currentPath = window.location.pathname;
     setActivePage(currentPath);
     actions.setLocation(currentPath);
   }, [store.currentPath]);
 
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLattitude(position.coords.latitude);
+          setLongitude(position.coords.longitude);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+  }, []);
+  useEffect(() => {
+    fetchCityName()
+  }, [lattitude]);
+
   return (
     <Box>
       <LandingJumbo />
       <Container maxWidth="xl" className="text-center">
-        <Typography variant="h3" className=" mt-5 mb-5">
-          Conciertos en Sevilla esta semana{" "}
+        { currentCity && <Typography variant="h3" className=" mt-5 mb-5">
+          Conciertos en {currentCity} esta semana{" "}
           <i className="far fa-calendar-alt"></i>
           {day}/{month} - <i className="far fa-calendar-alt"></i>
           {day + 7}/{month}
-        </Typography>
+        </Typography>}
       </Container>
 
       {/* ------LOCALES----------- */}
@@ -57,18 +90,18 @@ export const LandingPage = () => {
         >
           {locales?.map((element, index) => (
             <Box key={index}>
-            <CardLocal
-              // generoMusica1={element.generosMusica.generoMusica1}
-              // generoMusica2={element.generosMusica.generoMusica2}
-              // las imagenes van en el csv y en models?
-              local_img={element.local_img}
-              name={element.name}
-              city={element.city}
-              ubicacion_local={element.ubicacion_local}
-              description={element.description}
-              generosMusica={element.generosMusica}
-              Key={index}
-            />
+              <CardLocal
+                // generoMusica1={element.generosMusica.generoMusica1}
+                // generoMusica2={element.generosMusica.generoMusica2}
+                // las imagenes van en el csv y en models?
+                local_img={element.local_img}
+                name={element.name}
+                city={element.city}
+                ubicacion_local={element.ubicacion_local}
+                description={element.description}
+                generosMusica={element.generosMusica}
+                Key={index}
+              />
             </Box>
           ))}
         </Box>
@@ -90,22 +123,21 @@ export const LandingPage = () => {
         >
           {bandas?.map((element, index) => (
             <Box key={index}>
-            <CardBandas
-              banda_img={element.banda_img}
-              name={element.name}
-              generosMusica={element.generosMusica}
-              city={element.city}
-              ubicacion_local={element.ubicacion_local}
-              description={element.description}
-              integrantes={element.integrantes}
-              integrantes_nuevos={element.integrantes_nuevos}
-              Key={index}
-            />
+              <CardBandas
+                banda_img={element.banda_img}
+                name={element.name}
+                generosMusica={element.generosMusica}
+                city={element.city}
+                ubicacion_local={element.ubicacion_local}
+                description={element.description}
+                integrantes={element.integrantes}
+                integrantes_nuevos={element.integrantes_nuevos}
+                Key={index}
+              />
             </Box>
           ))}
         </Box>
       </Box>
-
 
       <CallToAction2
         text1="¿Eres músico?"

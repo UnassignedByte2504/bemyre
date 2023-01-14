@@ -8,13 +8,21 @@ import Select from "@mui/material/Select";
 import FlexBetween from "../styledcomponents/FlexBetween.jsx";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import parse from "autosuggest-highlight/parse";
+import match from "autosuggest-highlight/match";
 
 export const ExploraDropdown = ({ provincia }) => {
   const [cities, setCites] = useState([]);
-  const [page, setPage] = useState(1);
+  const [selectedCity, setSelectedCity] = useState(null);
   const Provincia = provincia;
 
-  const fetchCities = async (state, page) => {
+  const handleChange = (e) => {
+    setSelectedCity(e.target.value);
+  };
+
+  const fetchCities = async (state) => {
     const options = {
       method: "GET",
       headers: {
@@ -22,7 +30,7 @@ export const ExploraDropdown = ({ provincia }) => {
       },
     };
     const response = await fetch(
-      `${process.env.BACKEND_URL}/api/${state}/cities/${page}`,
+      `${process.env.BACKEND_URL}/api/${state}/cities`,
       options
     );
 
@@ -31,42 +39,35 @@ export const ExploraDropdown = ({ provincia }) => {
   };
   console.log(provincia);
   console.log(Provincia);
+  console.log(selectedCity);
   useEffect(() => {
-    fetchCities(Provincia, page);
-  }, [page]);
+    fetchCities(Provincia);
+  }, [Provincia]);
 
-  useEffect(() =>{
-    setPage(1)
-  },[Provincia])
-  console.log(cities);
+  useEffect(() => {
+    console.log("useef");
+    console.log(selectedCity);
+  }, [selectedCity]);
 
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Ciudad</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="Cities"
-        >
-          {cities?.map((city) => (
-            <MenuItem key={city} value={city}>
-              {city}
-            </MenuItem>
-          ))}
-          <FlexBetween>
-            {page > 1 && (
-              <MenuItem onClick={() => setPage(page - 1)}>
-                <NavigateBeforeIcon />
-              </MenuItem>
-            )}
-            {cities?.length > 0 ? (
-              <MenuItem onClick={() => setPage(page + 1)}>
-                <NavigateNextIcon />
-              </MenuItem>
-            ) : null}
-          </FlexBetween>
-        </Select>
+        <Autocomplete
+          disablePortal
+          id="combo-box-demo"
+          options={cities}
+          sx={{ width: 300 }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              placeholder="Poblacion, Municipio..."
+              label="Ciudad"
+              onChange={handleChange}
+              value={selectedCity}
+              autoComplete="on"
+            />
+          )}
+        />
       </FormControl>
     </Box>
   );

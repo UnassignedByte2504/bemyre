@@ -23,6 +23,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       reRender: 1,
       profileCardView: "default",
       loggedUsers: [],
+      geo_api_key:'c9e7139f5e0b428c9c11c3c069fe8aea',
     },
     actions: {
       sendImgTest: async (img) => {
