@@ -15,27 +15,58 @@ import SpatialAudioOffIcon from "@mui/icons-material/SpatialAudioOff";
 import SpotifyIcon from "../../../../img/RRSS/Spotify.png";
 
 const UserArtistProfile = () => {
-  const perfilArtista = async (username, fieldNames, newValues) => {
-    const options = {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
-        "Content-Type": "application/json",
-      },
-      body: `{
-            "${fieldNames}": "${newValues}",
 
-      }`,
-    };
-    await fetch(
-      `${process.env.BACKEND_URL}/api/settings/${username}/addmedia`,
-      options
-    )
-      .then((response) => response.json())
-      .then((result) =>
-        sessionStorage.setItem("user_media", "Actualización de user media ")
-      );
-  };
+  const addMedia = async (username, fieldNames, newValues) => {
+    const [hasMedia, setHasMedia] = useState();
+    const [method, setMethod] = useState();
+
+    await fetch(`${process.env.BACKEND_URL}/api/settings/${username}/hasmedia`)
+      .then((res) => res.json())
+      .then((data) => {
+        setHasMedia(data.hasMedia);
+      })
+      .catch((err) => console.log(err));
+    if (hasMedia === false) {
+      setMethod("POST");
+    } else {
+      setMethod("PUT");
+    }
+    const options = {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    body:`"${fieldNames}": "${newValues}"`
+    }
+    await fetch(`${process.env.BACKEND_URL}/api/settings/${username}/hasmedia`, options)
+    .then((response)=>response.json())
+    .then((result)=>sessionStorage.setItem("user_media", "Actualización de user media "))
+
+  }
+
+
+  // const perfilArtista = async (username, fieldNames, newValues) => {
+  //   const options = {
+  //     method: "PUT",
+  //     headers: {
+  //       Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: `{
+  //           "${fieldNames}": "${newValues}",
+
+  //     }`,
+  //   };
+  //   await fetch(
+  //     `${process.env.BACKEND_URL}/api/settings/${username}/addmedia`,
+  //     options
+  //   )
+  //     .then((response) => response.json())
+  //     .then((result) =>
+  //       sessionStorage.setItem("user_media", "Actualización de user media ")
+  //     );
+  // };
 
   const [open, setOpen] = useState({
     youtube: false,
@@ -183,7 +214,7 @@ const UserArtistProfile = () => {
       ) : null} */}
 
       <Button
-        onClick={() => perfilArtista(userName, fieldNames, values)}
+        onClick={() => addMedia(userName, fieldNames, values)}
         variant="contained"
         color="success"
         className="mb-5"
