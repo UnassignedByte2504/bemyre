@@ -103,46 +103,26 @@ export const LoginJumbo = () => {
   }, [lattitude]);
 
   return (
-    <Box
-      className="padreloginjumbo"
-      width="100vw"
-      sx={{
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      <Box
-        className="d-flex align-items-center justify-content-center"
-        sx={{
-          height: "100%",
-          width: "100%",
-          position: "absolute",
-          zIndex: "2",
-        }}
-      >
-        {currentCity ? (
-          <Typography className="text-center titleJumbotron" sx={{ fontSize: "4rem" }}>
-            Eventos en {currentCity}
-          </Typography>
-        ) : (
-          <Typography className="text-center" sx={{ fontSize: "4rem" }}>
-            Eventos en tu ciudad
-          </Typography>
-        )}
-      </Box>
-      <Box sx={{ position: "absolute", zIndex: "3", margin: "15px" }}></Box>
-      <Box
-        className="hijoimg"
-        sx={{
-          height: "100%",
-          width: "100%",
-          position: "absolute",
-          zIndex: "0",
-          transform: "translateY(-10%)",
-        }}
-      >
-        <img className="w-100" src={barcelona} alt="Imagen header" />
-      </Box>
+    <Box 
+    className="d-flex justify-content-center align-items-center"
+    sx={{
+      backgroundImage: `url(${malaga})`,
+      height: "40vh",
+      backgroundSize: "cover",
+      backgroundPosition: "center"
+    }}>
+      {currentCity ? (
+        <Typography
+          className="text-center titleJumbotron"
+          sx={{ fontSize: "4rem" }}
+        >
+          Eventos en {currentCity}
+        </Typography>
+      ) : (
+        <Typography className="text-center" sx={{ fontSize: "4rem" }}>
+          Eventos en tu ciudad
+        </Typography>
+      )}
     </Box>
   );
 };
