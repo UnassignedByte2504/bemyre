@@ -130,9 +130,9 @@ followers = db.Table('followers',
 
 class DirectMessage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     sender = relationship("User", back_populates="sent_messages")
-    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     recipient = relationship("User", back_populates="received_messages")
     message_body = db.Column(db.String(500), nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
