@@ -302,7 +302,7 @@ def handle_user_has_media(username_var):
     if request.method == 'GET':
         user = db.session.query(User).filter(User.user_name == username_var).first()
         user_media = db.session.query(UserMedia).filter(UserMedia.user_id == user.id).first()
-        if not user or not user_has_media:
+        if not user_media:
             return jsonify({"hasmedia": False}), 200
         return jsonify({"hasmedia": True}), 200
 

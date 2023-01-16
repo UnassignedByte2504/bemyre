@@ -23,30 +23,3 @@ export const handleImageChange = (e) => {
   reader.readAsDataURL(file);
 };
 
-const addMedia = async ({media1, media2, media3}) => {
-  const [hasMedia, setHasMedia] = useState();
-  const [method, setMethod] = useState();
-
-  await fetch(process.env.BACKEND_URL / settings / user / hasmedia)
-    .then((res) => res.json())
-    .then((data) => {
-      setHasMedia(data.hasMedia);
-    })
-    .catch((err) => console.log(err));
-
-  if (hasMedia === false) {
-    setMethod("POST");
-  } else {
-    setMethod("PUT");
-  }
-
-  const options = {
-    method: method,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-  body:`"${}", "${}"`
-  }
-
-  await fetch(`${process.env.BACKEND_URL/}`)
