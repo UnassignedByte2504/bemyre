@@ -1,30 +1,34 @@
 import React from "react";
 import ChatBubble from "react-chat-bubble";
-import { Box, Typography, Paper } from "@mui/material";
+import { Box, Typography, Paper, Avatar } from "@mui/material";
 
-
-const OutgoingMessage = ({message}) => {
+const OutgoingMessage = ({ message, profileImg, userName, Rf }) => {
   return (
     <Box
-    sx={{
-      width: "100%",
-      height: "max-content",
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "flex-start",
-    }}
-  >
-    <Paper
+      ref={Rf}
+      className="OutGoingMessage-wrapper"
       sx={{
-        backgroundColor: "#f9f9f9",
-        color: "black",
-        width: "50%",
+        width: "100%",
+        height: "max-content",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-end",
       }}
     >
-      <Typography variant="h5">{message}</Typography>
-    </Paper>
-  </Box>
-  )
-}
+      <Paper
+        className="OutGoingMessage-paper"
+        sx={{
+          display: "flex",
+          flexDirection: "row-reverse",
+          color: "black",
+          width: "50%",
+        }}
+      >
+        <Typography variant="h5">{message}</Typography>
+      </Paper>
+      <Avatar src={profileImg} alt={userName} />
+    </Box>
+  );
+};
 
-export default OutgoingMessage
+export default OutgoingMessage;

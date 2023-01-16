@@ -2,8 +2,9 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from datetime import datetime
+from sqlalchemy import and_, or_, not_
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, DirectMessage
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -529,8 +530,59 @@ def get_city(state_var, city_var):
     cities_list = []
     for city in cities:
         cities_list.append(city.name)
-    filtered_cities 
+    filtered_cities = [city for city in cities_list if city_var in city]
+    return jsonify(filtered_cities), 200
+#<<-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FILTER ENDPOINTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ----->>
 
+
+#<<-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<MESAGGES ENDPOINTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ----->>
+
+@api.route('/<string:username_var>/receivedmessages', methods=['GET'])
+def get_received_messages(username_var):
+    user = User.query.filter_by(user_name = username_var).first()
+    received_messages = DirectMessage.query.filter_by(recipient_id = user.id).all()
+    received_messages_list = []
+    for message in received_messages:
+        received_messages_list.append(message.serialize())
+    return jsonify(received_messages_list), 200
+
+@api.route('/<string:username_var>/recipients', methods=['GET'])
+def get_sent_messages(username_var):
+    user = User.query.filter_by(user_name = username_var).first()
+    recipients_user_names = []
+    sent_messages = DirectMessage.query.filter_by(sender_id = user.id).all()
+    for x in sent_messages:
+        if x.recipient.user_name not in recipients_user_names:
+            recipients_user_names.append(x.recipient.user_name)
+    recipient_profile_img = []
+    for x in recipients_user_names:
+        recipient_profile_img.append(User.query.filter_by(user_name = x).first().profile_img)
+    return jsonify({"names": recipients_user_names, "profile_img":recipient_profile_img}), 200
+
+
+
+
+
+@api.route('/<string:username_sender>/newmessage/<string:username_recipient>', methods=['POST'])
+def send_message(username_sender, username_recipient):
+    sender_id = User.query.filter_by(user_name = username_sender).first().id
+    recipient_id = User.query.filter_by(user_name = username_recipient).first().id
+    request_data = request.get_json(force=True)
+    message_body = request_data['message_body']
+    new_message = DirectMessage(sender_id = sender_id, recipient_id = recipient_id, message_body = message_body)
+    db.session.add(new_message)
+    db.session.commit()
+    return jsonify(new_message.serialize()), 201
+
+@api.route('/<string:username_var>/conversation/<string:username_recipient>', methods=['GET'])
+def get_conversation(username_var, username_recipient):
+    user_id = User.query.filter_by(user_name = username_var).first().id
+    recipient_id = User.query.filter_by(user_name = username_recipient).first().id
+    messages_between = DirectMessage.query.filter(or_(and_(DirectMessage.sender_id == user_id, DirectMessage.recipient_id == recipient_id), and_(DirectMessage.sender_id == recipient_id, DirectMessage.recipient_id == user_id))).all()
+    messages_between_list = []
+    for x in messages_between:
+        messages_between_list.append(x.serialize())
+    return jsonify(messages_between_list), 200
 
 
 
