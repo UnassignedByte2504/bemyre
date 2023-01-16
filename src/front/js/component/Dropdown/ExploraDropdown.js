@@ -36,7 +36,7 @@ export const ExploraDropdown = ({ provincia }) => {
 
     const data = await response.json();
     setCites(data);
-  };
+  }; 
   console.log(provincia);
   console.log(Provincia);
   console.log(selectedCity);

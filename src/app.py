@@ -17,6 +17,8 @@ from flask_jwt_extended import JWTManager
 from flask_socketio import SocketIO
 from flask_socketio import send, emit
 import json
+import cloudinary
+
 #from models import Person
 
 ENV = os.getenv("FLASK_ENV")
@@ -106,6 +108,7 @@ def handle_recipients(current_user):
     socketio.emit('recipients', recipients_name)
 
 
+
   
 # create a socket for direct messages and store them in the database
 @socketio.on('direct_message')
@@ -122,21 +125,13 @@ def handle_direct_message(message_body, sender_user_name, receiver_username):
     print("direct_message", direct_message.serialize())
     socketio.emit('direct_message', direct_message.serialize())
 
+cloudinary.config( 
+  cloud_name = os.getenv("img_cloudinay_name"), 
+  api_key = os.getenv("img_cloudinay_apikey"), 
+  api_secret = os.getenv("img_cloudinay_apisecret"),
+  secure = True
+)
 
-
-
-
-    
- 
- 
-# create a socket for group messages and store them in the database
-
-
-
-
-
-# create a socket for group messages and store them in the database
- 
 
 
 

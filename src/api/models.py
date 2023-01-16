@@ -450,14 +450,14 @@ class InfluenceBand(db.Model):
         return {
             "name": self.name,
             "genre": self.music_genre.name,
-
+ 
 
         }
 
 class Local (db.Model):
     # __tablename__='local'
     id=db.Column(db.Integer, primary_key=True)
-    local_img = db.Column(db.Unicode, nullable=True)
+    local_img = db.Column(db.String(255), nullable=True)
     name = db.Column(db.String(255), nullable=False)
     ubicacion_local = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(500), nullable=False)

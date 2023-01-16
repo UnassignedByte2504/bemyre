@@ -10,7 +10,8 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 import base64
-
+import cloudinary
+import cloudinary.uploader
 
 api = Blueprint('api', __name__)
 
@@ -294,7 +295,7 @@ def handle_user_socialmedia(username_var):
 
         #<<----1.1 UserSocialMedia endpoint END ----->>
 
-        #<<----1.2 UserContactInfo endpoint START ----->>
+        #<<----1.2 UserContactInfo endpoint START  ----->>
 
 @api.route('/<string:username_var>/contactinfo', methods=['GET'])
 def user_contact_info(username_var):
@@ -435,24 +436,37 @@ def get_locales():
  
 # PUBLIC LOCAL
 
-@api.route('settings/<string:username_var>/publiclocal', methods=['POST'])
+@api.route('settings/publiclocal', methods=['POST'])
 @jwt_required()
-def public_local(username_var):
-    data=request.get_json(force=True)
-    city = City.query.filter_by(city.name == data['city']).first()
-    user = User.query.filter_by(user_name == username_var).first()
-    
+def public_local():
+    user_name = get_jwt_identity()
+    user = User.query.filter_by(user_name=user_name).first()
+    body_city = request.form.get('ubicacion_local')
+    city = City.query.filter_by(name = body_city).first()
+    if 'local_img' in request.files:
+        # upload file to uploadcare
+        result = cloudinary.uploader.upload(request.files['local_img'])
+    else:
+        raise APIException('Missing local_img on the FormData')
 
+
+    data=request.form
     if db.session.query(Local).filter(Local.name == data['name']).first():
         return jsonify({"message": "El local ya está registrado"}),400
-    new_local = Local(
-        name = data["name"],
-        ubicacion_local = data["ubicacion_local"],
-        description = data["description"],
-        city = city
-    )
-    db.session.add(new_local)
-    db.session.commit()
+    try:
+        print(data["ubicacion_local"], data["description"], result['secure_url'] )
+        new_local = Local(
+            name = data['name'],
+            ubicacion_local = data["ubicacion_local"],
+            description = data["description"],
+            city_id = 1,
+            user_id = user.id,
+            local_img = result['secure_url']
+        )
+        db.session.add(new_local)
+        db.session.commit()
+    except Exception as e:
+        print(e)
     response_body = {
         "msg": "local añadido"
     }

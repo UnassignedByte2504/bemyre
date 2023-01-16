@@ -2,8 +2,9 @@ import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { locales, bandas } from "../mockingData";
-import Carousel from "../component/carousel/Carousel.js";
+import { locales, bandas, eventos, musicos } from "../mockingData";
+
+
 //Import materials
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
@@ -14,6 +15,10 @@ import { LandingJumbo } from "../component/jumbotron/landingjumbo";
 import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
 import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
 import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
+import { LoginJumbo } from "../component/jumbotron/LoginJumbo.jsx";
+import { CardConcert } from "../component/ConcertCard/CardConcert.jsx";
+import { CardMusician } from "../component/MusicianCard/CardMusician.jsx";
+
 
 export const LandingPage = () => {
   const { actions, store } = useContext(Context);
@@ -64,7 +69,8 @@ export const LandingPage = () => {
 
   return (
     <Box>
-      <LandingJumbo />
+      {sessionStorage.getItem("current_user")? <LoginJumbo /> : <LandingJumbo />}
+      
       <Container maxWidth="xl" className="text-center">
         {currentCity && (
           <Typography variant="h3" className=" mt-5 mb-5">
@@ -75,6 +81,71 @@ export const LandingPage = () => {
           </Typography>
         )}
       </Container>
+
+            {/* ------EVENTOS----------- */}
+            <Box className="mx-4 mb-5">
+        <Typography sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
+          Conciertos
+        </Typography>
+        <Box
+          className="rowCards"
+          sx={{
+            display: "flex",
+            gap: "1.5rem",
+            paddingY: "1.5rem",
+            paddingX: "0.5rem",
+          }}
+        >
+          {eventos?.map((element, index) => (
+            <Box key={index}>
+              <CardConcert
+                event_img={element.event_img}
+                name={element.name}
+                generosMusica={element.generosMusica}
+                city={element.city}
+                ubicacion_event={element.ubicacion_event}
+                description={element.description}
+                date={element.date}
+                hour={element.hour}
+                Key={index}
+              />
+            </Box>
+          ))}
+        </Box>
+      </Box>
+
+              {/* ------MÚSICOS----------- */}
+              <Box className="mx-4 mb-5">
+        <Typography sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
+          Músicos
+        </Typography>
+        <Box
+          className="rowCards"
+          sx={{
+            display: "flex",
+            gap: "1.5rem",
+            paddingY: "1.5rem",
+            paddingX: "0.5rem",
+          }}
+        >
+          {musicos?.map((element, index) => (
+            <Box key={index}>
+              <CardMusician
+                musico_img={element.musico_img}
+                user_name={element.user_name}
+                generosMusica={element.generosMusica}
+                city={element.city}
+                description={element.description}
+                artistic_name={element.artistic_name}
+                instruments={element.instruments}
+                Key={index}
+              />
+            </Box>
+          ))}
+        </Box>
+      </Box>
+
+
 
       {/* ------LOCALES----------- */}
       <Box className="mx-4">
@@ -118,10 +189,12 @@ export const LandingPage = () => {
         <Box
           className="rowCards"
           sx={{
-            display: "flex",
+            // display: "flex",
             gap: "1.5rem",
             paddingY: "1.5rem",
             paddingX: "0.5rem",
+            // prueba
+            // marginY: "5rem"
           }}
         >
           {bandas?.map((element, index) => (
@@ -141,6 +214,8 @@ export const LandingPage = () => {
           ))}
         </Box>
       </Box>
+
+      
 
       <CallToAction2
         text1="¿Eres músico?"
