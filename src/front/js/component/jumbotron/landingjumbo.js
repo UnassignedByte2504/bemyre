@@ -27,7 +27,7 @@ export const LandingJumbo = () => {
     >
       <Box className="row">
         <Box className="col"></Box>
-        <Box className="col-8">
+        <Box className="col-8 mb-4">
           <h2 className="mb-5 titleJumbotron">
             Conoce la música en vivo de tu localidad y conecta con músicos
           </h2>
