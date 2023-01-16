@@ -15,6 +15,9 @@ from api.commands import setup_commands
 from flask_jwt_extended import JWTManager 
 from flask_socketio import SocketIO
 from flask_socketio import send, emit
+import cloudinary
+
+
 #from models import Person
 
 ENV = os.getenv("FLASK_ENV")
@@ -94,7 +97,12 @@ def handle_is_connected():
 
 
 
- 
+cloudinary.config( 
+  cloud_name = os.getenv("img_cloudinay_name"), 
+  api_key = os.getenv("img_cloudinay_apikey"), 
+  api_secret = os.getenv("img_cloudinay_apisecret"),
+  secure = True
+)
 
 
 

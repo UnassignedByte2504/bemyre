@@ -52,9 +52,28 @@
 }
 
 .rowCards {
-  /* overflow-x: hidden; */
-  overflow-x: scroll;
+  /* overflow-x: hidden; 
+  overflow-x: scroll; */
+  /* display: flex!important;
+  max-height: 700px!important;
+  min-height: 700px!important; */
+  /* border: 1px solid #ddd; */
+  display: flex;
+  overflow-x: scroll!important;
 
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
   /* scroll-behavior: initial; */
+  /* width: 100vw; */
+  /* overflow-x: scroll; */
+  /* background-color: aquamarine; */
+
 }
+
+/* .rowCards::-webkit-scrollbar{
+  width: 0!important;
+} */
+
+/* .rowCards::-webkit-scrollbar-thumb{
+  background-color: #444;
+
+} */
