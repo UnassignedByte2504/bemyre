@@ -89,7 +89,8 @@ const UserPasswordManagement = () => {
           variant="contained"
           type="submit"
           className="my-2"
-          disabled={isSubmiting}
+          disabled={isSubmiting}Ç
+          color="success"
         >
           Cambiar Contraseña
         </Button>

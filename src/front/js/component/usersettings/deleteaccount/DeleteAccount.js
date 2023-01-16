@@ -40,7 +40,7 @@ const DeleteAccount = () => {
     confirmarContraseña: "",
     reason: "",
   });
-  console.log(values.reason);
+  // console.log("reason",values.reason, "password", values.contraseña);
 
   const handleValueChange = (e) => {
     setValues({

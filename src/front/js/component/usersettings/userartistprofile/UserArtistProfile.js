@@ -12,10 +12,31 @@ import TiktokIcon from "../../../../img/RRSS/tiktok_logo.png";
 import SoundcloudIcon from "../../../../img/RRSS/soundcloud.png";
 import SnapchatIcon from "../../../../img/RRSS/snapchat.png";
 import SpatialAudioOffIcon from "@mui/icons-material/SpatialAudioOff";
-
 import SpotifyIcon from "../../../../img/RRSS/Spotify.png";
 
 const UserArtistProfile = () => {
+  const perfilArtista = async (username, fieldNames, newValues) => {
+    const options = {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+        "Content-Type": "application/json",
+      },
+      body: `{
+            "${fieldNames}": "${newValues}",
+
+      }`,
+    };
+    await fetch(
+      `${process.env.BACKEND_URL}/api/settings/${username}/deleteaccount`,
+      options
+    )
+      .then((response) => response.json())
+      .then((result) =>
+        sessionStorage.setItem("cuenta_borrada", "Cuenta borrada con exito")
+      );
+  };
+
   const [open, setOpen] = useState({
     youtube: false,
   });
@@ -27,8 +48,8 @@ const UserArtistProfile = () => {
     spotify2: "spotify2",
     soundcloud1: "soundcloud1",
     soundcloud2: "soundcloud2",
-    instrument1: "instrument1",
-    instrument2: "instrument2",
+    // instrument1: "instrument1",
+    // instrument2: "instrument2",
   };
 
   const [values, setValues] = useState({
@@ -38,8 +59,8 @@ const UserArtistProfile = () => {
     spotify2: "spotify2",
     soundcloud1: "soundcloud1",
     soundcloud2: "soundcloud2",
-    instrument1: "instrument1",
-    instrument2: "instrument2",
+    // instrument1: "instrument1",
+    // instrument2: "instrument2",
   });
 
   console.log(values);
@@ -136,7 +157,7 @@ const UserArtistProfile = () => {
         </>
       ) : null}
 
-      {/* Condicional Instrumentos */}
+      {/* Condicional Instrumentos
       {1 + 1 == 2 ? (
         <>
           <Typography variant="h5">Mis instrumentos</Typography>
@@ -159,9 +180,14 @@ const UserArtistProfile = () => {
             />
           </Box>
         </>
-      ) : null}
+      ) : null} */}
 
-      <Button variant="contained" color="success" className="mb-5">
+      <Button
+        onClick={() => perfilArtista(userName, fieldNames, values)}
+        variant="contained"
+        color="success"
+        className="mb-5"
+      >
         Enviar
       </Button>
     </Box>
