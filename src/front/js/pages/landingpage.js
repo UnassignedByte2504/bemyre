@@ -14,8 +14,10 @@ import { LandingJumbo } from "../component/jumbotron/landingjumbo";
 import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
 import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
 import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
+import { LoginJumbo } from "../component/jumbotron/LoginJumbo.jsx";
 import { CardConcert } from "../component/ConcertCard/CardConcert.jsx";
 import { CardMusician } from "../component/MusicianCard/CardMusician.jsx";
+
 
 export const LandingPage = () => {
   const { actions, store } = useContext(Context);
@@ -66,7 +68,8 @@ export const LandingPage = () => {
 
   return (
     <Box>
-      <LandingJumbo />
+      {sessionStorage.getItem("current_user")? <LoginJumbo /> : <LandingJumbo />}
+      
       <Container maxWidth="xl" className="text-center">
         { currentCity && <Typography variant="h3" className=" mt-5 mb-5">
           Conciertos en {currentCity} esta semana{" "}

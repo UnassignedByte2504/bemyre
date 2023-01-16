@@ -8,6 +8,9 @@
   color: white;
 }
 
+.padreloginjumbo{
+  height: 40vh;
+}
 /* <<<<<<<Jumbotron<<<<<<<< */
 
 /* >>>>>>>>Mediaqueries>>>>>>>>> */
@@ -26,7 +29,7 @@
 @media (max-width: 400px) {
   .titleJumbotron {
     /* font-size: 9vw; */
-    font-size: 1rem;
+    font-size: 2rem!important;
     color: white;
   }
 }
