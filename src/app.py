@@ -3,18 +3,20 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 import datetime
 import os
+from sqlalchemy import and_, or_, not_
 from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from api.utils import APIException, generate_sitemap
-from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, LoggedUsers
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, LoggedUsers, DirectMessage
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager 
 from flask_socketio import SocketIO
 from flask_socketio import send, emit
+import json
 #from models import Person
 
 ENV = os.getenv("FLASK_ENV")
@@ -92,8 +94,48 @@ def handle_is_connected():
     print("hola estos son los usuarios conectados", logged_users_name)
     socketio.emit('logged_users', logged_users_name)
 
+@socketio.on('recipients')
+def handle_recipients(current_user):
+    sender_id = User.query.filter_by(user_name=current_user).first().id
+    recipients = DirectMessage.query.filter_by(sender_id=sender_id).all()
+    recipients_name = []
+    for recipient in recipients:
+        if recipient.recipient.user_name not in recipients_name:
+            recipients_name.append(recipient.recipient.user_name)
+    print("hola estos son los usuarios conectados", recipients_name)
+    socketio.emit('recipients', recipients_name)
 
 
+  
+# create a socket for direct messages and store them in the database
+@socketio.on('direct_message')
+def handle_direct_message(message_body, sender_user_name, receiver_username):
+    sender_user = User.query.filter_by(user_name=sender_user_name).first()
+    receiver_user = User.query.filter_by(user_name=receiver_username).first()
+    direct_message = DirectMessage(
+        sender_id=sender_user.id,
+        recipient_id=receiver_user.id,
+        message_body=message_body
+    )
+    db.session.add(direct_message)
+    db.session.commit()
+    print("direct_message", direct_message.serialize())
+    socketio.emit('direct_message', direct_message.serialize())
+
+
+
+
+
+    
+ 
+ 
+# create a socket for group messages and store them in the database
+
+
+
+
+
+# create a socket for group messages and store them in the database
  
 
 

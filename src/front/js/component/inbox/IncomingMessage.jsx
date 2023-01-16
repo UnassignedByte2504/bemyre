@@ -1,23 +1,12 @@
 import React from "react";
 import ChatBubble from "react-chat-bubble";
-import { Box, Typography, Paper } from "@mui/material";
+import { Box, Typography, Paper, Avatar } from "@mui/material";
 import FlexCentered from "../styledcomponents/FlexCentered.jsx";
 
-const IncomingMessage = ({message}) => {
-  const test = [
-    {
-      type: 0,
-      image: "cat.jpg",
-      text: "Hello! Good Morning!",
-    },
-    {
-      type: 1,
-      image: "dog.jpg",
-      text: "Hello! Good Afternoon!",
-    },
-  ];
+const IncomingMessage = ({ message, profileImg, userName, Rf }) => {
   return (
     <Box
+      ref={Rf}
       sx={{
         width: "100%",
         height: "max-content",
@@ -33,6 +22,7 @@ const IncomingMessage = ({message}) => {
           width: "50%",
         }}
       >
+        <Avatar src={profileImg} alt={userName} />
         <Typography variant="h5">{message}</Typography>
       </Paper>
     </Box>

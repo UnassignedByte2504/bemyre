@@ -54,7 +54,15 @@
 .rowCards {
   /* overflow-x: hidden; */
   overflow-x: scroll;
-
   scroll-behavior: smooth;
   /* scroll-behavior: initial; */
+}
+
+.rowCards:hover::-webkit-scrollbar{
+  display: -webkit-flex;
+}
+
+.rowCards:hover::-webkit-scrollbar-thumb{
+  background-color: #df3432;
+  width:20rem;
 }

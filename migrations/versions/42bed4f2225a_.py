@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 30698f92414f
+Revision ID: 42bed4f2225a
 Revises: 
-Create Date: 2023-01-13 12:45:19.365860
+Create Date: 2023-01-14 18:00:23.097529
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '30698f92414f'
+revision = '42bed4f2225a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -94,6 +94,16 @@ def upgrade():
     sa.Column('name', sa.String(length=80), nullable=False),
     sa.Column('state', sa.String(length=80), nullable=False),
     sa.ForeignKeyConstraint(['state'], ['state.name'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('direct_message',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('sender_id', sa.Integer(), nullable=False),
+    sa.Column('recipient_id', sa.Integer(), nullable=False),
+    sa.Column('message_body', sa.String(length=500), nullable=False),
+    sa.Column('timestamp', sa.DateTime(), nullable=False),
+    sa.ForeignKeyConstraint(['recipient_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['sender_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('followers',
@@ -255,6 +265,7 @@ def downgrade():
     op.drop_table('user_musician_info')
     op.drop_table('logged_users')
     op.drop_table('followers')
+    op.drop_table('direct_message')
     op.drop_table('city')
     op.drop_table('user')
     op.drop_table('state')
