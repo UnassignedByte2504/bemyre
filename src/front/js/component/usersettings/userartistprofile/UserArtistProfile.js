@@ -28,12 +28,12 @@ const UserArtistProfile = () => {
       }`,
     };
     await fetch(
-      `${process.env.BACKEND_URL}/api/settings/${username}/deleteaccount`,
+      `${process.env.BACKEND_URL}/api/settings/${username}/addmedia`,
       options
     )
       .then((response) => response.json())
       .then((result) =>
-        sessionStorage.setItem("cuenta_borrada", "Cuenta borrada con exito")
+        sessionStorage.setItem("user_media", "Actualización de user media ")
       );
   };
 
