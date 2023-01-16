@@ -11,5 +11,10 @@ FLASK_ENV=development
 # Front-End Variables
 BASENAME=/
 
+CLOUDINARY_URL=cloudinary://445525411435436:YGV9j01UVSrd7uSIhiu8M22mcyw@dman9fskv
+img_cloudinay_name = dman9fskv
+img_cloudinay_apikey= 445525411435436
+img_cloudinay_apisecret= YGV9j01UVSrd7uSIhiu8M22mcyw
+
 BACKEND_URL=https://3001-unassignedbyte25-bemyre-7v7cq7v5xe6.ws-eu81.gitpod.io
 JWT_SECRET_KEY=asfhkshdfkjhsdfSDFSDFSDFsdfsdf4635646s3d1f231654sdfSDFSDfsd

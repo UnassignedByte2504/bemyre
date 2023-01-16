@@ -18,7 +18,7 @@ export const locales = [
     ubicacion_local: "c/ Calle2, Numero2 (Localidad2)",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
-  },
+  }, 
   {
     generosMusica: ["Indie", "Blues"],
     local_img:
@@ -278,7 +278,7 @@ export const bandas = [
   },
 ];
 
-export const event = [
+export const eventos = [
   {
     generosMusica: ["Jazz", "Clasica"],
     event_img:
