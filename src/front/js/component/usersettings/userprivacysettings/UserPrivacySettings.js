@@ -6,6 +6,31 @@ const UserPrivacySettings = () => {
   const [contacto, setContacto] = useState(true);
   const [ciudad, setCiudad] = useState(true);
 
+  const privacySettings = async (username, seguidores, contacto, ciudad) => {
+    const options = {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+        "Content-Type": "application/json",
+      },
+      body: `{
+            "privacy_followers": "${seguidores}",
+            "privacy_contacts": "${contacto}",
+            "ciudad": "${ciudad}"
+
+      }`,
+    };
+    await fetch(
+      `${process.env.BACKEND_URL}/api/settings/${username}/deleteaccount`,
+      options
+    )
+      .then((response) => response.json())
+      .then((result) =>
+        sessionStorage.setItem("cuenta_borrada", "Cuenta borrada con exito")
+      );
+  };
+
+  console.log("seguidores", seguidores, "contacto", contacto, "ciudad", ciudad);
   return (
     <>
       <Box className="d-flex flex-column align-items-center">
@@ -75,7 +100,11 @@ const UserPrivacySettings = () => {
         </Box>
       )}
       <Box className="d-flex justify-content-center mt-4">
-        <Button variant="contained" color="success">Guardar Configuración</Button>
+        <Button
+        onClick={()=>privacySettings(seguidores, contacto, ciudad)}
+        variant="contained" color="success">
+          Guardar Configuración
+        </Button>
       </Box>
     </>
   );

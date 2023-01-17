@@ -130,9 +130,9 @@ followers = db.Table('followers',
 
 class DirectMessage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     sender = relationship("User", back_populates="sent_messages")
-    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     recipient = relationship("User", back_populates="received_messages")
     message_body = db.Column(db.String(500), nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
@@ -177,7 +177,7 @@ class User(db.Model):
         backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
     sent_messages = db.relationship('DirectMessage', foreign_keys=[DirectMessage.sender_id], back_populates='sender')
     received_messages = db.relationship('DirectMessage', foreign_keys=[DirectMessage.recipient_id], back_populates='recipient')
-
+    # user_media = relationship("UserMedia")
 
     def follow(self, user):
         if not self.is_following(user):
@@ -224,6 +224,33 @@ class User(db.Model):
 
 
 
+class UserMedia(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True, nullable=False)
+    youtube_media1 = db.Column(db.String(255), unique=False, nullable=True)
+    youtube_media2 = db.Column(db.String(255), unique=False, nullable=True)
+    spotify_media1 = db.Column(db.String(255), unique=False, nullable=True)
+    spotify_media2 = db.Column(db.String(255), unique=False, nullable=True)
+    soundcloud_media1 = db.Column(db.String(255), unique=False, nullable=True)
+    soundcloud_media2 = db.Column(db.String(255), unique=False, nullable=True)
+    # last_update = db.Column(db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow))
+
+    def __repr__(self):
+        return f'<UserMedia {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "youtube_media1": self.youtube_media1,
+            "youtube_media2": self.youtube_media2,
+            "spotify_media1": self.spotify_media1,
+            "spotify_media2": self.spotify_media2,
+            "soundcloud_media1": self.soundcloud_media1,
+            "soundcloud_media2": self.soundcloud_media2,
+            # "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
+        }
+
 class UserSocialMedia(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -260,7 +287,7 @@ class UserSocialMedia(db.Model):
 class UserMusicianInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True, nullable=False)
-    user_musical_instruments = relationship("UserMusicalInstrument", back_populates="user_musician_info")
+    user_musical_instruments = db.relationship("UserMusicalInstrument", back_populates="user_musician_info")
     artistic_name = db.Column(db.String(80), unique=False, nullable=True)
     user_music_genre = relationship("UserMusicGenre", back_populates="user_musician_info")
     musical_instruments_other = db.Column(db.String(80), unique=False, nullable=True)
@@ -283,6 +310,10 @@ class UserMusicianInfo(db.Model):
             "bands": [band.serialize() for band in self.bands],
             "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
         }
+
+
+
+
 
 class UserMusicalInstrument(db.Model):
     id= db.Column(db.Integer, primary_key=True)
@@ -513,4 +544,20 @@ class LocalMusicGenre (db.Model):
             "musicgenre_id": self.musicgenre_id,
             "music_genre": self.music_genre.name,
             "local_id": self.local_id,
+        }
+
+class UserFeedBack(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    feedback = db.Column(db.String(500), nullable=False)
+
+
+    def __repr__(self):
+        return '<id {}>'.format(self.id)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user": self.user,
+            "feedback": self.feedback,
         }

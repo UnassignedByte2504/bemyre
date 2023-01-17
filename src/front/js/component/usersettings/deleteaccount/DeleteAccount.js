@@ -4,17 +4,18 @@ import React, { useState } from "react";
 const DeleteAccount = () => {
   const [btn, setBtn] = useState(false);
   const userName = sessionStorage.getItem("current_user");
+  const token = sessionStorage.getItem("access_token");
 
-  const borrarCuenta = async (username, fieldtomodify, newvalue) => {
-    console.log("edit rrss values", username, fieldtomodify, newvalue);
+  const borrarCuenta = async (username, password) => {
     const options = {
-      method: "PUT",
+      method: "DELETE",
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
         "Content-Type": "application/json",
       },
       body: `{
-            "${fieldtomodify}": "${newvalue}"
+            "password": "${password}",
+            "feedback": "${reason}"
       }`,
     };
     await fetch(
@@ -23,15 +24,11 @@ const DeleteAccount = () => {
     )
       .then((response) => response.json())
       .then((result) =>
-        sessionStorage.setItem(
-          "cuenta_borrada",
-          "Cuenta borrada con exito"
-        )
-      );
-  }; 
-
-
-
+        sessionStorage.setItem("cuenta_borrada", "Cuenta borrada con exito")
+      )
+      .then(sessionStorage.clear())
+      .then((window.location.href = "/home"));
+  };
 
   const fieldNames = {
     contraseña: "contraseña",
@@ -41,9 +38,9 @@ const DeleteAccount = () => {
   const [values, setValues] = useState({
     contraseña: "",
     confirmarContraseña: "",
+    reason: "",
   });
-  console.log(values)
-
+  // console.log("reason",values.reason, "password", values.contraseña);
 
   const handleValueChange = (e) => {
     setValues({
@@ -82,23 +79,42 @@ const DeleteAccount = () => {
             name="contraseña"
             className="w-75 mb-3"
           />
-          <TextField 
-          label="Confirmar contraseña" 
-          className="w-75 mb-3"
-          name="confirmarContraseña"
-          onChange={handleValueChange}
+          <TextField
+            label="Confirmar contraseña"
+            className="w-75 mb-3"
+            name="confirmarContraseña"
+            onChange={handleValueChange}
           />
           <Button
-            onClick={() =>
-              borrarCuenta(
-                userName,
-                fieldNames,
-                values
-              )
-            }   
-          variant="contained" color="error">
+            onClick={() => borrarCuenta(userName, values.contraseña)}
+            variant="contained"
+            color="error"
+          >
             Eliminar cuenta
           </Button>
+
+          {/* Formulario */}
+          <Box className="w-100 d-flex flex-column mt-3 align-items-center">
+            <Typography className="my-3" variant="h3">
+              ¿Por qué borraste tu cuenta?
+            </Typography>
+            <TextField
+              className=" w-75"
+              multiline
+              variant="outlined"
+              label="Cuentanos el motivo"
+              name="reason"
+              onChange={handleValueChange}
+            />
+            <Button
+              color="error"
+              variant="contained"
+              className="text-white my-3"
+              onClick={() => feedBack(userName, values.reason)}
+            >
+              Enviar
+            </Button>
+          </Box>
         </Box>
       )}
     </Box>

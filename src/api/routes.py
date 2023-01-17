@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from datetime import datetime
 from sqlalchemy import and_, or_, not_
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, DirectMessage
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, DirectMessage, UserMedia
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -228,6 +228,49 @@ def handle_user_profile_img(username_var):
         return jsonify({"msg":"Imagen actualizada con exito"}), 200
 
 
+@api.route('settings/<string:username_var>/deleteaccount', methods=['DELETE'])
+@jwt_required()
+def handle_user_delete_account(username_var):
+    user = get_jwt_identity()
+    request_data = request.get_json(force=True)
+    user_password = request_data['password']
+    if user != username_var:
+        return jsonify({"message": "Access Denied"}), 401
+    if request.method == 'DELETE':
+        user = db.session.query(User).filter(User.user_name == username_var).first()
+        if not user:
+            return jsonify({"message": "User not found"}), 404
+        if user.password != user_password:
+            return jsonify({"message": "Password incorrect"}), 401
+        db.session.delete(user)
+        db.session.commit()
+        user_social_media = db.session.query(UserSocialMedia).filter(UserSocialMedia.user_id == user.id).first()
+        if not user_social_media:
+            pass
+        else:
+            db.session.delete(user_social_media)
+            db.session.commit()
+        user_contact_info = db.session.query(UserContactInfo).filter(UserContactInfo.user_id == user.id).first()
+        if not user_contact_info:
+            pass
+        else:
+            db.session.delete(user_contact_info)
+            db.session.commit()
+        user_musician_info = db.session.query(UserMusicianInfo).filter(UserMusicianInfo.user_id == user.id).first()
+        if not user_musician_info:
+            pass
+        else:
+            db.session.delete(user_musician_info)
+            db.session.commit()
+        user_id = user.id
+        user_direct_messages = DirectMessage.query.filter(or_(DirectMessage.sender_id == user_id, DirectMessage.recipient_id == user_id)).all()
+        for message in user_direct_messages:
+            db.session.delete(message)
+            db.session.commit()
+        return jsonify({"msg":"Cuenta eliminada con exito"}), 200
+   
+
+
 @api.route('/settings/<string:username_var>/contactinfo', methods=['PUT'])
 @jwt_required()
 def handle_user_contact_info(username_var):
@@ -249,6 +292,74 @@ def handle_user_contact_info(username_var):
         user_contact_info.last_update = datetime.now()
         db.session.commit()
         return jsonify({"message":"Informacion actualizada correctamente", "user_contact_info": user_contact_info.serialize()}), 200
+
+@api.route('/settings/<string:username_var>/hasmedia', methods=['GET'])
+@jwt_required()
+def handle_user_has_media(username_var):
+    user = get_jwt_identity()
+    if user != username_var:
+        return jsonify({"Access Denied"})
+    if request.method == 'GET':
+        user = db.session.query(User).filter(User.user_name == username_var).first()
+        user_media = db.session.query(UserMedia).filter(UserMedia.user_id == user.id).first()
+        if not user_media:
+            return jsonify({"hasmedia": False}), 200
+        return jsonify({"hasmedia": True}), 200
+
+@api.route('/settings/<string:username_var>/addmedia', methods=['POST', 'PUT'])
+@jwt_required()
+def handle_user_add_media(username_var):
+    user = get_jwt_identity()
+    if user != username_var:
+        return jsonify({"Access Denied"})
+    if request.method == 'POST':
+        request_data = request.get_json(force=True)
+        user = db.session.query(User).filter(User.user_name == username_var).first()
+        user_media = db.session.query(UserMedia).filter(UserMedia.user_id == user.id).first()
+        if not user_media:
+            user_media = UserMedia(
+            user_id=user.id,
+            youtube_media1=None,
+            youtube_media2=None,
+            spotify_media1=None,
+            spotify_media2=None,
+            soundcloud_media1=None,
+            soundcloud_media2=None)
+            
+            db.session.add(user_media)
+            db.session.commit()
+        youtube_media1 = request_data.get("youtube_media1", None)
+        youtube_media2 = request_data.get("youtube_media2", None)
+        spotify_media1 = request_data.get("spotify_media1", None)
+        spotify_media2 = request_data.get("spotify_media2", None)
+        soundcloud_media1 = request_data.get("soundcloud_media1", None)
+        soundcloud_media2 = request_data.get("soundcloud_media2", None)
+        new_user_media = UserMedia(
+        youtube_media1=youtube_media1,
+        youtube_media2=youtube_media2,
+        spotify_media1=spotify_media1,
+        spotify_media2=spotify_media2,
+        soundcloud_media1=soundcloud_media1,
+        soundcloud_media2=soundcloud_media2)
+        db.session.add(new_user_media)
+        db.session.commit()
+        return jsonify({"msg": "Informacion actualizada correctamente"}), 200
+    if request.method == 'PUT':
+        request_data = request.get_json(force=True)
+        user = db.session.query(User).filter(User.user_name == username_var).first()
+        user_media = db.session.query(UserMedia).filter(UserMedia.user_id == user.id).first()
+        default_values = user_media
+        youtube_media1 = request_data.get("youtube_media1", default_values.youtube_media1)
+        youtube_media2 = request_data.get("youtube_media2", default_values.youtube_media2)
+        spotify_media1 = request_data.get("spotify_media1", default_values.spotify_media1)
+        spotify_media2 = request_data.get("spotify_media2", default_values.spotify_media2)
+        soundcloud_media1 = request_data.get("soundcloud_media1", default_values.soundcloud_media1)
+        soundcloud_media2 = request_data.get("soundcloud_media2", default_values.soundcloud_media2)
+        db.session.commit()
+        return jsonify({"msg": "Informacion actualizada correctamente"}), 200
+
+
+
 
 @api.route('settings/<string:username_var>/socialmedia', methods=['PUT'])
 @jwt_required()
@@ -558,6 +669,8 @@ def get_sent_messages(username_var):
     for x in recipients_user_names:
         recipient_profile_img.append(User.query.filter_by(user_name = x).first().profile_img)
     return jsonify({"names": recipients_user_names, "profile_img":recipient_profile_img}), 200
+
+
 
 
 

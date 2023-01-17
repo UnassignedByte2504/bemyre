@@ -7,7 +7,9 @@ import { bandas } from "../mockingData";
 
 export const Bandas = () => {
   return (
-    <>
+    <Box sx={{
+      minHeight:"100vh"
+    }}>
       <CallToAction2
         text1="¿Te gustaría formar tu propia banda?"
         text2="Crea tu propio anuncio para que otros músicos se unan a tu banda"
@@ -32,6 +34,6 @@ export const Bandas = () => {
           ))}
         </Grid>
       </Container>
-    </>
+    </Box>
   );
 };
