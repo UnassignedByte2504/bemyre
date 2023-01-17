@@ -72,7 +72,7 @@ const Inbox = () => {
         setRecipientOptions(data);
       });
   };
-  const messageToRender = (index, messageBody, Sender, Recipient) => {
+  const messageToRender = (index, messageBody, Sender, Recipient, timeStamp) => {
     const recipient = Recipient;
     const sender = Sender;
     const msg = messageBody;
@@ -89,7 +89,7 @@ const Inbox = () => {
           message={msg}
           profileImg={myProfileImg}
           userName={sender}
-    
+          timeStamp={timeStamp}
         />
       );
     } else {
@@ -98,7 +98,7 @@ const Inbox = () => {
           message={msg}
           profileImg={profileImg}
           userName={recipient}
-       
+          timeStamp={timeStamp}
         />
       );
     }
@@ -235,8 +235,11 @@ const Inbox = () => {
           <Box className="MessagesWrapper">
             <Box className="MessagesHeader">
                 { recipient.name !== "" &&<>
-              <Box><Typography variant="h2">{recipient.name}</Typography></Box>
-              <Box><Avatar src={recipient.profile_img} alt={recipient.name}/></Box>
+              <Box><Typography variant="h4">{recipient.name}</Typography></Box>
+              <Box><Avatar src={recipient.profile_img} alt={recipient.name} sx={{
+                width:"3.5rem",
+                height:"3.5rem"
+              }}/></Box>
               </>
                 }
             </Box>
@@ -271,7 +274,8 @@ const Inbox = () => {
                         index,
                         message.message_body,
                         message.sender,
-                        message.recipient
+                        message.recipient,
+                        message.timestamp
                       )}
                     </Box>
                   );

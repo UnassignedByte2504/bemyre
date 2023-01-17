@@ -1,7 +1,12 @@
 import React from "react";
 import { Box, Typography, Avatar } from "@mui/material";
 
-const IncomingMessage = ({ message, profileImg, userName }) => {
+const IncomingMessage = ({ message, profileImg, userName, timeStamp }) => {
+  const dateSended = () => {
+  
+
+  }
+  
   return (
     <Box
       className="IncomingMessage-wrapper"
