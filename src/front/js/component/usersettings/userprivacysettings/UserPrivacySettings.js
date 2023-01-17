@@ -102,8 +102,8 @@ const UserPrivacySettings = () => {
       <Box className="d-flex justify-content-center mt-4">
         <Button
         onClick={()=>privacySettings(seguidores, contacto, ciudad)}
-        variant="contained" color="success">
-          Guardar Configuración
+        variant="contained" color="success" className="text-white">
+          <strong>Guardar Configuración</strong>
         </Button>
       </Box>
     </>

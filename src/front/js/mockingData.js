@@ -8,6 +8,12 @@ export const locales = [
     ubicacion_local: "c/ Calle, Numero (Localidad)",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+    galeria: [
+      "https://images.unsplash.com/photo-1609234700463-60e479775df0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bG9jYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+      "https://images.unsplash.com/photo-1605329540489-afc28d074eb8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+      "https://images.unsplash.com/photo-1571204829887-3b8d69e4094d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+      "https://images.unsplash.com/photo-1604433136066-2ce6d81ffc84?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+    ]
   },
   {
     generosMusica: ["Pop", "Rock"],
@@ -18,6 +24,12 @@ export const locales = [
     ubicacion_local: "c/ Calle2, Numero2 (Localidad2)",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+      galeria: [
+        "https://images.unsplash.com/photo-1609234700463-60e479775df0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bG9jYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1605329540489-afc28d074eb8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1571204829887-3b8d69e4094d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1604433136066-2ce6d81ffc84?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      ]
   }, 
   {
     generosMusica: ["Indie", "Blues"],
@@ -28,6 +40,12 @@ export const locales = [
     ubicacion_local: "c/ Calle3, Numero3 (Localidad3)",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+      galeria: [
+        "https://images.unsplash.com/photo-1609234700463-60e479775df0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bG9jYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1605329540489-afc28d074eb8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1571204829887-3b8d69e4094d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1604433136066-2ce6d81ffc84?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      ]
   },
   {
     generosMusica: ["Techno"],
@@ -38,6 +56,12 @@ export const locales = [
     ubicacion_local: "c/ Calle4, Numero4 (Localidad4)",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+      galeria: [
+        "https://images.unsplash.com/photo-1609234700463-60e479775df0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bG9jYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1605329540489-afc28d074eb8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1571204829887-3b8d69e4094d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1604433136066-2ce6d81ffc84?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      ]
   },
   {
     generosMusica: ["Jazz", "Clasica"],
@@ -49,6 +73,12 @@ export const locales = [
     ubicacion_local: "c/ Calle, Numero (Localidad)",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+      galeria: [
+        "https://images.unsplash.com/photo-1609234700463-60e479775df0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bG9jYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1605329540489-afc28d074eb8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1571204829887-3b8d69e4094d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1604433136066-2ce6d81ffc84?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      ]
   },
   {
     generosMusica: ["Pop", "Rock"],
@@ -59,6 +89,12 @@ export const locales = [
     ubicacion_local: "c/ Calle2, Numero2 (Localidad2)",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+      galeria: [
+        "https://images.unsplash.com/photo-1609234700463-60e479775df0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bG9jYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1605329540489-afc28d074eb8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1571204829887-3b8d69e4094d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1604433136066-2ce6d81ffc84?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      ]
   },
   {
     generosMusica: ["Indie", "Blues"],
@@ -69,6 +105,12 @@ export const locales = [
     ubicacion_local: "c/ Calle3, Numero3 (Localidad3)",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+      galeria: [
+        "https://images.unsplash.com/photo-1609234700463-60e479775df0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bG9jYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1605329540489-afc28d074eb8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1571204829887-3b8d69e4094d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1604433136066-2ce6d81ffc84?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      ]
   },
   {
     generosMusica: ["Techno"],
@@ -79,6 +121,12 @@ export const locales = [
     ubicacion_local: "c/ Calle4, Numero4 (Localidad4)",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+      galeria: [
+        "https://images.unsplash.com/photo-1609234700463-60e479775df0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bG9jYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1605329540489-afc28d074eb8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1571204829887-3b8d69e4094d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1604433136066-2ce6d81ffc84?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      ]
   },
   {
     generosMusica: ["Jazz", "Clasica"],
@@ -89,6 +137,12 @@ export const locales = [
     ubicacion_local: "c/ Calle, Numero (Localidad)",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+      galeria: [
+        "https://images.unsplash.com/photo-1609234700463-60e479775df0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bG9jYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1605329540489-afc28d074eb8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1571204829887-3b8d69e4094d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1604433136066-2ce6d81ffc84?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      ]
   },
   {
     generosMusica: ["Pop", "Rock"],
@@ -99,6 +153,12 @@ export const locales = [
     ubicacion_local: "c/ Calle2, Numero2 (Localidad2)",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+      galeria: [
+        "https://images.unsplash.com/photo-1609234700463-60e479775df0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bG9jYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1605329540489-afc28d074eb8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1571204829887-3b8d69e4094d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1604433136066-2ce6d81ffc84?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      ]
   },
   {
     generosMusica: ["Indie", "Blues"],
@@ -109,6 +169,12 @@ export const locales = [
     ubicacion_local: "c/ Calle3, Numero3 (Localidad3)",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+      galeria: [
+        "https://images.unsplash.com/photo-1609234700463-60e479775df0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bG9jYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1605329540489-afc28d074eb8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1571204829887-3b8d69e4094d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1604433136066-2ce6d81ffc84?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      ]
   },
   {
     generosMusica: ["Techno"],
@@ -119,6 +185,12 @@ export const locales = [
     ubicacion_local: "c/ Calle4, Numero4 (Localidad4)",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when",
+      galeria: [
+        "https://images.unsplash.com/photo-1609234700463-60e479775df0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bG9jYWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+        "https://images.unsplash.com/photo-1605329540489-afc28d074eb8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1571204829887-3b8d69e4094d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        "https://images.unsplash.com/photo-1604433136066-2ce6d81ffc84?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      ]
   },
 ];
 

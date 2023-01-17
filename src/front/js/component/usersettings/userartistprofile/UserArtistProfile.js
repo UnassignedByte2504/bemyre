@@ -217,9 +217,9 @@ const UserArtistProfile = () => {
         onClick={() => addMedia(userName, fieldNames, values)}
         variant="contained"
         color="success"
-        className="mb-5"
+        className="mb-5 text-white"
       >
-        Enviar
+        <strong>Enviar</strong>
       </Button>
     </Box>
   );

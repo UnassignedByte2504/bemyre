@@ -1,52 +1,134 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { createLocalSchema } from "../../../esquemas/index";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Divider } from "@mui/material";
 import { Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import { ArchiveSharp } from "@mui/icons-material";
 
+import Autocomplete from "@mui/material/Autocomplete";
+
+
+
 export const PublicLocal = () => {
-  const [nombreLocal, setNombreLocal] = useState("");
-  const [ubicacionLocal, setUbicacionLocal] = useState("");
-  const [descripcionLocal, setDescripcionLocal] = useState("");
+  
   const [data, setData] = useState({});
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
 
   const userName = sessionStorage.getItem("current_user");
 
+  useEffect(() => {
+    const fetchStates = async () => {
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const response = await fetch(
+        `${process.env.BACKEND_URL}/api/España/states`,
+        options
+      );
+  
+      const data = await response.json();
+      setStates(data);
+    }; 
+    // la "llamo"
+    fetchStates()
+   
+  }, [])
+  
+
   const publicar = async () => {
-    let body = new FormData()
-    for(let key in data){
-      body.append(key, data[key])
+    let body = new FormData();
+    for (let key in data) {
+      body.append(key, data[key]);
     }
-    console.log(data)
+    console.log(data);
     const token = sessionStorage.getItem("access_token");
     const options = {
       method: "POST",
       headers: {
-       
         Authorization: `Bearer ${token}`,
       },
-      body: body
+      body: body,
     };
-    await fetch(
-      `${process.env.BACKEND_URL}/api/settings/publiclocal`,
-      options
-    )
+    await fetch(`${process.env.BACKEND_URL}/api/settings/publiclocal`, options)
       .then((resp) => resp.json())
       .then((result) => console.log(result));
   };
 
+  const fetchCities = async (state) => {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/api/${state}/cities`,
+      options
+    );
+
+    const data = await response.json();
+    setCities(data);
+  }; 
+
   return (
-    <>
-      <Box sx={{ marginX: "5rem", marginTop: "2rem", textAlign: "center" }}>
+    <Box>
+      {1 + 1 == 2 ? (
+        <Box className="w-100 d-flex flex-column align-items-center">
+          <Typography className="my-3" variant="h3">
+            Crear un Local
+          </Typography>
+          <Divider className="w-75 mb-3" />
+          <TextField
+            className="my-2 w-75"
+            type="text"
+            name="nombreLocal"
+            variant="outlined"
+            label="Nombre del local"
+            onChange={(e) => setData({ ...data, name: e.target.value })}
+          />
+          <TextField
+            className="my-2 w-75"
+            type="text"
+            name="ubicacionLocal"
+            variant="outlined"
+            label="Ubicación del local"
+            onChange={(e) =>
+              setData({ ...data, ubicacion_local: e.target.value })
+            }
+          />
+          <TextField
+            className="my-2 w-75"
+            type="text"
+            name="descripcionLocal"
+            variant="outlined"
+            label="Descripción del local"
+            onChange={(e) => setData({ ...data, description: e.target.value })}
+          />
+          <Button className="my-3 bubbles w-75" variant="contained" aria-label="upload picture" component="label">
+            Subir imagen local <PhotoCamera />
+            <input hidden accept="image/*" type="file" />
+          </Button>
+          <Button variant="contained" color="success" className="text-white mt-3">
+            <strong>Crear Local</strong>
+          </Button>
+        </Box>
+      ) : null}
+    </Box>
+
+    // <>
+    /*{ <Box sx={{ marginX: "5rem", marginTop: "2rem", textAlign: "center" }}>
         <Typography variant="h3">
           Publica el estilo de tu local y conecta con tu público
         </Typography>
       </Box>
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <ul class="nav nav-tabs d-flex justify-content-center my-3" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button
+          <Button
             class="nav-link active"
             id="home-tab"
             data-bs-toggle="tab"
@@ -57,10 +139,10 @@ export const PublicLocal = () => {
             aria-selected="true"
           >
             CREAR
-          </button>
+          </Button>
         </li>
         <li class="nav-item" role="presentation">
-          <button
+          <Button
             class="nav-link"
             id="profile-tab"
             data-bs-toggle="tab"
@@ -71,7 +153,7 @@ export const PublicLocal = () => {
             aria-selected="false"
           >
             MODIFICAR
-          </button>
+          </Button>
         </li>
       </ul>
       <div class="tab-content" id="myTabContent">
@@ -82,9 +164,10 @@ export const PublicLocal = () => {
           aria-labelledby="home-tab"
           tabindex="0"
         >
-          <Box>
+          <Box className="w-100"> 
             <form className="editinfobox" sx={{ gap: "1rem" }}>
               <TextField
+                className="my-2 w-75"
                 type="text"
                 name="nombreLocal"
                 variant="outlined"
@@ -92,6 +175,7 @@ export const PublicLocal = () => {
                 onChange={(e) => setData({ ...data, name: e.target.value })}
               />
               <TextField
+                className="my-2 w-75"
                 type="text"
                 name="ubicacionLocal"
                 variant="outlined"
@@ -101,6 +185,7 @@ export const PublicLocal = () => {
                 }
               />
               <TextField
+                className="my-2 w-75"
                 type="text"
                 name="descripcionLocal"
                 variant="outlined"
@@ -108,6 +193,46 @@ export const PublicLocal = () => {
                 onChange={(e) =>
                   setData({ ...data, description: e.target.value })
                 }
+              />
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={states}
+                sx={{ width: 300 }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    placeholder="Provincia"
+                    name="provincia"
+                    label="Provincia"
+                    onChange={(e) =>{
+                      console.log(e.target.value)
+                      setData({ ...data, state: e.target.value });
+                      fetchCities(e.target.value)
+                    }}
+                    value={data.state}
+                    autoComplete="on"
+                  />
+                )}
+              />
+                <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={cities}
+                sx={{ width: 300 }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    placeholder="City"
+                    name="City"
+                    label="City"
+                    onChange={(e) =>
+                      setData({ ...data, city: e.target.value })
+                    }
+                    value={data.city}
+                    autoComplete="on"
+                  />
+                )}
               />
 
               <div class="mb-3">
@@ -124,7 +249,10 @@ export const PublicLocal = () => {
                 />
               </div>
 
-              <Button onClick={() => publicar()}>Publicar</Button>
+              <Button 
+              variant="contained"
+              color="success"
+              onClick={() => publicar()}>Publicar</Button>
             </form>
           </Box>
         </div>
@@ -138,6 +266,6 @@ export const PublicLocal = () => {
           ...
         </div>
       </div>
-    </>
+    </>} */
   );
 };

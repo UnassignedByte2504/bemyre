@@ -10,7 +10,7 @@ const SearchForms = ({ provincia }) => {
           <Typography className="text-center" variant="h2">
             ¿Dónde nos vamos a rockear?
           </Typography>
-        </Box>
+        </Box> 
       </Box>
       <Box className="ExploreForm">
         {provincia ? (

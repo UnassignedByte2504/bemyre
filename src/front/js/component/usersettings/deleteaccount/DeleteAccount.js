@@ -65,7 +65,7 @@ const DeleteAccount = () => {
             variant="contained"
             onClick={() => setBtn(true)}
           >
-            Borrar Cuenta
+            <strong>Borrar Cuenta</strong>
           </Button>
         </Box>
       ) : (
@@ -90,7 +90,7 @@ const DeleteAccount = () => {
             variant="contained"
             color="error"
           >
-            Eliminar cuenta
+            <strong>Eliminar cuenta</strong>
           </Button>
 
           {/* Formulario */}
@@ -112,7 +112,7 @@ const DeleteAccount = () => {
               className="text-white my-3"
               onClick={() => feedBack(userName, values.reason)}
             >
-              Enviar
+              <strong>Enviar</strong>
             </Button>
           </Box>
         </Box>
