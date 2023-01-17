@@ -1,41 +1,76 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { createLocalSchema } from "../../../esquemas/index";
 import { Box, Button } from "@mui/material";
 import { Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import { ArchiveSharp } from "@mui/icons-material";
+import Autocomplete from "@mui/material/Autocomplete";
 
 export const PublicLocal = () => {
-  const [nombreLocal, setNombreLocal] = useState("");
-  const [ubicacionLocal, setUbicacionLocal] = useState("");
-  const [descripcionLocal, setDescripcionLocal] = useState("");
+  
   const [data, setData] = useState({});
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
 
   const userName = sessionStorage.getItem("current_user");
 
+  useEffect(() => {
+    const fetchStates = async () => {
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const response = await fetch(
+        `${process.env.BACKEND_URL}/api/España/states`,
+        options
+      );
+  
+      const data = await response.json();
+      setStates(data);
+    }; 
+    // la "llamo"
+    fetchStates()
+   
+  }, [])
+  
+
   const publicar = async () => {
-    let body = new FormData()
-    for(let key in data){
-      body.append(key, data[key])
+    let body = new FormData();
+    for (let key in data) {
+      body.append(key, data[key]);
     }
-    console.log(data)
+    console.log(data);
     const token = sessionStorage.getItem("access_token");
     const options = {
       method: "POST",
       headers: {
-       
         Authorization: `Bearer ${token}`,
       },
-      body: body
+      body: body,
     };
-    await fetch(
-      `${process.env.BACKEND_URL}/api/settings/publiclocal`,
-      options
-    )
+    await fetch(`${process.env.BACKEND_URL}/api/settings/publiclocal`, options)
       .then((resp) => resp.json())
       .then((result) => console.log(result));
   };
+
+  const fetchCities = async (state) => {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/api/${state}/cities`,
+      options
+    );
+
+    const data = await response.json();
+    setCities(data);
+  }; 
 
   return (
     <>
@@ -108,6 +143,46 @@ export const PublicLocal = () => {
                 onChange={(e) =>
                   setData({ ...data, description: e.target.value })
                 }
+              />
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={states}
+                sx={{ width: 300 }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    placeholder="Provincia"
+                    name="provincia"
+                    label="Provincia"
+                    onChange={(e) =>{
+                      console.log(e.target.value)
+                      setData({ ...data, state: e.target.value });
+                      fetchCities(e.target.value)
+                    }}
+                    value={data.state}
+                    autoComplete="on"
+                  />
+                )}
+              />
+                <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={cities}
+                sx={{ width: 300 }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    placeholder="City"
+                    name="City"
+                    label="City"
+                    onChange={(e) =>
+                      setData({ ...data, city: e.target.value })
+                    }
+                    value={data.city}
+                    autoComplete="on"
+                  />
+                )}
               />
 
               <div class="mb-3">

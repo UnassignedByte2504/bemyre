@@ -5,8 +5,8 @@ import { HeaderProfile } from "../component/HeaderProfile";
 export const BandProfile = () => {
   return (
     <>
-      <div className="container">
-        <HeaderProfile />
+      <div className="container"> 
+        <HeaderProfile name="Black Bone Tango" city="Málaga" />
         <div className="row">
           {/* /////COLUMNA IZQUIERDA CON CARD Y ANUNCIOS /////*/}
           <div className="col-md-4">

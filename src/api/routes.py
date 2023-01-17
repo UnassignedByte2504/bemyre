@@ -11,7 +11,7 @@ from flask_jwt_extended import jwt_required
 import base64
 import cloudinary
 import cloudinary.uploader
-
+  
 api = Blueprint('api', __name__)
 
 
@@ -440,7 +440,7 @@ def get_locales():
 def public_local():
     user_name = get_jwt_identity()
     user = User.query.filter_by(user_name=user_name).first()
-    body_city = request.form.get('ubicacion_local')
+    body_city = request.form.get('city_name')
     city = City.query.filter_by(name = body_city).first()
     if 'local_img' in request.files:
         # upload file to uploadcare
@@ -458,16 +458,17 @@ def public_local():
             name = data['name'],
             ubicacion_local = data["ubicacion_local"],
             description = data["description"],
-            city_id = 1,
+            city_id = city.id,
             user_id = user.id,
             local_img = result['secure_url']
         )
         db.session.add(new_local)
         db.session.commit()
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
     response_body = {
         "msg": "local añadido"
+        
     }
     return jsonify(response_body), 201
 

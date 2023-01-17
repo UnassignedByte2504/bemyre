@@ -1,15 +1,17 @@
+import { Box } from "@mui/system";
 import React from "react";
 import "../../styles/headerprofile.css";
 
-export const HeaderProfile = () => {
+
+export const HeaderProfile = ({name, city, local_img}) => {
   return (
-    <div className="row header">
+    <Box className="row header" sx={{backgroundImage: `${local_img}`}}>
       <div className="col"></div>
       <div className="col">
-        <h1>Black Bone Tango</h1>
-        <h4>Rock & blues Music Group | Málaga</h4>
+        {/* <h1>Black Bone Tango</h1> */}
+        <h4>{name} | {city}</h4>
       </div>
       <div className="col"></div>
-    </div>
+    </Box>
   );
 };
