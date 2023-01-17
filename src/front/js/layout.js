@@ -28,6 +28,7 @@ import { Locales } from "./pages/Locales";
 import { Bandas } from "./pages/Bandas.js";
 import { Eventos } from "./pages/Eventos.js";
 import { Musicos } from "./pages/Musicos.js";
+import { LocalProfile } from "./pages/LocalProfile.js";
 
 
 
@@ -72,6 +73,7 @@ const Layout = ( ) => {
             )}
             <Route element={<Signup />} path="/signup" />
             <Route element={<BandProfile />} exact path="/bandprofile/:id" />
+            <Route element={<LocalProfile />} exact path="/localprofile/:id" />
             <Route element={<Faq />} path="/faq" />
             <Route
               path="/user/:username/ajustes"

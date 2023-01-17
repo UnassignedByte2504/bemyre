@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 import datetime
 import math
 from sqlalchemy import Column, ForeignKey, Integer, String, Date
-
+ 
 
 from sqlalchemy.orm import relationship
 db = SQLAlchemy()
@@ -429,7 +429,7 @@ class BandMembers(db.Model):
             "creation_date": self.creation_date.strftime("%Y-%m-%d %H:%M:%S"),
             "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
         }
-
+ 
 class MusicGenre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
@@ -498,7 +498,7 @@ class Local (db.Model):
     # events = db.relationship('Event', backref='local', lazy=True)
     local_music_genres = db.relationship('LocalMusicGenre', backref='local', lazy=True)
 
-  
+   
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
@@ -510,7 +510,7 @@ class Local (db.Model):
             "ubicacion_local": self.ubicacion_local,
             "description": self.description,
             "city": self.city.name,
-            "local_type": self.local_type
+            
             
 
         }

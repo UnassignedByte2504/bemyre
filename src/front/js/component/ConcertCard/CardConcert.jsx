@@ -27,7 +27,7 @@ export const CardConcert = ({
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-        }}
+        }} 
       >
         <CardConcertImg event_img={event_img} />
         <CardConcertInfo

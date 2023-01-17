@@ -29,7 +29,7 @@ export const CardProfile = ({
   const follow = async (username) => {
     await followUser(username);
     await window.location.reload;
-  };
+  }; 
 
   const unFollow = async (username) => {
     await unfollowUser(username);
