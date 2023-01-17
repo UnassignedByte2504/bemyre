@@ -11,12 +11,12 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import EmailIcon from "@mui/icons-material/Email";
-import LogoutIcon from '@mui/icons-material/Logout';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import LogoutIcon from "@mui/icons-material/Logout";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import FlexBetween from "../styledcomponents/FlexBetween.jsx";
-import { ButtonGroup, Divider, useTheme } from "@mui/material";
+import { ButtonGroup, Divider, useTheme, Badge } from "@mui/material";
 
 const settings = ["Mi perfil", "Ajustes", "Dashboard", "Logout"];
 
@@ -25,18 +25,19 @@ const UserBar = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const currentUser = sessionStorage.getItem('current_user')
+  const currentUser = sessionStorage.getItem("current_user");
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const menuItemClick =  ({to, logout}) => {
-    navigate(to)
-    handleCloseUserMenu()
+  const menuItemClick = ({ to, logout }) => {
+    navigate(to);
+    handleCloseUserMenu();
 
     if (logout) {
-      actions.logOut()}
-  }
+      actions.logOut();
+    }
+  };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -66,9 +67,11 @@ const UserBar = () => {
                 background: "none",
                 boxShadow: "none",
               }}
-              onClick={()=> navigate(`/user/${currentUser}/inbox`)}
+              onClick={() => navigate(`/user/${currentUser}/inbox`)}
             >
-              <EmailIcon />
+              <Badge badgeContent={1} color="secondary">
+                <EmailIcon />
+              </Badge>
             </Button>
             <Button
               sx={{
@@ -83,7 +86,10 @@ const UserBar = () => {
         <Box>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt={currentUser} src={sessionStorage.getItem("profile_img")} />
+              <Avatar
+                alt={currentUser}
+                src={sessionStorage.getItem("profile_img")}
+              />
             </IconButton>
           </Tooltip>
           <Menu
@@ -109,58 +115,60 @@ const UserBar = () => {
           >
             <MenuItem
               variant="contained"
-              onClick={() => menuItemClick({to: `/user/${currentUser}`})}
+              onClick={() => menuItemClick({ to: `/user/${currentUser}` })}
               sx={{
-                gap:".20rem !important",
-                display:"flex !important",
-                flexDirection:"row !important",
-                justifyContent:"space-between !important",
-                alignItems:"center",
+                gap: ".20rem !important",
+                display: "flex !important",
+                flexDirection: "row !important",
+                justifyContent: "space-between !important",
+                alignItems: "center",
               }}
             >
               <Box>
                 <Typography>Mi perfil</Typography>
               </Box>
               <Box>
-                <AccountCircleOutlinedIcon className="my-1"/>
+                <AccountCircleOutlinedIcon className="my-1" />
               </Box>
             </MenuItem>
             <MenuItem
               variant="contained"
-              onClick={() => menuItemClick({to: `/user/${currentUser}/ajustes`})}
+              onClick={() =>
+                menuItemClick({ to: `/user/${currentUser}/ajustes` })
+              }
               sx={{
-                gap:".20rem !important",
-                display:"flex !important",
-                flexDirection:"row !important",
-                justifyContent:"space-between !important",
-                alignItems:"center",
+                gap: ".20rem !important",
+                display: "flex !important",
+                flexDirection: "row !important",
+                justifyContent: "space-between !important",
+                alignItems: "center",
               }}
             >
               <Box>
                 <Typography>Settings</Typography>
               </Box>
               <Box>
-                <ManageAccountsIcon className="my-1"/>
+                <ManageAccountsIcon className="my-1" />
               </Box>
             </MenuItem>
             <Divider />
             <MenuItem
               variant="contained"
-              onClick={() => menuItemClick({logout: true})}
+              onClick={() => menuItemClick({ logout: true })}
               sx={{
-                gap:".20rem !important",
-                display:"flex !important",
-                flexDirection:"row !important",
-                justifyContent:"space-between !important",
-                alignItems:"center",
-                color:"red !important"
+                gap: ".20rem !important",
+                display: "flex !important",
+                flexDirection: "row !important",
+                justifyContent: "space-between !important",
+                alignItems: "center",
+                color: "red !important",
               }}
             >
               <Box>
                 <Typography>Log out</Typography>
               </Box>
               <Box>
-                <LogoutIcon className="my-1"/>
+                <LogoutIcon className="my-1" />
               </Box>
             </MenuItem>
           </Menu>

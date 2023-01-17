@@ -1,0 +1,150 @@
+@import url(colors.css);
+
+.OutGoingMessage-wrapper {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.InboxWrapper {
+  background-color: rgb(212, 0, 255);
+  height: 40rem;
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.3rem;
+}
+
+.InboxHeader {
+  background-color: cornflowerblue;
+  height: 10%;
+  width: 100%;
+}
+.InboxBody {
+  padding: 0.25rem;
+  background-color: red;
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.RecipientsWrapper {
+  padding: 0.5rem;
+  background-color: blue;
+  width: 30%;
+  height: 100%;
+}
+.RecepientsHeader {
+  height: 15%;
+  width: 100%;
+  background-color: deeppink;
+}
+
+.RecipientsBody {
+  height: 85%;
+  width: 100%;
+  background-color: indigo;
+  padding: 0.6rem;
+  position: relative;
+}
+.NewRecipient {
+  height: 3rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.NewRecipientBtn {
+  background-color: #de3332 !important;
+  transition: 0.6s ease;
+  width: 40px;
+  height: 40px;
+}
+.NewRecipientBtn:hover {
+  scale: 1.1;
+}
+.NewRecipientBtn:active {
+  scale: 0.8;
+}
+.NewRecipientForm-Wrapper {
+  background-color: #ddd;
+  width: 9rem;
+  border-radius: 10px;
+}
+.RecipientRoot {
+  height: 3rem;
+  background-color: aqua;
+  margin-bottom: 0.25rem;
+  padding: 0.2rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  transition: 200ms ease-out;
+}
+.RecipientRoot:hover {
+  background-color: red;
+  transform: rotateX(20deg);
+  transform: translateY(-0.5rem);
+  margin-bottom: 0;
+  box-shadow: 0 -3px 3px #000000;
+}
+
+.RecipientRoot:first-of-type:hover {
+  background-color: red;
+  transform: none;
+}
+.MessagesWrapper {
+  padding: 0.5rem;
+  background-color: green;
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+}
+.MessagesHeader {
+  width: 100%;
+  height: 15%;
+  background-color: orange;
+  box-shadow: 0 3px 3px #000000;
+  z-index: 3;
+}
+
+.MessagesBody {
+  overflow-y: scroll;
+  height: 85%;
+  width: 100%;
+}
+
+.MessageInput{
+border: none !important;
+outline: none !important;
+}
+.ChatDateWrapper {
+  color: #96a2a9;
+  margin: 5px auto;
+  font-size: 11px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.ChatDate {
+  background-color: blue;
+  border-radius: 20px;
+  width: 6rem;
+  text-align: center;
+}
+

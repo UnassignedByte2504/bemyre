@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 30698f92414f
+Revision ID: cb6e2369063f
 Revises: 
-Create Date: 2023-01-13 12:45:19.365860
+Create Date: 2023-01-16 19:32:23.333818
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '30698f92414f'
+revision = 'cb6e2369063f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -96,6 +96,16 @@ def upgrade():
     sa.ForeignKeyConstraint(['state'], ['state.name'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('direct_message',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('sender_id', sa.Integer(), nullable=True),
+    sa.Column('recipient_id', sa.Integer(), nullable=True),
+    sa.Column('message_body', sa.String(length=500), nullable=False),
+    sa.Column('timestamp', sa.DateTime(), nullable=False),
+    sa.ForeignKeyConstraint(['recipient_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['sender_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('followers',
     sa.Column('follower_id', sa.Integer(), nullable=True),
     sa.Column('followed_id', sa.Integer(), nullable=True),
@@ -113,6 +123,26 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('username')
+    )
+    op.create_table('user_feed_back',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user', sa.Integer(), nullable=False),
+    sa.Column('feedback', sa.String(length=500), nullable=False),
+    sa.ForeignKeyConstraint(['user'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('user_media',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('youtube_media1', sa.String(length=255), nullable=True),
+    sa.Column('youtube_media2', sa.String(length=255), nullable=True),
+    sa.Column('spotify_media1', sa.String(length=255), nullable=True),
+    sa.Column('spotify_media2', sa.String(length=255), nullable=True),
+    sa.Column('soundcloud_media1', sa.String(length=255), nullable=True),
+    sa.Column('soundcloud_media2', sa.String(length=255), nullable=True),
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('user_id')
     )
     op.create_table('user_musician_info',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -166,7 +196,7 @@ def upgrade():
     )
     op.create_table('local',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('local_img', sa.Unicode(), nullable=True),
+    sa.Column('local_img', sa.String(length=255), nullable=True),
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('ubicacion_local', sa.String(length=255), nullable=False),
     sa.Column('description', sa.String(length=500), nullable=False),
@@ -253,8 +283,11 @@ def downgrade():
     op.drop_table('bands')
     op.drop_table('user_social_media')
     op.drop_table('user_musician_info')
+    op.drop_table('user_media')
+    op.drop_table('user_feed_back')
     op.drop_table('logged_users')
     op.drop_table('followers')
+    op.drop_table('direct_message')
     op.drop_table('city')
     op.drop_table('user')
     op.drop_table('state')

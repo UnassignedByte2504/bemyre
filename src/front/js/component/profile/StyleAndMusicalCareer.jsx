@@ -63,7 +63,7 @@ const handleValueChange = (e) => {
     <Box className="mt-5">
       <Typography
         variant="h3"
-        sx={{ display: "flex", justifyContent: "space-between" }}
+        sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
       >
         <strong>Mi estilo de música y trayectoria</strong>
         {open == false ? (
@@ -152,7 +152,7 @@ const handleValueChange = (e) => {
                 values
               )
             }   
-          variant="contained" className="mt-2">
+          variant="contained" className="mt-2 bubbles w-100">
             Guardar cambios
           </Button>
         </>

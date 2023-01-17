@@ -36,7 +36,7 @@ const Follows = () => {
   return (
     <FlexEvenly
       sx={{
-        marginTop: "2rem",
+        marginTop: "1.3rem",
         marginBottom: "2rem",
       }}
     >
@@ -49,9 +49,12 @@ const Follows = () => {
         onClick={() => actions.setProfileCardView(profileCardViews[1])}
       >
         {followers && (
-          <Typography variant="h4">
-            {sessionStorage.getItem("followers_count")} Seguidores
+          <Box className="d-flex flex-column align-items-center">
+          <Typography variant="h3" sx={{color: ""}}>
+          <strong>{sessionStorage.getItem("followers_count")}</strong>
           </Typography>
+          <Typography variant="h5">Seguidores</Typography>
+          </Box>
         )}
       </Box>
       <Box
@@ -62,9 +65,13 @@ const Follows = () => {
         }
         onClick={() => actions.setProfileCardView(profileCardViews[2])}
       >
-        <Typography variant="h4">
-          {sessionStorage.getItem("following_count")} Siguiendo
+      <Box className="d-flex flex-column align-items-center">
+        <Typography variant="h3">
+        <strong>{sessionStorage.getItem("following_count")}</strong>
         </Typography>
+        <Typography variant="h5">Siguiendo</Typography>
+      </Box>
+
       </Box>
     </FlexEvenly>
   );

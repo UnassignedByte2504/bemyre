@@ -35,6 +35,8 @@ export const CardProfile = ({
     await unfollowUser(username);
     window.location.reload;
   };
+
+  const [open, setOpen] =useState()
   return (
     <Box
       className="card m-2 shadow"
@@ -47,7 +49,7 @@ export const CardProfile = ({
       <img src={profilePicture} className="card-img-top" alt="..." />
       <Box className="card-body">
         <Typography variant="h3" className="card-title text-center">
-          {first_name} {last_name}
+          <strong>{first_name} {last_name}</strong>
         </Typography>
         <Follows />
         <Typography variant="h5" className="mb-3">{description}</Typography>

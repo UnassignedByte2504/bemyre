@@ -137,7 +137,7 @@ const UserPasswordManagement = () => {
                 </Button>
               </Box>
             ) : (
-              <Box className="w-100 d-flex" onSubmit={handleSubmit}>
+              <Box className="w-100 d-flex" >
                 <TextField
                   onChange={handleValueChange}
                   className="w-100 me-2"
@@ -149,7 +149,7 @@ const UserPasswordManagement = () => {
                   onClick={() =>
                     editSocialMedia(
                       userName,
-                      fieldNames.website,
+                      fieldNames.web,
                       values.web
                     )
                   }                
@@ -170,7 +170,7 @@ const UserPasswordManagement = () => {
         )}
 
         {/* Condicional Youtube */}
-        {!store.resultados?.user_social_media[0].soundcloud_url ? (
+        {!store.resultados?.user_social_media[0].youtube_url ? (
           <Box className="d-flex w-100">
             <TextField
               className="w-100 my-2"
@@ -206,7 +206,7 @@ const UserPasswordManagement = () => {
                 </Button>
               </Box>
             ) : (
-              <Box className="w-100 d-flex" onSubmit={handleSubmit}>
+              <Box className="w-100 d-flex" >
                 <TextField
                   onChange={handleValueChange}
                   className="w-100 me-2"
@@ -649,7 +649,7 @@ const UserPasswordManagement = () => {
                 </Button>
               </Box>
             ) : (
-              <Box className="w-100 d-flex" onSubmit={handleSubmit}>
+              <Box className="w-100 d-flex" >
                 <TextField
 
                   name="snapchat"
@@ -721,7 +721,7 @@ const UserPasswordManagement = () => {
                 </Button>
               </Box>
             ) : (
-              <Box className="w-100 d-flex" onSubmit={handleSubmit}>
+              <Box className="w-100 d-flex" >
                 <TextField
                   name="spotify"
                   onChange={handleValueChange}

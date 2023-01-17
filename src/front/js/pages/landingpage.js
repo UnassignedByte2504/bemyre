@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { locales, bandas, eventos, musicos } from "../mockingData";
 
+
 //Import materials
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
@@ -14,8 +15,10 @@ import { LandingJumbo } from "../component/jumbotron/landingjumbo";
 import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
 import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
 import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
+import { LoginJumbo } from "../component/jumbotron/LoginJumbo.jsx";
 import { CardConcert } from "../component/ConcertCard/CardConcert.jsx";
 import { CardMusician } from "../component/MusicianCard/CardMusician.jsx";
+
 
 export const LandingPage = () => {
   const { actions, store } = useContext(Context);
@@ -23,7 +26,6 @@ export const LandingPage = () => {
   const [lattitude, setLattitude] = useState();
   const [longitude, setLongitude] = useState();
   const [currentCity, setCurrentCity] = useState();
-
   const date = new Date();
 
   const day = date.getDate();
@@ -37,10 +39,11 @@ export const LandingPage = () => {
     const geoApiurl = `https://api.geoapify.com/v1/geocode/reverse?lat=${lattitude}&lon=${longitude}&apiKey=${apiKey}`;
     await fetch(geoApiurl, opts)
       .then((response) => response.json())
-      .then((data) => { setCurrentCity(data.features[0].properties.city)
+      .then((data) => {
+        setCurrentCity(data.features[0].properties.city);
       });
   };
-  
+
   useEffect(() => {
     const currentPath = window.location.pathname;
     setActivePage(currentPath);
@@ -61,19 +64,22 @@ export const LandingPage = () => {
     }
   }, []);
   useEffect(() => {
-    fetchCityName()
+    fetchCityName();
   }, [lattitude]);
 
   return (
     <Box>
-      <LandingJumbo />
+      {sessionStorage.getItem("current_user")? <LoginJumbo /> : <LandingJumbo />}
+      
       <Container maxWidth="xl" className="text-center">
-        { currentCity && <Typography variant="h3" className=" mt-5 mb-5">
-          Conciertos en {currentCity} esta semana{" "}
-          <i className="far fa-calendar-alt"></i>
-          {day}/{month} - <i className="far fa-calendar-alt"></i>
-          {day + 7}/{month}
-        </Typography>}
+        {currentCity && (
+          <Typography variant="h3" className=" mt-5 mb-5">
+            Conciertos en {currentCity} esta semana{" "}
+            <i className="far fa-calendar-alt"></i>
+            {day}/{month} - <i className="far fa-calendar-alt"></i>
+            {day + 7}/{month}
+          </Typography>
+        )}
       </Container>
 
             {/* ------EVENTOS----------- */}
@@ -171,6 +177,7 @@ export const LandingPage = () => {
               />
             </Box>
           ))}
+
         </Box>
       </Box>
 
