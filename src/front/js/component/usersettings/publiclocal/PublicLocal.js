@@ -8,10 +8,10 @@ import { ArchiveSharp } from "@mui/icons-material";
 import Autocomplete from "@mui/material/Autocomplete";
 
 export const PublicLocal = () => {
-  
   const [data, setData] = useState({});
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
+  const [musicGenres, setMusicGenres] = useState();
 
   const userName = sessionStorage.getItem("current_user");
 
@@ -27,37 +27,33 @@ export const PublicLocal = () => {
         `${process.env.BACKEND_URL}/api/España/states`,
         options
       );
-  
-      const data = await response.json();
-      setStates(data);
-    }; 
+      // cambio de nombre de variable de data a result
+      const result = await response.json();
+      setStates(result);
+    };
+    // llamo a la función
+    fetchStates();
+  }, []);
+
+  useEffect(() => {
+    const fetchMusicGenres = async () => {
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const response = await fetch(
+        `${process.env.BACKEND_URL}/api/music_genres`,
+        options
+      );
+
+      const result = await response.json();
+      setMusicGenres(result);
+    };
     // la "llamo"
-    fetchStates()
-   
-  }, [])
-
-
-  // useEffect(() => {
-  //   const fetchMusicGenres = async () => {
-  //     const options = {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     };
-  //     const response = await fetch(
-  //       `${process.env.BACKEND_URL}/api/España/states`,
-  //       options
-  //     );
-  
-  //     const data = await response.json();
-  //     setStates(data);
-  //   }; 
-  //   // la "llamo"
-  //   fetchMusicGenres()
-   
-  // }, [])
-  
+    fetchMusicGenres();
+  }, []);
 
   const publicar = async () => {
     let body = new FormData();
@@ -90,9 +86,9 @@ export const PublicLocal = () => {
       options
     );
 
-    const data = await response.json();
-    setCities(data);
-  }; 
+    const result = await response.json();
+    setCities(result);
+  };
 
   return (
     <>
@@ -170,10 +166,9 @@ export const PublicLocal = () => {
                 disablePortal
                 id="combo-box-demo"
                 options={states}
-                onChange={(e, newValue) =>{
-                  
+                onChange={(e, newValue) => {
                   setData({ ...data, state: newValue });
-                  fetchCities(newValue)
+                  fetchCities(newValue);
                 }}
                 value={data.state}
                 sx={{ width: 300 }}
@@ -183,18 +178,15 @@ export const PublicLocal = () => {
                     placeholder="Provincia"
                     name="provincia"
                     label="Provincia"
-                    
                     autoComplete="on"
                   />
                 )}
               />
-                <Autocomplete
+              <Autocomplete
                 disablePortal
                 id="combo-box-demo"
                 options={cities}
-                onChange={(e, newValue) =>
-                  setData({ ...data, city: newValue })
-                }
+                onChange={(e, newValue) => setData({ ...data, city: newValue })}
                 value={data.city}
                 sx={{ width: 300 }}
                 renderInput={(params) => (
@@ -203,11 +195,37 @@ export const PublicLocal = () => {
                     placeholder="City"
                     name="City"
                     label="City"
-                    
                     autoComplete="on"
                   />
                 )}
               />
+
+              {/* autocomplete con chips limitadas */}
+              
+              {musicGenres && <Autocomplete
+                multiple
+                
+                limitTags={2}
+                id="multiple-limit-tags"
+                options={musicGenres}
+                getOptionLabel={(option) => option.name}
+                defaultValue={[
+                  musicGenres[13],
+                  musicGenres[12],
+                  musicGenres[11],
+                ]}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    // label="limitTags"
+                    placeholder="Estilos de música"
+                    name="Género de música"
+                    label="Género de música"
+                    autoComplete="on"
+                  />
+                )}
+                sx={{ width: "500px" }}
+              />}
 
               <div class="mb-3">
                 <label for="formFile" class="form-label">
