@@ -317,7 +317,15 @@ def handle_user_add_media(username_var):
         user = db.session.query(User).filter(User.user_name == username_var).first()
         user_media = db.session.query(UserMedia).filter(UserMedia.user_id == user.id).first()
         if not user_media:
-            user_media = UserMedia(user_id=user.id)
+            user_media = UserMedia(
+            user_id=user.id,
+            youtube_media1=None,
+            youtube_media2=None,
+            spotify_media1=None,
+            spotify_media2=None,
+            soundcloud_media1=None,
+            soundcloud_media2=None)
+            
             db.session.add(user_media)
             db.session.commit()
         youtube_media1 = request_data.get("youtube_media1", None)
