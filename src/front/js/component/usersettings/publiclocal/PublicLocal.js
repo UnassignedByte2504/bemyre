@@ -5,16 +5,18 @@ import { Box, Button, Divider } from "@mui/material";
 import { Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import { ArchiveSharp } from "@mui/icons-material";
-
+import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import Autocomplete from "@mui/material/Autocomplete";
 
-
-
 export const PublicLocal = () => {
-  
   const [data, setData] = useState({});
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
+  const [open, setOpen] = useState({
+    nombre: false,
+    ubicacion: false,
+    descripcion: false,
+  });
 
   const userName = sessionStorage.getItem("current_user");
 
@@ -30,15 +32,13 @@ export const PublicLocal = () => {
         `${process.env.BACKEND_URL}/api/España/states`,
         options
       );
-  
+
       const data = await response.json();
       setStates(data);
-    }; 
+    };
     // la "llamo"
-    fetchStates()
-   
-  }, [])
-  
+    fetchStates();
+  }, []);
 
   const publicar = async () => {
     let body = new FormData();
@@ -73,11 +73,11 @@ export const PublicLocal = () => {
 
     const data = await response.json();
     setCities(data);
-  }; 
+  };
 
   return (
     <Box>
-      {1 + 1 == 2 ? (
+      {1 + 1 == 32 ? (
         <Box className="w-100 d-flex flex-column align-items-center">
           <Typography className="my-3" variant="h3">
             Crear un Local
@@ -109,15 +109,209 @@ export const PublicLocal = () => {
             label="Descripción del local"
             onChange={(e) => setData({ ...data, description: e.target.value })}
           />
-          <Button className="my-3 bubbles w-75" variant="contained" aria-label="upload picture" component="label">
-            Subir imagen local <PhotoCamera />
+          <Button
+            className="my-3 bubbles w-75"
+            variant="contained"
+            aria-label="upload picture"
+            component="label"
+          >
+            Subir imagen local <PhotoCameraIcon className="ms-2" />
             <input hidden accept="image/*" type="file" />
           </Button>
-          <Button variant="contained" color="success" className="text-white mt-3">
+          <Button
+            variant="contained"
+            color="success"
+            className="text-white mt-3"
+          >
             <strong>Crear Local</strong>
           </Button>
         </Box>
-      ) : null}
+      ) : (
+        <Box className="w-100 d-flex flex-column align-items-center">
+          <Typography className="my-3" variant="h3">
+            Modificar Información Local
+          </Typography>
+          <Divider className="w-75 mb-3" />
+
+          {/* Condicional nombre local */}
+          {1 + 1 == 2 ? (
+            <>
+              {/* Condicional editar cerrado */}
+              {!open.name ? (
+                <Box className="d-flex align-items-center justify-content-between w-75 my-2">
+                  <Typography variant="h5"><strong>Nombre banda</strong></Typography>
+                  <Button
+                    onClick={() => setOpen({ name: true })}
+                    variant="contained"
+                    className="bubbles"
+                    >
+                    <strong>Editar</strong>
+                  </Button>
+                </Box>
+              ) : (
+                <>
+                  {/* Condicional editar abierto */}
+                  <Box className="d-flex align-items-center justify-content-between w-75">
+                    <TextField className="w-100" label="Nuevo nombre" />
+                    <Box className="d-flex">
+                      <Button
+                        className="ms-2"
+                        variant="contained"
+                        color="success"
+                      >
+                        <strong>Modificar</strong>
+                      </Button>
+                      <Button
+                        onClick={() => setOpen({ name: false })}
+                        variant="contained"
+                        color="error"
+                        className="ms-2"
+                      >
+                        <strong>Cancelar</strong>
+                      </Button>
+                    </Box>
+                  </Box>
+                </>
+              )}
+            </>
+          ) : (
+            <TextField
+              className="my-2 w-75"
+              type="text"
+              name="nombreLocal"
+              variant="outlined"
+              label="Nombre del local"
+              onChange={(e) => setData({ ...data, name: e.target.value })}
+            />
+          )}
+
+          {/* Condicional Ubicación */}
+          {
+            2 + 2 == 4 ? (
+              <>
+                {/* Condicional editar cerrado */}
+                {!open.ubicacion ? (
+                  <Box className="d-flex align-items-center justify-content-between w-75 my-2">
+                    <Typography variant="h5"><strong>Ubicación</strong></Typography>
+                    <Button
+                      onClick={() => setOpen({ ubicacion: true })}
+                      variant="contained"
+                      className="bubbles"
+                      >
+                      <strong>Editar</strong>
+                    </Button>
+                  </Box>
+                ) : (
+                  <>
+                    {/* Condicional editar abierto */}
+                    <Box className="d-flex align-items-center justify-content-between w-75">
+                      <TextField className="w-100" label="Ubicacion" />
+                      <Box className="d-flex">
+                        <Button
+                          className="ms-2"
+                          variant="contained"
+                          color="success"
+                        >
+                          <strong>Modificar</strong>
+                        </Button>
+                        <Button
+                          onClick={() => setOpen({ ubicacion: false })}
+                          variant="contained"
+                          color="error"
+                          className="ms-2"
+                        >
+                          <strong>Cancelar</strong>
+                        </Button>
+                      </Box>
+                    </Box>
+                  </>
+                )}
+              </>
+            ) : (
+              <TextField
+                className="my-2 w-75"
+                type="text"
+                name="ubicacionLocal"
+                variant="outlined"
+                label="Ubicación del local"
+                onChange={(e) =>
+                  setData({ ...data, ubicacion_local: e.target.value })
+                }
+              />
+            )
+            // Final Condicional ubicacion
+          }
+
+          {/* Condicional descripcion */}
+          {3+3==6? 
+          
+          <>
+          {/* Condicional editar cerrado */}
+          {!open.descripcion ? (
+            <Box className="d-flex align-items-center justify-content-between w-75 my-2">
+              <Typography variant="h5"><strong>Descripción</strong></Typography>
+              <Button
+                onClick={() => setOpen({ descripcion: true })}
+                variant="contained"
+                className="bubbles"
+              >
+                <strong>Editar</strong>
+              </Button>
+            </Box>
+          ) : (
+            <>
+              {/* Condicional editar abierto */}
+              <Box className="d-flex align-items-center justify-content-between w-75">
+                <TextField className="w-100" label="Descripcion" />
+                <Box className="d-flex">
+                  <Button
+                    className="ms-2"
+                    variant="contained"
+                    color="success"
+                  >
+                    <strong>Modificar</strong>
+                  </Button>
+                  <Button
+                    onClick={() => setOpen({ descripcion: false })}
+                    variant="contained"
+                    color="error"
+                    className="ms-2"
+                  >
+                    <strong>Cancelar</strong>
+                  </Button>
+                </Box>
+              </Box>
+            </>
+          )}
+        </>
+           :
+          <TextField
+            className="my-2 w-75"
+            type="text"
+            name="descripcionLocal"
+            variant="outlined"
+            label="Descripción del local"
+            onChange={(e) => setData({ ...data, description: e.target.value })}
+          />
+        }
+          <Button
+            className="my-3 bubbles w-75"
+            variant="contained"
+            aria-label="upload picture"
+            component="label"
+          >
+            Subir imagen local <PhotoCameraIcon className="ms-2" />
+            <input hidden accept="image/*" type="file" />
+          </Button>
+          <Button
+            variant="contained"
+            color="success"
+            className="text-white mt-3"
+          >
+            <strong>Crear Local</strong>
+          </Button>
+        </Box>
+      )}
     </Box>
 
     // <>
