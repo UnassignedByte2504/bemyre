@@ -28,6 +28,7 @@ import { Locales } from "./pages/Locales";
 import { Bandas } from "./pages/Bandas.js";
 import { Eventos } from "./pages/Eventos.js";
 import { Musicos } from "./pages/Musicos.js";
+import { useRoutes } from "react-router-dom";
 import { LocalProfile } from "./pages/LocalProfile.js";
 
 
@@ -54,6 +55,7 @@ const Layout = ( ) => {
           <Routes>
             <Route element={<Explore />} path="/explorar" />
             <Route element={<LandingPage />} path="/home" />
+            <Route element={<LandingPage />} path="/" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<Profile />} path="user/:username" />
             <Route

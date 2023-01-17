@@ -662,20 +662,29 @@ def get_received_messages(username_var):
 def get_sent_messages(username_var):
     user = User.query.filter_by(user_name = username_var).first()
     recipients_user_names = []
-    sent_messages = DirectMessage.query.filter_by(sender_id = user.id).all()
-    for x in sent_messages:
+    recipients = DirectMessage.query.filter_by(sender_id = user.id).all()
+    for x in recipients:
         if x.recipient.user_name not in recipients_user_names:
             recipients_user_names.append(x.recipient.user_name)
+    senders = DirectMessage.query.filter_by(recipient_id = user.id).all()
+    for x in senders:
+        if x.sender.user_name not in recipients_user_names:
+            recipients_user_names.append(x.sender.user_name)
     recipient_profile_img = []
     for x in recipients_user_names:
         recipient_profile_img.append(User.query.filter_by(user_name = x).first().profile_img)
     return jsonify({"names": recipients_user_names, "profile_img":recipient_profile_img}), 200
 
-
-
-
-
-
+@api.route('<string:username_var>/usernames', methods=['GET'])
+def get_usernames(username_var):
+    user = User.query.filter_by(user_name = username_var).first()
+    users = User.query.all()
+    usernames = []
+    if user in users:
+        for x in users:
+            if x.user_name != user.user_name:
+                usernames.append(x.user_name)
+    return jsonify(usernames), 200
 
 @api.route('/<string:username_sender>/newmessage/<string:username_recipient>', methods=['POST'])
 def send_message(username_sender, username_recipient):

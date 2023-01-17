@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: cb6e2369063f
+Revision ID: a9563727ad83
 Revises: 
-Create Date: 2023-01-16 19:32:23.333818
+Create Date: 2023-01-17 16:12:46.974804
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'cb6e2369063f'
+revision = 'a9563727ad83'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -79,11 +79,12 @@ def upgrade():
     sa.Column('first_name', sa.String(length=80), nullable=False),
     sa.Column('last_name', sa.String(length=80), nullable=False),
     sa.Column('description', sa.String(length=500), nullable=True),
-    sa.Column('creation_date', sa.DateTime(), nullable=False),
-    sa.Column('last_login', sa.DateTime(), nullable=False),
+    sa.Column('creation_date', sa.DateTime(), nullable=True),
+    sa.Column('last_login', sa.DateTime(), nullable=True),
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.Column('is_musician', sa.Boolean(), nullable=False),
     sa.Column('is_logged', sa.Boolean(), nullable=False),
+    sa.Column('unread_messages', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_type'], ['user_type.name'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
@@ -101,6 +102,7 @@ def upgrade():
     sa.Column('sender_id', sa.Integer(), nullable=True),
     sa.Column('recipient_id', sa.Integer(), nullable=True),
     sa.Column('message_body', sa.String(length=500), nullable=False),
+    sa.Column('readed', sa.Boolean(), nullable=False),
     sa.Column('timestamp', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['recipient_id'], ['user.id'], ),
     sa.ForeignKeyConstraint(['sender_id'], ['user.id'], ),

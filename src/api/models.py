@@ -1,8 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 import math
-from sqlalchemy import Column, ForeignKey, Integer, String, Date
- 
+from sqlalchemy import Column, ForeignKey, Integer, String, Date, and_, or_, not_
+
 
 from sqlalchemy.orm import relationship
 db = SQLAlchemy()
@@ -135,6 +135,7 @@ class DirectMessage(db.Model):
     recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     recipient = relationship("User", back_populates="received_messages")
     message_body = db.Column(db.String(500), nullable=False)
+    readed = db.Column(db.Boolean, nullable=False, default=False)
     timestamp = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
 
     def __repr__(self):
@@ -146,7 +147,8 @@ class DirectMessage(db.Model):
             "message_body": self.message_body,
             "timestamp": self.timestamp.strftime("%m/%d/%Y, %H:%M:%S"),
             "sender": self.sender.user_name,
-            "recipient": self.recipient.user_name
+            "recipient": self.recipient.user_name,
+            "readed": self.readed
         }
 DirectMessage.sender = db.relationship('User', foreign_keys=[DirectMessage.sender_id], back_populates='sent_messages')
 DirectMessage.recipient = db.relationship('User', foreign_keys=[DirectMessage.recipient_id], back_populates='received_messages')
@@ -163,8 +165,8 @@ class User(db.Model):
     last_name = db.Column(db.String(80), unique=False, nullable=False)
     description = db.Column(db.String(500), unique=False, nullable=True)
     user_social_media = relationship("UserSocialMedia")
-    creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
-    last_login = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
+    creation_date = db.Column(db.DateTime, nullable=True, default=datetime.datetime.utcnow)
+    last_login = db.Column(db.DateTime, nullable=True, default = datetime.datetime.utcnow)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     is_musician = db.Column(db.Boolean(), unique=False, nullable=False)
     user_musician_info = relationship("UserMusicianInfo")
@@ -177,6 +179,7 @@ class User(db.Model):
         backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
     sent_messages = db.relationship('DirectMessage', foreign_keys=[DirectMessage.sender_id], back_populates='sender')
     received_messages = db.relationship('DirectMessage', foreign_keys=[DirectMessage.recipient_id], back_populates='recipient')
+    unread_messages = db.Column(db.Integer, default=0)
     # user_media = relationship("UserMedia")
 
     def follow(self, user):
@@ -206,7 +209,7 @@ class User(db.Model):
             "first_name": self.first_name,
             "last_name": self.last_name,
             "description": self.description,
-            "creation_date": self.creation_date,
+            "creation_date": self.creation_date.strftime("%Y-%m-%d %H:%M:%S"),
             "last_login": self.last_login.strftime("%Y-%m-%d %H:%M:%S"),    
             "user_contact_info": [user_contact_info.serialize() for user_contact_info in self.user_contact_info],
             "user_social_media": [user_social_media.serialize() for user_social_media in self.user_social_media],
