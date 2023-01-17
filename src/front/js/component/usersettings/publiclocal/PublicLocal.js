@@ -35,6 +35,28 @@ export const PublicLocal = () => {
     fetchStates()
    
   }, [])
+
+
+  // useEffect(() => {
+  //   const fetchMusicGenres = async () => {
+  //     const options = {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     };
+  //     const response = await fetch(
+  //       `${process.env.BACKEND_URL}/api/España/states`,
+  //       options
+  //     );
+  
+  //     const data = await response.json();
+  //     setStates(data);
+  //   }; 
+  //   // la "llamo"
+  //   fetchMusicGenres()
+   
+  // }, [])
   
 
   const publicar = async () => {
@@ -148,6 +170,12 @@ export const PublicLocal = () => {
                 disablePortal
                 id="combo-box-demo"
                 options={states}
+                onChange={(e, newValue) =>{
+                  
+                  setData({ ...data, state: newValue });
+                  fetchCities(newValue)
+                }}
+                value={data.state}
                 sx={{ width: 300 }}
                 renderInput={(params) => (
                   <TextField
@@ -155,12 +183,7 @@ export const PublicLocal = () => {
                     placeholder="Provincia"
                     name="provincia"
                     label="Provincia"
-                    onChange={(e) =>{
-                      console.log(e.target.value)
-                      setData({ ...data, state: e.target.value });
-                      fetchCities(e.target.value)
-                    }}
-                    value={data.state}
+                    
                     autoComplete="on"
                   />
                 )}
@@ -169,6 +192,10 @@ export const PublicLocal = () => {
                 disablePortal
                 id="combo-box-demo"
                 options={cities}
+                onChange={(e, newValue) =>
+                  setData({ ...data, city: newValue })
+                }
+                value={data.city}
                 sx={{ width: 300 }}
                 renderInput={(params) => (
                   <TextField
@@ -176,10 +203,7 @@ export const PublicLocal = () => {
                     placeholder="City"
                     name="City"
                     label="City"
-                    onChange={(e) =>
-                      setData({ ...data, city: e.target.value })
-                    }
-                    value={data.city}
+                    
                     autoComplete="on"
                   />
                 )}

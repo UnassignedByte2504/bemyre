@@ -442,6 +442,8 @@ def public_local():
     user = User.query.filter_by(user_name=user_name).first()
     body_city = request.form.get('city_name')
     city = City.query.filter_by(name = body_city).first()
+    
+
     if 'local_img' in request.files:
         # upload file to uploadcare
         result = cloudinary.uploader.upload(request.files['local_img'])
