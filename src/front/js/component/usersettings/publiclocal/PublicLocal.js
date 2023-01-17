@@ -72,7 +72,7 @@ export const PublicLocal = () => {
             Subir imagen local <PhotoCamera />
             <input hidden accept="image/*" type="file" />
           </Button>
-          <Button variant="contained" color="success" className="text-white">
+          <Button variant="contained" color="success" className="text-white mt-3">
             <strong>Crear Local</strong>
           </Button>
         </Box>
