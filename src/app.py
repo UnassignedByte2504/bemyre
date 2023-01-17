@@ -118,12 +118,36 @@ def handle_direct_message(message_body, sender_user_name, receiver_username):
     direct_message = DirectMessage(
         sender_id=sender_user.id,
         recipient_id=receiver_user.id,
-        message_body=message_body
+        message_body=message_body,
+        readed = False
     )
     db.session.add(direct_message)
     db.session.commit()
     print("direct_message", direct_message.serialize())
     socketio.emit('direct_message', direct_message.serialize())
+
+
+@socketio.on('unread_messages')
+def handle_unread_messages(current_user):
+    recipient = User.query.filter_by(user_name=current_user).first()
+    unread_messages = DirectMessage.query.filter_by(recipient_id=recipient.id, readed=False).all()
+    for message in unread_messages:
+        if message.sender.user_name != current_user:
+         count = len(unread_messages)
+    recipient.unread_messages = count
+    db.session.commit()
+    print("unread_messages", recipient.unread_messages)
+    socketio.emit('unread_messages', recipient.unread_messages)
+
+@socketio.on('read_messages')
+def handle_read_messages(current_user):
+    recipient_id = User.query.filter_by(user_name=current_user).first().id
+    unread_messages = DirectMessage.query.filter_by(recipient_id=recipient_id, readed=False).all()
+    for message in unread_messages:
+        if message.sender.user_name != current_user:
+            message.readed = True
+            db.session.commit()
+    print(current_user, "has readed")
 
 cloudinary.config( 
   cloud_name = os.getenv("img_cloudinay_name"), 

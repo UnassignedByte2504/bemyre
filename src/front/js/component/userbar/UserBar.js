@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../store/appContext.js";
 import Box from "@mui/material/Box";
@@ -17,19 +17,35 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import FlexBetween from "../styledcomponents/FlexBetween.jsx";
 import { ButtonGroup, Divider, useTheme, Badge } from "@mui/material";
+import SocketContext from "../../state/socketContext";
 
 const settings = ["Mi perfil", "Ajustes", "Dashboard", "Logout"];
 
 const UserBar = () => {
+  const Socket = useContext(SocketContext);
+  const [isSocket, setIsSocket] = useState(false);
   const theme = useTheme();
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState(null);
   const currentUser = sessionStorage.getItem("current_user");
+  const [unreadMessages, setUnreadMessages] = useState(0);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
+  useEffect(() => {
+    setIsSocket(true);
+  }, [Socket]);
+
+  useEffect(() => {
+    if (isSocket) {
+      Socket.emit("unread_messages", currentUser);
+      Socket.on("unread_messages", (data) => {
+        setUnreadMessages(data);
+      });
+    }
+  }, [isSocket]);
   const menuItemClick = ({ to, logout }) => {
     navigate(to);
     handleCloseUserMenu();
@@ -69,7 +85,7 @@ const UserBar = () => {
               }}
               onClick={() => navigate(`/user/${currentUser}/inbox`)}
             >
-              <Badge badgeContent={1} color="secondary">
+              <Badge badgeContent={unreadMessages} color="secondary">
                 <EmailIcon />
               </Badge>
             </Button>

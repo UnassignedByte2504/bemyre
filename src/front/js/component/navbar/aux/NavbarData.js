@@ -73,7 +73,7 @@ export const iconsArray = [
 export const globalPages = [
   "Home",
   "Explorar",
-  "Jam Sessions",
+  // "Jam Sessions",
   "Events",
   "Locales",
   "Bandas",
