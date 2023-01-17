@@ -51,7 +51,10 @@ const UserBar = () => {
     handleCloseUserMenu();
 
     if (logout) {
+      Socket.emit("logout", currentUser);
       actions.logOut();
+
+
     }
   };
 

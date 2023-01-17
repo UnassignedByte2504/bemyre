@@ -14,6 +14,8 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager 
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
 from flask_socketio import SocketIO
 from flask_socketio import send, emit
 import json
@@ -156,6 +158,12 @@ cloudinary.config(
   secure = True
 )
 
+@socketio.on('logout')
+def logout(current_user):
+    user = User.query.filter_by(user_name=current_user).first()
+    user.is_logged = False
+    db.session.commit()
+    print("El usuario ha logueado", user)
 
 
 

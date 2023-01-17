@@ -165,8 +165,8 @@ class User(db.Model):
     last_name = db.Column(db.String(80), unique=False, nullable=False)
     description = db.Column(db.String(500), unique=False, nullable=True)
     user_social_media = relationship("UserSocialMedia")
-    creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
-    last_login = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
+    creation_date = db.Column(db.DateTime, nullable=True, default=datetime.datetime.utcnow)
+    last_login = db.Column(db.DateTime, nullable=True, default = datetime.datetime.utcnow)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     is_musician = db.Column(db.Boolean(), unique=False, nullable=False)
     user_musician_info = relationship("UserMusicianInfo")
@@ -209,7 +209,7 @@ class User(db.Model):
             "first_name": self.first_name,
             "last_name": self.last_name,
             "description": self.description,
-            "creation_date": self.creation_date,
+            "creation_date": self.creation_date.strftime("%Y-%m-%d %H:%M:%S"),
             "last_login": self.last_login.strftime("%Y-%m-%d %H:%M:%S"),    
             "user_contact_info": [user_contact_info.serialize() for user_contact_info in self.user_contact_info],
             "user_social_media": [user_social_media.serialize() for user_social_media in self.user_social_media],

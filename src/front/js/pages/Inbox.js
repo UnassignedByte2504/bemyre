@@ -1,16 +1,25 @@
 import React from "react";
 
 import { useContext, useEffect, useState, useRef } from "react";
-
+import { useNavigate } from "react-router-dom";
 //COMPONENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-import IncomingMessage from "../component/inbox/IncomingMessage.jsx";
-import OutgoingMessage from "../component/inbox/OutgoingMessage.jsx";
+import IncomingMessage from "../component/inbox/IncomingMessage.js";
+import OutgoingMessage from "../component/inbox/OutgoingMessage.js";
 import SocketContext from "../state/socketContext";
 import ChatDate from "../component/inbox/ChatDate.js";
 import EmojiPicker from "emoji-picker-react";
 import FlexBetween from "../component/styledcomponents/FlexBetween.jsx";
+import imgUrl1 from "../../img/bemyre-faq.jpg";
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<COMPONENTS
-import { Box, Typography, IconButton, Avatar, InputBase } from "@mui/material";
+import {
+  Box,
+  Typography,
+  IconButton,
+  Avatar,
+  InputBase,
+  Badge,
+  TextField,
+} from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 //ICONS>>>>>>>>>>>>>>>>>>>>>>
 import AddIcon from "@mui/icons-material/Add";
@@ -19,6 +28,7 @@ import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined
 //<<<<<<<<<<<<<<<<<<<<<<ICONS
 
 const Inbox = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const Socket = useContext(SocketContext);
   const lastMsg = useRef();
@@ -33,8 +43,8 @@ const Inbox = () => {
     profile_img: [],
   });
   const [recipient, setRecipient] = useState({
-    name:"",
-    profile_img:""
+    name: "",
+    profile_img: "",
   });
   const [newRecipient, setNewRecipient] = useState("");
   const [recipientsOptions, setRecipientOptions] = useState([]);
@@ -72,7 +82,13 @@ const Inbox = () => {
         setRecipientOptions(data);
       });
   };
-  const messageToRender = (index, messageBody, Sender, Recipient, timeStamp) => {
+  const messageToRender = (
+    index,
+    messageBody,
+    Sender,
+    Recipient,
+    timeStamp
+  ) => {
     const recipient = Recipient;
     const sender = Sender;
     const msg = messageBody;
@@ -106,7 +122,7 @@ const Inbox = () => {
   const fetchConversation = async (recipientName, recipientImage) => {
     setRecipient({
       name: recipientName,
-      profile_img: recipientImage
+      profile_img: recipientImage,
     });
     const options = {
       method: "GET",
@@ -144,18 +160,17 @@ const Inbox = () => {
   const NewRecipientForm = () => {
     return (
       <Box className="NewRecipientForm-Wrapper">
-        <InputBase
+        <TextField
+          variant="standard"
           placeholder="Nombre de usuario"
           value={newRecipient}
           onChange={(e) => setNewRecipient(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              if (newRecipient !== "") {
-                setRecipients({
-                  name: [...recipients.name, newRecipient],
-                  profile_img: [...recipients.profile_img, null],
-                });
-              }
+              setRecipient({
+                name: [newRecipient],
+                profile_img: [null],
+              });
             }
           }}
         />
@@ -163,7 +178,6 @@ const Inbox = () => {
     );
   };
 
-  
   //EFFECTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   useEffect(() => {
     lastMsg.current?.scrollIntoView({
@@ -172,7 +186,6 @@ const Inbox = () => {
       inline: "start",
     });
   }, [conversation]);
-
 
   useEffect(() => {
     if (Socket) {
@@ -191,16 +204,16 @@ const Inbox = () => {
       className="InboxParent"
       sx={{
         minHeight: "100vh",
+        backgroundImage: `url(${imgUrl1})`,
       }}
     >
       <Box className="InboxWrapper container-lg my-5">
-        <Box className="InboxHeader"></Box>
         <Box className="InboxBody">
           <Box className="RecipientsWrapper">
             <Box className="RecepientsHeader">
-              <Typography variant="h2">Recipients</Typography>
-            </Box>
-            <Box className="RecipientsBody">
+              <Typography variant="h3" className="RecipientsHeaderText">
+                Chats
+              </Typography>
               <Box className="NewRecipient">
                 <IconButton
                   className="NewRecipientBtn"
@@ -208,20 +221,51 @@ const Inbox = () => {
                 >
                   {isOpen ? <CloseIcon /> : <AddIcon />}
                 </IconButton>
-                {isOpen ? <NewRecipientForm /> : null}
+                {isOpen ? (
+                  <Box className="NewRecipientForm-Wrapper">
+                    <TextField
+                    options={["hola", "hola2"]}
+                      variant="standard"
+                      placeholder="Nombre de usuario"
+                      value={newRecipient}
+                      onChange={(e) => setNewRecipient(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          setRecipient({
+                            name: [newRecipient],
+                            profile_img: [null],
+                          });
+                        }
+                      }}
+                    />
+                  </Box>
+                ) : null}
               </Box>
+            </Box>
+            <Box className="RecipientsBody">
               {recipients &&
                 recipients.name.map((recipient, index) => (
                   <Box
                     className="RecipientRoot"
                     key={index}
-                    onClick={() => fetchConversation(recipients.name[index], recipients.profile_img[index])}
+                    onClick={() =>
+                      fetchConversation(
+                        recipients.name[index],
+                        recipients.profile_img[index]
+                      )
+                    }
                   >
                     <Box>
-                      <Avatar
-                        src={recipients.profile_img[index]}
-                        alt={recipients.name[index]}
-                      />
+                      <Badge
+                        color="success"
+                        overlap="circular"
+                        badgeContent=" "
+                      >
+                        <Avatar
+                          src={recipients.profile_img[index]}
+                          alt={recipients.name[index]}
+                        />
+                      </Badge>
                     </Box>
                     <Box>
                       <Typography variant="h4">
@@ -234,14 +278,28 @@ const Inbox = () => {
           </Box>
           <Box className="MessagesWrapper">
             <Box className="MessagesHeader">
-                { recipient.name !== "" &&<>
-              <Box><Typography variant="h4">{recipient.name}</Typography></Box>
-              <Box><Avatar src={recipient.profile_img} alt={recipient.name} sx={{
-                width:"3.5rem",
-                height:"3.5rem"
-              }}/></Box>
-              </>
-                }
+              {recipient.name !== "" && (
+                <>
+                  <Box
+                    className="HeaderUserName"
+                    onClick={() => navigate(`/user/${recipient.name}`)}
+                  >
+                    <Typography variant="h4">{recipient.name}</Typography>
+                  </Box>
+                  <Box>
+                    <Badge color="success" overlap="circular" badgeContent=" ">
+                      <Avatar
+                        src={recipient.profile_img}
+                        alt={recipient.name}
+                        sx={{
+                          width: "3.5rem",
+                          height: "3.5rem",
+                        }}
+                      />
+                    </Badge>
+                  </Box>
+                </>
+              )}
             </Box>
             {conversation && recipient && (
               <Box className="MessagesBody">
@@ -259,17 +317,8 @@ const Inbox = () => {
                     dateSended.getMonth() !== dateNow.getMonth() ||
                     dateSended.getFullYear() !== dateNow.getFullYear();
 
-                  console.log(dateSended);
-
                   return (
                     <Box key={index}>
-                      {showDate && (
-                        <ChatDate
-                          date={dateSended}
-                          showFullDate={showFullDate}
-                        />
-                      )}
-
                       {messageToRender(
                         index,
                         message.message_body,
@@ -284,7 +333,7 @@ const Inbox = () => {
               </Box>
             )}
 
-            {recipient && (
+            {recipient.name && (
               <FlexBetween
                 backgroundColor={theme.palette.background.alt}
                 borderRadius="9px"
@@ -293,8 +342,8 @@ const Inbox = () => {
                 width="100%"
                 position="relative"
               >
-                <InputBase
-                  className="MessageInput"
+                <TextField
+                  fullWidth={true}
                   type="text"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
@@ -304,6 +353,7 @@ const Inbox = () => {
                       sendMessage(message, currentUser, recipient.name);
                     }
                   }}
+                  variant="standard"
                 />
                 <FlexBetween>
                   <IconButton onClick={() => setEmojiOpen(!emojiOpen)}>
