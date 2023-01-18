@@ -444,6 +444,8 @@ def public_local():
     body_city = request.form.get('city_name')
     city = City.query.filter_by(name = body_city).first()
     
+    
+    
 
     if 'local_img' in request.files:
         # upload file to uploadcare
@@ -463,7 +465,8 @@ def public_local():
             description = data["description"],
             city_id = city.id,
             user_id = user.id,
-            local_img = result['secure_url']
+            local_img = result['secure_url'],
+            
         )
         db.session.add(new_local)
         db.session.commit()
