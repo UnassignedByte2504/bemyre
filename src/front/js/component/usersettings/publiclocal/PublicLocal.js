@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { createLocalSchema } from "../../../esquemas/index";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Divider } from "@mui/material";
 import { Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import { ArchiveSharp } from "@mui/icons-material";
 import Autocomplete from "@mui/material/Autocomplete";
+import '../../../../styles/publiclocal.css';
+import {CardsButton} from '../../../component/buttons/CardsButton.jsx'
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+
 
 export const PublicLocal = () => {
   const [data, setData] = useState({});
@@ -92,52 +97,24 @@ export const PublicLocal = () => {
 
   return (
     <>
-      <Box sx={{ marginX: "5rem", marginTop: "2rem", textAlign: "center" }}>
-        <Typography variant="h3">
+      
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+  <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+    <Tab label="Item One" {...a11yProps(0)} />
+    <Tab label="Item Two" {...a11yProps(1)} />
+  </Tabs>
+</Box>
+<TabPanel value={value} index={0}>
+  <Box sx={{ marginX: "5rem", marginTop: "2rem", textAlign: "center" }}>
+        <Typography variant="h3" className="mb-3">
           Publica el estilo de tu local y conecta con tu público
         </Typography>
+        <Divider />
       </Box>
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link active"
-            id="home-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#home-tab-pane"
-            type="button"
-            role="tab"
-            aria-controls="home-tab-pane"
-            aria-selected="true"
-          >
-            CREAR
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="profile-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#profile-tab-pane"
-            type="button"
-            role="tab"
-            aria-controls="profile-tab-pane"
-            aria-selected="false"
-          >
-            MODIFICAR
-          </button>
-        </li>
-      </ul>
-      <div class="tab-content" id="myTabContent">
-        <div
-          class="tab-pane fade show active"
-          id="home-tab-pane"
-          role="tabpanel"
-          aria-labelledby="home-tab"
-          tabindex="0"
-        >
           <Box>
-            <form className="editinfobox" sx={{ gap: "1rem" }}>
+            <form className="form-public-local" >
               <TextField
+              sx={{width: '100%'}}
                 type="text"
                 name="nombreLocal"
                 variant="outlined"
@@ -145,6 +122,7 @@ export const PublicLocal = () => {
                 onChange={(e) => setData({ ...data, name: e.target.value })}
               />
               <TextField
+              sx={{width: '100%'}}
                 type="text"
                 name="ubicacionLocal"
                 variant="outlined"
@@ -154,6 +132,7 @@ export const PublicLocal = () => {
                 }
               />
               <TextField
+              sx={{width: '100%'}}
                 type="text"
                 name="descripcionLocal"
                 variant="outlined"
@@ -162,6 +141,7 @@ export const PublicLocal = () => {
                   setData({ ...data, description: e.target.value })
                 }
               />
+              <Box className="form-city-state">
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
@@ -199,21 +179,22 @@ export const PublicLocal = () => {
                   />
                 )}
               />
+              </Box>
 
               {/* autocomplete con chips limitadas */}
               
               {musicGenres && <Autocomplete
                 multiple
                 
-                limitTags={2}
+                limitTags={5}
                 id="multiple-limit-tags"
                 options={musicGenres}
                 getOptionLabel={(option) => option.name}
-                defaultValue={[
-                  musicGenres[13],
-                  musicGenres[12],
-                  musicGenres[11],
-                ]}
+                // defaultValue={[
+                //   musicGenres[13],
+                //   musicGenres[12],
+                //   musicGenres[11],
+                // ]}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -241,20 +222,26 @@ export const PublicLocal = () => {
                 />
               </div>
 
-              <Button onClick={() => publicar()}>Publicar</Button>
+              <CardsButton title="Publicar" onClick={() => publicar()}></CardsButton>
             </form>
           </Box>
-        </div>
-        <div
-          class="tab-pane fade"
-          id="profile-tab-pane"
-          role="tabpanel"
-          aria-labelledby="profile-tab"
-          tabindex="0"
-        >
-          ...
-        </div>
-      </div>
+</TabPanel>
+<TabPanel value={value} index={1}>
+  <Box sx={{ marginX: "5rem", marginTop: "2rem", textAlign: "center" }}>
+        <Typography variant="h3">
+          Publica el estilo de tu local y conecta con tu público
+        </Typography>
+      </Box>
+</TabPanel>
+
+      
+      
+          
+        
+        
+          
+        
+      
     </>
   );
 };
