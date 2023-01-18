@@ -1,10 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import spain from "../../img/spain.svg";
+
 import { Spain } from "../component/spain/Spain.js"
 const Explore = () => {
   return (
-    <Box className="container ExploreWrapper">
+    <Box className="container ExploreWrapper" sx={{
+      minHeight:"100vh"
+    }}>
       <Spain />
     </Box>
   );

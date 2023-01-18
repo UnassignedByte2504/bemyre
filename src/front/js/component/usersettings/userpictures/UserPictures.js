@@ -90,7 +90,7 @@ const UserPictures = () => {
               backgroundColor: "#8bc34a",
             }}
           >
-            Guardar
+            <strong>Guardar</strong>
           </Button>
           <Button
             onClick={() => clearUserImgs(current_user)}
@@ -99,7 +99,7 @@ const UserPictures = () => {
               backgroundColor: "#f44336",
             }}
           >
-            Descartar
+            <strong>Descartar</strong>
           </Button>
         </Box>
       </Box>

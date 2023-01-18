@@ -8,6 +8,9 @@
   color: white;
 }
 
+.padreloginjumbo{
+  height: 40vh;
+}
 /* <<<<<<<Jumbotron<<<<<<<< */
 
 /* >>>>>>>>Mediaqueries>>>>>>>>> */
@@ -26,7 +29,7 @@
 @media (max-width: 400px) {
   .titleJumbotron {
     /* font-size: 9vw; */
-    font-size: 1rem;
+    font-size: 2rem!important;
     color: white;
   }
 }
@@ -52,28 +55,19 @@
 }
 
 .rowCards {
-  /* overflow-x: hidden; 
-  overflow-x: scroll; */
-  /* display: flex!important;
-  max-height: 700px!important;
-  min-height: 700px!important; */
-  /* border: 1px solid #ddd; */
-  display: flex;
-  overflow-x: scroll!important;
 
-  /* scroll-behavior: smooth; */
-  /* scroll-behavior: initial; */
-  /* width: 100vw; */
-  /* overflow-x: scroll; */
-  /* background-color: aquamarine; */
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+
 
 }
 
-/* .rowCards::-webkit-scrollbar{
-  width: 0!important;
-} */
+.rowCards:hover::-webkit-scrollbar{
+  display: -webkit-flex;
+}
 
-/* .rowCards::-webkit-scrollbar-thumb{
-  background-color: #444;
+.rowCards:hover::-webkit-scrollbar-thumb{
+  background-color: #df3432;
+  width:20rem;
+}
 
-} */

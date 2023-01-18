@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 
+
 import PropTypes from "prop-types";
+
 import { Box, Button, Divider } from "@mui/material";
 import { Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import { ArchiveSharp } from "@mui/icons-material";
+import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import Autocomplete from "@mui/material/Autocomplete";
 import "../../../../styles/publiclocal.css";
 import { CardsButton } from "../../../component/buttons/CardsButton.jsx";
@@ -15,7 +18,9 @@ export const PublicLocal = () => {
   const [data, setData] = useState({});
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
+
   // const [musicGenres, setMusicGenres] = useState();
+
 
   const userName = sessionStorage.getItem("current_user");
 
@@ -31,6 +36,7 @@ export const PublicLocal = () => {
         `${process.env.BACKEND_URL}/api/España/states`,
         options
       );
+
       // cambio de nombre de variable de data a result
       const result = await response.json();
       setStates(result);
@@ -58,6 +64,7 @@ export const PublicLocal = () => {
   // la "llamo"
   //   fetchMusicGenres();
   // }, []);
+
 
   const publicar = async () => {
     let body = new FormData();
@@ -90,6 +97,7 @@ export const PublicLocal = () => {
       options
     );
 
+
     const result = await response.json();
     setCities(result);
   };
@@ -97,8 +105,9 @@ export const PublicLocal = () => {
   return (
     <>
       <ul class="nav nav-tabs" id="myTab" role="tablist">
+
         <li class="nav-item" role="presentation">
-          <button
+          <Button
             class="nav-link active"
             id="perfilLocalCrear-tab"
             data-bs-toggle="tab"
@@ -108,11 +117,13 @@ export const PublicLocal = () => {
             aria-controls="perfilLocalCrear"
             aria-selected="true"
           >
+
             Crear perfil de local
           </button>
+
         </li>
         <li class="nav-item" role="presentation">
-          <button
+          <Button
             class="nav-link"
             id="modificarPerfilLocal-tab"
             data-bs-toggle="tab"
@@ -122,8 +133,10 @@ export const PublicLocal = () => {
             aria-controls="modificarPerfilLocal"
             aria-selected="false"
           >
+
             Modificar perfil de local
           </button>
+
         </li>
       </ul>
       <div class="tab-content" id="myTabContent">
@@ -133,6 +146,7 @@ export const PublicLocal = () => {
           role="tabpanel"
           aria-labelledby="perfilLocalCrear-tab"
         >
+
           <Box sx={{ width: "100%" }}>
             <Box
               sx={{ marginX: "3rem", textAlign: "center", marginTop: "2rem" }}
@@ -183,6 +197,7 @@ export const PublicLocal = () => {
                     onChange={(e, newValue) => {
                       setData({ ...data, state: newValue });
                       fetchCities(newValue);
+
                     }}
                     value={data.state}
                     sx={{ width: 300 }}
@@ -246,6 +261,7 @@ export const PublicLocal = () => {
                 />
               )} */}
 
+
                 <div class="mb-3">
                   <label for="formFile" class="form-label">
                     Selecciona una imagen para el perfil de tu local
@@ -266,6 +282,7 @@ export const PublicLocal = () => {
                 ></CardsButton>
               </form>
             </Box>
+
           </Box>
         </div>
         <div
@@ -282,7 +299,7 @@ export const PublicLocal = () => {
           </Box>
         </div>
       </div>
-    </>
+    </>} */
   );
 };
 

@@ -14,6 +14,7 @@ import { LandingJumbo } from "../component/jumbotron/landingjumbo";
 import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
 import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
 import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
+import { LoginJumbo } from "../component/jumbotron/LoginJumbo.js";
 import { CardConcert } from "../component/ConcertCard/CardConcert.jsx";
 import { CardMusician } from "../component/MusicianCard/CardMusician.jsx";
 
@@ -23,7 +24,7 @@ export const LandingPage = () => {
   const [lattitude, setLattitude] = useState();
   const [longitude, setLongitude] = useState();
   const [currentCity, setCurrentCity] = useState();
-
+  const [provincia, setProvincia] = useState();
   const date = new Date();
 
   const day = date.getDate();
@@ -37,10 +38,11 @@ export const LandingPage = () => {
     const geoApiurl = `https://api.geoapify.com/v1/geocode/reverse?lat=${lattitude}&lon=${longitude}&apiKey=${apiKey}`;
     await fetch(geoApiurl, opts)
       .then((response) => response.json())
-      .then((data) => { setCurrentCity(data.features[0].properties.city)
+      .then((data) => {
+        setCurrentCity(data.features[0].properties.city);
       });
   };
-  
+
   useEffect(() => {
     const currentPath = window.location.pathname;
     setActivePage(currentPath);
@@ -61,23 +63,49 @@ export const LandingPage = () => {
     }
   }, []);
   useEffect(() => {
-    fetchCityName()
+    fetchCityName();
   }, [lattitude]);
 
+  useEffect(() => {
+    const opt = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    if (currentCity) {
+      fetch(`${process.env.BACKEND_URL}/api/states/${currentCity}`, opt)
+        .then((res) => res.json())
+        .then((data) => {
+          setProvincia(data);
+        });
+    }
+  }, [currentCity]);
+
+  useEffect(()=>{
+    console.log(provincia)
+  },[provincia])
   return (
     <Box>
-      <LandingJumbo />
+      {sessionStorage.getItem("current_user") ? (
+        <LoginJumbo currentCity={currentCity} provincia={provincia}/>
+      ) : (
+        <LandingJumbo />
+      )}
+
       <Container maxWidth="xl" className="text-center">
-        { currentCity && <Typography variant="h3" className=" mt-5 mb-5">
-          Conciertos en {currentCity} esta semana{" "}
-          <i className="far fa-calendar-alt"></i>
-          {day}/{month} - <i className="far fa-calendar-alt"></i>
-          {day + 7}/{month}
-        </Typography>}
+        {currentCity && (
+          <Typography variant="h3" className=" mt-5 mb-5">
+            Conciertos en {currentCity} esta semana{" "}
+            <i className="far fa-calendar-alt"></i>
+            {day}/{month} - <i className="far fa-calendar-alt"></i>
+            {day + 7}/{month}
+          </Typography>
+        )}
       </Container>
 
-            {/* ------EVENTOS----------- */}
-            <Box className="mx-4 mb-5">
+      {/* ------EVENTOS----------- */}
+      <Box className="mx-4 mb-5">
         <Typography sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
           Conciertos
         </Typography>
@@ -108,8 +136,8 @@ export const LandingPage = () => {
         </Box>
       </Box>
 
-              {/* ------MÚSICOS----------- */}
-              <Box className="mx-4 mb-5">
+      {/* ------MÚSICOS----------- */}
+      <Box className="mx-4 mb-5">
         <Typography sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
           Músicos
         </Typography>
@@ -138,8 +166,6 @@ export const LandingPage = () => {
           ))}
         </Box>
       </Box>
-
-
 
       {/* ------LOCALES----------- */}
       <Box className="mx-4">
@@ -182,7 +208,7 @@ export const LandingPage = () => {
         <Box
           className="rowCards"
           sx={{
-            // display: "flex",
+            display: "flex",
             gap: "1.5rem",
             paddingY: "1.5rem",
             paddingX: "0.5rem",
@@ -207,8 +233,6 @@ export const LandingPage = () => {
           ))}
         </Box>
       </Box>
-
-      
 
       <CallToAction2
         text1="¿Eres músico?"

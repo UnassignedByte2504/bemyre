@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../store/appContext.js";
 import Box from "@mui/material/Box";
@@ -11,32 +11,52 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import EmailIcon from "@mui/icons-material/Email";
-import LogoutIcon from '@mui/icons-material/Logout';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import LogoutIcon from "@mui/icons-material/Logout";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import FlexBetween from "../styledcomponents/FlexBetween.jsx";
-import { ButtonGroup, Divider, useTheme } from "@mui/material";
+import { ButtonGroup, Divider, useTheme, Badge } from "@mui/material";
+import SocketContext from "../../state/socketContext";
 
 const settings = ["Mi perfil", "Ajustes", "Dashboard", "Logout"];
 
 const UserBar = () => {
+  const Socket = useContext(SocketContext);
+  const [isSocket, setIsSocket] = useState(false);
   const theme = useTheme();
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const currentUser = sessionStorage.getItem('current_user')
+  const currentUser = sessionStorage.getItem("current_user");
+  const [unreadMessages, setUnreadMessages] = useState(0);
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const menuItemClick =  ({to, logout}) => {
-    navigate(to)
-    handleCloseUserMenu()
+  useEffect(() => {
+    setIsSocket(true);
+  }, [Socket]);
+
+  useEffect(() => {
+    if (isSocket) {
+      Socket.emit("unread_messages", currentUser);
+      Socket.on("unread_messages", (data) => {
+        setUnreadMessages(data);
+      });
+    }
+  }, [isSocket]);
+  const menuItemClick = ({ to, logout }) => {
+    navigate(to);
+    handleCloseUserMenu();
 
     if (logout) {
-      actions.logOut()}
-  }
+      Socket.emit("logout", currentUser);
+      actions.logOut();
+
+
+    }
+  };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -66,9 +86,11 @@ const UserBar = () => {
                 background: "none",
                 boxShadow: "none",
               }}
-              onClick={()=> navigate(`/user/${currentUser}/inbox`)}
+              onClick={() => navigate(`/user/${currentUser}/inbox`)}
             >
-              <EmailIcon />
+              <Badge badgeContent={unreadMessages} color="secondary">
+                <EmailIcon />
+              </Badge>
             </Button>
             <Button
               sx={{
@@ -83,7 +105,10 @@ const UserBar = () => {
         <Box>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt={currentUser} src={sessionStorage.getItem("profile_img")} />
+              <Avatar
+                alt={currentUser}
+                src={sessionStorage.getItem("profile_img")}
+              />
             </IconButton>
           </Tooltip>
           <Menu
@@ -109,58 +134,60 @@ const UserBar = () => {
           >
             <MenuItem
               variant="contained"
-              onClick={() => menuItemClick({to: `/user/${currentUser}`})}
+              onClick={() => menuItemClick({ to: `/user/${currentUser}` })}
               sx={{
-                gap:".20rem !important",
-                display:"flex !important",
-                flexDirection:"row !important",
-                justifyContent:"space-between !important",
-                alignItems:"center",
+                gap: ".20rem !important",
+                display: "flex !important",
+                flexDirection: "row !important",
+                justifyContent: "space-between !important",
+                alignItems: "center",
               }}
             >
               <Box>
                 <Typography>Mi perfil</Typography>
               </Box>
               <Box>
-                <AccountCircleOutlinedIcon className="my-1"/>
+                <AccountCircleOutlinedIcon className="my-1" />
               </Box>
             </MenuItem>
             <MenuItem
               variant="contained"
-              onClick={() => menuItemClick({to: `/user/${currentUser}/ajustes`})}
+              onClick={() =>
+                menuItemClick({ to: `/user/${currentUser}/ajustes` })
+              }
               sx={{
-                gap:".20rem !important",
-                display:"flex !important",
-                flexDirection:"row !important",
-                justifyContent:"space-between !important",
-                alignItems:"center",
+                gap: ".20rem !important",
+                display: "flex !important",
+                flexDirection: "row !important",
+                justifyContent: "space-between !important",
+                alignItems: "center",
               }}
             >
               <Box>
                 <Typography>Settings</Typography>
               </Box>
               <Box>
-                <ManageAccountsIcon className="my-1"/>
+                <ManageAccountsIcon className="my-1" />
               </Box>
             </MenuItem>
             <Divider />
             <MenuItem
               variant="contained"
-              onClick={() => menuItemClick({logout: true})}
+              onClick={() => menuItemClick({ logout: true })}
               sx={{
-                gap:".20rem !important",
-                display:"flex !important",
-                flexDirection:"row !important",
-                justifyContent:"space-between !important",
-                alignItems:"center",
-                color:"red !important"
+                gap: ".20rem !important",
+                display: "flex !important",
+                flexDirection: "row !important",
+                justifyContent: "space-between !important",
+                alignItems: "center",
+                color: "red !important",
               }}
             >
               <Box>
                 <Typography>Log out</Typography>
               </Box>
               <Box>
-                <LogoutIcon className="my-1"/>
+                <LogoutIcon className="my-1" />
               </Box>
             </MenuItem>
           </Menu>

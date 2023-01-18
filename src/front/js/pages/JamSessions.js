@@ -1,8 +1,11 @@
 import React from 'react'
+import {Box} from "@mui/material"
 
 const JamSessions = () => {
   return (
-    <div>JamSessions</div>
+    <Box sx={{
+      minHeight:"100vh"
+    }}>JamSessions</Box>
   )
 }
 

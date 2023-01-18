@@ -23,30 +23,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       reRender: 1,
       profileCardView: "default",
       loggedUsers: [],
-      geo_api_key:'c9e7139f5e0b428c9c11c3c069fe8aea',
+      geo_api_key: "c9e7139f5e0b428c9c11c3c069fe8aea",
     },
     actions: {
-      sendImgTest: async (img) => {
-        const options = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            img: img,
-          }),
-        };
-
-        const response = await fetch(
-          `${process.env.BACKEND_URL}/api/signup`,
-          options
-        );
-        const data = await response.json();
-        setStore({
-          message: data.message,
-          resultados: data.resultados,
-        });
-      },
       signUp: async (
         username,
         email,
@@ -84,7 +63,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       login: async (email, password) => {
         const store = getStore();
         await fetch(`${process.env.BACKEND_URL}/api/login`, {
-          method: "POST", 
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
@@ -139,13 +118,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           },
         };
         await fetch(`${process.env.BACKEND_URL}/api/${username}`, options)
-          // .then((resp) => {
-          //   if (resp.status == 200) {
-          //     return resp.json();
-          //   } else {
-          //     return "Error en fetch";
-          //   }
-          // })
           .then((response) => response.json())
           .then((result) => setStore({ resultados: result }));
       },
@@ -240,6 +212,102 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
       },
 
+      // Fetch instrumentos perfil
+
+      editInstrumentsProfile: async (
+        username,
+        instrumento1,
+        instrumento2,
+        instrumento3,
+        stars1,
+        stars2,
+        stars3
+      ) => {
+        const options = {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+            "Content-Type": "application/json",
+          },
+          body: `{
+          "${instrumento1}": "${instrumento1}",
+          "${instrumento2}": "${instrumento2}",
+          "${instrumento3}": "${instrumento3}".
+          "${stars1}": "${stars1}",
+          "${stars2}": "${stars2}",
+          "${stars3}": "${stars3}"
+      }`,
+        };
+        await fetch(
+          `${process.env.BACKEND_URL}/api/settings/${username}/instruments`,
+          options
+        )
+          .then((response) => response.json())
+          .then((result) =>
+            sessionStorage.setItem(
+              "instrumentos",
+              "Instrumentos modificados con éxito"
+            )
+          );
+      },
+
+      // Influencias perfil (Videos de youtube)
+
+      influenciasVideoPerfil: async (username, video1, video2) => {
+        const options = {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+            "Content-Type": "application/json",
+          },
+          body: `{
+    "${video1}": "${video1}",
+    "${video2}": "${video2}",
+}`,
+        };
+        await fetch(
+          `${process.env.BACKEND_URL}/api/settings/${username}/influencesvideo`,
+          options
+        )
+          .then((response) => response.json())
+          .then((result) =>
+            sessionStorage.setItem(
+              "videos_influencias",
+              "Videos de influencias modificadas con éxito"
+            )
+          );
+      },
+
+      //Mi estilo de musica y trayectoria
+      musicStyleCareer: async (
+        username,
+        estilo1,
+        estilo2,
+        estilo3,
+        textstyle
+      ) => {
+        const options = {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+            "Content-Type": "application/json",
+          },
+          body: `{
+    "${estilo1}": "${estilo1}",
+    "${estilo2}": "${estilo2}",
+    "${estilo3}": "${estilo3}",
+    "${textstyle}": "${textstyle}",
+}`,
+        };
+        await fetch(
+          `${process.env.BACKEND_URL}/api/settings/${username}/musicstylecareer`,
+          options
+        )
+          .then((response) => response.json())
+          .then((result) =>
+            sessionStorage.setItem("Music_style", "Estilo musical actualizado")
+          );
+      },
 
       // <<<< Functions realted on fetching user info from back
       //misc functions
@@ -295,10 +363,18 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       setLoggedUsers: (data) => {
         const store = getStore();
+        // check if users are already
+        let loggedUsers = store.loggedUsers;
+        let newLoggedUsers = [];
+        for (let i = 0; i < data.length; i++) {
+          if (loggedUsers.indexOf(data[i]) === -1) {
+            newLoggedUsers.push(data[i]);
+          }
+        }
         setStore({
-          loggedUsers: [...store.loggedUsers, data],
+          loggedUsers: newLoggedUsers,
         });
-        console.log("logged users", store.loggedUsers);
+        console.log(store.loggedUsers);
       },
 
       //misc functions

@@ -101,11 +101,11 @@ import { AlertEditInfo } from '../../Alerts/AlertEditInfo.jsx'
       
       <Button
       type='submit'
-      className='mt-3'
+      className='mt-3 text-white'
       variant='contained'
       color='success'
       >
-        Enviar
+        <strong>Enviar</strong>
       </Button>
     </form>
   </Box>

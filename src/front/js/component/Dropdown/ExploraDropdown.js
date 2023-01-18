@@ -37,9 +37,7 @@ export const ExploraDropdown = ({ provincia }) => {
     const data = await response.json();
     setCites(data);
   }; 
-  console.log(provincia);
-  console.log(Provincia);
-  console.log(selectedCity);
+
   useEffect(() => {
     fetchCities(Provincia);
   }, [Provincia]);
@@ -59,6 +57,7 @@ export const ExploraDropdown = ({ provincia }) => {
           sx={{ width: 300 }}
           renderInput={(params) => (
             <TextField
+               variant="standard"
               {...params}
               placeholder="Poblacion, Municipio..."
               label="Ciudad"
