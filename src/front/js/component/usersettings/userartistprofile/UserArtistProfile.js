@@ -1,5 +1,5 @@
 import { Box, Divider, TextField, Typography, Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //Import Icons
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -15,37 +15,60 @@ import SpatialAudioOffIcon from "@mui/icons-material/SpatialAudioOff";
 import SpotifyIcon from "../../../../img/RRSS/Spotify.png";
 
 const UserArtistProfile = () => {
+  const userName = sessionStorage.getItem("current_user");
 
-  const addMedia = async (username, fieldNames, newValues) => {
-    const [hasMedia, setHasMedia] = useState();
-    const [method, setMethod] = useState();
+  const [hasMedia, setHasMedia] = useState();
+  const [method, setMethod] = useState();
+  const [body, setBody] = useState({
 
-    await fetch(`${process.env.BACKEND_URL}/api/settings/${username}/hasmedia`)
-      .then((res) => res.json())
-      .then((data) => {
-        setHasMedia(data.hasMedia);
-      })
-      .catch((err) => console.log(err));
-    if (hasMedia === false) {
-      setMethod("POST");
-    } else {
-      setMethod("PUT");
-    }
-    const options = {
-      method: method,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-    body:`"${fieldNames}": "${newValues}"`
-    }
-    await fetch(`${process.env.BACKEND_URL}/api/settings/${username}/hasmedia`, options)
-    .then((response)=>response.json())
-    .then((result)=>sessionStorage.setItem("user_media", "Actualización de user media "))
+  })
+  console.log("hasmedia:", hasMedia, "method:", method);
+  const addMedia = async () => {
+
+
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/api/settings/${userName}/addmedia`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+        },
+        body: {"youtube_media1":"Hola"}
+      }
+    );
+
+   
+    const data = await response.json();
+    console.log("data:", data)
 
   }
 
+  useEffect(() =>{
 
+
+  fetch(
+      `${process.env.BACKEND_URL}/api/settings/${userName}/hasmedia`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((result) => { 
+        setHasMedia(result.hasMedia)})
+      
+        if(!hasMedia){
+          setMethod("POST");
+        }else{
+          setMethod("PUT");
+        }
+
+    console.log("hasmedia:", hasMedia, "method:", method);
+  },[])
   // const perfilArtista = async (username, fieldNames, newValues) => {
   //   const options = {
   //     method: "PUT",

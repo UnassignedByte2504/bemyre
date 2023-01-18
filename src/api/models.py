@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 import datetime
 import math
 from sqlalchemy import Column, ForeignKey, Integer, String, Date, and_, or_, not_
-
+import pandas as pd
 
 from sqlalchemy.orm import relationship
 db = SQLAlchemy()

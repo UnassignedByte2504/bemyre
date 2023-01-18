@@ -58,59 +58,80 @@ import { Context } from "../../store/appContext";
 
 //Function
 
-export const LoginJumbo = () => {
+export const LoginJumbo = ({ currentCity, provincia }) => {
+  console.log("desde jumbo", provincia)
   const { actions, store } = useContext(Context);
-  const [activePage, setActivePage] = useState();
-  const [lattitude, setLattitude] = useState();
-  const [longitude, setLongitude] = useState();
-  const [currentCity, setCurrentCity] = useState();
+  const imgTorender = (state) => {
+    const imgProvincia = [
+      { name: "Álava", image: null },
+      { name: "A Coruña", image: acoruña },
+      { name: "Alicante", image: alicante },
+      { name: "Albacete", image: albacete },
+      { name: "Almería", image: almeria },
+      { name: "Asturias", image: asturias },
+      { name: "Ávila", image: avila },
+      { name: "Badajoz", image: badajoz },
+      { name: "Barcelona", image: barcelona },
+      { name: "Bizkaia", image: vizcaya },
+      { name: "Burgos", image: burgos },
+      { name: "Cáceres", image: caceres },
+      { name: "Cádiz", image: null },
+      { name: "Cantabria", image: santander },
+      { name: "Castellón", image: castellon },
+      { name: "Ceuta", image: null },
+      { name: "Ciudad Real", image: ciudadreal },
+      { name: "Córdoba", image: null },
+      { name: "Cuenca", image: cuenca },
+      { name: "Gipuzkoa", image: null },
+      { name: "Girona", image: girona },
+      { name: "Granada", image: granada },
+      { name: "Guadalajara", image: null },
+      { name: "Huelva", image: huelva },
+      { name: "Huesca", image: huesca },
+      { name: "Islas Baleares", image: islasbaleares },
+      { name: "Jaén", image: jaen },
+      { name: "La Rioja", image: larioja },
+      { name: "Las Palmas", image: laspalmas },
+      { name: "León", image: leon },
+      { name: "Lleida", image: lleida },
+      { name: "Lugo", image: lugo },
+      { name: "Madrid", image: madrid },
+      { name: "Málaga", image: malaga },
+      { name: "Melilla", image: null },
+      { name: "Murcia", image: murcia },
+      { name: "Navarra", image: navarra },
+      { name: "Ourense", image: null },
+      { name: "Palencia", image: palencia },
+      { name: "Pontevedra", image: pontevedra },
+      { name: "Salamanca", image: salamanca },
+      { name: "Segovia", image: segovia },
+      { name: "Sevilla", image: sevilla },
+      { name: "Soria", image: soria },
+      { name: "Sta. Cruz de Tenerife", image: tenerife },
+      { name: "Tarragona", image: tarragona },
+      { name: "Teruel", image: teruel },
+      { name: "Toledo", image: null },
+      { name: "Valéncia", image: valencia },
+      { name: "Valladolid", image: valladolid },
+      { name: "Zamora", image: zamora },
+      { name: "Zaragoza", image: zaragoza },
 
-  
-  const fetchCityName = async () => {
-    const apiKey = store.geo_api_key;
-    const opts = {
-      method: "GET",
-    };
-    const geoApiurl = `https://api.geoapify.com/v1/geocode/reverse?lat=${lattitude}&lon=${longitude}&apiKey=${apiKey}`;
-    await fetch(geoApiurl, opts)
-      .then((response) => response.json())
-      .then((data) => {
-        setCurrentCity(data.features[0].properties.city);
-      });
+    ];
+
+  const imgToReturn = imgProvincia.find(img => img.name === state);
+
+  return imgToReturn ? imgToReturn.image : null
   };
-
-  useEffect(() => {
-    const currentPath = window.location.pathname;
-    setActivePage(currentPath);
-    actions.setLocation(currentPath);
-  }, [store.currentPath]);
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLattitude(position.coords.latitude);
-          setLongitude(position.coords.longitude);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    }
-  }, []);
-  useEffect(() => {
-    fetchCityName();
-  }, [lattitude]);
-
   return (
-    <Box 
-    className="d-flex justify-content-center align-items-center"
-    sx={{
-      backgroundImage: `url(${malaga})`,
-      height: "40vh",
-      backgroundSize: "cover",
-      backgroundPosition: "center"
-    }}>
+    <Box
+      className="d-flex justify-content-center align-items-center"
+      sx={{
+        backgroundImage: `url(${imgTorender(provincia)})`,
+        height: "40vh",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       {currentCity ? (
         <Typography
           className="text-center titleJumbotron"

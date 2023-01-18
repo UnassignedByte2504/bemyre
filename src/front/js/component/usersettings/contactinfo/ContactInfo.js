@@ -36,15 +36,15 @@ const ContactInfo = () => {
     isSubmiting,
   } = useFormik({
     initialValues: {
-      phone_number: store.resultados.user_contact_info[0].phone_number,
-      address: store.resultados.user_contact_info[0].address,
+      phone_number: "",
+      address: ""
 
     },
     onSubmit,
   });
  
 
-  return (
+    return (
     <Box className='editinfobox'>
       <Typography variant='h3' className='mt-4 mb-3'>Editar Información de Contacto</Typography>
       <Divider className='mb-4' style={{width:'70%'}}></Divider>

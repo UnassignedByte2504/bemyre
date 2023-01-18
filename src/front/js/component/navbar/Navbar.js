@@ -14,6 +14,7 @@ import {
   useTheme,
   Box,
   ButtonGroup,
+  TextField
 } from "@mui/material";
 import {
   LightModeOutlined,
@@ -118,7 +119,7 @@ function Navbar() {
                 gap="3rem"
                 p="0.1rem 1.5rem"
               >
-                <InputBase placeholder="Search..." />
+                <TextField  variant="standard" placeholder="Buscar usuarios..." />
                 <IconButton>
                   <Search />
                 </IconButton>

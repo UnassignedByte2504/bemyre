@@ -4,7 +4,6 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { locales, bandas, eventos, musicos } from "../mockingData";
 
-
 //Import materials
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
@@ -15,10 +14,9 @@ import { LandingJumbo } from "../component/jumbotron/landingjumbo";
 import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
 import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
 import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
-import { LoginJumbo } from "../component/jumbotron/LoginJumbo.jsx";
+import { LoginJumbo } from "../component/jumbotron/LoginJumbo.js";
 import { CardConcert } from "../component/ConcertCard/CardConcert.jsx";
 import { CardMusician } from "../component/MusicianCard/CardMusician.jsx";
-
 
 export const LandingPage = () => {
   const { actions, store } = useContext(Context);
@@ -26,6 +24,7 @@ export const LandingPage = () => {
   const [lattitude, setLattitude] = useState();
   const [longitude, setLongitude] = useState();
   const [currentCity, setCurrentCity] = useState();
+  const [provincia, setProvincia] = useState();
   const date = new Date();
 
   const day = date.getDate();
@@ -67,10 +66,33 @@ export const LandingPage = () => {
     fetchCityName();
   }, [lattitude]);
 
+  useEffect(() => {
+    const opt = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    if (currentCity) {
+      fetch(`${process.env.BACKEND_URL}/api/states/${currentCity}`, opt)
+        .then((res) => res.json())
+        .then((data) => {
+          setProvincia(data);
+        });
+    }
+  }, [currentCity]);
+
+  useEffect(()=>{
+    console.log(provincia)
+  },[provincia])
   return (
     <Box>
-      {sessionStorage.getItem("current_user")? <LoginJumbo /> : <LandingJumbo />}
-      
+      {sessionStorage.getItem("current_user") ? (
+        <LoginJumbo currentCity={currentCity} provincia={provincia}/>
+      ) : (
+        <LandingJumbo />
+      )}
+
       <Container maxWidth="xl" className="text-center">
         {currentCity && (
           <Typography variant="h3" className=" mt-5 mb-5">
@@ -82,8 +104,8 @@ export const LandingPage = () => {
         )}
       </Container>
 
-            {/* ------EVENTOS----------- */}
-            <Box className="mx-4 mb-5">
+      {/* ------EVENTOS----------- */}
+      <Box className="mx-4 mb-5">
         <Typography sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
           Conciertos
         </Typography>
@@ -114,8 +136,8 @@ export const LandingPage = () => {
         </Box>
       </Box>
 
-              {/* ------MÚSICOS----------- */}
-              <Box className="mx-4 mb-5">
+      {/* ------MÚSICOS----------- */}
+      <Box className="mx-4 mb-5">
         <Typography sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
           Músicos
         </Typography>
@@ -144,8 +166,6 @@ export const LandingPage = () => {
           ))}
         </Box>
       </Box>
-
-
 
       {/* ------LOCALES----------- */}
       <Box className="mx-4">
@@ -177,7 +197,6 @@ export const LandingPage = () => {
               />
             </Box>
           ))}
-
         </Box>
       </Box>
 
@@ -214,8 +233,6 @@ export const LandingPage = () => {
           ))}
         </Box>
       </Box>
-
-      
 
       <CallToAction2
         text1="¿Eres músico?"

@@ -23,16 +23,20 @@ const OutgoingMessage = ({ message, profileImg, userName, timeStamp }) => {
 
   return (
     <>
-    <Box className="OutGoingMessage-wrapper">
-      <Box className="OutGoingMessage-paper">
-        <Box className="MessageContainer">
-          <Typography variant="h5">{message}</Typography>
+      <Box className="OutGoingMessage-wrapper">
+        <Box className="OutGoingMessage-paper">
+          <Box className="MessageContainer">
+            <Typography variant="h5">{message}</Typography>
+          </Box>
         </Box>
+        <Avatar src={profileImg} alt={userName} className="OutGoingAvatar" />
+        <Box className="OutgoingMessage-timestamp">
+        <Typography variant="caption" >
+          {timeElapsed()}
+        </Typography>
       </Box>
-      <Avatar src={profileImg} alt={userName} className="OutGoingAvatar" />
-      
-    </Box>
-    <Typography variant="caption" marginLeft="90%">{timeElapsed()}</Typography>
+      </Box>
+
     </>
   );
 };
