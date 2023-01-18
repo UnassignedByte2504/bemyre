@@ -208,7 +208,7 @@ export const LandingPage = () => {
         <Box
           className="rowCards"
           sx={{
-            // display: "flex",
+            display: "flex",
             gap: "1.5rem",
             paddingY: "1.5rem",
             paddingX: "0.5rem",
