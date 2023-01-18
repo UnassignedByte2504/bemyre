@@ -139,7 +139,7 @@ export const PublicLocal = () => {
               {/* Condicional editar cerrado */}
               {!open.name ? (
                 <Box className="d-flex align-items-center justify-content-between w-75 my-2">
-                  <Typography variant="h5"><strong>Nombre banda</strong></Typography>
+                  <Typography variant="h5"><strong>Nombre local</strong></Typography>
                   <Button
                     onClick={() => setOpen({ name: true })}
                     variant="contained"
@@ -155,7 +155,7 @@ export const PublicLocal = () => {
                     <TextField className="w-100" label="Nuevo nombre" />
                     <Box className="d-flex">
                       <Button
-                        className="ms-2"
+                        className="ms-2 text-white"
                         variant="contained"
                         color="success"
                       >
@@ -165,7 +165,7 @@ export const PublicLocal = () => {
                         onClick={() => setOpen({ name: false })}
                         variant="contained"
                         color="error"
-                        className="ms-2"
+                        className="ms-2 text-white"
                       >
                         <strong>Cancelar</strong>
                       </Button>
@@ -208,7 +208,7 @@ export const PublicLocal = () => {
                       <TextField className="w-100" label="Ubicacion" />
                       <Box className="d-flex">
                         <Button
-                          className="ms-2"
+                          className="ms-2 text-white"
                           variant="contained"
                           color="success"
                         >
@@ -265,7 +265,7 @@ export const PublicLocal = () => {
                 <TextField className="w-100" label="Descripcion" />
                 <Box className="d-flex">
                   <Button
-                    className="ms-2"
+                    className="ms-2 text-white"
                     variant="contained"
                     color="success"
                   >
