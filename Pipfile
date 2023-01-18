@@ -22,6 +22,7 @@ datetime = "*"
 flask-jwt-extended = "*"
 flask-socketio = "*"
 eventlet = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.10"

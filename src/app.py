@@ -14,6 +14,8 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager 
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
 from flask_socketio import SocketIO
 from flask_socketio import send, emit
 import json
@@ -93,7 +95,7 @@ def handle_message(data):
 def handle_is_connected():
     logged_users = User.query.filter_by(is_logged=True).all()
     logged_users_name = [user.user_name for user in logged_users]
-    print("hola estos son los usuarios conectados", logged_users_name)
+    print("logued",logged_users_name)
     socketio.emit('logged_users', logged_users_name)
 
 @socketio.on('recipients')
@@ -118,12 +120,36 @@ def handle_direct_message(message_body, sender_user_name, receiver_username):
     direct_message = DirectMessage(
         sender_id=sender_user.id,
         recipient_id=receiver_user.id,
-        message_body=message_body
+        message_body=message_body,
+        readed = False
     )
     db.session.add(direct_message)
     db.session.commit()
     print("direct_message", direct_message.serialize())
     socketio.emit('direct_message', direct_message.serialize())
+
+
+@socketio.on('unread_messages')
+def handle_unread_messages(current_user):
+# count unread messages for the current_user as recipient
+   recipient = User.query.filter_by(user_name=current_user).first()
+   unread_messages = DirectMessage.query.filter_by(recipient_id=recipient.id, readed=False).all()
+   unread_messages_count = len(unread_messages)
+   recipient.unread_messages = unread_messages_count
+   db.session.commit()
+   print("unread_messages", unread_messages_count)
+
+
+
+
+@socketio.on('read_messages')
+def handle_read_messages(current_user):
+    recipient = User.query.filter_by(user_name=current_user).first()
+    messages_to_read = DirectMessage.query.filter_by(recipient_id=recipient.id, readed=False).all()
+    for message in messages_to_read:
+        message.readed = True
+        db.session.commit()
+    print("read_messages", recipient.unread_messages)
 
 cloudinary.config( 
   cloud_name = os.getenv("img_cloudinay_name"), 
@@ -132,6 +158,12 @@ cloudinary.config(
   secure = True
 )
 
+@socketio.on('logout')
+def logout(current_user):
+    user = User.query.filter_by(user_name=current_user).first()
+    user.is_logged = False
+    db.session.commit()
+    print("El usuario ha logueado", user)
 
 
 

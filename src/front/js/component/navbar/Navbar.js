@@ -14,6 +14,7 @@ import {
   useTheme,
   Box,
   ButtonGroup,
+  TextField
 } from "@mui/material";
 import {
   LightModeOutlined,
@@ -30,6 +31,7 @@ import logo from "../../../img/Bemyre_logo.png";
 import { setMode } from "../../state"; //changes color mode
 import { globalPages, filterIcon } from "./aux/NavbarData.js";
 import UserBar from "../userbar/UserBar.js";
+import Inbox from "../../pages/Inbox.js";
 
 function Navbar() {
   const { actions, store } = useContext(Context);
@@ -47,6 +49,27 @@ function Navbar() {
     return path;
   };
 
+  const rockFm = () => {
+    return (
+      <div>
+        <div className="ng-app-embedded">
+          <div
+            ui-view="true"
+            className="microsite embedded-radio-player"
+            data-playerwidth="340px"
+            data-playertype="web_embedded"
+            data-playstation="rockfmes"
+            data-autoplay="true"
+            data-apikey="df04ff67dd3339a6fc19c9b8be164d5b5245ae93"
+          />
+        </div>
+        <noscript>
+          &lt;a href="https://www.radio.es/s/rockfmes" target="_blank"&gt;Rock
+          FM en radio.es&lt;/a&gt;
+        </noscript>
+      </div>
+    );
+  };
   useEffect(() => {
     const currentPath = window.location.pathname;
     setActivePage(currentPath);
@@ -96,14 +119,16 @@ function Navbar() {
                 gap="3rem"
                 p="0.1rem 1.5rem"
               >
-                <InputBase placeholder="Search..." />
+                <TextField  variant="standard" placeholder="Buscar usuarios..." />
                 <IconButton>
                   <Search />
                 </IconButton>
               </FlexBetween>
             </FlexBetween>
             {/* <<< Left side */}
-
+                  
+            
+            
             {/* Right side  >>> */}
             <FlexBetween gap="1.5rem">
               <ButtonGroup
