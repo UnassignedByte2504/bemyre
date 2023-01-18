@@ -4,7 +4,10 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from datetime import datetime
 from sqlalchemy import and_, or_, not_
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, DirectMessage, UserMedia
+
+
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, MusicGenre, DirectMessage, UserMedia
+
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -542,7 +545,7 @@ def get_locales():
     for local in locales:
         locales_list.append(local.serialize())
     return jsonify(locales_list), 200
-
+ 
  
 # PUBLIC LOCAL
 
@@ -551,8 +554,13 @@ def get_locales():
 def public_local():
     user_name = get_jwt_identity()
     user = User.query.filter_by(user_name=user_name).first()
+    # city_name da igual el nombre que se le de? al final se trae lo unico que se autocompleta en e l form?
     body_city = request.form.get('city_name')
     city = City.query.filter_by(name = body_city).first()
+    
+    
+    
+
     if 'local_img' in request.files:
         # upload file to uploadcare
         result = cloudinary.uploader.upload(request.files['local_img'])
@@ -571,7 +579,8 @@ def public_local():
             description = data["description"],
             city_id = city.id,
             user_id = user.id,
-            local_img = result['secure_url']
+            local_img = result['secure_url'],
+            
         )
         db.session.add(new_local)
         db.session.commit()
@@ -615,6 +624,19 @@ def public_local():
 
 #<<-----1 LOCALES ENDPOINT END ----->>
 
+
+#<<-----MUSIC GENRES ----->>
+
+@api.route('/music_genres', methods=['GET'])
+def get_music_genres():
+    music_genres = MusicGenre.query.all()
+    music_genres_list = []
+    for music_genre in music_genres:
+        music_genres_list.append(music_genre.serialize())
+    return jsonify(music_genres_list), 200
+
+
+#<<-----MUSIC GENRES ----->>
 
 #<<-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FILTER ENDPOINTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ----->>
 

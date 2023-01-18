@@ -438,6 +438,7 @@ class MusicGenre(db.Model):
     name = db.Column(db.String(80), unique=True, nullable=False)
     bands = relationship("Bands", back_populates="music_genre")
     influence_bands = db.relationship('InfluenceBand', backref='MusicGenre', lazy=True)
+    local_music_genres = db.relationship('LocalMusicGenre', backref='music_genre', lazy=True)
 
     def __repr__(self):
         return f'<MusicGenre {self.name}>'
@@ -500,6 +501,7 @@ class Local (db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     # events = db.relationship('Event', backref='local', lazy=True)
     local_music_genres = db.relationship('LocalMusicGenre', backref='local', lazy=True)
+    
 
    
 
@@ -535,7 +537,7 @@ class Local (db.Model):
 class LocalMusicGenre (db.Model):
     id= db.Column(db.Integer, primary_key=True)
     musicgenre_id = db.Column(db.Integer, db.ForeignKey('music_genre.id'), nullable=False)
-    music_genre = db.relationship ('MusicGenre')
+    
     local_id = db.Column(db.Integer, db.ForeignKey('local.id'), nullable=False)
 
     def __repr__(self):
