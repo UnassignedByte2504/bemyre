@@ -167,10 +167,11 @@ def edit_info(username_var):
         return jsonify({"message": "Access Denied"}), 401
     user = db.session.query(User).filter(User.user_name == username_var).first()
     request_data = request.get_json(force=True)
+    default_values = user
     # user.user_name = request_data['user_name']
-    user.first_name = request_data['first_name']
-    user.last_name = request_data['last_name']
-    user.description = request_data['description']
+    user.first_name = request_data.get('first_name', default_values.first_name)
+    user.last_name = request_data.get('last_name', default_values.last_name)
+    user.description = request_data.get('description', default_values.description)
     db.session.commit()
     return jsonify({"msg":"Información actualizada", })
 
