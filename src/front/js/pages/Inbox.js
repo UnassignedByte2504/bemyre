@@ -29,12 +29,15 @@ import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined
 //<<<<<<<<<<<<<<<<<<<<<<ICONS
 
 const Inbox = () => {
-  const imgUrl1 = "https://imgix.bustle.com/uploads/shutterstock/2020/3/30/93162198-95d5-42f2-820a-63528240a45a-shutterstock-1487038826.jpg?w=2000&h=640&fit=crop&crop=faces&auto=format%2Ccompress&blend=000000&blendAlpha=45&blendMode=normal"
+  const imgUrl1 =
+    "https://imgix.bustle.com/uploads/shutterstock/2020/3/30/93162198-95d5-42f2-820a-63528240a45a-shutterstock-1487038826.jpg?w=2000&h=640&fit=crop&crop=faces&auto=format%2Ccompress&blend=000000&blendAlpha=45&blendMode=normal";
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const theme = useTheme();
   const Socket = useContext(SocketContext);
   const lastMsg = useRef();
+  const msgInput = useRef();
+  const newRecipientInput = useRef()
   const currentUser = sessionStorage.getItem("current_user");
   const loggedUsers = store?.loggedUsers;
   // STATES >>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -74,7 +77,9 @@ const Inbox = () => {
   });
 
   const getRecipientsList = async () => {
+  
     setIsOpen(!isOpen);
+    await   newRecipientInput.current?.focus({ behavior: "smooth"});
     await fetch(`${process.env.BACKEND_URL}/api/${currentUser}/usernames`, {
       method: "GET",
       headers: {
@@ -167,7 +172,14 @@ const Inbox = () => {
       return true;
     }
   };
-
+  const startConversation = (name, img) => {
+    setRecipient({
+      name: name,
+      profile_img: img,
+    });
+    setIsOpen(false);
+    msgInput.current.focus();
+  };
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FUNCTIONS
 
   //EFFECTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -235,15 +247,19 @@ const Inbox = () => {
                 </IconButton>
                 {isOpen ? (
                   <Box className="NewRecipientForm-Wrapper">
-                    <FormControl sx={{ backgroundColor: "black", paddingLeft:".25rem" }}>
+                    <FormControl
+                      sx={{ backgroundColor: "black", paddingLeft: ".25rem" }}
+                    >
                       <Autocomplete
                         disablePortal
                         id="combo-box-demo"
                         options={contacts}
-                        sx={{ width: 300,backgroundColor:"black !important" }}
+                        sx={{ width: 300, backgroundColor: "black !important" }}
                         renderInput={(params) => (
                           <TextField
                             {...params}
+                            autoFocus={true}
+                            inputRef={newRecipientInput}
                             autoComplete="on"
                             label="Nuevo chat"
                             variant="standard"
@@ -252,10 +268,7 @@ const Inbox = () => {
                             onChange={(e) => setNewRecipient(e.target.value)}
                             onKeyDown={(e) => {
                               if (e.key === "Enter") {
-                                setRecipient({
-                                  name: [newRecipient],
-                                  profile_img: [null],
-                                });
+                                startConversation(newRecipient, null);
                               }
                             }}
                           />
@@ -361,7 +374,10 @@ const Inbox = () => {
                 width="100%"
                 position="relative"
               >
+            
                 <TextField
+                  inputRef={msgInput}
+                  autoFocus={true}
                   fullWidth={true}
                   type="text"
                   value={message}
