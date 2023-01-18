@@ -103,9 +103,9 @@ const UserPasswordManagement = () => {
         {/* Condicional Website */}
 
         {!store.resultados?.user_social_media[0].website_url ? (
-          <Box className="d-flex w-100">
+          <Box className="boxnodatarrss w-100">
             <TextField
-              className="w-100 my-2"
+              className="textfieldnodata my-2"
               variant="outlined"
               label="Añadir sitio web"
               onChange={handleValueChange}
@@ -119,7 +119,10 @@ const UserPasswordManagement = () => {
                     values.web
                   )
                 }             
-            className="ms-2">Añadir sitio web</Button>
+            className="ms-2 btnsettingsrrss h-75"
+            variant="contained"
+            >Añadir sitio web
+            </Button>
           </Box>
         ) : (
           <>
@@ -171,9 +174,9 @@ const UserPasswordManagement = () => {
 
         {/* Condicional Youtube */}
         {!store.resultados?.user_social_media[0].youtube_url ? (
-          <Box className="d-flex w-100">
+          <Box className="boxnodatarrss w-100">
             <TextField
-              className="w-100 my-2"
+              className="textfieldnodata my-2"
               variant="outlined"
               label="Youtube"
               onChange={handleValueChange}
@@ -187,7 +190,7 @@ const UserPasswordManagement = () => {
                     values.youtube
                   )
                 }            
-            className="ms-2">Añadir YouTube</Button>
+            className="ms-2 btnsettingsrrss">Añadir YouTube</Button>
           </Box>
         ) : (
           <>
@@ -241,9 +244,9 @@ const UserPasswordManagement = () => {
         {/* Condicional soundcloud */}
 
         {!store.resultados?.user_social_media[0].soundcloud_url ? (
-          <Box className="d-flex w-100">
+          <Box className="boxnodatarrss w-100">
             <TextField
-              className="w-100 my-2"
+              className="textfieldnodata my-2"
               variant="outlined"
               label="Soundcloud"
               onChange={handleValueChange}
@@ -257,7 +260,7 @@ const UserPasswordManagement = () => {
                   values.soundcloud
                 )
               }
-            className="ms-2" type="submit">
+            className="ms-2 btnsettingsrrss" type="submit">
               Añadir soundcloud
             </Button>
           </Box>
@@ -317,9 +320,9 @@ const UserPasswordManagement = () => {
         {/* Condicional Instagram */}
 
         {!store.resultados?.user_social_media[0].instagram_url? (
-          <Box className="d-flex w-100">
+          <Box className="boxnodatarrss w-100">
             <TextField
-              className="w-100 my-2"
+              className="textfieldnodata my-2"
               variant="outlined"
               label="Instagram"
               onChange={handleValueChange}
@@ -334,7 +337,7 @@ const UserPasswordManagement = () => {
                 )
               }      
                   
-            className="ms-2">
+            className="ms-2 btnsettingsrrss">
               Añadir Instagram
             </Button>
           </Box>
@@ -391,9 +394,9 @@ const UserPasswordManagement = () => {
         {/* Condicional Facebook */}
 
         {!store.resultados?.user_social_media[0].facebook_url ? (
-          <Box className="d-flex w-100">
+          <Box className="boxnodatarrss w-100">
             <TextField
-              className="w-100 my-2"
+              className="textfieldnodata my-2"
               variant="outlined"
               label="Facebook"
 
@@ -408,7 +411,7 @@ const UserPasswordManagement = () => {
                   values.facebook
                 )
               }  
-            className="ms-2" >
+            className="ms-2 btnsettingsrrss" >
               Añadir Facebook
             </Button>
           </Box>
@@ -465,9 +468,9 @@ const UserPasswordManagement = () => {
         {/* Condicional Twitter */}
 
         {!store.resultados?.user_social_media[0].twitter_url ? (
-          <Box className="d-flex w-100">
+          <Box className="boxnodatarrss w-100">
             <TextField
-              className="w-100 my-2"
+              className="textfieldnodata my-2"
               variant="outlined"
               label="Twitter"
               onChange={handleValueChange}
@@ -481,7 +484,7 @@ const UserPasswordManagement = () => {
                       values.twitter
                     )
                   }            
-            className="ms-2" >
+            className="ms-2 btnsettingsrrss" >
               Añadir Twitter
             </Button>
           </Box>
@@ -538,9 +541,9 @@ const UserPasswordManagement = () => {
         {/* Condicional TikTok */}
 
         {!store.resultados?.user_social_media[0].tiktok_url ? (
-          <Box className="d-flex w-100">
+          <Box className="boxnodatarrss w-100">
             <TextField
-              className="w-100 my-2"
+              className="textfieldnodata my-2"
               variant="outlined"
               label="TikTok"
               onChange={handleValueChange}
@@ -554,7 +557,7 @@ const UserPasswordManagement = () => {
                   values.tiktok
                 )
               }   
-            className="ms-2" >
+            className="ms-2 btnsettingsrrss" >
               Añadir Tiktok
             </Button>
           </Box>
@@ -612,9 +615,9 @@ const UserPasswordManagement = () => {
         {/* Condicional snapchat */}
 
         {!store.resultados?.user_social_media[0].snapchat_url ? (
-          <Box className="d-flex w-100">
+          <Box className="boxnodatarrss w-100">
             <TextField
-              className="w-100 my-2"
+              className="textfieldnodata my-2"
               variant="outlined"
               label="Snapchat"
               onChange={handleValueChange}
@@ -627,7 +630,8 @@ const UserPasswordManagement = () => {
                 fieldNames.snapchat,
                 values.snapchat
               )
-            }            
+            }    
+            className='btnsettingsrrss'        
             >Añadir Snapchat</Button>
           </Box>
         ) : (
@@ -685,9 +689,9 @@ const UserPasswordManagement = () => {
 
         {/* Condicional spotify */}
         {!store.resultados?.user_social_media[0].spotify_url ? (
-          <Box className="d-flex w-100">
+          <Box className="boxnodatarrss w-100">
             <TextField
-              className="w-100 my-2"
+              className="textfieldnodata my-2"
               variant="outlined"
               label="spotify"
               onChange={handleValueChange}
@@ -702,7 +706,9 @@ const UserPasswordManagement = () => {
                 )
               }                
             
-            type="submit">Añadir spotify</Button>
+            type="submit"
+            className="btnsettingsrrss"
+            >Añadir spotify</Button>
           </Box>
         ) : (
           <>
