@@ -30,6 +30,7 @@ import { Eventos } from "./pages/Eventos.js";
 import { Musicos } from "./pages/Musicos.js";
 import { useRoutes } from "react-router-dom";
 import { LocalProfile } from "./pages/LocalProfile.js";
+import SocketContext from "./state/socketContext.js";
 
 
 
@@ -37,15 +38,21 @@ import { LocalProfile } from "./pages/LocalProfile.js";
 
 //create your first component
 const Layout = ( ) => {
-
+  const [loggedUsers, setLoggedUsers] = useState([]);
   const { store, actions } = useContext(Context);
+  const Socket = useContext(SocketContext);
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
   //the basename is used when your project is published in a subdirectory and not in the root of the domain
   // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
   const basename = process.env.BASENAME || "";
-
+  useEffect(() =>{
+    if (Socket){Socket.emit("logged_users")
+    Socket.on("logged_users", (data) => {
+      actions.setLoggedUsers(data);
+    })}
+  },[Socket])
   return (
     <div className="">
       <BrowserRouter basename={basename}>
@@ -87,8 +94,8 @@ const Layout = ( ) => {
             />
             <Route element={<Locales />} path="/locales" />
             <Route element={<Bandas />} path="/bandas" />
-            <Route element={<Eventos />} path="/events" />
-            <Route element={<Musicos />} path="/musicians" />
+            <Route element={<Eventos />} path="/conciertos" />
+            <Route element={<Musicos />} path="/musicos" />
           </Routes>
           <Footer />
         </ThemeProvider>

@@ -31,7 +31,7 @@ export const iconsArray = [
     icon: <NightlifeIcon />,
   },
   {
-    name: "Events",
+    name: "Conciertos",
     icon: <StadiumIcon />,
   },
   {
@@ -63,7 +63,7 @@ export const iconsArray = [
     icon: <GroupsIcon />,
   },
   {
-    name: "Musicians",
+    name: "Musicos",
     icon: <GraphicEqIcon />,
   },
 ];
@@ -74,10 +74,10 @@ export const globalPages = [
   "Home",
   "Explorar",
   // "Jam Sessions",
-  "Events",
+  "Conciertos",
   "Locales",
   "Bandas",
-  "Musicians"
+  "Musicos"
 ];
 export const userPages = ["Settings", "Log out"];
 // <<< Pages

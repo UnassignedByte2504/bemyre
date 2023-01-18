@@ -1,24 +1,25 @@
 import React from "react";
-
+import { Context } from "../store/appContext.js";
 import { useContext, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 //COMPONENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 import IncomingMessage from "../component/inbox/IncomingMessage.js";
 import OutgoingMessage from "../component/inbox/OutgoingMessage.js";
 import SocketContext from "../state/socketContext";
-import ChatDate from "../component/inbox/ChatDate.js";
 import EmojiPicker from "emoji-picker-react";
 import FlexBetween from "../component/styledcomponents/FlexBetween.jsx";
-import imgUrl1 from "../../img/bemyre-faq.jpg";
+import QuoteComp from "../component/inbox/QuoteComp.js";
+// import imgUrl1 from "../../img/bemyre-faq.jpg";
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<COMPONENTS
 import {
   Box,
   Typography,
   IconButton,
   Avatar,
-  InputBase,
   Badge,
   TextField,
+  Autocomplete,
+  FormControl,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 //ICONS>>>>>>>>>>>>>>>>>>>>>>
@@ -28,12 +29,14 @@ import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined
 //<<<<<<<<<<<<<<<<<<<<<<ICONS
 
 const Inbox = () => {
+  const imgUrl1 = "https://imgix.bustle.com/uploads/shutterstock/2020/3/30/93162198-95d5-42f2-820a-63528240a45a-shutterstock-1487038826.jpg?w=2000&h=640&fit=crop&crop=faces&auto=format%2Ccompress&blend=000000&blendAlpha=45&blendMode=normal"
+  const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const theme = useTheme();
   const Socket = useContext(SocketContext);
   const lastMsg = useRef();
   const currentUser = sessionStorage.getItem("current_user");
-
+  const loggedUsers = store?.loggedUsers;
   // STATES >>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const [isOpen, setIsOpen] = useState(false);
   const [emojiOpen, setEmojiOpen] = useState(false);
@@ -49,7 +52,8 @@ const Inbox = () => {
   const [newRecipient, setNewRecipient] = useState("");
   const [recipientsOptions, setRecipientOptions] = useState([]);
   const [conversation, setConvsersation] = useState([]);
-
+  const [contacts, setContacts] = useState();
+  //<<<<<<<<<<<<<<<<<<<<<<
   // <<<<<<<<<<<<<<<<<<<<<<<< STATES
 
   // FUNCTIONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -156,27 +160,15 @@ const Inbox = () => {
       profile_img: data.profile_img,
     });
   };
-  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FUNCTIONS
-  const NewRecipientForm = () => {
-    return (
-      <Box className="NewRecipientForm-Wrapper">
-        <TextField
-          variant="standard"
-          placeholder="Nombre de usuario"
-          value={newRecipient}
-          onChange={(e) => setNewRecipient(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              setRecipient({
-                name: [newRecipient],
-                profile_img: [null],
-              });
-            }
-          }}
-        />
-      </Box>
-    );
+  const isVisible = (username) => {
+    if (loggedUsers.includes(username)) {
+      return false;
+    } else {
+      return true;
+    }
   };
+
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FUNCTIONS
 
   //EFFECTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   useEffect(() => {
@@ -194,8 +186,28 @@ const Inbox = () => {
   }, [recipients]);
   useEffect(() => {
     fetchrecipients(currentUser);
-    // Socket.on("recipients", (data) => setRecipients(data));
+    actions.fetchFollowers(currentUser);
+    actions.fetchFollowing(currentUser);
   }, []);
+  useEffect(() => {
+    const followers = store.followers ? store.followers.followers : [];
+    const following = store.following ? store.following.following : [];
+    if (followers) {
+      let contacts = [];
+      followers.forEach((follower) => {
+        if (follower.username !== currentUser) {
+          contacts.push(follower);
+        }
+      });
+      following.forEach((following) => {
+        if (following.username !== currentUser) {
+          contacts.push(following);
+        }
+      });
+      setContacts(contacts);
+      console.log("con", contacts);
+    }
+  }, [store.followers, store.following]);
 
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<EFFECTS
 
@@ -223,57 +235,72 @@ const Inbox = () => {
                 </IconButton>
                 {isOpen ? (
                   <Box className="NewRecipientForm-Wrapper">
-                    <TextField
-                    options={["hola", "hola2"]}
-                      variant="standard"
-                      placeholder="Nombre de usuario"
-                      value={newRecipient}
-                      onChange={(e) => setNewRecipient(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          setRecipient({
-                            name: [newRecipient],
-                            profile_img: [null],
-                          });
-                        }
-                      }}
-                    />
+                    <FormControl sx={{ backgroundColor: "black", paddingLeft:".25rem" }}>
+                      <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        options={contacts}
+                        sx={{ width: 300,backgroundColor:"black !important" }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            autoComplete="on"
+                            label="Nuevo chat"
+                            variant="standard"
+                            placeholder="Nombre de usuario"
+                            value={newRecipient}
+                            onChange={(e) => setNewRecipient(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                setRecipient({
+                                  name: [newRecipient],
+                                  profile_img: [null],
+                                });
+                              }
+                            }}
+                          />
+                        )}
+                      />
+                    </FormControl>
                   </Box>
                 ) : null}
               </Box>
             </Box>
             <Box className="RecipientsBody">
               {recipients &&
-                recipients.name.map((recipient, index) => (
-                  <Box
-                    className="RecipientRoot"
-                    key={index}
-                    onClick={() =>
-                      fetchConversation(
-                        recipients.name[index],
-                        recipients.profile_img[index]
-                      )
-                    }
-                  >
-                    <Box>
-                      <Badge
-                        color="success"
-                        overlap="circular"
-                        badgeContent=" "
-                      >
-                        <Avatar
-                          src={recipients.profile_img[index]}
-                          alt={recipients.name[index]}
-                        />
-                      </Badge>
+                recipients.name.map((recipient, index) => {
+                  return (
+                    <Box
+                      className="RecipientRoot"
+                      key={index}
+                      onClick={() =>
+                        fetchConversation(
+                          recipients.name[index],
+                          recipients.profile_img[index]
+                        )
+                      }
+                    >
+                      <Box>
+                        <Badge
+                          color="success"
+                          overlap="circular"
+                          badgeContent=" "
+                          invisible={isVisible(recipients.name[index])}
+                        >
+                          <Avatar
+                            src={recipients.profile_img[index]}
+                            alt={recipients.name[index]}
+                          />
+                        </Badge>
+                      </Box>
+                      <Box>
+                        <Typography variant="h4">
+                          {recipients.name[index]}
+                        </Typography>
+                      </Box>
                     </Box>
-                    <Box>
-                      <Typography variant="h4">
-                        {recipients.name[index]}
-                      </Typography>
-                    </Box>
-                  </Box>
-                ))}
+                  );
+                })}
             </Box>
           </Box>
           <Box className="MessagesWrapper">
@@ -287,7 +314,12 @@ const Inbox = () => {
                     <Typography variant="h4">{recipient.name}</Typography>
                   </Box>
                   <Box>
-                    <Badge color="success" overlap="circular" badgeContent=" ">
+                    <Badge
+                      color="success"
+                      overlap="circular"
+                      badgeContent=" "
+                      invisible={isVisible(recipient.name)}
+                    >
                       <Avatar
                         src={recipient.profile_img}
                         alt={recipient.name}
@@ -304,19 +336,6 @@ const Inbox = () => {
             {conversation && recipient && (
               <Box className="MessagesBody">
                 {conversation.map((message, index) => {
-                  const prevMessage = conversation[index - 1];
-                  const dateSended = new Date(message.timestamp);
-                  const showDate =
-                    !prevMessage ||
-                    message?.timestamp?.seconds -
-                      prevMessage?.timestamp?.seconds >
-                      60;
-                  const dateNow = new Date();
-                  const showFullDate =
-                    dateSended.getDate() !== dateNow.getDate() ||
-                    dateSended.getMonth() !== dateNow.getMonth() ||
-                    dateSended.getFullYear() !== dateNow.getFullYear();
-
                   return (
                     <Box key={index}>
                       {messageToRender(

@@ -30,9 +30,9 @@ const IncomingMessage = ({ message, profileImg, userName, timeStamp }) => {
           </Box>
         </Box>
         <Avatar src={profileImg} alt={userName} className="IncomingAvatar" />
-      </Box>
-      <Box className="IncomingMessage-timeStamp">
-        <Typography variant="caption">{timeElapsed()}</Typography>
+        <Box className="IncomingMessage-timestamp">
+          <Typography variant="caption">{timeElapsed()}</Typography>
+        </Box>
       </Box>
     </>
   );

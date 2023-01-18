@@ -26,27 +26,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       geo_api_key: "c9e7139f5e0b428c9c11c3c069fe8aea",
     },
     actions: {
-      sendImgTest: async (img) => {
-        const options = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            img: img,
-          }),
-        };
-
-        const response = await fetch(
-          `${process.env.BACKEND_URL}/api/signup`,
-          options
-        );
-        const data = await response.json();
-        setStore({
-          message: data.message,
-          resultados: data.resultados,
-        });
-      },
       signUp: async (
         username,
         email,
@@ -139,13 +118,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           },
         };
         await fetch(`${process.env.BACKEND_URL}/api/${username}`, options)
-          // .then((resp) => {
-          //   if (resp.status == 200) {
-          //     return resp.json();
-          //   } else {
-          //     return "Error en fetch";
-          //   }
-          // })
           .then((response) => response.json())
           .then((result) => setStore({ resultados: result }));
       },
@@ -307,7 +279,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       //Mi estilo de musica y trayectoria
-      musicStyleCareer: async (username, estilo1, estilo2, estilo3, textstyle) => {
+      musicStyleCareer: async (
+        username,
+        estilo1,
+        estilo2,
+        estilo3,
+        textstyle
+      ) => {
         const options = {
           method: "PUT",
           headers: {
@@ -327,10 +305,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         )
           .then((response) => response.json())
           .then((result) =>
-            sessionStorage.setItem(
-              "Music_style",
-              "Estilo musical actualizado"
-            )
+            sessionStorage.setItem("Music_style", "Estilo musical actualizado")
           );
       },
 
@@ -388,10 +363,18 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       setLoggedUsers: (data) => {
         const store = getStore();
+        // check if users are already
+        let loggedUsers = store.loggedUsers;
+        let newLoggedUsers = [];
+        for (let i = 0; i < data.length; i++) {
+          if (loggedUsers.indexOf(data[i]) === -1) {
+            newLoggedUsers.push(data[i]);
+          }
+        }
         setStore({
-          loggedUsers: [...store.loggedUsers, data],
+          loggedUsers: newLoggedUsers,
         });
-        console.log("logged users", store.loggedUsers);
+        console.log(store.loggedUsers);
       },
 
       //misc functions

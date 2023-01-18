@@ -57,6 +57,7 @@ export const ExploraDropdown = ({ provincia }) => {
           sx={{ width: 300 }}
           renderInput={(params) => (
             <TextField
+               variant="standard"
               {...params}
               placeholder="Poblacion, Municipio..."
               label="Ciudad"

@@ -1,6 +1,13 @@
 import React from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Box, Typography, Divider, IconButton, Avatar } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Divider,
+  IconButton,
+  Avatar,
+  Badge,
+} from "@mui/material";
 import { useContext, useState, useEffect } from "react";
 import { Context } from "../../../store/appContext";
 import FlexEvenly from "../../styledcomponents/FlexEvenly.jsx";
@@ -14,6 +21,15 @@ const Following = () => {
   const params = useParams();
   const userName = params.username;
   const Navigate = useNavigate();
+  const loggedUsers = store.loggedUsers;
+
+  const isVisible = (username) => {
+    if (loggedUsers.includes(username)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
   const FollowingItem = ({ userName, index }) => {
     const imgsrc = store.following.profile_img[index];
     const userLink = `/user/${userName}`;
@@ -28,16 +44,23 @@ const Following = () => {
           alignItems: "center",
         }}
       >
-        <Avatar
-          alt={userName}
-          src={imgsrc}
-          sx={{
-            height: "60px",
-            width: "60px",
-            marginBottom: "0.5rem",
-            outline: "2px solid red",
-          }}
-        />
+        <Badge
+          color="success"
+          overlap="circular"
+          badgeContent=" "
+          invisible={isVisible(userName)}
+        >
+          <Avatar
+            alt={userName}
+            src={imgsrc}
+            sx={{
+              height: "60px",
+              width: "60px",
+              marginBottom: "0.5rem",
+              outline: "2px solid red",
+            }}
+          />
+        </Badge>
         <Typography variant="h5">{userName}</Typography>
       </Box>
     );
@@ -60,7 +83,9 @@ const Following = () => {
         </FlexBetween>
         <Box className="FollowBox-Container">
           {store?.following?.following.map((e, index) => (
-            <FollowingItem userName={e} index={index} />
+            <Box key={index}>
+              <FollowingItem userName={e} index={index} />
+            </Box>
           ))}
         </Box>
       </Box>
