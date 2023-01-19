@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CardConcert } from "../component/ConcertCard/CardConcert.jsx";
 import { Container } from "@mui/system";
 import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
@@ -6,10 +6,15 @@ import { Grid } from "@mui/material";
 import { eventos } from "../mockingData";
 
 export const Eventos = () => {
-
+  
+  const scrolltop = useRef()
+  useEffect(()=>{
+    scrolltop.current?.scrollIntoView({behavior: "smooth"})
+  },[])
 
   return (
     <>
+      <div ref={scrolltop}/>
       <CallToAction2 text1="¿Eres músico?" text2="Contacta con locales para tocar en vivo" title="Locales cerca de mí" to="/locales" />
       <Container className="mb-5">
         <Grid container spacing={2} >

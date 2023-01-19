@@ -193,7 +193,7 @@ const ProfileInfo = () => {
       {!open.description ? (
         <Box className="datainfosettings w-75 my-3">
           <Typography>
-            <strong>{store.resultados.descripcion}</strong>
+           {store?.resultados.description ? <strong>{store?.resultados.description}</strong>: <Typography><strong>Añadir descripcion</strong></Typography>}
           </Typography>
           <Button
             onClick={() => setOpen({ description: true })}
