@@ -119,7 +119,7 @@ export const PublicLocal = () => {
           >
 
             Crear perfil de local
-          </button>
+          </Button>
 
         </li>
         <li class="nav-item" role="presentation">
@@ -135,7 +135,7 @@ export const PublicLocal = () => {
           >
 
             Modificar perfil de local
-          </button>
+          </Button>
 
         </li>
       </ul>
@@ -299,7 +299,8 @@ export const PublicLocal = () => {
           </Box>
         </div>
       </div>
-    </>} */
+    </>
+    
   );
 };
 

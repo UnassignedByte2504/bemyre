@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import "../../styles/locales.css";
 import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
 import { Container } from "@mui/system";
@@ -21,8 +21,13 @@ export const Locales = () => {
   //     .then((result) => setLocales(result));
   // }, []);
 
+  const scrolltop = useRef()
+  useEffect(()=>{
+    scrolltop.current?.scrollIntoView({behavior: 'smooth'})
+  },[])
   return (
     <>
+    <div ref={scrolltop}/>
       <CallToAction2 text1="¿Te gustaría ofrecer música en vivo en tu local?" text2="Contacta con músicos cerca de tí" title="Músicos cerca de mi" to="/musicians" />
       <Container className="mb-5">
         <Grid container spacing={2} >
