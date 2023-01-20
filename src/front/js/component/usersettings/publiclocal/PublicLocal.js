@@ -24,8 +24,7 @@ export const PublicLocal = () => {
   });
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
-
-  // const [musicGenres, setMusicGenres] = useState();
+  const [musicGenres, setMusicGenres] = useState([]);
 
   const userName = sessionStorage.getItem("current_user");
 
@@ -50,25 +49,31 @@ export const PublicLocal = () => {
     fetchStates();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchMusicGenres = async () => {
-  //     const options = {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     };
-  //     const response = await fetch(
-  //       `${process.env.BACKEND_URL}/api/music_genres`,
-  //       options
-  //     );
 
-  //     const result = await response.json();
-  //     setMusicGenres(result);
-  //   };
-  // la "llamo"
-  //   fetchMusicGenres();
-  // }, []);
+
+
+  useEffect(() => {
+    const fetchMusicGenres = async () => {
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const response = await fetch(
+        `${process.env.BACKEND_URL}/api/music_genres`,
+        options
+      );
+
+      const result = await response.json();
+      setMusicGenres(result);
+    };
+  "la llamo"
+    fetchMusicGenres();
+  }, []);
+
+
+
 
   const publicar = async () => {
     let body = new FormData();
@@ -232,7 +237,7 @@ export const PublicLocal = () => {
 
                 {/* autocomplete con chips limitadas */}
 
-                {/* {musicGenres && (
+                {musicGenres && (
                 <Autocomplete
                   multiple
                   limitTags={5}
@@ -248,7 +253,7 @@ export const PublicLocal = () => {
                     <TextField
                     
                       {...params}
-                      // label="limitTags"
+                      
                       placeholder="Estilos de música"
                       name="Género de música"
                       label="Género de música"
@@ -257,7 +262,7 @@ export const PublicLocal = () => {
                   )}
                   sx={{ width: "100%" }}
                 />
-              )} */}
+              )}
 
                 <div class="mb-3">
                   <label for="formFile" class="form-label">

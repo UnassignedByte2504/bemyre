@@ -548,31 +548,6 @@ def get_locales():
  
  
 # PUBLIC LOCAL
-
-# @api.route('settings/publiclocal', methods=['POST'])
-# # @jwt_required()
-# def public_local():
-#     user_name = request.form.get('token')
-#     user = User.query.filter_by(user_name=user_name).first()
-#     # city mismo nombre que en el front
-#     body_city = request.form.get('city')
-#     city = City.query.filter_by(name = body_city).first()
-    
-#     print(request.files) 
-    
-
-#     # if 'local_img' in request.form:
-#     #     # upload file to uploadcare
-#     result = cloudinary.uploader.upload(request.files['local_img'])
-#     # else:
-#         # raise APIException('Missing local_img on the FormData')
-
-
-
-
-#     # return jsonify('funciona'), 201
-
-
 @api.route('settings/publiclocal', methods=['POST'])
 @jwt_required()
 def public_local():
@@ -610,6 +585,17 @@ def public_local():
         db.session.commit()
     except Exception as error:
         print(error)
+
+    for local_music_genre in local_music_genres:
+        current_genre = MusicGenre.query.filter_by(name = local_music_genre).first()
+        new_local_music_genre = LocalMusicGenre(
+            local_id = new_local.id,
+            musicgenre_id = current_genre.id
+        )
+        db.session.add(new_local_music_genre)
+    db.session.commit()
+
+
     response_body = {
         "msg": "local añadido"
         
