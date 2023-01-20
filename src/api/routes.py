@@ -14,7 +14,7 @@ from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 import base64
 import cloudinary
-import cloudinary.uploader
+import cloudinary.uploader 
   
 api = Blueprint('api', __name__)
 
@@ -549,13 +549,37 @@ def get_locales():
  
 # PUBLIC LOCAL
 
+# @api.route('settings/publiclocal', methods=['POST'])
+# # @jwt_required()
+# def public_local():
+#     user_name = request.form.get('token')
+#     user = User.query.filter_by(user_name=user_name).first()
+#     # city mismo nombre que en el front
+#     body_city = request.form.get('city')
+#     city = City.query.filter_by(name = body_city).first()
+    
+#     print(request.files) 
+    
+
+#     # if 'local_img' in request.form:
+#     #     # upload file to uploadcare
+#     result = cloudinary.uploader.upload(request.files['local_img'])
+#     # else:
+#         # raise APIException('Missing local_img on the FormData')
+
+
+
+
+#     # return jsonify('funciona'), 201
+
+
 @api.route('settings/publiclocal', methods=['POST'])
 @jwt_required()
 def public_local():
     user_name = get_jwt_identity()
     user = User.query.filter_by(user_name=user_name).first()
     # city_name da igual el nombre que se le de? al final se trae lo unico que se autocompleta en e l form?
-    body_city = request.form.get('city_name')
+    body_city = request.form.get('city')
     city = City.query.filter_by(name = body_city).first()
     
     
@@ -591,7 +615,6 @@ def public_local():
         
     }
     return jsonify(response_body), 201
-
 
 
 

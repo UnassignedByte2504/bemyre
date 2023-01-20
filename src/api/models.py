@@ -10,7 +10,7 @@ db = SQLAlchemy()
 # back_populates on relationship 'Countries.states' refers to attribute 'States.country' that is not a relationship.  The back_populates parameter should refer to the name of a relationship on the target class.
 
 
-
+ 
 
 
 
@@ -458,6 +458,7 @@ class Event(db.Model):
     date = db.Column(db.DateTime, nullable=False)
     creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
+    local_id = db.Column(db.Integer, db.ForeignKey('local.id'), nullable=False)
 
     def __repr__(self):
         return f'<Events {self.name}>'
@@ -497,7 +498,7 @@ class Local (db.Model):
     ubicacion_local = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(500), nullable=False)
     city_id = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=False)
-    city = db.relationship('City', backref=('local'), lazy=True)
+    
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     # events = db.relationship('Event', backref='local', lazy=True)
     local_music_genres = db.relationship('LocalMusicGenre', backref='local', lazy=True)
@@ -514,7 +515,7 @@ class Local (db.Model):
             "name": self.name,
             "ubicacion_local": self.ubicacion_local,
             "description": self.description,
-            "city": self.city.name,
+            "city_id": self.city_id
             
             
 
