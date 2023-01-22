@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 //Import Material >>>
-import { TextField, Typography, Box, Button } from "@mui/material";
+import { TextField, Typography, Box, Button, Divider } from "@mui/material";
 //Import Material <<<
 //Import Icons
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -99,6 +99,7 @@ const UserPasswordManagement = () => {
       <Typography className="my-3" variant="h3">
         Redes Sociales
       </Typography>
+      <Divider sx={{width:"75%"}} className='mb-3'/>
       <Box className="changepasswordform">
         {/* Condicional Website */}
 

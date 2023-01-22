@@ -163,7 +163,9 @@ export const PublicLocal = () => {
             aria-selected="true"
           >
             Crear perfil de local
+
           </button>
+
         </li>
         <li class="nav-item" role="presentation">
           <button
@@ -177,7 +179,9 @@ export const PublicLocal = () => {
             aria-selected="false"
           >
             Modificar perfil de local
+
           </button>
+
         </li>
       </ul>
       <div class="tab-content" id="myTabContent">
@@ -353,5 +357,6 @@ export const PublicLocal = () => {
         </div>
       </div>
     </>
+
   );
 };
