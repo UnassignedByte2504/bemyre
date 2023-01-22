@@ -6,7 +6,7 @@ from sqlalchemy import and_, or_, not_
 from flask import Flask, request, jsonify, url_for, Blueprint
 
 
-from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, MusicGenre, DirectMessage, UserMedia
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, MusicGenre, DirectMessage, UserMedia, LocalMusicGenre
 
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
@@ -545,6 +545,19 @@ def get_locales():
     for local in locales:
         locales_list.append(local.serialize())
     return jsonify(locales_list), 200
+
+
+# @api.route('settings/locales', methods=['GET'])
+# @jwt_required()
+# def get_locales_user():
+#     print('holaaa')
+#     user_name = get_jwt_identity()
+#     user = User.query.filter_by(user_name=user_name).first()
+#     locales = Local.query.filter_by(user_id = user.id).all()
+#     locales_list = []
+#     for local in locales:
+#         locales_list.append(local.serialize())
+#     return jsonify(locales_list), 200
  
  
 # PUBLIC LOCAL
@@ -553,11 +566,12 @@ def get_locales():
 def public_local():
     user_name = get_jwt_identity()
     user = User.query.filter_by(user_name=user_name).first()
-    # city_name da igual el nombre que se le de? al final se trae lo unico que se autocompleta en e l form?
+    print(request.form)
     body_city = request.form.get('city')
+    # form??????????????pip
+    body_local_music_genre = request.form.get('local_music_genres')
+
     city = City.query.filter_by(name = body_city).first()
-    
-    
     
 
     if 'local_img' in request.files:
@@ -586,8 +600,10 @@ def public_local():
     except Exception as error:
         print(error)
 
-    for local_music_genre in local_music_genres:
-        current_genre = MusicGenre.query.filter_by(name = local_music_genre).first()
+    print(body_local_music_genre)
+
+    for name in body_local_music_genre.split(','):
+        current_genre = MusicGenre.query.filter_by(name = name).first()
         new_local_music_genre = LocalMusicGenre(
             local_id = new_local.id,
             musicgenre_id = current_genre.id
@@ -604,7 +620,77 @@ def public_local():
 
 
 
+@api.route('settings/locales', methods=['GET'])
+@jwt_required()
+def locales_creados():
+    user_name = get_jwt_identity()
+    user = User.query.filter_by(user_name=user_name).first()
+    locales = Local.query.filter_by(user_id = user.id).all()
+    locales_list = []
+    for local in locales:
+        locales_list.append({'name': local.name, 'id': local.id })
+    return jsonify(locales_list), 200
 
+
+
+@api.route('settings/local/<int:id>', methods=['GET'])
+@jwt_required()
+def local_informacion(id):
+    user_name = get_jwt_identity()
+    user = User.query.filter_by(user_name=user_name).first()
+    local = Local.query.filter_by(user_id = user.id, id=id).first()
+
+    return jsonify(local.serialize()), 200
+
+
+
+
+# c
+@api.route('local_musicgenre', methods=['GET'])
+@jwt_required()
+def get_local_musicgenre():
+    user_name = get_jwt_identity()
+    user = User.query.filter_by(user_name=user_name).first()
+    locales = Local.query.filter_by(user_id = user.id).all()
+
+    genre_list = []
+    for local in locales:
+        current_local = LocalMusicGenre.query.filter_by(local_id = local.id).first()
+        current_genre = MusicGenre.query.filter_by(id=current_local.musicgenre_id).first()
+
+        genre_list.append(current_genre.name)
+    # print('holaaaaaaaaa!!!!!!!!!!!!', current_genre.name)
+    return jsonify(genre_list), 200
+
+    
+
+
+# J
+# @api.route('/settings/modifyLocal', methods=['PUT'])
+# @jwt_required()
+# def modify_local():
+#     # user = get_jwt_identity()
+#     request_data = request.json
+#     user = db.session.query(User).filter(User.user_name == username_var).first()
+#     db.session.commit()
+#     return jsonify({"msg": "Informacion actualizada correctamente"}), 200
+
+
+
+@api.route('/settings/modifyLocal', methods=['PUT'])
+@jwt_required()
+def modify_local():
+    user_name = get_jwt_identity()
+    user = User.query.filter_by(user_name=user_name).first()
+    print(request.form)
+    request_data = request.get_json(force=True)
+    local.name = request_data['name']
+    local.ubicacion_local = request_data['ubicacion_local']
+    local.description = request_data['description']
+    local.local_music_genres = request_data['local_music_genres']
+    local.local_img = request_data['local_img']
+    db.session.commit()
+    return jsonify({"msg": "Informacion actualizada correctamente"}), 200
 
 
 
@@ -741,6 +827,7 @@ def get_conversation(username_var, username_recipient):
     for x in messages_between:
         messages_between_list.append(x.serialize())
     return jsonify(messages_between_list), 200
+
 
 
 

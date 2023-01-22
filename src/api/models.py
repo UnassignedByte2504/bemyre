@@ -512,10 +512,13 @@ class Local (db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "local_img": self.local_img,
             "name": self.name,
             "ubicacion_local": self.ubicacion_local,
             "description": self.description,
-            "city_id": self.city_id
+            "city_id": self.city_id,
+            "user_id": self.user_id,
+            # "local_music_genres": self.local_music_genres
             
             
 
@@ -548,7 +551,7 @@ class LocalMusicGenre (db.Model):
         return {
             "id": self.id,
             "musicgenre_id": self.musicgenre_id,
-            "music_genre": self.music_genre.name,
+            # "music_genre": self.music_genre.name,
             "local_id": self.local_id,
         }
 
