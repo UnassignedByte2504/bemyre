@@ -4,7 +4,7 @@ import { Context } from "../../../store/appContext";
 import { CardsButton } from "../../buttons/CardsButton.jsx";
 
 export const CardLocalFooter = ({
-  generosMusica,
+  local_music_genres,
   Key
 }) => {
   const handleDelete = () => {
@@ -15,7 +15,7 @@ export const CardLocalFooter = ({
   return ( 
     <>
       <Box className="ps-3 pe-3 pb-2" key={Key}>
-        {generosMusica?.map((element, index) => (
+        {local_music_genres?.map((element, index) => (
           <Chip
             key={index}
             className="me-2 mb-2"
