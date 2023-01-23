@@ -20,7 +20,7 @@ export const ExploraDropdown = ({ provincia }) => {
   const mockSearch = () => {
     actions.setExploreCategory(category)
     // remove spaces and lowercase provincia and selectedcity
-    const provincia = Provincia.replace(/\s/g, "");
+    const provincia = Provincia
     const city = selectedCity.replace(/\s/g, "").toLowerCase();
     const Cat = category.replace(/\s/g, "").toLowerCase();
     const url = `/busqueda/${provincia}/${city}/${Cat}`;
