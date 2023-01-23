@@ -7,14 +7,13 @@ import { Card } from "@mui/material";
 import { useTheme, Box } from "@mui/material";
 
 export const CardLocal = ({
-
   local_img,
   name,
   ubicacion_local,
   city,
   description,
-  generosMusica,
-  Key
+  local_music_genres,
+  Key,
 }) => {
   const theme = useTheme();
 
@@ -36,11 +35,7 @@ export const CardLocal = ({
           city={city}
           description={description}
         />
-        <CardLocalFooter
-
-          generosMusica={generosMusica}
-          Key={Key}
-        />
+        <CardLocalFooter local_music_genres={local_music_genres} Key={Key} />
       </Card>
     </Box>
   );

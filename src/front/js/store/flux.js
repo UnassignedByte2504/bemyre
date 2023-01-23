@@ -184,7 +184,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       editInfoSettings: async (
         username,
-        user_name,
         first_name,
         last_name,
         description
@@ -197,7 +196,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            user_name: user_name,
             first_name: first_name,
             last_name: last_name,
             description: description,

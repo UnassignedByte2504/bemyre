@@ -1,6 +1,6 @@
 // Nota importante: Las imagenes son ejemplos, debemos vincularlas con la base de datos para que el usuario pueda añadir sus propias imagenes
 //Imports React
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import SocketContext from "../state/socketContext.js";
@@ -58,11 +58,13 @@ export const Profile = ({reRender}) => {
   }, [store.reRender]);
   const [open, setOpen] = useState(false)
   const [ejeY, setEjeY] = useState(-40);
-
-
+  const scrolltop = useRef()
+  useEffect(()=>{
+    scrolltop.current?.scrollIntoView({behavior: 'smooth'})
+  }, [])
   return (
     <>
-
+      <div ref={scrolltop}/>
       <Box 
       className="padreheader"
       height='30vh'
@@ -83,9 +85,9 @@ export const Profile = ({reRender}) => {
             <Typography variant="h1">
               {store.resultados.first_name} {store.resultados.last_name}
             </Typography>
-            <Typography>
+            {/* <Typography>
               Sevilla, Spain
-            </Typography>
+            </Typography> */}
         </Box >
         <Box 
         sx={{position: "absolute",

@@ -1,4 +1,5 @@
-import React, { useEffect, useState} from "react";
+
+import React, { useEffect, useRef, useState } from "react";
 import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
 import { Container, Box } from "@mui/system";
 import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
@@ -7,11 +8,15 @@ import { bandas } from "../mockingData";
 
 export const Bandas = () => {
 
+  const scrolltop = useRef()
+  useEffect(()=>{
+    scrolltop.current?.scrollIntoView({behavior: 'smooth'})
+  },[])
   return (
     <Box sx={{
       minHeight:"100vh"
     }}>
-   
+      <div ref={scrolltop}/>
       <CallToAction2
         text1="¿Te gustaría formar tu propia banda?"
         text2="Crea tu propio anuncio para que otros músicos se unan a tu banda"

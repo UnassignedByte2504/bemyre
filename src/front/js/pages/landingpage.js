@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
@@ -85,8 +85,15 @@ export const LandingPage = () => {
   useEffect(()=>{
     console.log(provincia)
   },[provincia])
+
+  const scrolltop = useRef()
+  useEffect(()=>{
+    scrolltop.current?.scrollIntoView({behavour: 'smooth'})
+  },[])
+  
   return (
     <Box>
+      <div ref={scrolltop}/>
       {sessionStorage.getItem("current_user") ? (
         <LoginJumbo currentCity={currentCity} provincia={provincia}/>
       ) : (

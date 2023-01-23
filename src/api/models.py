@@ -10,7 +10,7 @@ db = SQLAlchemy()
 # back_populates on relationship 'Countries.states' refers to attribute 'States.country' that is not a relationship.  The back_populates parameter should refer to the name of a relationship on the target class.
 
 
-
+ 
 
 
 
@@ -438,6 +438,7 @@ class MusicGenre(db.Model):
     name = db.Column(db.String(80), unique=True, nullable=False)
     bands = relationship("Bands", back_populates="music_genre")
     influence_bands = db.relationship('InfluenceBand', backref='MusicGenre', lazy=True)
+    local_music_genres = db.relationship('LocalMusicGenre', backref='music_genre', lazy=True)
 
     def __repr__(self):
         return f'<MusicGenre {self.name}>'
@@ -457,6 +458,7 @@ class Event(db.Model):
     date = db.Column(db.DateTime, nullable=False)
     creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
+    local_id = db.Column(db.Integer, db.ForeignKey('local.id'), nullable=False)
 
     def __repr__(self):
         return f'<Events {self.name}>'
@@ -496,10 +498,11 @@ class Local (db.Model):
     ubicacion_local = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(500), nullable=False)
     city_id = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=False)
-    city = db.relationship('City', backref=('local'), lazy=True)
+    
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     # events = db.relationship('Event', backref='local', lazy=True)
     local_music_genres = db.relationship('LocalMusicGenre', backref='local', lazy=True)
+    
 
    
 
@@ -509,10 +512,13 @@ class Local (db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "local_img": self.local_img,
             "name": self.name,
             "ubicacion_local": self.ubicacion_local,
             "description": self.description,
-            "city": self.city.name,
+            "city_id": self.city_id,
+            "user_id": self.user_id,
+            # "local_music_genres": self.local_music_genres
             
             
 
@@ -535,7 +541,7 @@ class Local (db.Model):
 class LocalMusicGenre (db.Model):
     id= db.Column(db.Integer, primary_key=True)
     musicgenre_id = db.Column(db.Integer, db.ForeignKey('music_genre.id'), nullable=False)
-    music_genre = db.relationship ('MusicGenre')
+    
     local_id = db.Column(db.Integer, db.ForeignKey('local.id'), nullable=False)
 
     def __repr__(self):
@@ -545,7 +551,7 @@ class LocalMusicGenre (db.Model):
         return {
             "id": self.id,
             "musicgenre_id": self.musicgenre_id,
-            "music_genre": self.music_genre.name,
+            # "music_genre": self.music_genre.name,
             "local_id": self.local_id,
         }
 
