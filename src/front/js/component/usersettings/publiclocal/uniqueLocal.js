@@ -51,7 +51,9 @@ const UniqueLocal = ({ local, setLocal, musicGenres, states, id, nameId }) => {
       body: JSON.stringify(newLocal),
     })
     .then(res => res.json())
-    .then(data => setLocal(data.nuevoValor))
+    .then(data => {
+      // fetchLocales()
+      setLocal(data.nuevoValor)})
 
 
     // let body = new FormData();
@@ -183,7 +185,7 @@ const UniqueLocal = ({ local, setLocal, musicGenres, states, id, nameId }) => {
       <Button variant="outlined" color="error" onClick={() => modificar()}>
         Modificar
       </Button>
-      <button onClick={() => modificar()}>hola</button>
+      {/* <button onClick={() => modificar()}>hola</button> */}
    {/* </form> */}
     </>
 
