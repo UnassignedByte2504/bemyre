@@ -139,18 +139,34 @@ function Navbar() {
               {store?.current_user ? (
                 <UserBar />
               ) : currentPath === loginPath ? null : (
-                <Link className="Link" to={"/login"}>
-                  <Button
-                    id="LoginBtn"
-                    variant="standard"
-                    sx={{
-                      fontWeight: "600",
-                      textTransform: "none",
-                    }}
-                  >
-                    <PersonOutlinedIcon className="me-2" /> Login
-                  </Button>
-                </Link>
+                <>
+                  <Link className="Link" to={"/login"}>
+                    <Button
+                      id="LoginBtn"
+                      variant="standard"
+                      sx={{
+                        fontWeight: "600",
+                        textTransform: "none",
+                      }}
+                    >
+                      <PersonOutlinedIcon className="me-2" /> Login
+                    </Button>
+                  </Link>
+                  {currentPath === signupPath ? null : (
+                    <Link className="Link" to={"/signup"}>
+                      <Button
+                        id="LoginBtn"
+                        variant="standard"
+                        sx={{
+                          fontWeight: "600",
+                          textTransform: "none",
+                        }}
+                      >
+                        <PersonOutlinedIcon className="me-2" /> Registro
+                      </Button>
+                    </Link>
+                  )}
+                </>
               )}
               {/* 
               <IconButton onClick={() => dispatch(setMode())}>
