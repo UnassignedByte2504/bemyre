@@ -8,7 +8,6 @@ import OutgoingMessage from "../component/inbox/OutgoingMessage.js";
 import SocketContext from "../state/socketContext";
 import EmojiPicker from "emoji-picker-react";
 import FlexBetween from "../component/styledcomponents/FlexBetween.jsx";
-import QuoteComp from "../component/inbox/QuoteComp.js";
 // import imgUrl1 from "../../img/bemyre-faq.jpg";
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<COMPONENTS
 import {

@@ -829,6 +829,3 @@ def get_conversation(username_var, username_recipient):
         messages_between_list.append(x.serialize())
     return jsonify(messages_between_list), 200
 
-
-
-

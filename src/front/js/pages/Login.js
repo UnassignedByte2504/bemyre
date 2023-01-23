@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import "../../styles/login.css";
-import imgSignup from "../../img/Bemyre_signup.jpg"; 
+import imgSignup from "../../img/Bemyre_signup.jpg";
 import Logo from "../../img/Bemyre_logo.png";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import TextField from "@mui/material/TextField";
@@ -26,7 +26,7 @@ export const Login = () => {
   const onSubmit = async (values, ax) => {
     await actions.login(values.email, values.password);
     await ax.resetForm();
-    Socket.emit('logged_users');
+    Socket.emit("logged_users");
   };
 
   const {
@@ -94,7 +94,16 @@ export const Login = () => {
               }
             />
             <Box className="d-flex justify-content-center">
-              <Button variant="contained" type="submit" disabled={isSubmiting}>
+              <Button
+                id="LoginBtn"
+                variant="standard"
+                type="submit"
+                disabled={isSubmiting}
+                sx={{
+                  fontWeight: "600",
+                  textTransform: "none",
+                  background: "linear-gradient(90deg, rgba(2, 0, 36, 0.5) 0%,rgba(121, 9, 9, 0.75) 47%,rgba(161, 12, 6, 1) 75%)"       }}
+              >
                 Login
               </Button>
             </Box>

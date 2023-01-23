@@ -81,6 +81,7 @@
 		"@mui/material": "^5.10.17",
 		"@mui/system": "^5.11.2",
 		"@mui/utils": "^5.11.2",
+		"@mui/x-date-pickers": "^5.0.15",
 		"@reduxjs/toolkit": "^1.9.1",
 		"autosuggest-highlight": "^3.3.4",
 		"dependencies": "^0.0.1",
