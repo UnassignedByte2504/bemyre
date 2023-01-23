@@ -1,24 +1,20 @@
-import React, { useEffect, useState} from "react";
-import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
+import React, { useEffect, useState, useRef } from "react";
+import { CardBandas } from "../../component/BandasCard/CardBandas.jsx";
 import { Container, Box } from "@mui/system";
-import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
 import { Grid } from "@mui/material";
-import { bandas } from "../mockingData";
+import { bandas } from "../../mockingData";
+import ExploreJumbotron from "../../component/jumbotronexplore/ExploreJumbotron.js";
+import { useParams } from "react-router-dom";
 
-export const Bandas = () => {
-
+export const BandsExplorer = () => {
   return (
-    <Box sx={{
-      minHeight:"100vh"
-    }}>
-   
-      <CallToAction2
-        text1="¿Te gustaría formar tu propia banda?"
-        text2="Crea tu propio anuncio para que otros músicos se unan a tu banda"
-        title="Crear banda"
-        to="/home"
-      />
- <Container className="mb-5">
+    <Box
+      sx={{
+        minHeight: "100vh",
+      }}
+    >
+      <ExploreJumbotron />
+      <Container className="mb-5">
         <Grid container spacing={2}>
           {bandas?.map((element, index) => (
             <Grid item xs={12} sm={12} md={12} lg={6} key={index}>

@@ -28,16 +28,18 @@ import { Locales } from "./pages/Locales";
 import { Bandas } from "./pages/Bandas.js";
 import { Eventos } from "./pages/Eventos.js";
 import { Musicos } from "./pages/Musicos.js";
+import { MusicianExplorer } from "./pages/exploresubviews/MusicianExplorer.js";
+import { BandsExplorer } from "./pages/exploresubviews/BandsExplorer.js";
+import { LocalsExplorer } from "./pages/exploresubviews/LocalsExplorer.js";
+import { EventsExplorer } from "./pages/exploresubviews/EventsExplorer.js";
 import { useRoutes } from "react-router-dom";
 import { LocalProfile } from "./pages/LocalProfile.js";
 import SocketContext from "./state/socketContext.js";
 
-
-
 // <<< components <<<<
 
 //create your first component
-const Layout = ( ) => {
+const Layout = () => {
   const [loggedUsers, setLoggedUsers] = useState([]);
   const { store, actions } = useContext(Context);
   const Socket = useContext(SocketContext);
@@ -47,12 +49,14 @@ const Layout = ( ) => {
   //the basename is used when your project is published in a subdirectory and not in the root of the domain
   // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
   const basename = process.env.BASENAME || "";
-  useEffect(() =>{
-    if (Socket){Socket.emit("logged_users")
-    Socket.on("logged_users", (data) => {
-      actions.setLoggedUsers(data);
-    })}
-  },[Socket])
+  useEffect(() => {
+    if (Socket) {
+      Socket.emit("logged_users");
+      Socket.on("logged_users", (data) => {
+        actions.setLoggedUsers(data);
+      });
+    }
+  }, [Socket]);
   return (
     <div className="">
       <BrowserRouter basename={basename}>
@@ -96,6 +100,25 @@ const Layout = ( ) => {
             <Route element={<Bandas />} path="/bandas" />
             <Route element={<Eventos />} path="/conciertos" />
             <Route element={<Musicos />} path="/musicos" />
+
+            {/* MOCKING ROUTES FOR SEARCH FEAT SHOWING */}
+            <Route
+              element={<MusicianExplorer />}
+              path="/busqueda/:provincename/:cityname/musicos"
+            />
+            <Route
+              element={<BandsExplorer />}
+              path="/busqueda/:provincename/:cityname/bandas"
+            />
+            <Route
+              element={<LocalsExplorer />}
+              path="/busqueda/:provincename/:cityname/locales"
+            />
+            <Route
+              element={<EventsExplorer />}
+              path="/busqueda/:provincename/:cityname/eventos"
+            />
+            {/* MOCKING ROUTES FOR SEARCH FEAT SHOWING */}
           </Routes>
           <Footer />
         </ThemeProvider>

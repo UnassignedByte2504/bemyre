@@ -1,66 +1,164 @@
 @import url(colors.css);
 
-.ExploreWrapper{
-    height: 60vh;
- 
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5rem;
-    margin-bottom: 3rem;
-}
-.ExploreContentWrapper{
- 
-    height: 100%;
-    width:90%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+.ExploreWrapper {
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
 }
 
-.ExploreFormWrapper{
-    height: 100%;
-    width:100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-
+.ExploreFormWrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.ExploreFormHeader{
-    justify-self: start;
-    height:5rem;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.ExploreFormHeader {
+  justify-self: start;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  box-shadow: 0 3px 1px#fff;
 }
-
-.ExploreForm{
-    padding: .5rem;
-
-    height: 40rem;
-    width:90%
-}
-
-.FormMessage-1{
-    height:6rem;
-
-    padding-top: 1rem;
-    box-sizing: border-box;
+.ExploreTitle {
+  background-color: rgba(10, 5, 10, 0.479);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.ExploreFormBody{
-    margin-top: 1rem;
-    height:28rem;
+.RockTitle {
+  font-family: "RocknRoll One", sans-serif !important;
+  font-size: 48px !important;
 }
 
-.MuiTooltip-tooltip{
-    background-color: #df3432 !important;
-    font-size: 20px !important;
+.ExploreBody {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  position: relative;
 }
 
+.UnderLay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.ExploreForm {
+  padding: 0.5rem;
+  height: 40rem;
+  width: 90%;
+}
+
+.FormMessage-1 {
+  height: 6rem;
+
+  padding-top: 1rem;
+  box-sizing: border-box;
+}
+
+.ExploreFormBody {
+  margin-top: 1rem;
+  height: 28rem;
+}
+
+.SearchFormExplore {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.FormControl {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.ButtonExplore {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 /* .JoyFormControl-root{
     background-color:red !important;
 } */
+#LetsRock {
+  position: relative;
+  z-index: 2;
+  font-weight: 700;
+  width: 10rem;
+}
+
+#LetsRock:hover {
+  scale: 1.05;
+}
+#LetsRock::after {
+  border-radius: inherit;
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  box-shadow: 5px 5px 10px #fff;
+  z-index: -5;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 0.25) 0%,
+    rgba(121, 9, 9, 0.5) 47%,
+    rgba(161, 12, 6, 1) 75%
+  );
+}
+
+.BackGroundUnderla {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ExplorerJumboContainer {
+  width: 100%;
+  height: 25rem;
+  position: relative;
+  margin-top: 2.25rem;
+  box-shadow: 0 2px 2px rgba(255, 255, 255, 0.452);
+  z-index: 20;
+}
+
+.JumboBackground {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.JumboOverlay {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.JumboExpImg {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  position: center;
+}

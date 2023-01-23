@@ -1,23 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useState } from "react";
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
+import { Navigate, useNavigate } from "react-router-dom";
 import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import FlexBetween from "../styledcomponents/FlexBetween.jsx";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import parse from "autosuggest-highlight/parse";
-import match from "autosuggest-highlight/match";
- 
+import { Button } from "@mui/material";
+import { Context } from "../../store/appContext";
+
 export const ExploraDropdown = ({ provincia }) => {
+  const { actions, store } = useContext(Context);
   const [cities, setCites] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
+  const [category, setCategory] = useState(null);
   const Provincia = provincia;
+  const categories = ["Musicos", "Bandas", "Eventos", "Locales"];
+  const navigate = useNavigate();
 
+  const mockSearch = () => {
+    actions.setExploreCategory(category)
+    // remove spaces and lowercase provincia and selectedcity
+    const provincia = Provincia.replace(/\s/g, "");
+    const city = selectedCity.replace(/\s/g, "").toLowerCase();
+    const Cat = category.replace(/\s/g, "").toLowerCase();
+    const url = `/busqueda/${provincia}/${city}/${Cat}`;
+
+    if (selectedCity && category) {
+      navigate(url);
+    }
+  };
   const handleChange = (e) => {
     setSelectedCity(e.target.value);
   };
@@ -36,7 +47,7 @@ export const ExploraDropdown = ({ provincia }) => {
 
     const data = await response.json();
     setCites(data);
-  }; 
+  };
 
   useEffect(() => {
     fetchCities(Provincia);
@@ -44,30 +55,63 @@ export const ExploraDropdown = ({ provincia }) => {
 
   useEffect(() => {
     console.log("useef");
-    console.log(selectedCity);
+    console.log("city", selectedCity);
   }, [selectedCity]);
 
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={cities}
-          sx={{ width: 300 }}
-          renderInput={(params) => (
-            <TextField
-               variant="standard"
-              {...params}
-              placeholder="Poblacion, Municipio..."
-              label="Ciudad"
-              onChange={handleChange}
-              value={selectedCity}
-              autoComplete="on"
+    <Box sx={{ minWidth: 120 }} className="SearchFormExplore">
+      <Box className="FormControl">
+        <FormControl fullWidth>
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={cities}
+            sx={{ width: 300 }}
+            onChange={(e, value) => setSelectedCity(value)}
+            renderInput={(params) => (
+              <TextField
+                variant="standard"
+                {...params}
+                placeholder="Poblacion, Municipio..."
+                label="Ciudad"
+                autoComplete="on"
+                margin="normal"
+                onChange={(e) => handleChange(e)}
+                fullWidth
+              />
+            )}
+          />
+          {selectedCity !== null ? (
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              options={categories}
+              sx={{ width: 300 }}
+              onChange={(e, value) => setCategory(value)}
+              renderInput={(params) => (
+                <TextField
+                  variant="standard"
+                  {...params}
+                  placeholder="Categoria"
+                  label="Categoria"
+                  autoComplete="on"
+                  margin="normal"
+                  onChange={(e) => setCategory(e)}
+                  fullWidth
+                />
+              )}
             />
-          )}
-        />
-      </FormControl>
+          ) : null}
+        </FormControl>
+      </Box>
+
+      <Box className="ButtonExplore">
+        <Box>
+          <Button variant="standard" id="LetsRock" onClick={() => mockSearch()}>
+            Let's rock
+          </Button>
+        </Box>
+      </Box>
     </Box>
   );
 };

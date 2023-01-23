@@ -24,6 +24,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       profileCardView: "default",
       loggedUsers: [],
       geo_api_key: "c9e7139f5e0b428c9c11c3c069fe8aea",
+      provincia:"",
+      exploreCategory:""
     },
     actions: {
       signUp: async (
@@ -376,7 +378,16 @@ const getState = ({ getStore, getActions, setStore }) => {
         });
         console.log(store.loggedUsers);
       },
-
+      setProvincia: (provincia) =>{
+        setStore({
+          provincia: provincia,
+        })
+      },
+      setExploreCategory: (category) =>{
+        setStore({
+          exploreCategory: category
+        })
+      },
       //misc functions
     },
   };
