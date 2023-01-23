@@ -1,16 +1,17 @@
 import React from "react";
 import { Box, useTheme, Button, Typography } from "@mui/material";
-import { Link } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
+import { Link } from "react-router-dom";
 
-export const CardsButton = ({ title, minWidth }) => {
+export const CardsButton = ({ title, minWidth, to }) => {
   const theme = useTheme();
   return (
     <>
       <CardActions>
+      <Link to={to} className="Link">
         <Button
-          sx={{
+          sx={{ 
             display: "flex",
             flexDirection: "column",
             alignSelf: "flex-end",
@@ -29,6 +30,7 @@ export const CardsButton = ({ title, minWidth }) => {
             {title}
           </Typography>
         </Button>
+        </Link>
       </CardActions>
     </>
   );

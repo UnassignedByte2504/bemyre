@@ -5,6 +5,7 @@ import { CardsButton } from "../../buttons/CardsButton.jsx";
 
 export const CardLocalFooter = ({
   local_music_genres,
+  to,
   Key
 }) => {
   const handleDelete = () => {
@@ -22,14 +23,14 @@ export const CardLocalFooter = ({
             onDelete={
               store.username === store.current_user ? handleDelete : null
             }
-            label={element}
+            label={element.music_genre_name}
           ></Chip>
         ))}
 
-      </Box>
+      </Box> 
 
       <Box sx={{ display: "flex", gap: "0.25rem" }}>
-        <CardsButton minWidth="223px" title="Más info" />
+        <CardsButton minWidth="223px" title="Más info" to={to}/>
         {/* <CardsButton minWidth="142px" title="Aplicar" /> */}
       </Box>
     </>
