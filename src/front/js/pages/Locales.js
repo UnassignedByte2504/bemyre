@@ -5,7 +5,7 @@ import React, { useEffect, useState, useRef, useContext } from "react";
 import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
 import { Container } from "@mui/system";
 import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import {Context} from '../store/appContext'
 
 
@@ -51,9 +51,10 @@ export const Locales = () => {
   return (
     <>
     <div ref={scrolltop}/>
-      <CallToAction2 text1="¿Te gustaría ofrecer música en vivo en tu local?" text2="Contacta con músicos cerca de tí" title="Músicos cerca de mi" to="/musicians" />
+      <CallToAction2 text1="¿Te gustaría ofrecer música en vivo en tu local?" text2="Contacta con músicos cerca de tí" title="Músicos cerca de mi" to="/musicos" />
       {/* <div>{genres?.map((element, index) =>element)}</div> */}
       <Container className="mb-5">
+        <Typography className="mb-5 text-center" variant="h2">Locales con música en vivo cerca de ti</Typography>
         <Grid container spacing={2} >
           {locales?.map((element, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
@@ -64,6 +65,7 @@ export const Locales = () => {
                 ubicacion_local={element.ubicacion_local}
                 description={element.description}
                 local_music_genres={element.local_music_genres}
+                to={`/localprofile/${element.id}`}
               />
               
             </Grid>

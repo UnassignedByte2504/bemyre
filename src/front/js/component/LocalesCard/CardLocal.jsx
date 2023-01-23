@@ -13,6 +13,7 @@ export const CardLocal = ({
   city,
   description,
   local_music_genres,
+  to,
   Key,
 }) => {
   const theme = useTheme();
@@ -35,7 +36,7 @@ export const CardLocal = ({
           city={city}
           description={description}
         />
-        <CardLocalFooter local_music_genres={local_music_genres} Key={Key} />
+        <CardLocalFooter local_music_genres={local_music_genres} to={to} Key={Key} />
       </Card>
     </Box>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import { CardLocal } from "../component/LocalesCard/CardLocal.jsx";
 import { CardLocalProfile } from "../component/card/CardLocalProfile.jsx";
@@ -6,15 +6,44 @@ import Grid from "@mui/material/Grid"; // Grid version 1
 import Grid2 from "@mui/material/Unstable_Grid2"; // Grid version 2
 import { Divider, Typography, useTheme } from "@mui/material";
 import { locales } from "../mockingData";
+import { useParams } from "react-router-dom";
 
 export const LocalProfile = () => {
+
+  const [aLocal, setALocal] = useState({})
+  const params = useParams();
+
+  useEffect(() => {
+    console.log("hola");
+    const fetchLocales = async () => {
+      await fetch(`${process.env.BACKEND_URL}/api/localprofile/${params.id}`, {
+        method: "GET",
+        // headers: {
+        //   Authorization: `Bearer ${store.token_local}`,
+        // },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((result) => {
+          setALocal(result);
+        });
+    };
+    fetchLocales();
+  }, []);
+
+
+
   const theme = useTheme();
   return (
     <>
       <Box className="container-fluid profile-header">
         <img
           className="image-header"
-          src="https://images.unsplash.com/photo-1593167751520-95a058b903c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+          src={aLocal.local_img}
         />
       </Box>
 
@@ -32,12 +61,12 @@ export const LocalProfile = () => {
         <div className="row">
           <div className="col-lg-4 container-card">
             <CardLocalProfile
-              local_img={locales[1].local_img}
-              name={locales[1].name}
-              ubicacion_local={locales[1].ubicacion_local}
-              city={locales[1].city}
-              description={locales[1].description}
-              generosMusica={locales[1].generosMusica}
+              local_img={aLocal.local_img}
+              name={aLocal.name}
+              ubicacion_local={aLocal.ubicacion_local}
+              city={aLocal.city}
+              description={aLocal.description}
+              // generosMusica={aLocal.generosMusica}
             />
           </div>
           <div className="col-lg-8 container-contenido">
@@ -64,21 +93,21 @@ export const LocalProfile = () => {
               </Typography>
               <Divider />
 
-              {/* <Grid container spacing={2}>
+              <Grid container spacing={2}>
                 {locales[0].galeria?.map((element, index) => (
                   <Grid xs={12} sm={4} >
                       <img className="imagen-galeria" src={element} />
                   </Grid>
                 ))}
-              </Grid> */}
+              </Grid>
 
-              <div className="row">
+              {/* <div className="row">
                 {locales[0].galeria?.map((element, index) => (
                   <div className="col-xs-12 col-md-4">
                     <img className="imagen-galeria" src={element} />
                   </div>
                 ))}
-              </div>
+              </div> */}
             </Box>
           </div>
         </div>
