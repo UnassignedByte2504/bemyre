@@ -135,3 +135,23 @@ body,
 }
 
 /* PROFILES C<<<<<<<<<<<<<< */
+
+
+/* >>>>>>>>>>>TITULOS CON LINK XEJ LANDING */
+
+.titles-link:hover{
+  /* scale: 105%;
+  transition: 0.3s; */
+  color: #EB5337;
+}
+
+.titles-link:not(:hover){
+  /* scale: 100%;
+  transition: 0.3s; */
+  color: #fff;
+}
+
+
+
+
+/* TITULOS CON LINK XEJ LANDING C<<<<<<<<<<<<<< */

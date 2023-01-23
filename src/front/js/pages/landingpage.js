@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { locales, bandas, eventos, musicos } from "../mockingData";
+import { Link } from "react-router-dom";
 
 //Import materials
 import { Typography } from "@mui/material";
@@ -113,9 +114,11 @@ export const LandingPage = () => {
 
       {/* ------EVENTOS----------- */}
       <Box className="mx-4 mb-5">
-        <Typography sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
-          Conciertos
+      <Link to={'/conciertos'} className="Link  titles-link">
+      <Typography  sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
+          Conciertos en tu zona
         </Typography>
+        </Link>
         <Box
           className="rowCards"
           sx={{
@@ -145,9 +148,11 @@ export const LandingPage = () => {
 
       {/* ------MÚSICOS----------- */}
       <Box className="mx-4 mb-5">
-        <Typography sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
-          Músicos
+      <Link to={'/musicos'} className="Link  titles-link">
+      <Typography  sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
+          Contacta con músicos
         </Typography>
+        </Link>
         <Box
           className="rowCards"
           sx={{
@@ -176,9 +181,11 @@ export const LandingPage = () => {
 
       {/* ------LOCALES----------- */}
       <Box className="mx-4">
-        <Typography sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
-          Locales
+      <Link to={'/locales'} className="Link  titles-link">
+      <Typography  sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
+          Locales con música en vivo
         </Typography>
+        </Link>
         <Box
           className="rowCards"
           sx={{
@@ -209,9 +216,11 @@ export const LandingPage = () => {
 
       {/* ------BANDAS----------- */}
       <Box className="mx-4 mb-5">
-        <Typography sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
-          Bandas
+      <Link to={'/bandas'} className="Link  titles-link">
+      <Typography  sx={{ marginTop: "2rem", marginX: "0.5rem" }} variant="h2">
+          Bandas de música
         </Typography>
+        </Link>
         <Box
           className="rowCards"
           sx={{
@@ -244,7 +253,7 @@ export const LandingPage = () => {
       <CallToAction2
         text1="¿Eres músico?"
         text2="Conecta con melómanos como tú y forma tu propia banda"
-        to="user/:username"
+        to="/signup"
         title="Crear perfil"
       />
     </Box>

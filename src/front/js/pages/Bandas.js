@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { CardBandas } from "../component/BandasCard/CardBandas.jsx";
 import { Container, Box } from "@mui/system";
 import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { bandas } from "../mockingData";
+
 
 export const Bandas = () => {
   const scrolltop = useRef()
@@ -22,6 +23,7 @@ export const Bandas = () => {
         to="/home"
       />
  <Container className="mb-5">
+ <Typography className="mb-5 text-center" variant="h2">Bandas de música cerca de ti</Typography>
         <Grid container spacing={2}>
           {bandas?.map((element, index) => (
             <Grid item xs={12} sm={12} md={12} lg={6} key={index}>

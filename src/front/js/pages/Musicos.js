@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { CardMusician } from "../component/MusicianCard/CardMusician.jsx";
 import { Container } from "@mui/system";
 import { CallToAction2 } from "../component/CallToAction/CallToAction2.jsx";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { musicos } from "../mockingData";
+
 
 export const Musicos = () => {
 
@@ -16,6 +17,7 @@ export const Musicos = () => {
       <div ref={scrolltop}/>
       <CallToAction2 text1="¿Te gustaría tocar en un local?" text2="Contacta con locales que ofrecen música en vivo" title="Locales cerca de mí" to="/locales" />
       <Container className="mb-5">
+      <Typography className="mb-5 text-center" variant="h2">Músicos cerca de ti</Typography>
         <Grid container spacing={2} >
           {musicos?.map((element, index) => (
             <Grid item xs={12} sm={6} md={6} lg={3} key={index}>

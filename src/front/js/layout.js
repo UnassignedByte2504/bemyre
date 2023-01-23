@@ -73,7 +73,7 @@ const Layout = ( ) => {
                   }}
                 />
               }
-              path="/login"
+              path="/login" 
             />
             {store?.current_user ? (
               <Route element={<Logout />} path="/logout" />

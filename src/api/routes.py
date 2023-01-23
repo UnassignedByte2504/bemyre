@@ -537,7 +537,7 @@ def followingcount(username):
 
 
 #<<-----1 LOCALES ENDPOINT START ----->>
-
+# GET DE TODOS LOS LOCALES EN LA VW DE LOCALES
 @api.route('/locales', methods=['GET'])
 def get_locales():
     print('holaaa')
@@ -546,6 +546,15 @@ def get_locales():
     for local in locales:
         locales_list.append(local.serialize())
     return jsonify(locales_list), 200
+
+
+# GET DE UN PERFIL DE LOCAL
+@api.route('/localprofile/<int:id>', methods=['GET'])
+def get_localprofile(id):
+    print('holaaa')
+    local = Local.query.filter_by(id=id).first()
+    local = local.serialize()
+    return jsonify(local), 200
 
 
 # @api.route('settings/locales', methods=['GET'])
@@ -620,7 +629,7 @@ def public_local():
     return jsonify(response_body), 201
 
 
-
+# TRAE LOS BOTONES PARA ELEGIR LOCAL EN LA VISTA DE MODIFICAR
 @api.route('settings/locales', methods=['GET'])
 @jwt_required()
 def locales_creados():
@@ -633,7 +642,7 @@ def locales_creados():
     return jsonify(locales_list), 200
 
 
-
+# TRAE A LA VISTA DE MODIFICAR LOS CONTENIDOS DEL LOCAL PULSADO PARA MODIFICARLOS
 @api.route('settings/local/<int:id>', methods=['GET'])
 @jwt_required()
 def local_informacion(id):
@@ -644,10 +653,10 @@ def local_informacion(id):
     return jsonify(local.serialize()), 200
 
 
+ 
 
-
-# c
-@api.route('local_musicgenre', methods=['GET'])
+# c: TRAE A LA VISTA DE LOCALES GET DE MUSIC GENRES
+@api.route('/local_musicgenre', methods=['GET'])
 @jwt_required()
 def get_local_musicgenre():
     user_name = get_jwt_identity()
@@ -660,35 +669,26 @@ def get_local_musicgenre():
         current_genre = MusicGenre.query.filter_by(id=current_local.musicgenre_id).first()
 
         genre_list.append(current_genre.name)
-    # print('holaaaaaaaaa!!!!!!!!!!!!', current_genre.name)
+    # print('holaaaaa!!', current_genre.name)
     return jsonify(genre_list), 200
 
     
 
 
-# J
-# @api.route('/settings/modifyLocal', methods=['PUT'])
-# @jwt_required()
-# def modify_local():
-#     # user = get_jwt_identity()
-#     request_data = request.json
-#     user = db.session.query(User).filter(User.user_name == username_var).first()
-#     db.session.commit()
-#     return jsonify({"msg": "Informacion actualizada correctamente"}), 200
 
-
-
-@api.route('/settings/modifyLocal', methods=['PUT'])
+# MODIFICAR EN COMPONENTE UNIQUELOCAL
+@api.route('/settings/modifyLocal/<int:id>', methods=['PUT'])
 @jwt_required()
-def modify_local():
+def modify_local(id):
     user_name = get_jwt_identity()
     user = User.query.filter_by(user_name=user_name).first()
+    local = Local.query.filter_by(user_id = user.id, id=id).first()
     print(request.form)
     request_data = request.get_json(force=True)
     local.name = request_data['name']
     local.ubicacion_local = request_data['ubicacion_local']
     local.description = request_data['description']
-    local.local_music_genres = request_data['local_music_genres']
+    # local.local_music_genres = request_data['local_music_genres']
     local.local_img = request_data['local_img']
     db.session.commit()
     return jsonify({"msg": "Informacion actualizada correctamente"}), 200

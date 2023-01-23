@@ -350,6 +350,7 @@ export const PublicLocal = () => {
               musicGenres={musicGenres}
               states={states}
               setCities={setCities}
+              id={local.id}
             />
           ) : (
             ""

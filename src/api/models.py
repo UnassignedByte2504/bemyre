@@ -497,8 +497,8 @@ class Local (db.Model):
     name = db.Column(db.String(255), nullable=False)
     ubicacion_local = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(500), nullable=False)
-    city_id = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=False)
-    
+    city_id = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=True)
+    # cities = db.relationship('City', backref='Local', lazy=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     # events = db.relationship('Event', backref='local', lazy=True)
     local_music_genres = db.relationship('LocalMusicGenre', backref='local', lazy=True)
@@ -510,15 +510,21 @@ class Local (db.Model):
         return '<id {}>'.format(self.id)
 
     def serialize(self):
+        
+        locales_list = []
+        for local in self.local_music_genres:
+            locales_list.append(local.serialize())
         return {
             "id": self.id,
             "local_img": self.local_img,
             "name": self.name,
             "ubicacion_local": self.ubicacion_local,
             "description": self.description,
-            "city_id": self.city_id,
+            "city": City.query.get(self.city_id).name,
+            # "city": self.city.serialize(),
+            # "city": self.city.name,
             "user_id": self.user_id,
-            # "local_music_genres": self.local_music_genres
+            "local_music_genres": locales_list
             
             
 
@@ -551,7 +557,8 @@ class LocalMusicGenre (db.Model):
         return {
             "id": self.id,
             "musicgenre_id": self.musicgenre_id,
-            # "music_genre": self.music_genre.name,
+            
+            "music_genre_name": MusicGenre.query.get(self.musicgenre_id).name,
             "local_id": self.local_id,
         }
 

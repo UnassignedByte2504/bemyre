@@ -5,7 +5,11 @@ import { Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 
-const UniqueLocal = ({ local, setLocal, musicGenres, states }) => {
+
+const UniqueLocal = ({ local, setLocal, musicGenres, states, id }) => {
+
+  // const[local, setLocal] = useState()
+  const { store } = useContext(Context);
 
 
   const modificar = async () => {
@@ -15,19 +19,23 @@ const UniqueLocal = ({ local, setLocal, musicGenres, states }) => {
     }
     const token = sessionStorage.getItem("access_token");
     body.append("token", token);
-    console.log(local);
+    console.log(local); 
 
     const options = {
       method: "PUT",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${store.token_local}`,
       },
       body: body,
     };
-    await fetch(`${process.env.BACKEND_URL}/api/settings/modifyLocal`, options)
+    await fetch(`${process.env.BACKEND_URL}/api/settings/modifyLocal/${id}`, options)
       .then((resp) => resp.json())
-      .then((result) => console.log(result));
+      .then((result) => setLocal(result));
   };
+
+
+
+
  
   return (
     <form className="form-public-local">
