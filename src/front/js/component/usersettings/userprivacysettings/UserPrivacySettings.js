@@ -8,7 +8,7 @@ const UserPrivacySettings = () => {
 
   const privacySettings = async (username, seguidores, contacto, ciudad) => {
     const options = {
-      method: "PUT",
+      method: "PUT", 
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
         "Content-Type": "application/json",

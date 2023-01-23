@@ -684,14 +684,18 @@ def modify_local(id):
     user = User.query.filter_by(user_name=user_name).first()
     local = Local.query.filter_by(user_id = user.id, id=id).first()
     print(request.form)
-    request_data = request.get_json(force=True)
-    local.name = request_data['name']
-    local.ubicacion_local = request_data['ubicacion_local']
-    local.description = request_data['description']
+
+    new_local_name = request.json.get("name", local.name)
+    new_ubicacion_local = request.json.get("ubicacion_local", local.ubicacion_local)
+    new_description = request.json.get("description", local.description)
+
+    setattr(local, "name", new_local_name)
+    setattr(local, "ubicacion_local", new_ubicacion_local)
+    setattr(local, "description", new_description)
     # local.local_music_genres = request_data['local_music_genres']
-    local.local_img = request_data['local_img']
+    # local.local_img = request_data['local_img']
     db.session.commit()
-    return jsonify({"msg": "Informacion actualizada correctamente"}), 200
+    return jsonify({"msg": "Informacion actualizada correctamente", "nuevoValor": local.serialize()}), 200
 
 
 

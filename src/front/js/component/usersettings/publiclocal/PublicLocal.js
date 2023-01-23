@@ -351,6 +351,7 @@ export const PublicLocal = () => {
               states={states}
               setCities={setCities}
               id={local.id}
+              nameId={local.id}
             />
           ) : (
             ""

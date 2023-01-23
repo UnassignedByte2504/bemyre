@@ -118,7 +118,7 @@ export const getUserSettings = async () => {
     .catch((error) => {
       console.log(error);
     });
-};
+}; 
 
 export const clearUserImgs = (username) => {
   sessionStorage.removeItem("settings_profile_img");
