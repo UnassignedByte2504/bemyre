@@ -17,6 +17,14 @@ import Chip from "@mui/material/Chip";
 import UniqueLocal from "./uniqueLocal";
 
 export const PublicLocal = () => {
+
+
+  // traen info de los endpoints
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [musicGenres, setMusicGenres] = useState([]);
+
+  // recoge data de los inputs
   const [data, setData] = useState({
     name: "",
     ubicacion_local: "",
@@ -26,50 +34,16 @@ export const PublicLocal = () => {
     local_music_genres: "",
     local_img: "",
   });
-  const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
-  const [musicGenres, setMusicGenres] = useState([]);
+
+  // trae los locales que se han creado con su id y de ahi saca el local concreto con su id
   const [locales, setLocales] = useState([]);
   const [local, setLocal] = useState();
+
   const { store } = useContext(Context);
 
   const userName = sessionStorage.getItem("current_user");
 
-  const fetchLocal = async (id) => {
-    await fetch(`${process.env.BACKEND_URL}/api/settings/local/${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${store.token_local}`,
-      },
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((result) => {
-        setLocal(result);
-        console.log(result);
-      });
-  };
-
-  useEffect(() => {
-    console.log("hola");
-    const fetchLocales = async () => {
-      await fetch(`${process.env.BACKEND_URL}/api/settings/locales`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${store.token_local}`,
-        },
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((result) => {
-          setLocales(result);
-        });
-    };
-    fetchLocales();
-  }, []);
-
+  
   useEffect(() => {
     const fetchStates = async () => {
       const options = {
@@ -84,11 +58,33 @@ export const PublicLocal = () => {
       );
 
       const result = await response.json();
+      // console.log("ESTAS SON LAS PROVINCIAS");
       setStates(result);
     };
 
     fetchStates();
   }, []);
+
+
+  const fetchCities = async (state) => {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch(
+      `${process.env.BACKEND_URL}/api/${state}/cities`,
+      options
+    );
+
+    const result = await response.json();
+    // console.log("ESTAS SON LAS cities");
+    setCities(result);
+  };
+
+
+
 
   useEffect(() => {
     const fetchMusicGenres = async () => {
@@ -112,11 +108,17 @@ export const PublicLocal = () => {
   }, []);
 
   const publicar = async () => {
+    // FormData() es un objeto de arrays?
     let body = new FormData();
+    // se pueden recorrer las key de un objeto (data)??
     for (let key in data) {
+      // añade dos valores nuevos iguales o uno es key y otro es valor? el FormData lo transforma en key y valor?
       body.append(key, data[key]);
+      // lo siguiente funcionaria igual?
+      // body.append(key, data.key);
     }
     const token = sessionStorage.getItem("access_token");
+    // en que docu pone que esto lo vuelva objeto?¿... y porque lo añade al body?
     body.append("token", token);
     console.log(data);
 
@@ -126,27 +128,56 @@ export const PublicLocal = () => {
         Authorization: `Bearer ${token}`,
       },
       body: body,
+      // body: JSON.stringify(body)
+      // en lugar del for no habria sido lo mismo body: data?
     };
     await fetch(`${process.env.BACKEND_URL}/api/settings/publiclocal`, options)
       .then((resp) => resp.json())
       .then((result) => console.log(result));
   };
 
-  const fetchCities = async (state) => {
-    const options = {
+
+
+
+// trae locales a elegir en la vista unique, por lo tanto lo podria hacer alli creo
+  useEffect(() => {
+    console.log("hola");
+  const fetchLocales = async () => {
+    await fetch(`${process.env.BACKEND_URL}/api/settings/locales`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        Authorization: `Bearer ${store.token_local}`,
       },
-    };
-    const response = await fetch(
-      `${process.env.BACKEND_URL}/api/${state}/cities`,
-      options
-    );
-
-    const result = await response.json();
-    setCities(result);
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => {
+        setLocales(result);
+      });
   };
+    fetchLocales();
+  }, []);
+  
+
+  // trae el local a modificar a la vista unique, por lo tanto lo podria hacer alli creo
+  const fetchLocal = async (id) => {
+    await fetch(`${process.env.BACKEND_URL}/api/settings/local/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${store.token_local}`,
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => { 
+        setLocal(result);
+        console.log(result);
+      });
+  };
+
+
 
   return (
     <>
@@ -289,8 +320,8 @@ export const PublicLocal = () => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="limitTags"
-                      placeholder="Favorites"
+                      label="Géneros de música"
+                      placeholder="+1"
                     />
                   )}
                   sx={{ width: "500px" }}
@@ -303,7 +334,9 @@ export const PublicLocal = () => {
                   <input
                     onChange={(e) =>
                       setData({ ...data, local_img: e.target.files[0] })
+                      // console.log(e)
                     }
+                    
                     class="form-control"
                     type="file"
                     id="formFile"
@@ -320,6 +353,9 @@ export const PublicLocal = () => {
             </Box>
           </Box>
         </div>
+
+
+
         <div
           class="tab-pane fade"
           id="modificarPerfilLocal"
@@ -347,12 +383,15 @@ export const PublicLocal = () => {
             <UniqueLocal
               local={local}
               setLocal={setLocal}
+              locales={locales}
+              setLocales={setLocales}
               musicGenres={musicGenres}
               states={states}
               setCities={setCities}
-              id={local.id}
-              nameId={local.id}
+              id={local.id}    
+              // fetchLocales={fetchLocales()}          
             />
+            // para que hacen falta los parentesis antes y despues de los dos puntos?
           ) : (
             ""
           )}

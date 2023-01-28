@@ -7,17 +7,46 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Input from '@mui/material/Input';
 
 
-const UniqueLocal = ({ local, setLocal, musicGenres, states, id, nameId }) => {
+const UniqueLocal = ({ local, setLocal, locales, setLocales, musicGenres, states, id, fetchLocales }) => {
 
-  const[locals, setLocals] = useState({})
-  const [newLocal, setNewLocal] = useState({})
+  // const[locals, setLocals] = useState({})
+  // const [newLocal, setNewLocal] = useState({})
+  const [newData, setNewData] = useState({
+    name: `${local?.name}`,
+    ubicacion_local: `${local?.ubicacion_local}`,
+    description: `${local?.description}`,
+    state: "",
+    city: "",
+    local_music_genres: "",
+    local_img: "",
+  })
   const { store } = useContext(Context);
   
   useEffect(() => {
-    setNewLocal(local)
+    // setNewLocal(local)
+    setNewData(local)
   }, [local])
 
-// V1
+  // useEffect(() => {
+  //   console.log("hola");
+  //   const fetchLocales = async () => {
+  //     await fetch(`${process.env.BACKEND_URL}/api/settings/locales`, {
+  //       method: "GET",
+  //       headers: {
+  //         Authorization: `Bearer ${store.token_local}`,
+  //       },
+  //     })
+  //       .then((response) => {
+  //         return response.json();
+  //       })
+  //       .then((result) => {
+  //         setLocales(result);
+  //       });
+  //   };
+  //   fetchLocales();
+  // }, [local])
+
+// V1 
   // const modificar = async () => {
   //   let body = new FormData();
   //   for (let key in local) {
@@ -41,19 +70,24 @@ const UniqueLocal = ({ local, setLocal, musicGenres, states, id, nameId }) => {
 
 
   // V2
-  const modificar = () => {
-    fetch(process.env.BACKEND_URL + "/api/settings/modifyLocal/" + id, {
+  const modificar = async() => {
+    let body = new FormData();
+    for(let key in newData){
+      body.append(key, newData[key]);
+    }
+    await fetch(process.env.BACKEND_URL + "/api/settings/modifyLocal/" + id, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
       },
-      body: JSON.stringify(newLocal),
+      body: body,
+      // body: newData,
     })
-    .then(res => res.json())
-    .then(data => {
-      // fetchLocales()
-      setLocal(data.nuevoValor)})
+    .then((res) => res.json())
+    .then((result) => {
+      // fetchLocales
+      console.log('hello?', result)})
 
 
     // let body = new FormData();
@@ -85,36 +119,38 @@ const UniqueLocal = ({ local, setLocal, musicGenres, states, id, nameId }) => {
     <>
       <TextField
         sx={{ width: "100%" }}
-        id={"nombreLocals"+nameId}
+        // id={"nombreLocals"+id}
         type="text"
-        name={"nombreLocals"+nameId}
+        name={`nombreLocal${id}`}
         variant="outlined"
         label="Nombre del local"
-        onChange={(e) => setNewLocal({ ...newLocal, name: e.target.value })}
-        // defaultValue={newLocal?.name}
-        value={newLocal?.name}
+        onChange={(e) => setNewData({ ...newData, name: e.target.value })}
+        // defaultValue={local?.name}
+        value={newData?.name}
       />
       <TextField
         sx={{ width: "100%" }}
-        id={"ubicacionLocals"+nameId}
+        // id={"ubicacionLocals"+id}
         type="text"
-        name={"ubicacionLocals"+nameId}
+        name={`ubicacionLocal${id}`}
         variant="outlined"
         label="Ubicación del local"
         onChange={(e) =>
-          setNewLocal({ ...newLocal, ubicacion_local: e.target.value })
+          setNewData({ ...newData, ubicacion_local: e.target.value })
         }
-        value={newLocal?.ubicacion_local}
+        // defaultValue={local?.ubicacion_local}
+        value={newData?.ubicacion_local}
       />
       <TextField
         sx={{ width: "100%" }}
-        id={"descripcionLocals"+nameId}
+        // id={"descripcionLocals"+id}
         type="text"
-        name={"descripcionLocals"+nameId}
+        name={`descripcionLocal${id}`}
         variant="outlined"
         label="Descripción del local"
-        onChange={(e) => setNewLocal({ ...newLocal, description: e.target.value })}
-        value={newLocal?.description}
+        onChange={(e) => setNewData({ ...newData, description: e.target.value })}
+        // defaultValue={local?.description}
+        value={newData?.description}
         
       />
       {/* <Box className="form-city-state">
@@ -171,7 +207,7 @@ const UniqueLocal = ({ local, setLocal, musicGenres, states, id, nameId }) => {
         sx={{ width: "500px" }}
       /> */}
 
-      <div class="mb-3">
+      {/* <div class="mb-3">
         <label for="formFile" class="form-label">
           Selecciona una imagen para el perfil de tu local
         </label>
@@ -181,11 +217,11 @@ const UniqueLocal = ({ local, setLocal, musicGenres, states, id, nameId }) => {
           type="file"
           id="formFile"
         />
-      </div>
+      </div> */}
       <Button variant="outlined" color="error" onClick={() => modificar()}>
         Modificar
       </Button>
-      {/* <button onClick={() => modificar()}>hola</button> */}
+      
    {/* </form> */}
     </>
 

@@ -570,7 +570,7 @@ def get_localprofile(id):
 #     return jsonify(locales_list), 200
  
  
-# PUBLIC LOCAL
+# POST PUBLICAR LOCAL
 @api.route('settings/publiclocal', methods=['POST'])
 @jwt_required()
 def public_local():
@@ -578,7 +578,7 @@ def public_local():
     user = User.query.filter_by(user_name=user_name).first()
     print(request.form)
     body_city = request.form.get('city')
-    # form??????????????pip
+    # form?? por la funcion/metodo FormData no?
     body_local_music_genre = request.form.get('local_music_genres')
 
     city = City.query.filter_by(name = body_city).first()
@@ -655,22 +655,22 @@ def local_informacion(id):
 
  
 
-# c: TRAE A LA VISTA DE LOCALES GET DE MUSIC GENRES
-@api.route('/local_musicgenre', methods=['GET'])
-@jwt_required()
-def get_local_musicgenre():
-    user_name = get_jwt_identity()
-    user = User.query.filter_by(user_name=user_name).first()
-    locales = Local.query.filter_by(user_id = user.id).all()
+# c: TRAE A LA VISTA DE LOCALES GET DE MUSIC GENRES, really?? creo que no porq url diferente
+# @api.route('/local_musicgenre', methods=['GET'])
+# @jwt_required()
+# def get_local_musicgenre():
+#     user_name = get_jwt_identity()
+#     user = User.query.filter_by(user_name=user_name).first()
+#     locales = Local.query.filter_by(user_id = user.id).all()
 
-    genre_list = []
-    for local in locales:
-        current_local = LocalMusicGenre.query.filter_by(local_id = local.id).first()
-        current_genre = MusicGenre.query.filter_by(id=current_local.musicgenre_id).first()
+#     genre_list = []
+#     for local in locales:
+#         current_local = LocalMusicGenre.query.filter_by(local_id = local.id).first()
+#         current_genre = MusicGenre.query.filter_by(id=current_local.musicgenre_id).first()
 
-        genre_list.append(current_genre.name)
-    # print('holaaaaa!!', current_genre.name)
-    return jsonify(genre_list), 200
+#         genre_list.append(current_genre.name)
+#     # print('holaaaaa!!', current_genre.name)
+#     return jsonify(genre_list), 200
 
     
 
@@ -685,9 +685,12 @@ def modify_local(id):
     local = Local.query.filter_by(user_id = user.id, id=id).first()
     print(request.form)
 
-    new_local_name = request.json.get("name", local.name)
-    new_ubicacion_local = request.json.get("ubicacion_local", local.ubicacion_local)
-    new_description = request.json.get("description", local.description)
+    # new_local_name = request.json.get("name", local.name)
+    # new_ubicacion_local = request.json.get("ubicacion_local", local.ubicacion_local)
+    # new_description = request.json.get("description", local.description)
+    new_local_name = request.form.get("name", local.name)
+    new_ubicacion_local = request.form.get("ubicacion_local", local.ubicacion_local)
+    new_description = request.form.get("description", local.description)
 
     setattr(local, "name", new_local_name)
     setattr(local, "ubicacion_local", new_ubicacion_local)
