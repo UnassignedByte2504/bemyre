@@ -9,23 +9,27 @@ import Input from '@mui/material/Input';
 
 const UniqueLocal = ({ local, setLocal, locales, setLocales, musicGenres, states, id, fetchLocales }) => {
 
+const { store, actions } = useContext(Context);
   // const[locals, setLocals] = useState({})
   // const [newLocal, setNewLocal] = useState({})
   const [newData, setNewData] = useState({
-    name: `${local?.name}`,
-    ubicacion_local: `${local?.ubicacion_local}`,
-    description: `${local?.description}`,
+    name: `${store.local?.name}`,
+    ubicacion_local: `${store.local?.ubicacion_local}`,
+    description: `${store.local?.description}`,
     state: "",
     city: "",
     local_music_genres: "",
     local_img: "",
   })
-  const { store } = useContext(Context);
+    
   
   useEffect(() => {
     // setNewLocal(local)
-    setNewData(local)
-  }, [local])
+  setNewData(store.local)
+    // setLocales(locales)
+    
+    actions.fetchLocales()
+  }, [store.local])
 
   // useEffect(() => {
   //   console.log("hola");
@@ -70,24 +74,7 @@ const UniqueLocal = ({ local, setLocal, locales, setLocales, musicGenres, states
 
 
   // V2
-  const modificar = async() => {
-    let body = new FormData();
-    for(let key in newData){
-      body.append(key, newData[key]);
-    }
-    await fetch(process.env.BACKEND_URL + "/api/settings/modifyLocal/" + id, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
-        // "Content-Type": "application/json",
-      },
-      body: body,
-      // body: newData,
-    })
-    .then((res) => res.json())
-    .then((result) => {
-      // fetchLocales
-      console.log('hello?', result)})
+
 
 
     // let body = new FormData();
@@ -110,7 +97,7 @@ const UniqueLocal = ({ local, setLocal, locales, setLocales, musicGenres, states
     // await fetch(`${process.env.BACKEND_URL}/api/settings/modifyLocal/${id}`, options)
     //   .then((resp) => resp.json())
     //   .then((result) => setLocals(result));
-  };
+  // };
 
 
  
@@ -125,7 +112,7 @@ const UniqueLocal = ({ local, setLocal, locales, setLocales, musicGenres, states
         variant="outlined"
         label="Nombre del local"
         onChange={(e) => setNewData({ ...newData, name: e.target.value })}
-        // defaultValue={local?.name}
+        defaultValue={store.local?.name}
         value={newData?.name}
       />
       <TextField
@@ -218,7 +205,7 @@ const UniqueLocal = ({ local, setLocal, locales, setLocales, musicGenres, states
           id="formFile"
         />
       </div> */}
-      <Button variant="outlined" color="error" onClick={() => modificar()}>
+      <Button variant="outlined" color="error" onClick={() => actions.modificar(newData, id)}>
         Modificar
       </Button>
       

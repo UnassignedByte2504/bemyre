@@ -36,10 +36,12 @@ export const PublicLocal = () => {
   });
 
   // trae los locales que se han creado con su id y de ahi saca el local concreto con su id
-  const [locales, setLocales] = useState([]);
+  // me lo lleve al flux
+  
+  // const [locales, setLocales] = useState([]);
   const [local, setLocal] = useState();
 
-  const { store } = useContext(Context);
+  const { store, actions } = useContext(Context);
 
   const userName = sessionStorage.getItem("current_user");
 
@@ -137,45 +139,47 @@ export const PublicLocal = () => {
   };
 
 
+// porque funciona esto sin llamar a la funcion?????????????? por el setLocales? pero si no deberia meterse ahi no?
+  // const fetchLocales = async (set) => {
+  //   await fetch(`${process.env.BACKEND_URL}/api/settings/locales`, {
+  //     method: "GET",
+  //     headers: {
+  //       Authorization: `Bearer ${store.token_local}`,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((result) => {
+  //       set(result);
+  //     });
+  // };
 
 
 // trae locales a elegir en la vista unique, por lo tanto lo podria hacer alli creo
   useEffect(() => {
     console.log("hola");
-  const fetchLocales = async () => {
-    await fetch(`${process.env.BACKEND_URL}/api/settings/locales`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${store.token_local}`,
-      },
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((result) => {
-        setLocales(result);
-      });
-  };
-    fetchLocales();
+  
+    actions.fetchLocales();
   }, []);
   
 
   // trae el local a modificar a la vista unique, por lo tanto lo podria hacer alli creo
-  const fetchLocal = async (id) => {
-    await fetch(`${process.env.BACKEND_URL}/api/settings/local/${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${store.token_local}`,
-      },
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((result) => { 
-        setLocal(result);
-        console.log(result);
-      });
-  };
+  // const fetchLocal = async (id) => {
+  //   await fetch(`${process.env.BACKEND_URL}/api/settings/local/${id}`, {
+  //     method: "GET",
+  //     headers: {
+  //       Authorization: `Bearer ${store.token_local}`,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((result) => { 
+  //       setLocal(result);
+  //       console.log(result);
+  //     });
+  // };
 
 
 
@@ -208,6 +212,7 @@ export const PublicLocal = () => {
             role="tab"
             aria-controls="modificarPerfilLocal"
             aria-selected="false"
+            // onClick={useEffect(()=> fetchLocales(setLocales), [])}
           >
             Modificar perfil de local
 
@@ -367,29 +372,29 @@ export const PublicLocal = () => {
               Publica el estilo de tu local y conecta con tu público
             </Typography>
             <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-              {locales.map((element) => (
+              {store.locales.map((element) => (
                 <button
                   onClick={() => {
-                    fetchLocal(element.id);
+                    actions.fetchLocal(element.id);
                   }}
                 >
                   {element.name}
                 </button>
               ))}
             </Box>
-            <Divider />
+            <Divider /> 
           </Box>
-          {local ? (
+          {store.local ? (
             <UniqueLocal
-              local={local}
+              local={store.local}
               setLocal={setLocal}
-              locales={locales}
-              setLocales={setLocales}
+              locales={store.locales}
+              setLocales={store.setLocales}
               musicGenres={musicGenres}
               states={states}
               setCities={setCities}
-              id={local.id}    
-              // fetchLocales={fetchLocales()}          
+              id={store.local.id}    
+              // fetchLocales={useEffect(()=> fetchLocales(setLocales), [])}          
             />
             // para que hacen falta los parentesis antes y despues de los dos puntos?
           ) : (

@@ -25,7 +25,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       loggedUsers: [],
       geo_api_key: "c9e7139f5e0b428c9c11c3c069fe8aea",
       provincia:"",
-      exploreCategory:""
+      exploreCategory:"",
+      // store locales>>>>>>>
+      locales: [],
+      local: undefined,
+      // store locales<<<<<<
     },
     actions: {
       signUp: async (
@@ -387,6 +391,64 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
       },
       //misc functions
+      // >>>>>>funciones endpoints locales
+
+      modificar: async(newData, id) => {
+        let body = new FormData();
+        for(let key in newData){
+          body.append(key, newData[key]);
+        }
+        await fetch(process.env.BACKEND_URL + "/api/settings/modifyLocal/" + id, {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+            // "Content-Type": "application/json",
+          },
+          body: body,
+          // body: newData,
+        })
+        .then((res) => res.json())
+        .then((result) => {
+          // fetchLocales
+          getActions().fetchLocales()
+          console.log('hello?', result)})
+        },
+
+        fetchLocales: async () => {
+          let store = getStore()
+          await fetch(`${process.env.BACKEND_URL}/api/settings/locales`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${store.token_local}`,
+            },
+          })
+            .then((response) => {
+              return response.json();
+            })
+            .then((result) => {
+              setStore({locales: result});
+            });
+        },
+        fetchLocal: async (id) => {
+          await fetch(`${process.env.BACKEND_URL}/api/settings/local/${id}`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${getStore().token_local}`,
+            },
+          })
+            .then((response) => {
+              return response.json();
+            })
+            .then((result) => { 
+              setStore({local: result});
+              console.log(result);
+            });
+        },
+
+
+
+
+      // funciones endpoints locales<<<<<<
     },
   };
 };
