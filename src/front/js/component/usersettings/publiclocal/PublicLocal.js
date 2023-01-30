@@ -20,9 +20,9 @@ export const PublicLocal = () => {
 
 
   // traen info de los endpoints
-  const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
-  const [musicGenres, setMusicGenres] = useState([]);
+  // const [states, setStates] = useState([]);
+  // const [cities, setCities] = useState([]);
+  // const [musicGenres, setMusicGenres] = useState([]);
 
   // recoge data de los inputs
   const [data, setData] = useState({
@@ -47,96 +47,22 @@ export const PublicLocal = () => {
 
   
   useEffect(() => {
-    const fetchStates = async () => {
-      const options = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const response = await fetch(
-        `${process.env.BACKEND_URL}/api/España/states`,
-        options
-      );
-
-      const result = await response.json();
-      // console.log("ESTAS SON LAS PROVINCIAS");
-      setStates(result);
-    };
-
-    fetchStates();
+    
+    actions.fetchStates();
   }, []);
 
 
-  const fetchCities = async (state) => {
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const response = await fetch(
-      `${process.env.BACKEND_URL}/api/${state}/cities`,
-      options
-    );
-
-    const result = await response.json();
-    // console.log("ESTAS SON LAS cities");
-    setCities(result);
-  };
+ 
 
 
 
 
   useEffect(() => {
-    const fetchMusicGenres = async () => {
-      const options = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const response = await fetch(
-        `${process.env.BACKEND_URL}/api/music_genres`,
-        options
-      );
 
-      const result = await response.json();
-      const res = result.map((el) => el.name);
-      console.log(res);
-      setMusicGenres(res);
-    };
-    fetchMusicGenres();
+    actions.fetchMusicGenres();
   }, []);
 
-  const publicar = async () => {
-    // FormData() es un objeto de arrays?
-    let body = new FormData();
-    // se pueden recorrer las key de un objeto (data)??
-    for (let key in data) {
-      // añade dos valores nuevos iguales o uno es key y otro es valor? el FormData lo transforma en key y valor?
-      body.append(key, data[key]);
-      // lo siguiente funcionaria igual?
-      // body.append(key, data.key);
-    }
-    const token = sessionStorage.getItem("access_token");
-    // en que docu pone que esto lo vuelva objeto?¿... y porque lo añade al body?
-    body.append("token", token);
-    console.log(data);
 
-    const options = {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: body,
-      // body: JSON.stringify(body)
-      // en lugar del for no habria sido lo mismo body: data?
-    };
-    await fetch(`${process.env.BACKEND_URL}/api/settings/publiclocal`, options)
-      .then((resp) => resp.json())
-      .then((result) => console.log(result));
-  };
 
 
 // porque funciona esto sin llamar a la funcion?????????????? por el setLocales? pero si no deberia meterse ahi no?
@@ -161,6 +87,7 @@ export const PublicLocal = () => {
     console.log("hola");
   
     actions.fetchLocales();
+    // console.log(store.provincias)
   }, []);
   
 
@@ -273,10 +200,10 @@ export const PublicLocal = () => {
                   <Autocomplete
                     disablePortal
                     id="combo-box-demo"
-                    options={states}
+                    options={store.provincias.map((element) => (element))}
                     onChange={(e, newValue) => {
                       setData({ ...data, state: newValue });
-                      fetchCities(newValue);
+                      actions.fetchCities(newValue);
                     }}
                     value={data.state}
                     sx={{ width: 300 }}
@@ -293,7 +220,7 @@ export const PublicLocal = () => {
                   <Autocomplete
                     disablePortal
                     id="combo-box-demo"
-                    options={cities}
+                    options={store.cities.map((element, index) => (element))}
                     onChange={(e, newValue) =>
                       setData({ ...data, city: newValue })
                     }
@@ -317,7 +244,7 @@ export const PublicLocal = () => {
                   multiple
                   limitTags={2}
                   id="multiple-limit-tags"
-                  options={musicGenres}
+                  options={store.musicGenres.map((element) => (element))}
                   // getOptionLabel={(option) => option}
                   onChange={(e, newValue) =>
                     setData({ ...data, local_music_genres: newValue })
@@ -350,7 +277,7 @@ export const PublicLocal = () => {
                 <Button
                   variant="outlined"
                   color="error"
-                  onClick={() => publicar()}
+                  onClick={() => actions.publicar(data)}
                 >
                   Publicar
                 </Button>
@@ -390,9 +317,9 @@ export const PublicLocal = () => {
               setLocal={setLocal}
               locales={store.locales}
               setLocales={store.setLocales}
-              musicGenres={musicGenres}
-              states={states}
-              setCities={setCities}
+              // musicGenres={musicGenres}
+              // states={states}
+              // setCities={setCities}
               id={store.local.id}    
               // fetchLocales={useEffect(()=> fetchLocales(setLocales), [])}          
             />
