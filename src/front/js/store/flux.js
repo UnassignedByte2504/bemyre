@@ -499,8 +499,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           // body: newData,
         })
         .then((res) => res.json())
-        .then((result) => {
-          // fetchLocales
+        .then((result) => {          
           getActions().fetchLocales()
           console.log('hello?', result)})
         },
@@ -517,13 +516,14 @@ const getState = ({ getStore, getActions, setStore }) => {
           
           // en que docu pone que esto lo vuelva objeto?¿... y porque lo añade al body?
           // body.append("token", token);
-          console.log(data);
+          // console.log(data);
       
           const options = {
             method: "POST",
             headers: {
               Authorization: `Bearer ${getStore().token_local}`,
             },
+            // body: body,
             body: body,
             // body: JSON.stringify(body)
             // en lugar del for no habria sido lo mismo body: data?

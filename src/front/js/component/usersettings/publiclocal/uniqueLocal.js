@@ -22,14 +22,14 @@ const { store, actions } = useContext(Context);
     local_img: "",
   })
     
-  
-  useEffect(() => {
-    // setNewLocal(local)
-  setNewData(store.local)
-    // setLocales(locales)
+  // ULTIMA PRUEBA DE COMENTADO!!!!!!!!! parece q se evita el bucle al pulsar un local
+  // useEffect(() => {
+  //   // setNewLocal(local)
+  // setNewData(store.local)
+  //   // setLocales(locales)
     
-    actions.fetchLocales()
-  }, [store.local])
+  //   actions.fetchLocales()
+  // }, [store.local])
 
   // useEffect(() => {
   //   console.log("hola");
@@ -111,7 +111,7 @@ const { store, actions } = useContext(Context);
         name={`nombreLocal${id}`}
         variant="outlined"
         label="Nombre del local"
-        onChange={(e) => setNewData({ ...newData, name: e.target.value })}
+        onChange={(e, newValue) => setNewData({ ...newData, name: newValue })}
         defaultValue={store.local?.name}
         value={newData?.name}
       />
