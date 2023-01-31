@@ -111,7 +111,7 @@ const { store, actions } = useContext(Context);
         name={`nombreLocal${id}`}
         variant="outlined"
         label="Nombre del local"
-        onChange={(e, newValue) => setNewData({ ...newData, name: newValue })}
+        onChange={(e, newValue) => setNewData({ ...newData, name: e.target.value })}
         defaultValue={store.local?.name}
         value={newData?.name}
       />
