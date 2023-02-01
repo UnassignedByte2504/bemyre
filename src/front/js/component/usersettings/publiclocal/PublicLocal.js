@@ -1,4 +1,6 @@
 import * as React from "react";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 
 // import PropTypes from 'prop-types';
 // import Tabs from '@mui/material/Tabs';
@@ -26,9 +28,7 @@ import "../../../../styles/publiclocal.css";
 import { CardsButton } from "../../../component/buttons/CardsButton.jsx";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Chip from "@mui/material/Chip";
 import UniqueLocal from "./uniqueLocal";
-
 
 export const PublicLocal = () => {
   const { store, actions } = useContext(Context);
@@ -119,7 +119,6 @@ export const PublicLocal = () => {
                   id="outlined-basic"
                   label="Nombre del local"
                   onChange={(e) => setData({ ...data, name: e.target.value })}
-
                   value={data.name}
                 />
                 <TextField
@@ -240,19 +239,24 @@ export const PublicLocal = () => {
           aria-labelledby="modificarPerfilLocal-tab"
         >
           <Box sx={{ marginX: "3rem", textAlign: "center", marginTop: "2rem" }}>
-            <Typography variant="h4" className="mb-3">
+            {/* <Typography variant="h4" className="mb-3">
               Publica el estilo de tu local y conecta con tu público
-            </Typography>
-            <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-              {store.locales.map((element) => (
-                <button
-                  onClick={() => {
-                    actions.fetchLocal(element.id);
-                  }}
-                >
-                  {element.name}
-                </button>
-              ))}
+            </Typography> */}
+            <Box>
+              <Stack
+                sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}
+                direction="row"
+              >
+                {store.locales.map((element) => (
+                  <Chip
+                    label={element.name}
+                    onClick={() => {
+                      actions.fetchLocal(element.id);
+                    }}
+                    onDelete={() => actions.deleteLocal(element.id)}
+                  />
+                ))}
+              </Stack>
             </Box>
             <Divider />
           </Box>

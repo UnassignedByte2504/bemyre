@@ -653,8 +653,6 @@ def local_informacion(id):
     return jsonify(local.serialize()), 200
 
 
- 
-
 # c: TRAE A LA VISTA DE LOCALES GET DE MUSIC GENRES, really?? creo que no porq url diferente
 # @api.route('/local_musicgenre', methods=['GET'])
 # @jwt_required()
@@ -671,8 +669,6 @@ def local_informacion(id):
 #         genre_list.append(current_genre.name)
 #     # print('holaaaaa!!', current_genre.name)
 #     return jsonify(genre_list), 200
-
-    
 
 
 
@@ -698,6 +694,12 @@ def modify_local(id):
         # upload file to uploadcare
         result = cloudinary.uploader.upload(request.files['local_img'])
         local.local_img = result['secure_url']
+
+    if body_city != None:
+    # if 'city' in request.form:
+        # db.session.delete(local.city_id)
+        local.city_id = city.id
+        # body_city
     
 
     setattr(local, "name", new_local_name)
@@ -705,15 +707,14 @@ def modify_local(id):
     setattr(local, "description", new_description)    
     # local.local_music_genres = request_data['local_music_genres']
     # local.local_img = request_data['local_img']
-    if body_city != None:
-        local.city_id = city.id
+  
     db.session.commit()
-
 
     local_music_genre = LocalMusicGenre.query.filter_by(local_id=local.id).all()
     if body_local_music_genre != None:        
         for name in local_music_genre:        
             db.session.delete(name)
+           
         for name in body_local_music_genre.split(','):
             current_genre = MusicGenre.query.filter_by(name = name).first()
             new_local_music_genre = LocalMusicGenre(
@@ -728,29 +729,16 @@ def modify_local(id):
     return jsonify({"msg": "Informacion actualizada correctamente", "nuevoValor": local.serialize()}), 200
 
 
-
-# @api.route('settings/<string:username_var>/publiclocal', methods=['PUT'])
+# @api.route('settings/deletelocal/<int:id>', method=["DELETE"])
 # @jwt_required()
-# def handle_public_local(username_var):
-#     current_user = get_jwt_identity()
-#     if current_user != username_var:
-#         return jsonify({"message": "Access denied"}), 401
-#     if request.method == 'PUT':
-#         request_data = request.get_json(force=True)
-#         user = db.session.query(User).filter(User.user_name == username_var).first()
-#         user_social_media = db.session.query(UserSocialMedia).filter(UserSocialMedia.user_id == user.id).first()
-#         if not user or not user_social_media:
-#             return jsonify({"message": "User not found"}), 404
-#         default_values = user_social_media
-#         user_social_media.website_url = request_data.get("website_url", default_values.website_url)
-#         user_social_media.youtube_url = request_data.get("youtube_url", default_values.youtube_url)
-#         user_social_media.soundcloud_url = request_data.get("soundcloud_url", default_values.soundcloud_url)
-#         user_social_media.last_update = datetime.now()
-#         db.session.commit()
-    
-#     return jsonify({"message":"Informacion actualizada correctamente", "user_social_media": user_social_media.serialize()}), 200
+# def delete_local(id):
+#     user_name = get_jwt_identity()
+#     user = User.query.filter_by(user_name=user_name).first()
+#     local = Local.query.filter_by(user_id = user.id, id=id).first()
+#     db.session.delete(local)
+#     db.session.commit()
 
-
+#     return jsonify({"msg":"Local eliminado con exito"}), 200
 
 #<<-----1 LOCALES ENDPOINT END ----->>
 

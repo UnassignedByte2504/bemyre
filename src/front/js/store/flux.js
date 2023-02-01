@@ -516,8 +516,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           
           // en que docu pone que esto lo vuelva objeto?¿... y porque lo añade al body?
           // body.append("token", token);
-          // console.log(data);
-      
+                
           const options = {
             method: "POST",
             headers: {
@@ -535,6 +534,17 @@ const getState = ({ getStore, getActions, setStore }) => {
             getActions().fetchLocales()
           })
         },
+        // deleteLocal: async (id) =>{
+        //   const options = {
+        //     method: "DELETE",
+        //     headers: {Authorization: `Bearer ${getStore().token_local}`,
+        //   }}
+        //   await fetch(`${process.env.BACKEND_URL}/api/settings/deletelocal/${id}`, options)
+        //   .then((resp) => resp.json())
+        //   .then((result)=>{
+        //     console.log("borrado", result)
+        //   })
+        // },
         fetchLocales: async () => {
           let store = getStore()
           await fetch(`${process.env.BACKEND_URL}/api/settings/locales`, {

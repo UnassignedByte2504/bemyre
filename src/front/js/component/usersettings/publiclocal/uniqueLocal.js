@@ -6,16 +6,7 @@ import { TextField } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import Input from "@mui/material/Input";
 
-const UniqueLocal = ({
-  local,
-  setLocal,
-  locales,
-  setLocales,
-  musicGenres,
-  states,
-  id,
-  fetchLocales,
-}) => {
+const UniqueLocal = ({ id }) => {
   const { store, actions } = useContext(Context);
   // const[locals, setLocals] = useState({})
   // const [newLocal, setNewLocal] = useState({})
@@ -37,74 +28,11 @@ const UniqueLocal = ({
     actions.fetchLocales();
   }, [store.local]);
 
-  // useEffect(() => {
-  //   console.log("hola");
-  //   const fetchLocales = async () => {
-  //     await fetch(`${process.env.BACKEND_URL}/api/settings/locales`, {
-  //       method: "GET",
-  //       headers: {
-  //         Authorization: `Bearer ${store.token_local}`,
-  //       },
-  //     })
-  //       .then((response) => {
-  //         return response.json();
-  //       })
-  //       .then((result) => {
-  //         setLocales(result);
-  //       });
-  //   };
-  //   fetchLocales();
-  // }, [local])
 
-  // V1
-  // const modificar = async () => {
-  //   let body = new FormData();
-  //   for (let key in local) {
-  //     body.append(key, local[key]);
-  //   }
-  //   const token = sessionStorage.getItem("access_token");
-  //   body.append("token", token);
-  //   console.log(body, local);
-
-  //   const options = {
-  //     method: "PUT",
-  //     headers: {
-  //       Authorization: `Bearer ${store.token_local}`,
-  //     },
-  //     body: JSON.stringify(local),
-  //   };
-  //   await fetch(`${process.env.BACKEND_URL}/api/settings/modifyLocal/${id}`, options)
-  //     .then((resp) => resp.json())
-  //     .then((result) => setLocals(result));
-  // };
-
-  // V2
-
-  // let body = new FormData();
-  // for (let key in locals) {
-  //   body.append(key, locals[key]);
-  // }
-
-  // console.log(body, locals);
-
-  // const options = {
-  // method: "PUT",
-  // headers: {
-  //   Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
-  //   "Content-Type": "application/json",
-  // },
-  // // body: JSON.stringify(locals),
-  //   // body: body
-  //   body: locals,
-  // };
-  // await fetch(`${process.env.BACKEND_URL}/api/settings/modifyLocal/${id}`, options)
-  //   .then((resp) => resp.json())
-  //   .then((result) => setLocals(result));
-  // };
 
   return (
-    // <form className="form-public-local">
-    <>
+    <form className="form-public-local">
+    
       <TextField
         sx={{ width: "100%" }}
         // id={"nombreLocals"+id}
@@ -192,7 +120,7 @@ const UniqueLocal = ({
         onChange={(e, newValue) =>
           setNewData({ ...newData, local_music_genres: newValue })
         }
-        defaultValue={store.local?.local_music_genres}
+        // defaultValue={store.local?.local_music_genres}
         renderInput={(params) => (
           <TextField {...params} label="Géneros de música" placeholder="+1" />
         )}
@@ -220,8 +148,8 @@ const UniqueLocal = ({
         Modificar
       </Button>
 
-      {/* </form> */}
-    </>
+      </form>
+    
   );
 };
 

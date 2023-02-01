@@ -543,7 +543,7 @@ class Local (db.Model):
 # )
 
  
-
+ 
 class LocalMusicGenre (db.Model):
     id= db.Column(db.Integer, primary_key=True)
     musicgenre_id = db.Column(db.Integer, db.ForeignKey('music_genre.id'), nullable=False)
