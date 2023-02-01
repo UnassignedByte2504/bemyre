@@ -4,12 +4,19 @@ import { Box, Button, Divider } from "@mui/material";
 import { Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
-import Input from '@mui/material/Input';
+import Input from "@mui/material/Input";
 
-
-const UniqueLocal = ({ local, setLocal, locales, setLocales, musicGenres, states, id, fetchLocales }) => {
-
-const { store, actions } = useContext(Context);
+const UniqueLocal = ({
+  local,
+  setLocal,
+  locales,
+  setLocales,
+  musicGenres,
+  states,
+  id,
+  fetchLocales,
+}) => {
+  const { store, actions } = useContext(Context);
   // const[locals, setLocals] = useState({})
   // const [newLocal, setNewLocal] = useState({})
   const [newData, setNewData] = useState({
@@ -20,16 +27,15 @@ const { store, actions } = useContext(Context);
     city: "",
     local_music_genres: "",
     local_img: "",
-  })
-    
-  // ULTIMA PRUEBA DE COMENTADO!!!!!!!!! parece q se evita el bucle al pulsar un local
-  // useEffect(() => {
-  //   // setNewLocal(local)
-  // setNewData(store.local)
-  //   // setLocales(locales)
-    
-  //   actions.fetchLocales()
-  // }, [store.local])
+  });
+
+  useEffect(() => {
+    // setNewLocal(local)
+    setNewData(store.local);
+    // setLocales(locales)
+
+    actions.fetchLocales();
+  }, [store.local]);
 
   // useEffect(() => {
   //   console.log("hola");
@@ -50,7 +56,7 @@ const { store, actions } = useContext(Context);
   //   fetchLocales();
   // }, [local])
 
-// V1 
+  // V1
   // const modificar = async () => {
   //   let body = new FormData();
   //   for (let key in local) {
@@ -58,7 +64,7 @@ const { store, actions } = useContext(Context);
   //   }
   //   const token = sessionStorage.getItem("access_token");
   //   body.append("token", token);
-  //   console.log(body, local); 
+  //   console.log(body, local);
 
   //   const options = {
   //     method: "PUT",
@@ -72,35 +78,30 @@ const { store, actions } = useContext(Context);
   //     .then((result) => setLocals(result));
   // };
 
-
   // V2
 
+  // let body = new FormData();
+  // for (let key in locals) {
+  //   body.append(key, locals[key]);
+  // }
 
+  // console.log(body, locals);
 
-    // let body = new FormData();
-    // for (let key in locals) {
-    //   body.append(key, locals[key]);
-    // }
-    
-    // console.log(body, locals); 
-
-    // const options = {
-      // method: "PUT",
-      // headers: {
-      //   Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
-      //   "Content-Type": "application/json",
-      // },
-      // // body: JSON.stringify(locals),
-    //   // body: body
-    //   body: locals,
-    // };
-    // await fetch(`${process.env.BACKEND_URL}/api/settings/modifyLocal/${id}`, options)
-    //   .then((resp) => resp.json())
-    //   .then((result) => setLocals(result));
+  // const options = {
+  // method: "PUT",
+  // headers: {
+  //   Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+  //   "Content-Type": "application/json",
+  // },
+  // // body: JSON.stringify(locals),
+  //   // body: body
+  //   body: locals,
+  // };
+  // await fetch(`${process.env.BACKEND_URL}/api/settings/modifyLocal/${id}`, options)
+  //   .then((resp) => resp.json())
+  //   .then((result) => setLocals(result));
   // };
 
-
- 
   return (
     // <form className="form-public-local">
     <>
@@ -111,7 +112,9 @@ const { store, actions } = useContext(Context);
         name={`nombreLocal${id}`}
         variant="outlined"
         label="Nombre del local"
-        onChange={(e, newValue) => setNewData({ ...newData, name: e.target.value })}
+        onChange={(e, newValue) =>
+          setNewData({ ...newData, name: e.target.value })
+        }
         defaultValue={store.local?.name}
         value={newData?.name}
       />
@@ -135,21 +138,22 @@ const { store, actions } = useContext(Context);
         name={`descripcionLocal${id}`}
         variant="outlined"
         label="Descripción del local"
-        onChange={(e) => setNewData({ ...newData, description: e.target.value })}
+        onChange={(e) =>
+          setNewData({ ...newData, description: e.target.value })
+        }
         // defaultValue={local?.description}
         value={newData?.description}
-        
       />
-      {/* <Box className="form-city-state">
+      <Box className="form-city-state">
         <Autocomplete
           disablePortal
           id="combo-box-demo"
-          options={states}
+          options={store.provincias.map((element) => element)}
           onChange={(e, newValue) => {
-            setLocal({ ...local, state: newValue });
-            fetchCities(newValue);
+            setNewData({ ...newData, state: newValue });
+            actions.fetchCities(newValue);
           }}
-          value={local.state}
+          value={newData.state}
           sx={{ width: 300 }}
           renderInput={(params) => (
             <TextField
@@ -164,9 +168,9 @@ const { store, actions } = useContext(Context);
         <Autocomplete
           disablePortal
           id="combo-box-demo"
-          options={cities}
-          onChange={(e, newValue) => setLocal({ ...local, city: newValue })}
-          value={local.city}
+          options={store.cities.map((element, index) => element)}
+          onChange={(e, newValue) => setNewData({ ...newData, city: newValue })}
+          value={newData.city}
           sx={{ width: 300 }}
           renderInput={(params) => (
             <TextField
@@ -178,40 +182,46 @@ const { store, actions } = useContext(Context);
             />
           )}
         />
-      </Box> */}
+      </Box>
 
-      {/* <Autocomplete
+      <Autocomplete
         multiple
-        limitTags={2}
+        limitTags={3}
         id="multiple-limit-tags"
-        options={musicGenres}
+        options={store.musicGenres.map((element) => element)}
         onChange={(e, newValue) =>
-          setLocal({ ...local, local_music_genres: newValue })
+          setNewData({ ...newData, local_music_genres: newValue })
         }
+        defaultValue={store.local?.local_music_genres}
         renderInput={(params) => (
-          <TextField {...params} label="limitTags" placeholder="Favorites" />
+          <TextField {...params} label="Géneros de música" placeholder="+1" />
         )}
         sx={{ width: "500px" }}
-      /> */}
+      />
 
-      {/* <div class="mb-3">
+      <div class="mb-3">
         <label for="formFile" class="form-label">
           Selecciona una imagen para el perfil de tu local
         </label>
         <input
-          onChange={(e) => setLocals({ ...locals, local_img: e.target.files[0] })}
+          onChange={(e) =>
+            setNewData({ ...newData, local_img: e.target.files[0] })
+          }
           class="form-control"
           type="file"
           id="formFile"
         />
-      </div> */}
-      <Button variant="outlined" color="error" onClick={() => actions.modificar(newData, id)}>
+      </div>
+      <Button
+        variant="outlined"
+        color="error"
+        onClick={() => actions.modificar(newData, id)}
+      >
         Modificar
       </Button>
-      
-   {/* </form> */}
-    </>
 
+      {/* </form> */}
+    </>
   );
 };
 

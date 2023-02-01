@@ -190,7 +190,7 @@ export const PublicLocal = () => {
 
                 <Autocomplete
                   multiple
-                  limitTags={2}
+                  limitTags={3}
                   id="multiple-limit-tags"
                   options={store.musicGenres.map((element) => element)}
                   // getOptionLabel={(option) => option}

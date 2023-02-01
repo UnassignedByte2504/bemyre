@@ -684,6 +684,9 @@ def modify_local(id):
     user = User.query.filter_by(user_name=user_name).first()
     local = Local.query.filter_by(user_id = user.id, id=id).first()
     print(request.form)
+    body_local_music_genre = request.form.get('local_music_genres')
+    body_city = request.form.get('city')
+    city = City.query.filter_by(name = body_city).first()
 
     # new_local_name = request.json.get("name", local.name)
     # new_ubicacion_local = request.json.get("ubicacion_local", local.ubicacion_local)
@@ -691,13 +694,37 @@ def modify_local(id):
     new_local_name = request.form.get("name", local.name)
     new_ubicacion_local = request.form.get("ubicacion_local", local.ubicacion_local)
     new_description = request.form.get("description", local.description)
+    if 'local_img' in request.files:
+        # upload file to uploadcare
+        result = cloudinary.uploader.upload(request.files['local_img'])
+        local.local_img = result['secure_url']
+    
 
     setattr(local, "name", new_local_name)
     setattr(local, "ubicacion_local", new_ubicacion_local)
-    setattr(local, "description", new_description)
+    setattr(local, "description", new_description)    
     # local.local_music_genres = request_data['local_music_genres']
     # local.local_img = request_data['local_img']
+    if body_city != None:
+        local.city_id = city.id
     db.session.commit()
+
+
+    local_music_genre = LocalMusicGenre.query.filter_by(local_id=local.id).all()
+    if body_local_music_genre != None:        
+        for name in local_music_genre:        
+            db.session.delete(name)
+        for name in body_local_music_genre.split(','):
+            current_genre = MusicGenre.query.filter_by(name = name).first()
+            new_local_music_genre = LocalMusicGenre(
+                local_id = local.id,
+                musicgenre_id = current_genre.id
+            )
+            db.session.add(new_local_music_genre)
+        db.session.commit()
+    
+    
+        
     return jsonify({"msg": "Informacion actualizada correctamente", "nuevoValor": local.serialize()}), 200
 
 
