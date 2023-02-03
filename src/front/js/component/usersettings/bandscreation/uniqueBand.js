@@ -16,6 +16,9 @@ export const UniqueBand = () => {
     band_music_genres: "",
     band_img: "",
     artistic_name: "",
+    band_members: "",
+    // chips max 2 o 3, solo instrumentos:
+    required_members: "",
   });
   return (
     <form className="form-public-Band">
@@ -79,14 +82,13 @@ export const UniqueBand = () => {
         />
       </Box>
 
-      {/* autocomplete con chips limitadas */}
+      
 
       <Autocomplete
         multiple
         limitTags={3}
         id="multiple-limit-tags"
-        options={store.musicGenres.map((element) => element)}
-        // getOptionLabel={(option) => option}
+        options={store.musicGenres.map((element) => element)}        
         onChange={(e, newValue) =>
           setNewData({ ...newData, band_music_genres: newValue })
         }
@@ -102,8 +104,7 @@ export const UniqueBand = () => {
         </label>
         <input
           onChange={
-            (e) => setNewData({ ...newData, band_img: e.target.files[0] })
-            // console.log(e)
+            (e) => setNewData({ ...newData, band_img: e.target.files[0] })            
           }
           class="form-control"
           type="file"

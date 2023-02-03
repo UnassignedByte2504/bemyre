@@ -6,6 +6,7 @@ import { Context } from "../../../store/appContext";
 import { Box, Button, Divider, TextField } from "@mui/material";
 import { Typography } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
+import UniqueBand from "./uniqueBand";
 
 
 
@@ -20,8 +21,11 @@ export const BandsCreation = () => {
         city: "",
         band_music_genres: "",
         band_img: "",
-        artistic_name: "",
-        // para filtrar los miembros
+        // chips max 2 o 3, buscar a miembros q son musicos por el artistic name
+        artistic_name: "",        
+        // chips max 2 o 3, solo instrumentos:
+        required_members: "",
+        
       });
   return (
     <>
@@ -37,7 +41,7 @@ export const BandsCreation = () => {
             aria-controls="perfilBandCrear"
             aria-selected="true"
           >
-            Crear perfil de Band
+            Crear perfil de banda
           </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -52,7 +56,7 @@ export const BandsCreation = () => {
             aria-selected="false"
             // onClick={useEffect(()=> fetchBandes(setBandes), [])}
           >
-            Modificar perfil de Band
+            Modificar perfil de banda
           </button>
         </li>
       </ul>
@@ -68,7 +72,7 @@ export const BandsCreation = () => {
               sx={{ marginX: "3rem", textAlign: "center", marginTop: "2rem" }}
             >
               <Typography variant="h4" className="mb-3">
-                Publica el estilo de tu Band y conecta con tu público
+                Publica el estilo de tu banda y conecta con tu público
               </Typography>
               <Divider />
             </Box>
@@ -185,7 +189,7 @@ export const BandsCreation = () => {
           </Box>
         </div>
 
-        <div
+        {/* <div
           class="tab-pane fade"
           id="modificarPerfilBand"
           role="tabpanel"
@@ -212,7 +216,7 @@ export const BandsCreation = () => {
             
           </Box>
           {store.banda ? (
-            <UniqueLocal
+            <UniqueBand
               banda={store.banda}
               
               bandas={store.bandas}
@@ -224,7 +228,7 @@ export const BandsCreation = () => {
             
             ""
           )}
-        </div>
+        </div> */}
       </div>
     </>
   )
