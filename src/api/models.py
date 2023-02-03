@@ -398,6 +398,9 @@ class Bands(db.Model):
     creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
     band_members = relationship("BandMembers", back_populates="bands")
+    city_id = db.Column(db.Integer, db.ForeignKey('city.id'), nullable=True)
+    cities = db.relationship('City', backref='Bands', lazy=True)
+    band_img = db.Column(db.String(255), nullable=True)
     def __repr__(self):
         return f'<Bands {self.name}>'
 
@@ -411,7 +414,11 @@ class Bands(db.Model):
             "creation_date": self.creation_date.strftime("%Y-%m-%d %H:%M:%S"),
             "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
             "band_members ": [band_member.serialize() for band_member in self.band_members],
+            "band_img": self.band_img,
         }
+
+
+
 
 class BandMembers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -433,6 +440,26 @@ class BandMembers(db.Model):
             "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
         }
  
+
+class BandMusicGenre (db.Model):
+    id= db.Column(db.Integer, primary_key=True)
+    musicgenre_id = db.Column(db.Integer, db.ForeignKey('music_genre.id'), nullable=False)
+    
+    bands_id = db.Column(db.Integer, db.ForeignKey('bands.id'), nullable=True)
+
+    def __repr__(self):
+        return '<id {}>'.format(self.id)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "musicgenre_id": self.musicgenre_id,
+            
+            "music_genre_name": MusicGenre.query.get(self.musicgenre_id).name,
+            "bands_id": self.bands_id,
+        }
+
+
 class MusicGenre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
@@ -458,7 +485,7 @@ class Event(db.Model):
     date = db.Column(db.DateTime, nullable=False)
     creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
     last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
-    local_id = db.Column(db.Integer, db.ForeignKey('local.id'), nullable=False)
+    local_id = db.Column(db.Integer, db.ForeignKey('local.id'), nullable=True)
 
     def __repr__(self):
         return f'<Events {self.name}>'
@@ -548,7 +575,7 @@ class LocalMusicGenre (db.Model):
     id= db.Column(db.Integer, primary_key=True)
     musicgenre_id = db.Column(db.Integer, db.ForeignKey('music_genre.id'), nullable=False)
     
-    local_id = db.Column(db.Integer, db.ForeignKey('local.id'), nullable=False)
+    local_id = db.Column(db.Integer, db.ForeignKey('local.id'), nullable=True)
 
     def __repr__(self):
         return '<id {}>'.format(self.id)

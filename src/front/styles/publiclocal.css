@@ -19,3 +19,30 @@
     color: white;
 } */
 
+#myTab{
+
+}
+
+.nav-link{
+    color: #fff;
+}
+
+.nav-item{
+    background-color: #0B0B0B!important;
+    color: #fff;
+}
+
+.nav-item:hover{
+    background-color: #0B0B0B!important;
+    
+}
+
+.nav-link:focus, .nav-link:hover {
+    color: #DF3231!important;
+}
+
+
+.nav-tabs .nav-link.active{
+    background-color: #242424!important;
+    color: #DF3231!important;
+}

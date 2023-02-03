@@ -6,7 +6,7 @@ from sqlalchemy import and_, or_, not_
 from flask import Flask, request, jsonify, url_for, Blueprint
 
 
-from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, MusicGenre, DirectMessage, UserMedia, LocalMusicGenre
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, MusicGenre, DirectMessage, UserMedia, LocalMusicGenre, Event
 
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
@@ -653,25 +653,6 @@ def local_informacion(id):
     return jsonify(local.serialize()), 200
 
 
-# c: TRAE A LA VISTA DE LOCALES GET DE MUSIC GENRES, really?? creo que no porq url diferente
-# @api.route('/local_musicgenre', methods=['GET'])
-# @jwt_required()
-# def get_local_musicgenre():
-#     user_name = get_jwt_identity()
-#     user = User.query.filter_by(user_name=user_name).first()
-#     locales = Local.query.filter_by(user_id = user.id).all()
-
-#     genre_list = []
-#     for local in locales:
-#         current_local = LocalMusicGenre.query.filter_by(local_id = local.id).first()
-#         current_genre = MusicGenre.query.filter_by(id=current_local.musicgenre_id).first()
-
-#         genre_list.append(current_genre.name)
-#     # print('holaaaaa!!', current_genre.name)
-#     return jsonify(genre_list), 200
-
-
-
 # MODIFICAR EN COMPONENTE UNIQUELOCAL
 @api.route('/settings/modifyLocal/<int:id>', methods=['PUT'])
 @jwt_required()
@@ -729,16 +710,27 @@ def modify_local(id):
     return jsonify({"msg": "Informacion actualizada correctamente", "nuevoValor": local.serialize()}), 200
 
 
-# @api.route('settings/deletelocal/<int:id>', method=["DELETE"])
-# @jwt_required()
-# def delete_local(id):
-#     user_name = get_jwt_identity()
-#     user = User.query.filter_by(user_name=user_name).first()
-#     local = Local.query.filter_by(user_id = user.id, id=id).first()
-#     db.session.delete(local)
-#     db.session.commit()
-
-#     return jsonify({"msg":"Local eliminado con exito"}), 200
+@api.route('settings/deletelocal/<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_local(id):
+    user_name = get_jwt_identity()
+    user = User.query.filter_by(user_name=user_name).first()
+    print(user)
+    local = Local.query.filter_by(user_id = user.id, id=id).first()
+    print(local)
+    event = Event.query.filter_by(local_id = local.id).first()
+    if event:
+        db.session.delete(event)
+        db.session.commit()
+    
+    local_music_genre = LocalMusicGenre.query.filter_by(local_id = local.id).first()
+    if local_music_genre:
+    
+        db.session.delete(local_music_genre)
+        db.session.commit()
+    db.session.delete(local)
+    db.session.commit()
+    return jsonify({"msg":"Local eliminado con exito"}), 200
 
 #<<-----1 LOCALES ENDPOINT END ----->>
 
@@ -755,6 +747,13 @@ def get_music_genres():
 
 
 #<<-----MUSIC GENRES ----->>
+
+
+#<<----------------------1 LOCALES ENDPOINT START ----------------------->>
+
+
+
+#<<------------------------1 LOCALES ENDPOINT END ----------------------->>
 
 #<<-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FILTER ENDPOINTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ----->>
 

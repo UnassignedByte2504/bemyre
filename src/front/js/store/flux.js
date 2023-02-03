@@ -24,8 +24,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       profileCardView: "default",
       loggedUsers: [],
       geo_api_key: "c9e7139f5e0b428c9c11c3c069fe8aea",
-      provincia:"",
-      exploreCategory:"",
+      provincia: "",
+      exploreCategory: "",
       // store locales>>>>>>>>>>>>
       locales: [],
       local: undefined,
@@ -383,46 +383,46 @@ const getState = ({ getStore, getActions, setStore }) => {
         });
         console.log(store.loggedUsers);
       },
-      setProvincia: (provincia) =>{
+      setProvincia: (provincia) => {
         setStore({
           provincia: provincia,
-        })
+        });
       },
-      setExploreCategory: (category) =>{
+      setExploreCategory: (category) => {
         setStore({
-          exploreCategory: category
-        })
+          exploreCategory: category,
+        });
       },
       //misc functions
       // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>funciones endpoints locales
       fetchStates: async () => {
-      //   const options = {
-      //     method: "GET",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   };
-      //   const response = await fetch(
-      //     `${process.env.BACKEND_URL}/api/España/states`,
-      //     options
-      //   );
-  
-      //   const result = await response.json();
-      //   // console.log("ESTAS SON LAS PROVINCIAS");
-      //   setStore({provincias: result.name});
-      await fetch(`${process.env.BACKEND_URL}/api/España/states`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => {
-          return response.json();
+        //   const options = {
+        //     method: "GET",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //   };
+        //   const response = await fetch(
+        //     `${process.env.BACKEND_URL}/api/España/states`,
+        //     options
+        //   );
+
+        //   const result = await response.json();
+        //   // console.log("ESTAS SON LAS PROVINCIAS");
+        //   setStore({provincias: result.name});
+        await fetch(`${process.env.BACKEND_URL}/api/España/states`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         })
-        .then((result) => { 
-          setStore({provincias: result});
-          // console.log(result);
-        });
+          .then((response) => {
+            return response.json();
+          })
+          .then((result) => {
+            setStore({ provincias: result });
+            // console.log(result);
+          });
       },
       fetchCities: async (state) => {
         // const options = {
@@ -435,7 +435,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         //   `${process.env.BACKEND_URL}/api/${state}/cities`,
         //   options
         // );
-    
+
         // const result = await response.json();
         // console.log("ESTAS SON LAS cities");
         await fetch(`${process.env.BACKEND_URL}/api/${state}/cities`, {
@@ -447,11 +447,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((response) => {
             return response.json();
           })
-          .then((result) => { 
-            setStore({cities: result});
+          .then((result) => {
+            setStore({ cities: result });
             // console.log(result);
           });
-        
       },
       fetchMusicGenres: async () => {
         // const options = {
@@ -464,7 +463,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         //   `${process.env.BACKEND_URL}/api/music_genres`,
         //   options
         // );
-  
+
         // const result = await response.json();
         // const res = result.map((el) => el.name);
         // console.log(res);
@@ -477,109 +476,141 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((response) => {
             return response.json();
           })
-          .then((result) => { 
-            setStore({musicGenres: result.map((el) => el.name)});
-            console.log(result)
-            
+          .then((result) => {
+            setStore({ musicGenres: result.map((el) => el.name) });
+            console.log(result);
           });
-        
       },
-      modificar: async(newData, id) => {
+      modificarLocal: async (newData, id) => {
         let body = new FormData();
-        for(let key in newData){
+        for (let key in newData) {
           body.append(key, newData[key]);
         }
-        await fetch(process.env.BACKEND_URL + "/api/settings/modifyLocal/" + id, {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
-            // "Content-Type": "application/json",
-          },
-          body: body,
-          // body: newData,
-        })
-        .then((res) => res.json())
-        .then((result) => {          
-          getActions().fetchLocales()
-          console.log('hello?', result)})
-        },
-        publicar: async (data) => {
-          // FormData() es un objeto de arrays?
-          let body = new FormData();
-          // se pueden recorrer las key de un objeto (data)??
-          for (let key in data) {
-            // añade dos valores nuevos iguales o uno es key y otro es valor? el FormData lo transforma en key y valor?
-            body.append(key, data[key]);
-            // lo siguiente funcionaria igual?
-            // body.append(key, data.key);
-          }
-          
-          // en que docu pone que esto lo vuelva objeto?¿... y porque lo añade al body?
-          // body.append("token", token);
-                
-          const options = {
-            method: "POST",
+        await fetch(
+          process.env.BACKEND_URL + "/api/settings/modifyLocal/" + id,
+          {
+            method: "PUT",
             headers: {
-              Authorization: `Bearer ${getStore().token_local}`,
+              Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+              // "Content-Type": "application/json",
             },
-            // body: body,
             body: body,
-            // body: JSON.stringify(body)
-            // en lugar del for no habria sido lo mismo body: data?
-          };
-          await fetch(`${process.env.BACKEND_URL}/api/settings/publiclocal`, options)
-            .then((resp) => resp.json())
-            .then((result) => {
-              console.log(result)
-            getActions().fetchLocales()
-          })
-        },
-        // deleteLocal: async (id) =>{
-        //   const options = {
-        //     method: "DELETE",
-        //     headers: {Authorization: `Bearer ${getStore().token_local}`,
-        //   }}
-        //   await fetch(`${process.env.BACKEND_URL}/api/settings/deletelocal/${id}`, options)
-        //   .then((resp) => resp.json())
-        //   .then((result)=>{
-        //     console.log("borrado", result)
-        //   })
-        // },
-        fetchLocales: async () => {
-          let store = getStore()
-          await fetch(`${process.env.BACKEND_URL}/api/settings/locales`, {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${store.token_local}`,
-            },
-          })
-            .then((response) => {
-              return response.json();
-            })
-            .then((result) => {
-              setStore({locales: result});
-            });
-        },
-        fetchLocal: async (id) => {
-          await fetch(`${process.env.BACKEND_URL}/api/settings/local/${id}`, {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${getStore().token_local}`,
-            },
-          })
-            .then((response) => {
-              return response.json();
-            })
-            .then((result) => { 
-              setStore({local: result});
-              console.log(result);
-            });
-        },
+            // body: newData,
+          }
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            getActions().fetchLocales();
+            console.log("hello?", result);
+          });
+      },
+      publicarLocal: async (data) => {
+        // FormData() es un objeto de arrays?
+        let body = new FormData();
+        // se pueden recorrer las key de un objeto (data)??
+        for (let key in data) {
+          // añade dos valores nuevos iguales o uno es key y otro es valor? el FormData lo transforma en key y valor?
+          body.append(key, data[key]);
+          // lo siguiente funcionaria igual?
+          // body.append(key, data.key);
+        }
 
+        // en que docu pone que esto lo vuelva objeto?¿... y porque lo añade al body?
+        // body.append("token", token);
 
-
+        const options = {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${getStore().token_local}`,
+          },
+          // body: body,
+          body: body,
+          // body: JSON.stringify(body)
+          // en lugar del for no habria sido lo mismo body: data?
+        };
+        await fetch(
+          `${process.env.BACKEND_URL}/api/settings/publiclocal`,
+          options
+        )
+          .then((resp) => resp.json())
+          .then((result) => {
+            console.log(result);
+            getActions().fetchLocales();
+          });
+      },
+      deleteLocal: async (id) => {
+        const options = {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${getStore().token_local}` },
+          "Content-Type": "application/json",
+        };
+        await fetch(
+          `${process.env.BACKEND_URL}/api/settings/deletelocal/${id}`,
+          options
+        )
+          .then((resp) => resp.json())
+          .then((result) => {
+            console.log("borrado", result);
+            getActions().fetchLocales();
+          });
+      },
+      fetchLocales: async () => {
+        let store = getStore();
+        await fetch(`${process.env.BACKEND_URL}/api/settings/locales`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${store.token_local}`,
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((result) => {
+            setStore({ locales: result });
+          });
+      },
+      fetchLocal: async (id) => {
+        await fetch(`${process.env.BACKEND_URL}/api/settings/local/${id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${getStore().token_local}`,
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((result) => {
+            setStore({ local: result });
+            console.log(result);
+          });
+      },
 
       // funciones endpoints locales<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+      // funciones endpoints bandas>>>>>>>>>>>>>>>>>>>>>>>>>>>
+      publicarBand: async (data) => {
+        let body = new FormData();
+        for (let key in data) {
+          body.append(key, data[key]);
+        }
+        const options = {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${getStore().token_local}`,
+          },
+          body: body,
+        };
+        await fetch(
+          `${process.env.BACKEND_URL}/api/settings/publicband`,
+          options
+        )
+          .then((resp) => resp.json())
+          .then((result) => {
+            console.log(result);
+            getActions().fetchBandas();
+          });
+      },
+      // funciones endpoints bandas<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     },
   };
 };

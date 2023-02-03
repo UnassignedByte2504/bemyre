@@ -223,7 +223,7 @@ export const PublicLocal = () => {
                 <Button
                   variant="outlined"
                   color="error"
-                  onClick={() => actions.publicar(data)}
+                  onClick={() => actions.publicarLocal(data)}
                 >
                   Publicar
                 </Button>
@@ -253,12 +253,12 @@ export const PublicLocal = () => {
                     onClick={() => {
                       actions.fetchLocal(element.id);
                     }}
-                    onDelete={() => actions.deleteLocal(element.id)}
+                    
                   />
                 ))}
               </Stack>
             </Box>
-            <Divider />
+            
           </Box>
           {store.local ? (
             <UniqueLocal
