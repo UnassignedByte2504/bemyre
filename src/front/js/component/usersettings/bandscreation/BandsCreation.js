@@ -22,7 +22,7 @@ export const BandsCreation = () => {
         band_music_genres: "",
         band_img: "",
         // chips max 2 o 3, buscar a miembros q son musicos por el artistic name
-        // artistic_name: "",        
+        artistic_name: "",        
         // chips max 2 o 3, solo instrumentos:
         // required_members: "",
         
@@ -33,7 +33,9 @@ export const BandsCreation = () => {
       }, []);
     
       useEffect(() => {
-        actions.fetchMusicGenres();
+         actions.fetchUserMusicianInfo();
+         actions.fetchMusicGenres();
+       
       }, []);
 
   return (
@@ -186,6 +188,29 @@ export const BandsCreation = () => {
                     id="formFile-band"
                   />
                 </div>
+
+                <Autocomplete
+                    disablePortal
+                    id="combo-box-demo-bandd"
+                    options={store.usermusician.map((element) => element.artistic_name)}
+                    onChange={(e, newValue) => {
+                      setData({ ...data, artistic_name: newValue });
+                      
+                    }}
+                    value={data.artistic_name}
+                    sx={{ width: 300 }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        placeholder="artistic_name"
+                        name="artistic_name"
+                        label="artistic_name"
+                        autoComplete="on"
+                      />
+                    )}
+                  />
+
+
                 <Button
                   variant="outlined"
                   color="error"

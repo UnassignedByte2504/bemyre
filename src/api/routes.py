@@ -776,7 +776,7 @@ def public_band():
             description = data["description"],
             city_id = city.id,
             owner_id = user.id,
-            band_img = result['secure_url'],   
+            band_img = result['secure_url'],
         )
         db.session.add(new_band)
         db.session.commit()
@@ -788,7 +788,7 @@ def public_band():
     for name in body_band_music_genre.split(','):
         current_genre = MusicGenre.query.filter_by(name = name).first()
         new_band_music_genre = BandMusicGenre(
-            band_id = new_band.id,
+            bands_id = new_band.id,
             musicgenre_id = current_genre.id
         )
         db.session.add(new_band_music_genre)
@@ -802,6 +802,16 @@ def public_band():
     return jsonify(response_body), 201
 
 
+# GET DE TODOS LOS user musician info EN LA VW DE crear bandas
+@api.route('/user-musician-info', methods=['GET'])
+def get_usermusicianinfo():
+    print('holaaa')
+    usermusicians = UserMusicianInfo.query.all()
+    # usermusician_list = []
+    # for user in locales:
+    #     locales_list.append(local.serialize())
+    all_usermusicians = list(map(lambda usermusician: usermusician.serialize(), usermusicians))
+    return jsonify(all_usermusicians), 200
 
 
 #<<------------------------1 BANDAS ENDPOINT END ----------------------->>

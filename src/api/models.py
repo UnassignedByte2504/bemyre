@@ -318,10 +318,10 @@ class UserMusicianInfo(db.Model):
             "id": self.id,
             "user_id": self.user_id,
             "artistic_name": self.artistic_name,
-            "user_musical_instruments": [musical_instrument.serialize() for musical_instrument in self.user_musical_instruments],
+            # "user_musical_instruments": [musical_instrument.serialize() for musical_instrument in self.user_musical_instruments],
             "user_music_genre": [musical_genre.serialize() for musical_genre in self.user_music_genre],
-            "musical_instruments_other": self.musical_instruments_other,
-            "musical_genres_other": self.musical_genres_other,
+            # "musical_instruments_other": self.musical_instruments_other,
+            # "musical_genres_other": self.musical_genres_other,
             "bands": [band.serialize() for band in self.bands],
             "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
         }
@@ -434,7 +434,7 @@ class Bands(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "owner": self.owner.serialize(),
+            # "owner": self.owner.serialize(),
             "name": self.name,
             "description": self.description,
             # "music_genre": self.music_genre.serialize(),
@@ -464,7 +464,7 @@ class BandMembers(db.Model):
         return {
             "id": self.id,
             "band": self.band.serialize(),
-            "member": self.member.serialize(),
+            # "member": self.member.serialize(),
             "creation_date": self.creation_date.strftime("%Y-%m-%d %H:%M:%S"),
             "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
         }

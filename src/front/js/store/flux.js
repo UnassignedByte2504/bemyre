@@ -36,6 +36,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       // store bandas>>>>>>>>>>>>
       bandas: [],
       banda: undefined,
+      usermusician: [],
        // store bandas<<<<<<<<<<<<<<<
     },
     actions: {
@@ -617,7 +618,22 @@ const getState = ({ getStore, getActions, setStore }) => {
             // getActions().fetchBandas();
           });
       },
-
+      fetchUserMusicianInfo: async () => {
+        console.log('//////////')
+        await fetch(`${process.env.BACKEND_URL}/api/user-musician-info`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((result) => {
+            setStore({ usermusician: result });
+            console.log(result);
+          });
+      },
 
       // funciones endpoints bandas<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     },
