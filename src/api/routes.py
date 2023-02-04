@@ -6,7 +6,7 @@ from sqlalchemy import and_, or_, not_
 from flask import Flask, request, jsonify, url_for, Blueprint
 
 
-from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, MusicGenre, DirectMessage, UserMedia, LocalMusicGenre, Event
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, MusicGenre, DirectMessage, UserMedia, LocalMusicGenre, Event, Bands, BandMusicGenre
 
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
@@ -749,11 +749,62 @@ def get_music_genres():
 #<<-----MUSIC GENRES ----->>
 
 
-#<<----------------------1 LOCALES ENDPOINT START ----------------------->>
+#<<----------------------1 BANDAS ENDPOINT START ----------------------->>
+
+@api.route('settings/publicband', methods= ['POST'])
+@jwt_required()
+def public_band():
+    user_name = get_jwt_identity()
+    user = User.query.filter_by(user_name=user_name).first()
+    body_city = request.form.get('city')
+    body_band_music_genre = request.form.get('band_music_genres')
+    city = City.query.filter_by(name = body_city).first()
+
+    if 'band_img' in request.files:
+        # upload file to uploadcare
+        result = cloudinary.uploader.upload(request.files['band_img'])
+    else:
+        raise APIException('Missing band_img on the FormData')
+
+    data=request.form
+    if db.session.query(Bands).filter(Bands.name == data['name']).first():
+        return jsonify({"message": "Este perfil de banda ya está registrado"}),400
+    try:
+        print(result['secure_url'])
+        new_band = Bands(
+            name = data['name'],            
+            description = data["description"],
+            city_id = city.id,
+            owner_id = user.id,
+            band_img = result['secure_url'],   
+        )
+        db.session.add(new_band)
+        db.session.commit()
+    except Exception as error:
+        print(error)
+
+    print(body_band_music_genre)
+
+    for name in body_band_music_genre.split(','):
+        current_genre = MusicGenre.query.filter_by(name = name).first()
+        new_band_music_genre = BandMusicGenre(
+            band_id = new_band.id,
+            musicgenre_id = current_genre.id
+        )
+        db.session.add(new_band_music_genre)
+    db.session.commit()
+
+
+    response_body = {
+        "msg": "banda añadida"
+        
+    }
+    return jsonify(response_body), 201
 
 
 
-#<<------------------------1 LOCALES ENDPOINT END ----------------------->>
+
+#<<------------------------1 BANDAS ENDPOINT END ----------------------->>
 
 #<<-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<FILTER ENDPOINTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ----->>
 

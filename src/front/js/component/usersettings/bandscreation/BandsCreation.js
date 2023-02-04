@@ -22,14 +22,23 @@ export const BandsCreation = () => {
         band_music_genres: "",
         band_img: "",
         // chips max 2 o 3, buscar a miembros q son musicos por el artistic name
-        artistic_name: "",        
+        // artistic_name: "",        
         // chips max 2 o 3, solo instrumentos:
-        required_members: "",
+        // required_members: "",
         
       });
+
+      useEffect(() => {
+        actions.fetchStates();
+      }, []);
+    
+      useEffect(() => {
+        actions.fetchMusicGenres();
+      }, []);
+
   return (
     <>
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <ul class="nav nav-tabs" id="myTabBand" role="tablist">
         <li class="nav-item" role="presentation">
           <button
             class="nav-link active"
@@ -60,7 +69,7 @@ export const BandsCreation = () => {
           </button>
         </li>
       </ul>
-      <div class="tab-content" id="myTabContent">
+      <div class="tab-content" id="myTabContentBand">
         <div
           class="tab-pane fade show active"
           id="perfilBandCrear"
@@ -83,7 +92,7 @@ export const BandsCreation = () => {
                   type="text"
                   name="nombreBand"
                   variant="outlined"
-                  id="outlined-basic"
+                  id="outlined-basic-band"
                   label="Nombre del Band"
                   onChange={(e) => setData({ ...data, name: e.target.value })}
                   value={data.name}
@@ -103,7 +112,7 @@ export const BandsCreation = () => {
                 <Box className="form-city-state">
                   <Autocomplete
                     disablePortal
-                    id="combo-box-demo"
+                    id="combo-box-demo-band"
                     options={store.provincias.map((element) => element)}
                     onChange={(e, newValue) => {
                       setData({ ...data, state: newValue });
@@ -123,7 +132,7 @@ export const BandsCreation = () => {
                   />
                   <Autocomplete
                     disablePortal
-                    id="combo-box-demo"
+                    id="combo-box-demo-band"
                     options={store.cities.map((element, index) => element)}
                     onChange={(e, newValue) =>
                       setData({ ...data, city: newValue })
@@ -147,7 +156,7 @@ export const BandsCreation = () => {
                 <Autocomplete
                   multiple
                   limitTags={3}
-                  id="multiple-limit-tags"
+                  id="multiple-limit-tags-band"
                   options={store.musicGenres.map((element) => element)}
                   // getOptionLabel={(option) => option}
                   onChange={(e, newValue) =>
@@ -165,16 +174,16 @@ export const BandsCreation = () => {
 
                 <div class="mb-3">
                   <label for="formFile" class="form-label">
-                    Selecciona una imagen para el perfil de tu local
+                    Selecciona una imagen para el perfil de tu banda
                   </label>
                   <input
                     onChange={
-                      (e) => setData({ ...data, band_img: e.target.files[0] })
-                      // console.log(e)
-                    }
+                      (e) => {setData({ ...data, band_img: e.target.files[0] })
+                      
+                      console.log(e)}}
                     class="form-control"
                     type="file"
-                    id="formFile"
+                    id="formFile-band"
                   />
                 </div>
                 <Button

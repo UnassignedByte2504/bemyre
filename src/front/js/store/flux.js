@@ -33,6 +33,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       cities: [],
       musicGenres: [],
       // store locales<<<<<<<<<<<<<<<
+      // store bandas>>>>>>>>>>>>
+      bandas: [],
+      banda: undefined,
+       // store bandas<<<<<<<<<<<<<<<
     },
     actions: {
       signUp: async (
@@ -588,28 +592,33 @@ const getState = ({ getStore, getActions, setStore }) => {
       // funciones endpoints locales<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
       // funciones endpoints bandas>>>>>>>>>>>>>>>>>>>>>>>>>>>
-      // publicarBand: async (data) => {
-      //   let body = new FormData();
-      //   for (let key in data) {
-      //     body.append(key, data[key]);
-      //   }
-      //   const options = {
-      //     method: "POST",
-      //     headers: {
-      //       Authorization: `Bearer ${getStore().token_local}`,
-      //     },
-      //     body: body,
-      //   };
-      //   await fetch(
-      //     `${process.env.BACKEND_URL}/api/settings/publicband`,
-      //     options
-      //   )
-      //     .then((resp) => resp.json())
-      //     .then((result) => {
-      //       console.log(result);
-      //       getActions().fetchBandas();
-      //     });
-      // },
+
+
+      publicarBand: async (data) => {
+        let body = new FormData();
+        for (let key in data) {
+          body.append(key, data[key]);
+        }
+        const options = {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${getStore().token_local}`,
+            // "Content-Type": "application/json",
+          },
+          body: body,
+        };
+        await fetch(
+          `${process.env.BACKEND_URL}/api/settings/publicband`,
+          options
+        )
+          .then((resp) => resp.json())
+          .then((result) => {
+            console.log(result);
+            // getActions().fetchBandas();
+          });
+      },
+
+
       // funciones endpoints bandas<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     },
   };
