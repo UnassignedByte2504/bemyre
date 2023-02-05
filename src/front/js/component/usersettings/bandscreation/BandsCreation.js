@@ -8,39 +8,34 @@ import { Typography } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import UniqueBand from "./uniqueBand";
 
-
-
-
 export const BandsCreation = () => {
-    const { store, actions } = useContext(Context);
+  const { store, actions } = useContext(Context);
 
-    const [data, setData] = useState({
-        name: "",        
-        description: "",
-        state: "",
-        city: "",
-        band_music_genres: "",
-        band_img: "",
-        // chips max 2 o 3, buscar a miembros q son musicos por el artistic name
-        artistic_name: "",        
-        // chips max 2 o 3, solo instrumentos:
-        // required_members: "",
-        
-      });
+  const [data, setData] = useState({
+    name: "",
+    description: "",
+    state: "",
+    city: "",
+    band_music_genres: "",
+    band_img: "",
+    // chips max 2 o 3, buscar a miembros q son musicos por el artistic name
+    artistic_name: "",
+    // chips max 2 o 3, solo instrumentos:
+    musicalinstrumentcategory: "",
+    musicalinstrument: "",
+  });
 
-      useEffect(() => {
-        actions.fetchStates();
-      }, []);
+  useEffect(() => {
+    actions.fetchStates();
+    actions.fetchUserMusicianInfo();
+    actions.fetchMusicGenres();
+    actions.fetchMusicalInstrumentCategory();
     
-      useEffect(() => {
-         actions.fetchUserMusicianInfo();
-         actions.fetchMusicGenres();
-       
-      }, []);
+  }, []);
 
   return (
     <>
-    <ul class="nav nav-tabs" id="myTabBand" role="tablist">
+      <ul class="nav nav-tabs" id="myTabBand" role="tablist">
         <li class="nav-item" role="presentation">
           <button
             class="nav-link active"
@@ -99,7 +94,7 @@ export const BandsCreation = () => {
                   onChange={(e) => setData({ ...data, name: e.target.value })}
                   value={data.name}
                 />
-               
+
                 <TextField
                   sx={{ width: "100%" }}
                   type="text"
@@ -179,10 +174,11 @@ export const BandsCreation = () => {
                     Selecciona una imagen para el perfil de tu banda
                   </label>
                   <input
-                    onChange={
-                      (e) => {setData({ ...data, band_img: e.target.files[0] })
-                      
-                      console.log(e)}}
+                    onChange={(e) => {
+                      setData({ ...data, band_img: e.target.files[0] });
+
+                      console.log(e);
+                    }}
                     class="form-control"
                     type="file"
                     id="formFile-band"
@@ -190,26 +186,72 @@ export const BandsCreation = () => {
                 </div>
 
                 <Autocomplete
+                  multiple
+                  limitTags={3}
+                  // disablePortal
+                  id="multiple-limit-tags-band-"
+                  options={store.usermusician.map(
+                    (element) => element.artistic_name
+                  )}
+                  onChange={(e, newValue) => {
+                    setData({ ...data, artistic_name: newValue });
+                  }}
+                  // value={data.artistic_name}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      placeholder="artistic_name"
+                      name="artistic_name"
+                      label="artistic_name"
+                      autoComplete="on"
+                    />
+                  )}
+                  sx={{ width: "500px" }}
+                />
+                <Box className="form-city-state">
+                  <Autocomplete
                     disablePortal
-                    id="combo-box-demo-bandd"
-                    options={store.usermusician.map((element) => element.artistic_name)}
+                    id="combo-box-demo-band-banda"
+                    options={store.musicalinstrumentcategory.map((element) => element)}
                     onChange={(e, newValue) => {
-                      setData({ ...data, artistic_name: newValue });
-                      
+                      console.log(newValue)
+                      setData({ ...data, musicalinstrumentcategory: newValue });
+                      actions.fetchMusicalInstrument(newValue);
                     }}
-                    value={data.artistic_name}
+                    value={data.musicalinstrumentcategory}
                     sx={{ width: 300 }}
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        placeholder="artistic_name"
-                        name="artistic_name"
-                        label="artistic_name"
+                        placeholder="musicalintrumentcategory"
+                        name="musicalintrumentcategory"
+                        label="musicalintrumentcategory"
                         autoComplete="on"
                       />
                     )}
                   />
-
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo-band"
+                    options={store.musicalinstrument.map(
+                      (element, index) => element
+                    )}
+                    onChange={(e, newValue) =>
+                      setData({ ...data, musicalinstrument: newValue })
+                    }
+                    value={data.musicalinstrument}
+                    sx={{ width: 300 }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        placeholder="musicalintrument"
+                        name="musicalintrument"
+                        label="musicalintrument"
+                        autoComplete="on"
+                      />
+                    )}
+                  />
+                </Box>
 
                 <Button
                   variant="outlined"
@@ -265,5 +307,5 @@ export const BandsCreation = () => {
         </div> */}
       </div>
     </>
-  )
-}
+  );
+};

@@ -37,6 +37,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       bandas: [],
       banda: undefined,
       usermusician: [],
+      musicalinstrumentcategory: [],
+      musicalinstrument: [],
        // store bandas<<<<<<<<<<<<<<<
     },
     actions: {
@@ -631,6 +633,38 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then((result) => {
             setStore({ usermusician: result });
+            console.log(result);
+          });
+      },
+      fetchMusicalInstrumentCategory: async () => {
+        console.log('<<<<<<<<//////////>>>>>>>>')
+        await fetch(`${process.env.BACKEND_URL}/api/musical-intrument-category`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((result) => {
+            setStore({ musicalinstrumentcategory: result });
+            console.log(result);
+          });
+      },
+      fetchMusicalInstrument: async (musicalinstrumentcategory) => {
+        console.log('<<<<<<<<//////////>>>>>>>>')
+        await fetch(`${process.env.BACKEND_URL}/api/${musicalinstrumentcategory}/musical-intrument`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((result) => {
+            setStore({ musicalinstrument: result });
             console.log(result);
           });
       },

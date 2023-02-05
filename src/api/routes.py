@@ -6,7 +6,7 @@ from sqlalchemy import and_, or_, not_
 from flask import Flask, request, jsonify, url_for, Blueprint
 
 
-from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, MusicGenre, DirectMessage, UserMedia, LocalMusicGenre, Event, Bands, BandMusicGenre
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, MusicGenre, DirectMessage, UserMedia, LocalMusicGenre, Event, Bands, BandMusicGenre, BandMembers, MusicalInstrument, MusicalInstrumentsCategory
 
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
@@ -758,6 +758,7 @@ def public_band():
     user = User.query.filter_by(user_name=user_name).first()
     body_city = request.form.get('city')
     body_band_music_genre = request.form.get('band_music_genres')
+    body_artistic_names = request.form.get('artistic_name')
     city = City.query.filter_by(name = body_city).first()
 
     if 'band_img' in request.files:
@@ -770,7 +771,7 @@ def public_band():
     if db.session.query(Bands).filter(Bands.name == data['name']).first():
         return jsonify({"message": "Este perfil de banda ya está registrado"}),400
     try:
-        print(result['secure_url'])
+        print(result['secure_url'], data['artistic_name'])
         new_band = Bands(
             name = data['name'],            
             description = data["description"],
@@ -794,6 +795,17 @@ def public_band():
         db.session.add(new_band_music_genre)
     db.session.commit()
 
+    
+    for name in body_artistic_names.split(','):
+        user_musician_info = UserMusicianInfo.query.filter_by(artistic_name=name).first()
+        # current_artistic_name = BandMembers.query.filter_by(user_musician_info_id = name).first()
+        new_band_member = BandMembers(
+            band_id = new_band.id,
+            user_musician_info_id = user_musician_info.id
+        )
+        db.session.add(new_band_member)
+    db.session.commit()
+
 
     response_body = {
         "msg": "banda añadida"
@@ -812,6 +824,36 @@ def get_usermusicianinfo():
     #     locales_list.append(local.serialize())
     all_usermusicians = list(map(lambda usermusician: usermusician.serialize(), usermusicians))
     return jsonify(all_usermusicians), 200
+
+
+
+# GET DE TODOS LAS categorias de instrument en la VW DE crear bandas
+@api.route('/musical-intrument-category', methods=['GET'])
+def get_musicalintrumentcategory():
+    print('>>>>>>>>instruments category')
+    musicalinstrumentcategories = MusicalInstrumentsCategory.query.all()
+    musicalintrumentcategories_list = []
+    print('--------holo----', musicalinstrumentcategories)
+    for musicalinstrumentcategory in musicalinstrumentcategories:
+        musicalintrumentcategories_list.append(musicalinstrumentcategory.name)
+        print(musicalinstrumentcategory.name)
+        
+    # all_usermusicians = list(map(lambda usermusician: usermusician.serialize(), usermusicians))
+    print('hhhh', musicalintrumentcategories_list)
+    return jsonify(musicalintrumentcategories_list), 200
+
+# GET DE TODOS LOS instrument en la VW DE crear bandas
+@api.route('/<string:musicalinstrumentcategory>/musical-intrument', methods=['GET'])
+def get_musicalintrument(musicalinstrumentcategory):
+    print('>>>>>>>>instruments')
+    # musicalinstrumentcategory = MusicalInstrumentsCategory.query.filter_by(name = musicalinstrumentcategory).first()
+    musicalintruments = MusicalInstrument.query.filter_by(musical_instruments_category_name = musicalinstrumentcategory).all()
+    musicalinstruments_list = []
+    for musicalinstrument in musicalintruments:
+        musicalinstruments_list.append(musicalinstrument.name)
+    # all_usermusicians = list(map(lambda usermusician: usermusician.serialize(), usermusicians))
+    print('holo----', musicalinstruments_list)
+    return jsonify(musicalinstruments_list), 200
 
 
 #<<------------------------1 BANDAS ENDPOINT END ----------------------->>

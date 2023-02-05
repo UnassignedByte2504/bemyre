@@ -169,8 +169,8 @@ class User(db.Model):
     last_login = db.Column(db.DateTime, nullable=True, default = datetime.datetime.utcnow)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     is_musician = db.Column(db.Boolean(), unique=False, nullable=False)
-    # user_musician_info = relationship("UserMusicianInfo")
-    user_musician_info = db.relationship("UserMusicianInfo", back_populates="user", uselist=False)
+    user_musician_info = relationship("UserMusicianInfo")
+    # user_musician_info = db.relationship("UserMusicianInfo", back_populates="user", uselist=False)
 
     locales = relationship("Local", backref="user", lazy=True)
     is_logged = db.Column(db.Boolean(), unique=False, nullable=False)
@@ -369,7 +369,7 @@ class UserMusicGenre(db.Model):
 
 class MusicalInstrumentsCategory(db.Model):
         id = db.Column(db.Integer, primary_key=True)
-        name = db.Column(db.String(80), unique=True, nullable=False)
+        name = db.Column(db.String(80),  nullable=False)
         musical_instruments = db.relationship("MusicalInstrument", backref="musical_instruments_category", lazy=True)
             
 
@@ -386,13 +386,13 @@ class MusicalInstrumentsCategory(db.Model):
 
 class MusicalInstrument(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    musical_instruments_category_id = db.Column(db.Integer, db.ForeignKey('musical_instruments_category.id'), nullable=False)
+    musical_instruments_category_name = db.Column(db.String, db.ForeignKey('musical_instruments_category.name'), nullable=False)
     # musical_instruments_category = relationship("MusicalInstrumentsCategory")
     # user_musical_instruments_id = db.Column(db.Integer, db.ForeignKey('user_musical_instrument.id'), nullable=False)
-    name = db.Column(db.String(80), unique=True, nullable=False)
+    name = db.Column(db.String(80), nullable=False)
     user_musical_intrument = db.relationship('UserMusicalInstrument', backref='musical_instrument', lazy=True)
-    creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
-    last_update = db.Column(db.DateTime, nullable=False, default = datetime.datetime.utcnow)
+    creation_date = db.Column(db.DateTime, nullable=True, default=datetime.datetime.utcnow)
+    last_update = db.Column(db.DateTime, nullable=True, default = datetime.datetime.utcnow)
     def __repr__(self):
         return f'<MusicalInstrument {self.name}>'
 
@@ -400,8 +400,8 @@ class MusicalInstrument(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "creation_date": self.creation_date.strftime("%Y-%m-%d %H:%M:%S"),
-            "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
+            # "creation_date": self.creation_date.strftime("%Y-%m-%d %H:%M:%S"),
+            # "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S"),
         }
 
 class Bands(db.Model):
@@ -411,8 +411,8 @@ class Bands(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey('user_musician_info.id'), nullable=False)
 
     # owner = relationship("UserMusicianInfo", back_populates="bands")
-    name = db.Column(db.String(80), unique=True, nullable=False)
-    description = db.Column(db.String(80), unique=True, nullable=True)
+    name = db.Column(db.String(80), nullable=False)
+    description = db.Column(db.String(80), nullable=True)
     # music_genre_id = db.Column(db.String(120), db.ForeignKey('music_genre.name'), nullable=True)
     # music_genre = relationship("MusicGenre")
     creation_date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
