@@ -190,9 +190,7 @@ export const BandsCreation = () => {
                   limitTags={3}
                   // disablePortal
                   id="multiple-limit-tags-band-"
-                  options={store.usermusician.map(
-                    (element) => element.artistic_name
-                  )}
+                  options={store.usermusician.map((element) => element)}
                   onChange={(e, newValue) => {
                     setData({ ...data, artistic_name: newValue });
                   }}

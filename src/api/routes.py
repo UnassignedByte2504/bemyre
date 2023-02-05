@@ -806,6 +806,8 @@ def public_band():
         db.session.add(new_band_member)
     db.session.commit()
 
+    
+
 
     response_body = {
         "msg": "banda añadida"
@@ -819,11 +821,12 @@ def public_band():
 def get_usermusicianinfo():
     print('holaaa')
     usermusicians = UserMusicianInfo.query.all()
-    # usermusician_list = []
-    # for user in locales:
-    #     locales_list.append(local.serialize())
-    all_usermusicians = list(map(lambda usermusician: usermusician.serialize(), usermusicians))
-    return jsonify(all_usermusicians), 200
+    usermusician_list = []
+    for user in usermusicians:
+        usermusician_list.append(user.artistic_name)
+    # all_usermusicians = list(map(lambda usermusician: usermusician.serialize(), usermusicians))
+    print('printttttttttttttttt', usermusician_list)
+    return jsonify(usermusician_list), 200
 
 
 
