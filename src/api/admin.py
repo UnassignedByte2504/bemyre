@@ -1,7 +1,7 @@
   
 import os
 from flask_admin import Admin
-from .models import db, User, UserType, Country, State, City, UserContactInfo, UserMusicianInfo, UserSocialMedia, MusicGenre, InfluenceBand, Local, LocalMusicGenre, DirectMessage, Bands, BandMembers, MusicalInstrumentsCategory, MusicalInstrument, Event, BandMusicGenre
+from .models import db, User, UserType, Country, State, City, UserContactInfo, UserMusicianInfo, UserSocialMedia, MusicGenre, InfluenceBand, Local, LocalMusicGenre, DirectMessage, Bands, BandMembers, MusicalInstrumentsCategory, MusicalInstrument, Event, BandMusicGenre, UserMusicGenre, UserMusicalInstrument
 from flask_admin.contrib.sqla import ModelView
 def setup_admin(app):
     app.secret_key = os.environ.get('FLASK_APP_KEY', 'sample key')
@@ -28,6 +28,9 @@ def setup_admin(app):
     admin.add_view(ModelView(MusicalInstrument, db.session))
     admin.add_view(ModelView(Event, db.session))
     admin.add_view(ModelView(BandMusicGenre, db.session))
+    admin.add_view(ModelView(UserMusicalInstrument, db.session))
+    admin.add_view(ModelView(UserMusicGenre, db.session))
+
 
 
     # You can duplicate that line to add mew models

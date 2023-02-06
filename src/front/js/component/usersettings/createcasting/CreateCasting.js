@@ -25,7 +25,7 @@ export const CreateCasting = () => {
       music_genre: "",
       band_members: "",
     });
-    console.log(values)
+    // console.log(values)
     //Handle value change
     const handleValueChange = (e) => {
       setValues({

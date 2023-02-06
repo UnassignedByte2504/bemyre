@@ -11,16 +11,13 @@ import FlexBetween from "../../../component/styledcomponents/FlexBetween.jsx";
 import { Button } from "@mui/material";
 
 export const CardBandasInfo = ({
-
   name,
   city,
   integrantes,
-  integrantes_nuevos,
   description,
-  Key
 }) => {
   return (
-    <CardContent key={Key}>
+    <CardContent >
       <Box sx={{ display: "inline" }}>
         <Typography variant="h5">
           <strong>
@@ -28,18 +25,18 @@ export const CardBandasInfo = ({
           </strong>
         </Typography>
 
-        <Typography variant="body1">
+        {/* <Typography variant="body1">
           Somos
           {integrantes?.map((element, index) => (
-            <span key={index}>{`, ${element.integrante_name}, (${element.integrante_instrument})`}</span>
+            <span >{`, ${element}, (${element})`}</span>
           ))}
 
-        </Typography>
+        </Typography> */}
         <Typography variant="body1">
           <span>{description}</span>
         </Typography>
       </Box>
-      {integrantes_nuevos.map((element, index) => (
+      {/* {integrantes_nuevos.map((element, index) => (
         <Box key={index}>
           <Divider className="mb-2 mt-3"></Divider>
           <FlexBetween className="mx-5">
@@ -49,7 +46,7 @@ export const CardBandasInfo = ({
             <Button variant="contained">Aplicar</Button>
           </FlexBetween>
         </Box>
-      ))}
+      ))} */}
 
     </CardContent>
   );

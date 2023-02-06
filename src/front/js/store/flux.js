@@ -39,6 +39,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       usermusician: [],
       musicalinstrumentcategory: [],
       musicalinstrument: [],
+      bandsMusicGenre: [],
        // store bandas<<<<<<<<<<<<<<<
     },
     actions: {
@@ -620,7 +621,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             // getActions().fetchBandas();
           });
       },
-      fetchUserMusicianInfo: async () => {
+      fetchGetUserMusicianInfo: async () => {
         console.log('//////////')
         await fetch(`${process.env.BACKEND_URL}/api/user-musician-info`, {
           method: "GET",
@@ -637,7 +638,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
       },
       fetchMusicalInstrumentCategory: async () => {
-        console.log('<<<<<<<<//////////>>>>>>>>')
+        // console.log('<<<<<<<<//////////>>>>>>>>')
         await fetch(`${process.env.BACKEND_URL}/api/musical-intrument-category`, {
           method: "GET",
           headers: {
@@ -666,6 +667,61 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((result) => {
             setStore({ musicalinstrument: result });
             console.log(result);
+          });
+      },
+      fetchBands: async () => {
+        console.log('<<<<<<<')
+        await fetch(`${process.env.BACKEND_URL}/api/bandas`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((result) => {
+            setStore({ bandas: result });
+            console.log(result);
+          });
+      },
+      fetchBandsMusicGenre: async () => {
+        console.log('<<<<<<<')
+        await fetch(`${process.env.BACKEND_URL}/api/bands-music-genre`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((result) => {
+            setStore({ bandsMusicGenre: result });
+            console.log(result);
+          });
+      },
+      fetchUserMusicianInfo: async (data) => {
+        let body = new FormData();
+        for (let key in data) {
+          body.append(key, data[key]);
+        }
+        const options = {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${getStore().token_local}`,
+            // "Content-Type": "application/json",
+          },
+          body: body,
+        };
+        await fetch(
+          `${process.env.BACKEND_URL}/api/settings/publicarUserMusicianInfo`,
+          options
+        )
+          .then((resp) => resp.json())
+          .then((result) => {
+            console.log(result);
+            // getActions().fetchBandas();
           });
       },
 

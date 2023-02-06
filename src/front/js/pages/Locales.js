@@ -48,7 +48,7 @@ export const Locales = () => {
   useEffect(()=>{
     scrolltop.current?.scrollIntoView({behavior: 'smooth'})
   },[])
-  return (
+  return ( 
     <>
     <div ref={scrolltop}/>
       <CallToAction2 text1="¿Te gustaría ofrecer música en vivo en tu local?" text2="Contacta con músicos cerca de tí" title="Músicos cerca de mi" to="/musicos" />

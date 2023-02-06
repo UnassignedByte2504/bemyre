@@ -13,6 +13,7 @@ import { BandsCreation } from "./bandscreation/BandsCreation.js";
 import { CreateCasting } from "./createcasting/CreateCasting.js";
 import { MusicForMyLocal } from "./musicformylocal/MusicForMyLocal.js";
 import { ConcertCreation } from "./concertcreation/ConcertCreation.js";
+import { MusicProfile } from "./userartistprofile/MusicProfile.js";
 
 export const UserSettingsMenuItems = [
   "Editar Informacion",
@@ -46,7 +47,7 @@ export const UserSettingsComponents = [
   },
   {
     name: "Perfil de Artista",
-    component: <UserArtistProfile />,
+    component: <MusicProfile />,
   },
   {
     name: "Modificar Contraseña",

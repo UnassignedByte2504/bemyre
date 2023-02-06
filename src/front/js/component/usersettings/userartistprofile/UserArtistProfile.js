@@ -22,7 +22,7 @@ const UserArtistProfile = () => {
   const [body, setBody] = useState({
 
   })
-  console.log("hasmedia:", hasMedia, "method:", method);
+  // console.log("hasmedia:", hasMedia, "method:", method);
   const addMedia = async () => {
 
 
@@ -40,7 +40,7 @@ const UserArtistProfile = () => {
 
    
     const data = await response.json();
-    console.log("data:", data)
+    // console.log("data:", data)
 
   }
 

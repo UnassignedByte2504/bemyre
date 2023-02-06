@@ -53,10 +53,10 @@ export const ExploraDropdown = ({ provincia }) => {
     fetchCities(Provincia);
   }, [Provincia]);
 
-  useEffect(() => {
-    console.log("useef");
-    console.log("city", selectedCity);
-  }, [selectedCity]);
+  // useEffect(() => {
+  //   console.log("useef");
+  //   console.log("city", selectedCity);
+  // }, [selectedCity]);
 
   return (
     <Box sx={{ minWidth: 120 }} className="SearchFormExplore">

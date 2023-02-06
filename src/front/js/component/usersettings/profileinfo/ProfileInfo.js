@@ -78,7 +78,7 @@ const ProfileInfo = () => {
     last_name: "",
     description: "",
   });
-  console.log(values);
+  // console.log(values);
 
   //Handle value change
   const handleValueChange = (e) => {

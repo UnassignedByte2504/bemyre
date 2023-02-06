@@ -9,7 +9,7 @@ import { Context } from "../../store/appContext";
 //Function
 
 export const LoginJumbo = ({ currentCity, provincia }) => {
-  console.log("desde jumbo", provincia)
+  // console.log("desde jumbo", provincia)
   const { actions, store } = useContext(Context);
 
   return (

@@ -54,7 +54,7 @@ export const PublicLocal = () => {
 
   // trae locales a elegir en la vista unique, por lo tanto lo podria hacer alli creo
   useEffect(() => {
-    console.log("hola");
+    // console.log("hola");
 
     actions.fetchLocales();
     // console.log(store.provincias)

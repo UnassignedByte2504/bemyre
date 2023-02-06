@@ -30,7 +30,7 @@ const BandsMenu = () => {
   const [isSelected, setIsSelected] = useState("");
 
   const selectSetting = (settings) => {
-    console.log(settings, "desde comp");
+    // console.log(settings, "desde comp");
     actions.setSelectedSettings(settings);
   };
   const handleClick = () => {

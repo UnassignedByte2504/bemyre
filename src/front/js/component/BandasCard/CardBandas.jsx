@@ -12,16 +12,13 @@ export const CardBandas = ({
   name,
   generosMusica,
   city,
-  ubicacion_local,
   description,
   integrantes,
-  integrantes_nuevos,
-  Key
 }) => {
   const theme = useTheme();
 
   return (
-    <Box key={Key}>
+    <Box>
       <Card
         className="card-bandas style-card"
         sx={{
@@ -39,19 +36,14 @@ export const CardBandas = ({
           }}
         >
           <CardBandasInfo
-          Key={Key}
-            name={name}
+            name={name} 
             city={city}
-            ubicacion_local={ubicacion_local}
             integrantes={integrantes}
-            integrantes_nuevos={integrantes_nuevos}
+            // integrantes_nuevos={integrantes_nuevos}
             description={description}
-
-
           />
           <CardBandasFooter
             generosMusica={generosMusica}
-            Key={Key}
           />
         </Box>
       </Card>

@@ -6,7 +6,7 @@ from sqlalchemy import and_, or_, not_
 from flask import Flask, request, jsonify, url_for, Blueprint
 
 
-from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, MusicGenre, DirectMessage, UserMedia, LocalMusicGenre, Event, Bands, BandMusicGenre, BandMembers, MusicalInstrument, MusicalInstrumentsCategory
+from api.models import db, User, UserContactInfo, UserMusicianInfo, UserSocialMedia, State, City, Local, MusicGenre, DirectMessage, UserMedia, LocalMusicGenre, Event, Bands, BandMusicGenre, BandMembers, MusicalInstrument, MusicalInstrumentsCategory, UserMusicalInstrument, UserMusicGenre
 
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
@@ -751,6 +751,32 @@ def get_music_genres():
 
 #<<----------------------1 BANDAS ENDPOINT START ----------------------->>
 
+@api.route('settings/publicarUserMusicianInfo', methods= ['PUT'])
+@jwt_required()
+def public_UserMusicianInfo():
+    user_name = get_jwt_identity()
+    user = User.query.filter_by(user_name=user_name).first()
+    body_musicalinstrument = request.form.get('musicalinstrument')
+    print(body_musicalinstrument, 'wwwwwwwww')
+    user_musician_info = UserMusicianInfo.query.filter_by(user_id = user.id).first()
+
+    user_musician_info.artistic_name = request.form.get('artistic_name')
+    
+    db.session.commit()
+
+
+    for name in body_musicalinstrument:
+        current_musicalinstrument = MusicalInstrument.query.filter_by(name = name).first()
+        new_user_musical_instrument = UserMusicalInstrument(
+            user_musician_info_id = user_musician_info.id,
+            musical_instrument_id = current_musicalinstrument.id
+        )
+        db.session.add(new_user_musical_instrument)
+    db.session.commit()
+
+    return jsonify({"msg": "Informacion de usermusicianInfo actualizada correctamente"}), 200
+
+
 @api.route('settings/publicband', methods= ['POST'])
 @jwt_required()
 def public_band():
@@ -806,7 +832,7 @@ def public_band():
         db.session.add(new_band_member)
     db.session.commit()
 
-    
+
 
 
     response_body = {
@@ -833,30 +859,54 @@ def get_usermusicianinfo():
 # GET DE TODOS LAS categorias de instrument en la VW DE crear bandas
 @api.route('/musical-intrument-category', methods=['GET'])
 def get_musicalintrumentcategory():
-    print('>>>>>>>>instruments category')
+    # print('>>>>>>>>instruments category')
     musicalinstrumentcategories = MusicalInstrumentsCategory.query.all()
     musicalintrumentcategories_list = []
-    print('--------holo----', musicalinstrumentcategories)
+    # print('--------holo----', musicalinstrumentcategories)
     for musicalinstrumentcategory in musicalinstrumentcategories:
         musicalintrumentcategories_list.append(musicalinstrumentcategory.name)
         print(musicalinstrumentcategory.name)
         
     # all_usermusicians = list(map(lambda usermusician: usermusician.serialize(), usermusicians))
-    print('hhhh', musicalintrumentcategories_list)
+    # print('hhhh', musicalintrumentcategories_list)
     return jsonify(musicalintrumentcategories_list), 200
 
 # GET DE TODOS LOS instrument en la VW DE crear bandas
 @api.route('/<string:musicalinstrumentcategory>/musical-intrument', methods=['GET'])
 def get_musicalintrument(musicalinstrumentcategory):
-    print('>>>>>>>>instruments')
+    # print('>>>>>>>>instruments')
     # musicalinstrumentcategory = MusicalInstrumentsCategory.query.filter_by(name = musicalinstrumentcategory).first()
     musicalintruments = MusicalInstrument.query.filter_by(musical_instruments_category_name = musicalinstrumentcategory).all()
     musicalinstruments_list = []
     for musicalinstrument in musicalintruments:
         musicalinstruments_list.append(musicalinstrument.name)
     # all_usermusicians = list(map(lambda usermusician: usermusician.serialize(), usermusicians))
-    print('holo----', musicalinstruments_list)
+    # print('holo----', musicalinstruments_list)
     return jsonify(musicalinstruments_list), 200
+
+
+@api.route('/bandas', methods=['GET'])
+def get_bandas():
+    try:
+        print('>>>>>>>????????>')
+        bandas = Bands.query.all()
+        bandas_list = []
+        for banda in bandas:
+            bandas_list.append(banda.serialize())
+        return jsonify(bandas_list), 200
+    except Exception as e:
+        return jsonify ({"error": e}), 400
+
+
+@api.route('/bands-music-genre', methods=['GET'])
+def get_bandas_music_genre():
+    print('>>>>>>>>')
+    bandas_musicgenre = BandMusicGenre.query.all()
+    bandas_musicgenre_list = []
+    for banda_musicgenre in bandas_musicgenre:
+        bandas_musicgenre_list.append(banda_musicgenre.serialize())
+    print('bandas_musicgenre?¿?¿?¿', bandas_musicgenre_list)
+    return jsonify(bandas_musicgenre_list), 200
 
 
 #<<------------------------1 BANDAS ENDPOINT END ----------------------->>

@@ -6,32 +6,28 @@ import { Context } from "../../../store/appContext";
 import { Box, Button, Divider, TextField } from "@mui/material";
 import { Typography } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
-import UniqueBand from "./uniqueBand";
+import UserArtistProfile from "./UserArtistProfile";
 
-export const BandsCreation = () => {
+export const MusicProfile = () => {
   const { store, actions } = useContext(Context);
 
   const [data, setData] = useState({
-    name: "",
-    description: "",
-    state: "",
-    city: "",
-    band_music_genres: "",
-    band_img: "",
+    // name: "",
+    // description: "",
+    // state: "",
+    // city: "",
+    user_music_genres: "",
+    // band_img: "",
     // chips max 2 o 3, buscar a miembros q son musicos por el artistic name
-    artistic_name: [],
+    artistic_name: "",
     // chips max 2 o 3, solo instrumentos:
-    // musicalinstrumentcategory: "",
+    musicalinstrumentcategory: "",
     musicalinstrument: "",
   });
-
   useEffect(() => {
-    actions.fetchStates();
-    actions.fetchGetUserMusicianInfo();
     actions.fetchMusicGenres();
-    // actions.fetchMusicalInstrumentCategory();
+    actions.fetchMusicalInstrumentCategory();
   }, []);
-
   return (
     <>
       <ul class="nav nav-tabs" id="myTabBand" role="tablist">
@@ -46,7 +42,7 @@ export const BandsCreation = () => {
             aria-controls="perfilBandCrear"
             aria-selected="true"
           >
-            Crear perfil de banda
+            Crear perfil de artista
           </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -61,7 +57,7 @@ export const BandsCreation = () => {
             aria-selected="false"
             // onClick={useEffect(()=> fetchBandes(setBandes), [])}
           >
-            Modificar perfil de banda
+            Añade tu música
           </button>
         </li>
       </ul>
@@ -76,14 +72,22 @@ export const BandsCreation = () => {
             <Box
               sx={{ marginX: "3rem", textAlign: "center", marginTop: "2rem" }}
             >
-              <Typography variant="h4" className="mb-3">
+              {/* <Typography variant="h4" className="mb-3">
                 Publica el estilo de tu banda y conecta con tu público
-              </Typography>
-              <Divider />
+              </Typography> */}
+              <Box className="d-flex flex-column align-items-center w-100">
+                <Box className="d-flex flex-column align-items-center w-100">
+                  <Typography variant="h3" className="my-3">
+                    Perfil Artista
+                  </Typography>
+                  <Divider className="w-75" />
+                </Box>
+              </Box>
+              {/* <Divider /> */}
             </Box>
             <Box>
               <form className="form-public-local">
-                <TextField
+                {/* <TextField
                   sx={{ width: "100%" }}
                   type="text"
                   name="nombreBand"
@@ -92,9 +96,9 @@ export const BandsCreation = () => {
                   label="Nombre del Band"
                   onChange={(e) => setData({ ...data, name: e.target.value })}
                   value={data.name}
-                />
+                /> */}
 
-                <TextField
+                {/* <TextField
                   sx={{ width: "100%" }}
                   type="text"
                   name="descripcionBAnd"
@@ -104,8 +108,8 @@ export const BandsCreation = () => {
                     setData({ ...data, description: e.target.value })
                   }
                   value={data.description}
-                />
-                <Box className="form-city-state">
+                /> */}
+                {/* <Box className="form-city-state">
                   <Autocomplete
                     disablePortal
                     id="combo-box-demo-band"
@@ -145,7 +149,7 @@ export const BandsCreation = () => {
                       />
                     )}
                   />
-                </Box>
+                </Box> */}
 
                 {/* autocomplete con chips limitadas */}
 
@@ -156,7 +160,7 @@ export const BandsCreation = () => {
                   options={store.musicGenres.map((element) => element)}
                   // getOptionLabel={(option) => option}
                   onChange={(e, newValue) =>
-                    setData({ ...data, band_music_genres: newValue })
+                    setData({ ...data, user_music_genres: newValue })
                   }
                   renderInput={(params) => (
                     <TextField
@@ -168,7 +172,7 @@ export const BandsCreation = () => {
                   sx={{ width: "500px" }}
                 />
 
-                <div class="mb-3">
+                {/* <div class="mb-3">
                   <label for="formFile" class="form-label">
                     Selecciona una imagen para el perfil de tu banda
                   </label>
@@ -176,15 +180,15 @@ export const BandsCreation = () => {
                     onChange={(e) => {
                       setData({ ...data, band_img: e.target.files[0] });
 
-                      
+                      console.log(e);
                     }}
                     class="form-control"
                     type="file"
                     id="formFile-band"
                   />
-                </div>
+                </div> */}
 
-                <Autocomplete
+                {/* <Autocomplete
                   multiple
                   limitTags={3}
                   // disablePortal
@@ -192,7 +196,6 @@ export const BandsCreation = () => {
                   options={store.usermusician.map((element) => element)}
                   onChange={(e, newValue) => {
                     setData({ ...data, artistic_name: newValue });
-                    console.log(store.usermusician)
                   }}
                   // value={data.artistic_name}
                   renderInput={(params) => (
@@ -205,14 +208,28 @@ export const BandsCreation = () => {
                     />
                   )}
                   sx={{ width: "500px" }}
+                /> */}
+
+                <TextField
+                  sx={{ width: "100%" }}
+                  type="text"
+                  name="nombreartistico"
+                  variant="outlined"
+                  id="outlined-basic-band"
+                  label="Nombre artístico"
+                  onChange={(e) => setData({ ...data, artistic_name: e.target.value })}
+                  value={data.artistic_name}
                 />
-                {/* <Box className="form-city-state">
+
+                <Box className="form-city-state">
                   <Autocomplete
                     disablePortal
                     id="combo-box-demo-band-banda"
-                    options={store.musicalinstrumentcategory.map((element) => element)}
+                    options={store.musicalinstrumentcategory.map(
+                      (element) => element
+                    )}
                     onChange={(e, newValue) => {
-                      console.log(newValue)
+                    //   console.log(newValue);
                       setData({ ...data, musicalinstrumentcategory: newValue });
                       actions.fetchMusicalInstrument(newValue);
                     }}
@@ -227,20 +244,8 @@ export const BandsCreation = () => {
                         autoComplete="on"
                       />
                     )}
-                  /> */}
-
-                <TextField
-                  sx={{ width: "100%" }}
-                  type="text"
-                  name="nuevointegrante"
-                  variant="outlined"
-                  id="outlined-basic-band"
-                  label="Solicitar nuevo integrante"
-                  onChange={(e) => setData({ ...data, musicalinstrument: e.target.value })}
-                  value={data.musicalinstrument}
-                />
-
-                {/* <Autocomplete
+                  />
+                  <Autocomplete
                     disablePortal
                     id="combo-box-demo-band"
                     options={store.musicalinstrument.map(
@@ -260,13 +265,13 @@ export const BandsCreation = () => {
                         autoComplete="on"
                       />
                     )}
-                  /> */}
-                {/* </Box> */}
+                  />
+                </Box>
 
                 <Button
                   variant="outlined"
                   color="error"
-                  onClick={() => actions.publicarBand(data)}
+                  onClick={() => actions.fetchUserMusicianInfo(data)}
                 >
                   Publicar
                 </Button>
@@ -275,46 +280,14 @@ export const BandsCreation = () => {
           </Box>
         </div>
 
-        {/* <div
+        <div
           class="tab-pane fade"
           id="modificarPerfilBand"
           role="tabpanel"
           aria-labelledby="modificarPerfilBand-tab"
         >
-          <Box sx={{ marginX: "3rem", textAlign: "center", marginTop: "2rem" }}>
-            
-            <Box>
-              <Stack
-                sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}
-                direction="row"
-              >
-                {store.bandas.map((element) => (
-                  <Chip
-                    label={element.name}
-                    onClick={() => {
-                      actions.fetchBanda(element.id);
-                    }}
-                    
-                  />
-                ))}
-              </Stack>
-            </Box>
-            
-          </Box>
-          {store.banda ? (
-            <UniqueBand
-              banda={store.banda}
-              
-              bandas={store.bandas}
-              setBandas={store.setBandas}
-              
-              id={store.banda.id}
-            />
-          ) : (
-            
-            ""
-          )}
-        </div> */}
+          <UserArtistProfile />
+        </div>
       </div>
     </>
   );

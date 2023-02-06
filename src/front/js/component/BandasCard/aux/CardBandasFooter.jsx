@@ -6,7 +6,6 @@ import { CardsButton } from "../../buttons/CardsButton.jsx";
 export const CardBandasFooter = ({
 
   generosMusica,
-  Key
 }) => {
   const handleDelete = () => {
     console.info("You clicked the delete icon.");
@@ -15,10 +14,10 @@ export const CardBandasFooter = ({
 
   return (
     <>
-      <Box className="ps-3 pe-3 pb-2" key={Key}>
+      <Box className="ps-3 pe-3 pb-2">
         {generosMusica?.map((element, index) => (
           <Chip
-          key={index}
+          key={element.id}
             className="me-2 mb-2"
             onDelete={
               store.username === store.current_user ? handleDelete : null
